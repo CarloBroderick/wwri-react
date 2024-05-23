@@ -1,10 +1,12 @@
 import React from "react";
 
-interface HamburgerProps {
+interface LeftSidebarHamburgerPropsIcon {
     onClick: () => void;
 }
 
-const Hamburger: React.FC<HamburgerProps> = ({ onClick }) => {
+const LeftSidebarHamburgerIcon: React.FC<LeftSidebarHamburgerPropsIcon> = ({
+    onClick,
+}) => {
     return (
         <button
             onClick={onClick}
@@ -17,4 +19,4 @@ const Hamburger: React.FC<HamburgerProps> = ({ onClick }) => {
     );
 };
 
-export default Hamburger;
+export default LeftSidebarHamburgerIcon;
