@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 export default {
-  content: ['./src/**/*.{mjs,js,ts,jsx,tsx}'],
+  content: ["./src/**/*.{mjs,js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -13,6 +13,12 @@ export default {
       },
       padding: {
         leftSidebarXAxis: "20px",
+      },
+      height: {
+        3.5: "0.875rem",
+      },
+      width: {
+        3.5: "0.875rem",
       },
       colors: {
         headerBackgroundWhite: "#FFFFFF",
@@ -32,8 +38,10 @@ export default {
         rightSidebarSearchBoxGray: "#6B6B6B",
         metricSelectorBoxesDefault: "#F0F0F0",
         metricSelectorBoxesBorderDefault: "#808080",
-      }
-    }
+        selectedMetricTextLabel: "#737373",
+        selectedMetricBGColorDefault: "#010048",
+      },
+    },
   },
-  plugins: []
-}
+  plugins: [],
+};
