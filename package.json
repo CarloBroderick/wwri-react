@@ -23,14 +23,20 @@
   },
   "dependencies": {
     "chroma-js": "^2.4.2",
+    "lodash": "^4.17.21",
+    "mapbox-gl": "^3.4.0",
+    "maplibre-gl": "^4.3.2",
+    "papaparse": "^5.4.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-map-gl": "^7.1.7"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^14.3.1",
     "@types/chroma-js": "^2.4.4",
     "@types/node": "^20.12.11",
+    "@types/papaparse": "^5.3.14",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",

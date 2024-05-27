@@ -1,22 +1,22 @@
 import React from "react";
 
 interface LeftSidebarHamburgerPropsIcon {
-    onClick: () => void;
+  onClick: () => void;
 }
 
 const LeftSidebarHamburgerIcon: React.FC<LeftSidebarHamburgerPropsIcon> = ({
-    onClick,
+  onClick,
 }) => {
-    return (
-        <button
-            onClick={onClick}
-            className="flex flex-col items-center justify-center w-10 h-10 p-2 border border-gray-400 rounded"
-        >
-            <div className="w-6 h-0.5 bg-gray-800 mb-1"></div>
-            <div className="w-6 h-0.5 bg-gray-800 mb-1"></div>
-            <div className="w-6 h-0.5 bg-gray-800"></div>
-        </button>
-    );
+  return (
+    <button
+      onClick={onClick}
+      className="absolute left-1 top-1 z-30 flex h-10 w-10 flex-col items-center justify-center rounded border border-gray-400 bg-white p-2"
+    >
+      <div className="mb-1 h-0.5 w-6 bg-gray-800"></div>
+      <div className="mb-1 h-0.5 w-6 bg-gray-800"></div>
+      <div className="h-0.5 w-6 bg-gray-800"></div>
+    </button>
+  );
 };
 
 export default LeftSidebarHamburgerIcon;

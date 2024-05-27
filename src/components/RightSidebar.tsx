@@ -54,8 +54,6 @@ const RightSidebar = () => {
 
   const isDarkColor = (colorClass: string) => {
     const hexColor = getHexFromClass(colorClass);
-    console.log(hexColor, chroma(hexColor).luminance());
-    console.log("hexColor", hexColor, chroma(hexColor).luminance() < 0.5);
     return chroma(hexColor).luminance() < 0.5;
   };
 
@@ -127,7 +125,7 @@ const RightSidebar = () => {
                   <div className="ml-[1.14rem] grid grid-cols-5 gap-x-1 gap-y-1">
                     {[...Array(12)].map((_, index) => (
                       <button
-                        key="index"
+                        key={`${"water"}-status-${index}`}
                         className="h-3.5 w-3.5 rounded-sm border-[1px] border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault focus:bg-selectedMetricBGColorDefault"
                       ></button>
                     ))}
@@ -166,7 +164,7 @@ const RightSidebar = () => {
                       <div className="ml-[1.14rem] grid grid-cols-5 gap-x-1 gap-y-1">
                         {[...Array(12)].map((_, index) => (
                           <button
-                            key="index"
+                            key={`${"water"}-resistance-${index}`}
                             className="h-3.5 w-3.5 rounded-sm border-[1px] border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault focus:bg-selectedMetricBGColorDefault"
                           ></button>
                         ))}
@@ -186,7 +184,7 @@ const RightSidebar = () => {
                       <div className="ml-[1.14rem] grid grid-cols-5 gap-x-1 gap-y-1">
                         {[...Array(12)].map((_, index) => (
                           <button
-                            key="index"
+                            key={`${"air"}-recovery-${index}`}
                             className="h-3.5 w-3.5 rounded-sm border-[1px] border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault focus:bg-selectedMetricBGColorDefault"
                           ></button>
                         ))}
@@ -246,7 +244,7 @@ const RightSidebar = () => {
                   <div className="ml-6 mt-2 grid grid-cols-4 gap-2">
                     {[...Array(12)].map((_, index) => (
                       <div
-                        key={index}
+                        key={`${category}-status-${index}`}
                         className="h-6 w-6 border border-gray-400"
                       ></div>
                     ))}
@@ -272,7 +270,7 @@ const RightSidebar = () => {
                       <div className="ml-6 mt-2 grid grid-cols-4 gap-2">
                         {[...Array(12)].map((_, index) => (
                           <div
-                            key={index}
+                            key={`${category}-resistance-${index}`}
                             className={`h-6 w-6 border border-gray-400 ${
                               index === 5 ? "bg-blue-500" : ""
                             }`}
@@ -294,7 +292,7 @@ const RightSidebar = () => {
                       <div className="ml-6 mt-2 grid grid-cols-4 gap-2">
                         {[...Array(12)].map((_, index) => (
                           <div
-                            key={index}
+                            key={`${category}-recovery-${index}`}
                             className="h-6 w-6 border border-gray-400"
                           ></div>
                         ))}
@@ -311,7 +309,7 @@ const RightSidebar = () => {
         id="selected-indicator-right-sidebar"
         className="relative -ml-4 -mr-4 mt-4 flex w-[calc(100%+2rem)] flex-col bg-subheaderBackground p-2"
       >
-        <h1 className="text-selectedIndicatorTextColor ml-2 text-sm font-bold">
+        <h1 className="ml-2 text-sm font-bold text-selectedIndicatorTextColor">
           SELECTED INDICATOR
         </h1>
         <div id="box-holder" className="ml-2 flex flex-row items-center">
@@ -326,10 +324,10 @@ const RightSidebar = () => {
           </span>
         </div>
       </div>
-      <h1 className="font-BeVietnamePro text-geopgrahicContextLabelTextColor mt-1 text-lg font-medium">
+      <h1 className="font-BeVietnamePro mt-1 text-lg font-medium text-geopgrahicContextLabelTextColor">
         Geographic Context
       </h1>
-      <h3 className="text-geopgrahicContextDescriptionTextColor text-sm">
+      <h3 className="text-sm text-geopgrahicContextDescriptionTextColor">
         Select an area to focus the map.
       </h3>
       <div id="state-navigation-bottom-bar" className="ml-6 mt-4 max-w-[280px]">
