@@ -3,7 +3,7 @@ import Vector from "../../assets/Vector.svg";
 
 const Header: React.FC = () => {
   return (
-    <div className="flex h-[89px] min-w-[580px] items-center justify-start text-nowrap border-b-[1px] border-solid border-headerBorder bg-headerBackgroundWhite">
+    <div className="flex h-[89px] min-w-[580px] items-center justify-start text-nowrap bg-headerBackgroundWhite">
       <div className="ml-[20px] inline-flex items-center">
         <img
           src={Vector}
