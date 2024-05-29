@@ -57,13 +57,17 @@ const fetchData = async (metric: string): Promise<Record<string, number>> => {
 };
 
 interface MapAreaProps {
+  selectedCensusTract: string;
   selectedMetric: string;
   setSelectedMetricValue?: (value: number) => void;
+  setSelectedCensusTract: (censusTract: string) => void;
 }
 
 const MapArea: React.FC<MapAreaProps> = ({
+  selectedCensusTract,
   selectedMetric,
   setSelectedMetricValue,
+  setSelectedCensusTract,
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const [censusTractMetrics, setCensusTractMetrics] = useState<
@@ -106,6 +110,7 @@ const MapArea: React.FC<MapAreaProps> = ({
           const { CENSUSTRACTID } = feature.properties;
           const metric = censusTractMetricsRef.current[CENSUSTRACTID];
           if (typeof metric === "number" && setSelectedMetricValue) {
+            setSelectedCensusTract(CENSUSTRACTID);
             setSelectedMetricValue(metric);
             console.log("Selected metric value:", metric);
           }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Header from "./Header/Header";
 import LeftSidebar from "./LeftSidebar/LeftSidebar";
-import MapArea from "./MapArea";
+import MapArea from "./MapArea/MapArea";
 import RightSidebar from "./RightSidebar";
 import Subheader from "./Subheader/Subheader";
 
@@ -22,9 +22,14 @@ function App() {
           className="flex min-w-[580px] flex-1 flex-col"
         >
           <Subheader />
-          <LeftSidebar selectedMetricValue={selectedMetricValue} />
+          <LeftSidebar
+            selectedCensusTract={selectedCensusTract}
+            selectedMetricValue={selectedMetricValue}
+          />
           <MapArea
             selectedMetric={selectedMetric}
+            selectedCensusTract={selectedCensusTract}
+            setSelectedCensusTract={setSelectedCensusTract}
             setSelectedMetricValue={setSelectedMetricValue}
           />
         </div>

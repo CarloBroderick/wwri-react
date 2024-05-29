@@ -5,10 +5,14 @@ import LeftSidebarHamburgerIcon from "./LeftSidebarHamburgerIcon";
 import { LeftSidebarHeader } from "./LeftSidebarHeader";
 
 interface LeftSidebarProps {
+  selectedCensusTract: string;
   selectedMetricValue: number | null;
 }
 
-const LeftSidebar: React.FC<LeftSidebarProps> = ({ selectedMetricValue }) => {
+const LeftSidebar: React.FC<LeftSidebarProps> = ({
+  selectedCensusTract,
+  selectedMetricValue,
+}) => {
   const [openLeftSidebar, setOpenLeftSidebar] = useState<boolean>(true);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
@@ -36,7 +40,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ selectedMetricValue }) => {
         onTransitionEnd={handleTransitionEnd}
       >
         <CloseLeftSidebarButton setOpenLeftSidebar={setOpenLeftSidebar} />
-        <LeftSidebarHeader />
+        <LeftSidebarHeader selectedCensusTract={selectedCensusTract} />
         <LeftSidebarBody overallResilienceScore={selectedMetricValue} />
       </aside>
       {!openLeftSidebar && !isAnimating && (
