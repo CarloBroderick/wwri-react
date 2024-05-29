@@ -39,54 +39,76 @@ const MAP_STYLE = {
   ],
 };
 
-const fetchData = async (): Promise<Record<string, number>> => {
+const fetchData = async (metric: string): Promise<Record<string, number>> => {
   const response = await fetch(
-    "https://major-sculpin.nceas.ucsb.edu/api/air_quality_metrics/status_metric_1",
+    `https://major-sculpin.nceas.ucsb.edu/api/air_quality_metrics/${metric}`,
   );
   const csvText = await response.text();
   const results = Papa.parse(csvText, { header: true });
 
   const censusTractMetrics: Record<string, number> = {};
   results.data.forEach((item: any) => {
-    if (item.census_tract_id && item.status_metric_1) {
-      censusTractMetrics[item.census_tract_id] = parseFloat(
-        item.status_metric_1,
-      );
+    if (item.census_tract_id && item[metric]) {
+      censusTractMetrics[item.census_tract_id] = parseFloat(item[metric]);
     }
   });
 
   return censusTractMetrics;
 };
 
-const MapArea: React.FC = () => {
+interface MapAreaProps {
+  selectedMetric: string;
+  setSelectedMetricValue?: (value: number) => void;
+}
+
+const MapArea: React.FC<MapAreaProps> = ({
+  selectedMetric,
+  setSelectedMetricValue,
+}) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const [censusTractMetrics, setCensusTractMetrics] = useState<
     Record<string, number>
   >({});
+  const censusTractMetricsRef = useRef<Record<string, number>>({});
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const popupRef = useRef<maplibregl.Popup | null>(null);
 
   useEffect(() => {
     const initializeData = async () => {
-      const metrics = await fetchData();
+      const metrics = await fetchData(selectedMetric);
       setCensusTractMetrics(metrics);
-      setDataLoaded(true); // Set data as loaded
+      censusTractMetricsRef.current = metrics; // Update ref
+      setDataLoaded(true);
     };
     initializeData();
+  }, [selectedMetric]);
 
-    if (mapContainerRef.current) {
+  useEffect(() => {
+    if (mapContainerRef.current && !mapRef.current) {
       const map = new maplibregl.Map({
         container: mapContainerRef.current,
         style: MAP_STYLE,
-        center: [-105.9375, 38.7888894],
+        center: [-103.9375, 38.7888894],
         zoom: 3.3,
       });
       mapRef.current = map;
 
       map.on("load", () => {
-        if (dataLoaded) {
-          loadColors(map); // Only load colors if data is loaded
+        setMapLoaded(true);
+      });
+
+      map.on("click", "tiles", (event) => {
+        const features = event.features;
+        if (features && features.length > 0) {
+          const feature = features[0];
+          const { CENSUSTRACTID } = feature.properties;
+          const metric = censusTractMetricsRef.current[CENSUSTRACTID];
+          if (typeof metric === "number" && setSelectedMetricValue) {
+            setSelectedMetricValue(metric);
+            console.log("Selected metric value:", metric);
+          }
         }
       });
 
@@ -95,7 +117,7 @@ const MapArea: React.FC = () => {
         if (features && features.length > 0) {
           const feature = features[0];
           const { CENSUSTRACTID } = feature.properties;
-          const metric = censusTractMetrics[CENSUSTRACTID];
+          const metric = censusTractMetricsRef.current[CENSUSTRACTID];
 
           if (!popupRef.current) {
             popupRef.current = new maplibregl.Popup({
@@ -107,12 +129,9 @@ const MapArea: React.FC = () => {
           popupRef.current
             .setLngLat(event.lngLat)
             .setHTML(
-              `<div><strong>Census Tract:</strong> ${CENSUSTRACTID}<br /><strong>Metric:</strong> ${metric}</div>`,
+              `<div><strong>Census Tract:</strong> ${CENSUSTRACTID}<br /><strong>Metric:</strong> ${metric !== undefined ? metric : "N/A"}</div>`,
             )
             .addTo(map);
-        } else if (popupRef.current) {
-          popupRef.current.remove();
-          popupRef.current = null;
         }
       });
 
@@ -127,13 +146,19 @@ const MapArea: React.FC = () => {
     return () => {
       mapRef.current?.remove();
     };
-  }, [dataLoaded]);
+  }, []);
+
+  useEffect(() => {
+    if (dataLoaded && mapLoaded && mapRef.current) {
+      loadColors(mapRef.current);
+    }
+  }, [censusTractMetrics, dataLoaded, mapLoaded]);
 
   const loadColors = (map: maplibregl.Map) => {
     const features = map.queryRenderedFeatures({ layers: ["tiles"] });
     features.forEach((feature) => {
       const censusTractId = feature.properties.CENSUSTRACTID;
-      const metric = censusTractMetrics[censusTractId];
+      const metric = censusTractMetricsRef.current[censusTractId];
 
       if (metric !== undefined) {
         const color = getColor(metric);

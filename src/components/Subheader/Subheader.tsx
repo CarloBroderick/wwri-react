@@ -12,7 +12,7 @@ const Subheader: React.FC<SubheaderProps> = () => {
   return (
     <div
       id="sub-header"
-      className="flex h-[81px] w-full items-center border-b-[1px] border-t-[1px] border-solid border-subheaderBorder bg-subheaderBackground pl-[20px]"
+      className="flex min-h-[80px] w-full items-center border-b-[1px] border-t-[1px] border-solid border-subheaderBorder bg-subheaderBackground pl-[20px]"
     >
       <div className="flex w-full flex-col">
         <h1 className="font-BeVietnamPro text-2xl font-bold">

@@ -1,7 +1,22 @@
 import GraphReport from "../../assets/GraphReport.svg";
 import CircularProgressBar from "./CircularProgressBar";
 
-export function LeftSidebarBody() {
+interface LeftSidebarBodyProps {
+  overallResilienceScore: number | null;
+}
+
+export function LeftSidebarBody({
+  overallResilienceScore,
+}: LeftSidebarBodyProps) {
+  let overallResilienceScoreFormatted: number;
+  if (overallResilienceScore && overallResilienceScore < 1) {
+    overallResilienceScoreFormatted = overallResilienceScore * 100;
+  } else if (overallResilienceScore) {
+    overallResilienceScoreFormatted = overallResilienceScore;
+  } else {
+    overallResilienceScoreFormatted = 0;
+  }
+
   return (
     <div
       id="left-sidebar-body"
@@ -13,7 +28,7 @@ export function LeftSidebarBody() {
       <h1 className="font-BeVietnamePro mb-2 text-sm font-bold text-leftSidebarOverallResilience">
         OVERALL RESILIENCE
       </h1>
-      <CircularProgressBar percentage={78} />
+      <CircularProgressBar percentage={overallResilienceScoreFormatted} />
       {/* <div className="w-[calc(100%)] h-[123px] bg-[black] mb-3"></div> */}
       <h1 className="font-BeVietnamePro pb-2 text-sm font-bold text-leftSidebarOverallResilience">
         INDIVIDUAL DOMAIN RESILIENCE SCORES
@@ -62,7 +77,7 @@ export function LeftSidebarBody() {
           </div>
         </div>
       </div>
-      <button className="flex w-full flex-row items-center rounded-md border-[1px] border-black p-1">
+      <button className="mt-2 flex w-full flex-row items-center rounded-md border-[1px] border-black p-1">
         <img
           src={GraphReport}
           alt="Graph Report"

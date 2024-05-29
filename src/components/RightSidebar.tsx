@@ -6,7 +6,11 @@ import RightSideArrow from "../assets/RightSideArrow.svg";
 import SearchIcon from "../assets/SearchIcon.svg";
 import SubHierarchyArrows from "../assets/SubHierarchyArrows.svg";
 
-const RightSidebar = () => {
+interface RightSidebarProps {
+  setSelectedMetric: (metric: string) => void;
+}
+
+const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
   const [expandedSections, setExpandedSections] = useState<{
     [key: string]: boolean;
   }>({
@@ -63,11 +67,11 @@ const RightSidebar = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-89px)] min-w-[523px] max-w-[523px] overflow-scroll border-l-[1px] border-t-[1px] border-solid border-rightSidebarBorder p-4">
+    <div className="h-[calc(100vh-60px)] min-w-[523px] max-w-[523px] overflow-scroll border-l-[1px] border-t-[1px] border-solid border-rightSidebarBorder px-4 pb-2 pt-[0.8rem]">
       <h1 className="mb-1 font-BeVietnamPro text-xl font-medium">
         Indicator Navigation
       </h1>
-      <div className="mb-4 flex w-full flex-row rounded-lg border-[1px] border-rightSidebarSearchBoxGray px-2 py-1">
+      <div className="mb-2 flex w-full flex-row rounded-lg border-[1px] border-rightSidebarSearchBoxGray px-2 py-1">
         <img src={SearchIcon} alt="" />
         <input
           type="text"
@@ -80,10 +84,10 @@ const RightSidebar = () => {
           <button className="mr-2 h-6 w-6 rounded-[0.2rem] border-[1px] border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault focus:bg-selectedMetricBGColorDefault"></button>
           <span className="font-bold">Overall Resilience</span>
         </div>
-        <div id="water" className="mb-1 ml-[calc(2.05rem-0.35rem)] mt-1">
+        <div id="water" className="ml-[calc(2.05rem-0.35rem)] mt-1">
           <div className="flex w-[36%] items-center justify-between">
             <div className="flex items-center">
-              <button className="mr-2 h-[22px] w-[22px] justify-self-start rounded-[0.2rem] border-[1px] border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault focus:bg-selectedMetricBGColorDefault"></button>
+              <button className="mr-2 h-[20px] w-[20px] justify-self-start rounded-[0.2rem] border-[1px] border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault focus:bg-selectedMetricBGColorDefault"></button>
               <span className="font-bold">Water</span>
             </div>
             <button
@@ -102,7 +106,7 @@ const RightSidebar = () => {
             </button>
           </div>
           {expandedSections.Water && (
-            <div id="subdomain-container" className="ml-[0.95rem] mt-2">
+            <div id="subdomain-container" className="ml-[0.95rem] mt-1">
               <div
                 id="arrows-first-two-sub-domains-container"
                 className="ml-2 h-5 flex-shrink-0"
@@ -126,6 +130,12 @@ const RightSidebar = () => {
                     {[...Array(12)].map((_, index) => (
                       <button
                         key={`${"water"}-status-${index}`}
+                        onClick={() => {
+                          console.log(
+                            "Triggered a click to set the selected metric to status_metric_2",
+                          );
+                          setSelectedMetric(`status_metric_${index + 1}`);
+                        }}
                         className="h-3.5 w-3.5 rounded-sm border-[1px] border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault focus:bg-selectedMetricBGColorDefault"
                       ></button>
                     ))}
@@ -213,7 +223,7 @@ const RightSidebar = () => {
           >
             <div className="flex w-[36%] items-center justify-between">
               <div className="flex items-center">
-                <button className="mr-2 h-[22px] w-[22px] justify-self-start rounded-[0.2rem] border-[1px] border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault focus:bg-selectedMetricBGColorDefault"></button>
+                <button className="mr-2 h-[20px] w-[20px] justify-self-start rounded-[0.2rem] border-[1px] border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault focus:bg-selectedMetricBGColorDefault"></button>
                 <span className="font-bold">{category}</span>
               </div>
               <button
@@ -307,7 +317,7 @@ const RightSidebar = () => {
       </div>
       <div
         id="selected-indicator-right-sidebar"
-        className="relative -ml-4 -mr-4 mt-4 flex w-[calc(100%+2rem)] flex-col bg-subheaderBackground p-2"
+        className="relative -ml-4 -mr-4 mt-3 flex w-[calc(100%+2rem)] flex-col bg-subheaderBackground p-2"
       >
         <h1 className="ml-2 text-sm font-bold text-selectedIndicatorTextColor">
           SELECTED INDICATOR
@@ -330,7 +340,7 @@ const RightSidebar = () => {
       <h3 className="text-sm text-geopgrahicContextDescriptionTextColor">
         Select an area to focus the map.
       </h3>
-      <div id="state-navigation-bottom-bar" className="ml-6 mt-4 max-w-[280px]">
+      <div id="state-navigation-bottom-bar" className="ml-8 mt-4 max-w-[280px]">
         <div className="grid grid-cols-11 grid-rows-7 gap-1">
           {stateMap.flat().map((state, index) => {
             const bgColorClass = getRandomItem(stateBGColorMapPossibilities);

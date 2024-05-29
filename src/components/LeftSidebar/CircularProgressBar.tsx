@@ -13,7 +13,9 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
 
   let colorClass = "text-red-500"; // Default color for <25%
 
-  if (percentage >= 75) {
+  if (percentage == 0) {
+    colorClass = "text-gray-300";
+  } else if (percentage >= 75) {
     colorClass = "text-[#32AC03]";
   } else if (percentage >= 25) {
     colorClass = "text-[#FAE107]";
@@ -34,7 +36,7 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
           cy="50%"
         />
         <circle
-          className={`${colorClass} duration-1 transition-colors`}
+          className={`duration-1 transition-colors ${colorClass}`}
           strokeWidth="20"
           strokeLinecap="butt"
           stroke="currentColor"
@@ -52,7 +54,7 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
       <div
         className={`flex h-full w-full items-center justify-center text-2xl font-semibold transition-colors duration-500 ${colorClass}`}
       >
-        {percentage}%
+        {percentage.toFixed(0)}%
       </div>
     </div>
   );
