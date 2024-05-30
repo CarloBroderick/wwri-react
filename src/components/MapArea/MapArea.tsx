@@ -31,7 +31,7 @@ const MAP_STYLE: StyleSpecification = {
       id: "tiles",
       type: "fill",
       source: "tilesource",
-      "source-layer": "cb_2023_us_tract_5m_simplified",
+      "source-layer": "cb_2023_us_tract_5m_with_geoid",
       paint: {
         "fill-color": ["coalesce", ["feature-state", "color"], "#D3D3D3"],
       },
@@ -141,10 +141,10 @@ const MapArea: React.FC<MapAreaProps> = ({
         const features = event.features;
         if (features && features.length > 0) {
           const feature = features[0];
-          const { CENSUSTRACTID } = feature.properties;
-          const metric = censusTractMetricsRef.current[CENSUSTRACTID];
+          const { GEOID } = feature.properties;
+          const metric = censusTractMetricsRef.current[GEOID];
           if (typeof metric === "number" && setSelectedMetricValue) {
-            setSelectedCensusTract(CENSUSTRACTID);
+            setSelectedCensusTract(GEOID);
             setSelectedMetricValue(metric);
             console.log("Selected metric value:", metric);
           }
@@ -155,9 +155,9 @@ const MapArea: React.FC<MapAreaProps> = ({
         const features = event.features;
         if (features && features.length > 0) {
           const feature = features[0];
-          const { CENSUSTRACTID } = feature.properties;
-          const metric = censusTractMetricsRef.current[CENSUSTRACTID];
-          const location = locationDataRef.current[CENSUSTRACTID];
+          const { GEOID } = feature.properties;
+          const metric = censusTractMetricsRef.current[GEOID];
+          const location = locationDataRef.current[GEOID];
 
           if (!popupRef.current) {
             popupRef.current = new maplibregl.Popup({
@@ -169,7 +169,7 @@ const MapArea: React.FC<MapAreaProps> = ({
           popupRef.current
             .setLngLat(event.lngLat)
             .setHTML(
-              `<div><strong>Census Tract:</strong> ${CENSUSTRACTID}<br /><strong>County:</strong> ${location ? location.county_name : "N/A"}<br /><strong>State:</strong> ${location ? location.state_name : "N/A"}<br /><strong>Metric:</strong> ${metric !== undefined ? metric : "N/A"}</div>`,
+              `<div><strong>Census Tract:</strong> ${GEOID}<br /><strong>County:</strong> ${location ? location.county_name : "N/A"}<br /><strong>State:</strong> ${location ? location.state_name : "N/A"}<br /><strong>Metric:</strong> ${metric !== undefined ? metric : "N/A"}</div>`,
             )
             .addTo(map);
         }
