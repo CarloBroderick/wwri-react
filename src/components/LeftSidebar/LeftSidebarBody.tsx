@@ -1,5 +1,6 @@
 import GraphReport from "../../assets/GraphReport.svg";
 import CircularProgressBar from "./CircularProgressBar";
+import FlowerChart from "./FlowerChart";
 
 interface LeftSidebarBodyProps {
   overallResilienceScore: number | null;
@@ -33,7 +34,9 @@ export function LeftSidebarBody({
       <h1 className="font-BeVietnamePro pb-2 text-sm font-bold text-leftSidebarOverallResilience">
         INDIVIDUAL DOMAIN RESILIENCE SCORES
       </h1>
-      <div className="mb-1 h-[194px] w-[calc(100%)] bg-[black]"></div>
+      <div className="mb-1 h-[150px] w-[194px]">
+        <FlowerChart />
+      </div>
       <div className="mb-2 px-2">
         <h1 className="font-BeVietnamePro pb-2 text-sm font-bold text-leftSidebarOverallResilience">
           Legend

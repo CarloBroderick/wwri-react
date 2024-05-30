@@ -1,9 +1,9 @@
-import maplibregl from "maplibre-gl";
+import maplibregl, { StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import Papa from "papaparse";
 import React, { useEffect, useRef, useState } from "react";
 
-const MAP_STYLE = {
+const MAP_STYLE: StyleSpecification = {
   version: 8,
   sources: {
     osm: {
@@ -56,6 +56,31 @@ const fetchData = async (metric: string): Promise<Record<string, number>> => {
   return censusTractMetrics;
 };
 
+const fetchLocationData = async (): Promise<
+  Record<string, { county_name: string; state_name: string }>
+> => {
+  const response = await fetch(
+    `https://major-sculpin.nceas.ucsb.edu/api/locations`,
+  );
+  const csvText = await response.text();
+  const results = Papa.parse(csvText, { header: true });
+
+  const locationData: Record<
+    string,
+    { county_name: string; state_name: string }
+  > = {};
+  results.data.forEach((item: any) => {
+    if (item.census_tract_id) {
+      locationData[item.census_tract_id] = {
+        county_name: item.county_name,
+        state_name: item.state_name,
+      };
+    }
+  });
+
+  return locationData;
+};
+
 interface MapAreaProps {
   selectedCensusTract: string;
   selectedMetric: string;
@@ -73,7 +98,13 @@ const MapArea: React.FC<MapAreaProps> = ({
   const [censusTractMetrics, setCensusTractMetrics] = useState<
     Record<string, number>
   >({});
+  const [locationData, setLocationData] = useState<
+    Record<string, { county_name: string; state_name: string }>
+  >({});
   const censusTractMetricsRef = useRef<Record<string, number>>({});
+  const locationDataRef = useRef<
+    Record<string, { county_name: string; state_name: string }>
+  >({});
   const [dataLoaded, setDataLoaded] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
   const mapRef = useRef<maplibregl.Map | null>(null);
@@ -82,8 +113,11 @@ const MapArea: React.FC<MapAreaProps> = ({
   useEffect(() => {
     const initializeData = async () => {
       const metrics = await fetchData(selectedMetric);
+      const locations = await fetchLocationData();
       setCensusTractMetrics(metrics);
+      setLocationData(locations);
       censusTractMetricsRef.current = metrics; // Update ref
+      locationDataRef.current = locations; // Update ref
       setDataLoaded(true);
     };
     initializeData();
@@ -123,6 +157,7 @@ const MapArea: React.FC<MapAreaProps> = ({
           const feature = features[0];
           const { CENSUSTRACTID } = feature.properties;
           const metric = censusTractMetricsRef.current[CENSUSTRACTID];
+          const location = locationDataRef.current[CENSUSTRACTID];
 
           if (!popupRef.current) {
             popupRef.current = new maplibregl.Popup({
@@ -134,7 +169,7 @@ const MapArea: React.FC<MapAreaProps> = ({
           popupRef.current
             .setLngLat(event.lngLat)
             .setHTML(
-              `<div><strong>Census Tract:</strong> ${CENSUSTRACTID}<br /><strong>Metric:</strong> ${metric !== undefined ? metric : "N/A"}</div>`,
+              `<div><strong>Census Tract:</strong> ${CENSUSTRACTID}<br /><strong>County:</strong> ${location ? location.county_name : "N/A"}<br /><strong>State:</strong> ${location ? location.state_name : "N/A"}<br /><strong>Metric:</strong> ${metric !== undefined ? metric : "N/A"}</div>`,
             )
             .addTo(map);
         }
