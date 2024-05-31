@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface DataItem {
   value: number;
@@ -6,19 +6,21 @@ interface DataItem {
 }
 
 const data: DataItem[] = [
-  { value: 0.9, color: "#A7344E" },
-  { value: 0.7, color: "#B94E31" },
-  { value: 0.8, color: "#E16727" },
-  { value: 0.6, color: "#D78935" },
-  { value: 0.5, color: "#D5A227" },
-  { value: 0.4, color: "#DAC32F" },
-  { value: 0.7, color: "#A9B646" },
-  { value: 0.8, color: "#2FBD89" },
-  { value: 1, color: "#4EA09F" },
+  { value: 0.91, color: "#A7344E" },
+  { value: 0.72, color: "#B94E31" },
+  { value: 0.83, color: "#E16727" },
+  { value: 0.64, color: "#D78935" },
+  { value: 0.55, color: "#D5A227" },
+  { value: 0.43, color: "#DAC32F" },
+  { value: 0.72, color: "#A9B646" },
+  { value: 0.84, color: "#2FBD89" },
+  { value: 1.0, color: "#4EA09F" },
 ];
 
 const FlowerChart: React.FC = () => {
   const chartRef = useRef<SVGGElement | null>(null);
+  const [centerText, setCenterText] = useState("--");
+  const [textColor, setTextColor] = useState("currentColor");
 
   useEffect(() => {
     const chart = chartRef.current;
@@ -58,7 +60,30 @@ const FlowerChart: React.FC = () => {
       );
       path.setAttribute("d", pathData);
       path.setAttribute("fill", d.color);
-      path.setAttribute("class", "aster__solid-arc");
+      path.setAttribute(
+        "class",
+        "aster__solid-arc transition-colors duration-100 ease-in-out",
+      );
+
+      // Add event listeners for hover effect
+      path.addEventListener("mouseover", () => {
+        chart.querySelectorAll("path.aster__solid-arc").forEach((p) => {
+          if (p !== path) {
+            p.setAttribute("fill", "#d3d3d3");
+          }
+        });
+        setCenterText((d.value * 100).toFixed(0));
+        setTextColor(d.color);
+      });
+
+      path.addEventListener("mouseout", () => {
+        chart.querySelectorAll("path.aster__solid-arc").forEach((p, index) => {
+          p.setAttribute("fill", data[index].color);
+        });
+        setCenterText("--");
+        setTextColor("currentColor");
+      });
+
       chart.appendChild(path);
 
       // Add outline arc
@@ -88,16 +113,16 @@ const FlowerChart: React.FC = () => {
       <svg
         className="aster__plot flex flex-row justify-start"
         preserveAspectRatio="xMidYMid"
-        viewBox="0 0 500 500"
+        viewBox="0 0 450 450"
       >
-        <g id="chart" transform="translate(160,200)" ref={chartRef}>
+        <g id="chart" transform="translate(150,200)" ref={chartRef}>
           <text
             className="text-3xl font-bold text-leftSidebarRightBorder"
             dy=".35em"
             textAnchor="middle"
-            fill="currentColor"
+            fill={textColor}
           >
-            73
+            {centerText}
           </text>
         </g>
       </svg>
