@@ -48,8 +48,8 @@ const fetchData = async (metric: string): Promise<Record<string, number>> => {
 
   const censusTractMetrics: Record<string, number> = {};
   results.data.forEach((item: any) => {
-    if (item.census_tract_id && item[metric]) {
-      censusTractMetrics[item.census_tract_id] = parseFloat(item[metric]);
+    if (item.geoid && item[metric]) {
+      censusTractMetrics[item.geoid] = parseFloat(item[metric]);
     }
   });
 
@@ -70,8 +70,8 @@ const fetchLocationData = async (): Promise<
     { county_name: string; state_name: string }
   > = {};
   results.data.forEach((item: any) => {
-    if (item.census_tract_id) {
-      locationData[item.census_tract_id] = {
+    if (item.geoid) {
+      locationData[item.geoid] = {
         county_name: item.county_name,
         state_name: item.state_name,
       };
@@ -197,7 +197,7 @@ const MapArea: React.FC<MapAreaProps> = ({
   const loadColors = (map: maplibregl.Map) => {
     const features = map.queryRenderedFeatures({ layers: ["tiles"] });
     features.forEach((feature) => {
-      const censusTractId = feature.properties.CENSUSTRACTID;
+      const censusTractId = feature.properties.GEOID;
       const metric = censusTractMetricsRef.current[censusTractId];
 
       if (metric !== undefined) {
@@ -205,7 +205,7 @@ const MapArea: React.FC<MapAreaProps> = ({
         map.setFeatureState(
           {
             source: "tilesource",
-            sourceLayer: "cb_2023_us_tract_5m_simplified",
+            sourceLayer: "cb_2023_us_tract_5m_with_geoid",
             id: feature.id,
           },
           { color },
