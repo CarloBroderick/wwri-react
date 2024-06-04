@@ -112,8 +112,10 @@ const MapArea: React.FC<MapAreaProps> = ({
 
   useEffect(() => {
     const initializeData = async () => {
-      const metrics = await fetchData(selectedMetric);
-      const locations = await fetchLocationData();
+      const fetchDataPromise = fetchData(selectedMetric);
+      const fetchLocationDataPromise = fetchLocationData();
+      const metrics = await fetchDataPromise;
+      const locations = await fetchLocationDataPromise;
       setCensusTractMetrics(metrics);
       setLocationData(locations);
       censusTractMetricsRef.current = metrics; // Update ref
@@ -180,6 +182,11 @@ const MapArea: React.FC<MapAreaProps> = ({
           popupRef.current.remove();
           popupRef.current = null;
         }
+      });
+
+      map.on("moveend", () => {
+        console.log("movend event");
+        loadColors(map);
       });
     }
 
