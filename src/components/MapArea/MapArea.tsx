@@ -168,11 +168,25 @@ const MapArea: React.FC<MapAreaProps> = ({
             });
           }
 
+          const tooltipHTML = `
+            <div id="map-tooltip" class="rounded">
+              <h1 class="font-bold text-[0.8rem] text-selectedIndicatorTextColor">
+                ${location?.county_name?.toUpperCase() || "N/A"}, ${location?.state_name?.toUpperCase() || "N/A"}
+              </h1>
+              <h2 class="text-xs tracking-widest">TRACT ${GEOID}</h2>
+              <div class="mt-1 flex items-center">
+                <div class="blackc mr-1 inline-block min-h-5 min-w-5 rounded-sm border-[1px] border-solid border-black bg-gray-500"></div>
+                <span class="font-bold text-black">
+                  ${metric !== undefined ? `${(metric * 100).toFixed(1)}%` : "N/A"}
+                </span>
+                <span class="ml-1 text-xs"> Water pollutants resistance</span>
+              </div>
+            </div>
+          `;
+
           popupRef.current
             .setLngLat(event.lngLat)
-            .setHTML(
-              `<div><strong>Census Tract:</strong> ${GEOID}<br /><strong>County:</strong> ${location ? location.county_name : "N/A"}<br /><strong>State:</strong> ${location ? location.state_name : "N/A"}<br /><strong>Metric:</strong> ${metric !== undefined ? metric : "N/A"}</div>`,
-            )
+            .setHTML(tooltipHTML)
             .addTo(map);
         }
       });
@@ -191,6 +205,10 @@ const MapArea: React.FC<MapAreaProps> = ({
     }
 
     return () => {
+      if (popupRef.current) {
+        popupRef.current.remove();
+        popupRef.current = null;
+      }
       mapRef.current?.remove();
     };
   }, []);
@@ -233,10 +251,12 @@ const MapArea: React.FC<MapAreaProps> = ({
   };
 
   return (
-    <div
-      ref={mapContainerRef}
-      className="absolute left-0 top-0 flex h-[100%] w-full"
-    />
+    <div className="relative h-full w-full">
+      <div
+        ref={mapContainerRef}
+        className="absolute left-0 top-0 flex h-full w-full"
+      />
+    </div>
   );
 };
 
