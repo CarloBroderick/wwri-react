@@ -87,7 +87,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
   };
 
   return (
-    <div className="h-[calc(100vh-60px)] min-w-[523px] max-w-[523px] overflow-scroll border-l-[1px] border-t-[1px] border-solid border-rightSidebarBorder px-4 pb-2 pt-[0.8rem]">
+    <div className="h-[calc(100vh-60px)] min-w-[470px] max-w-[470px] overflow-scroll border-l-[1px] border-t-[1px] border-solid border-rightSidebarBorder px-4 pb-2 pt-[0.8rem]">
       <h1 className="mb-1 font-BeVietnamPro text-xl font-medium">
         Indicator Navigation
       </h1>
@@ -117,7 +117,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
         </div>
         {domainHierarchy.map((domain: Domain) => (
           <div id={domain.id} className="ml-[calc(2.05rem-0.35rem)] mt-1">
-            <div className="flex w-[36%] items-center justify-between">
+            <div className="flex w-[39%] items-center justify-between">
               <div className="flex items-center">
                 <button
                   id={domain.id}
@@ -138,12 +138,16 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
                 className="ml-2 text-[lightgray]"
               >
                 {expandedSections[domain.label] ? (
-                  <img src={DownArrow} alt="down-arrow" className="h-3 w-3" />
+                  <img
+                    src={DownArrow}
+                    alt="down-arrow"
+                    className="min-h-3 min-w-3"
+                  />
                 ) : (
                   <img
                     src={RightSideArrow}
                     alt="right-side-arrow"
-                    className="h-3 w-3"
+                    className="min-h-3 min-w-3"
                   />
                 )}
               </button>
@@ -163,7 +167,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
                     className="ml-3 h-full w-auto"
                   />
                 </div>
-                <div className="flex flex-1 justify-between">
+                <div className="flex max-w-[390px] flex-1 justify-between">
                   <div
                     id="status"
                     className="ml-[0.9rem] mr-3 flex flex-shrink-0 flex-col items-start"
@@ -215,7 +219,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
                   </div>
                   <div
                     id="resilience"
-                    className="ml-8 flex w-[60%] flex-shrink-0 flex-col items-center"
+                    className="ml-2 flex w-[60%] flex-shrink-0 flex-col items-center"
                   >
                     <div className="ml-[4.4rem] flex items-center self-start">
                       <button
