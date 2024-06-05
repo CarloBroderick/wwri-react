@@ -1,8 +1,16 @@
+import MapOfFullStatenameToAbbreviation, {
+  StateNames,
+} from "data/StateNameToAbbrevsMap";
+
 interface LeftSidebarHeaderProps {
+  selectedCountyName: string;
+  selectedStateName: StateNames;
   selectedCensusTract: string;
 }
 
 export function LeftSidebarHeader({
+  selectedCountyName,
+  selectedStateName,
   selectedCensusTract,
 }: LeftSidebarHeaderProps) {
   return (
@@ -14,10 +22,17 @@ export function LeftSidebarHeader({
         <h1 className="font-BeVietnamPro text-sm font-bold text-leftSidebarHeaderLabelTextColor">
           SELECTED REGION
         </h1>
-        <h1 className="font-BeVietnamPro text-base font-bold ">
-          Cleveland, Ohio <br />
-          Tract {selectedCensusTract}
-        </h1>
+        {selectedCountyName === "" && selectedStateName === "" ? (
+          <h1 className="min-h-[49px] max-w-[80%] font-BeVietnamPro text-base font-bold text-leftSidebarHeaderLabelTextColor">
+            Click on a region to view data
+          </h1>
+        ) : (
+          <h1 className="font-BeVietnamPro text-base font-bold ">
+            {selectedCountyName},{" "}
+            {MapOfFullStatenameToAbbreviation[selectedStateName]} <br />
+            Tract {selectedCensusTract}
+          </h1>
+        )}
       </div>
     </div>
   );

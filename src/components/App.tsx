@@ -1,3 +1,4 @@
+import { StateNames } from "data/StateNameToAbbrevsMap";
 import { useState } from "react";
 import Header from "./Header/Header";
 import LeftSidebar from "./LeftSidebar/LeftSidebar";
@@ -8,6 +9,8 @@ import Subheader from "./Subheader/Subheader";
 function App() {
   const [selectedMetric, setSelectedMetric] =
     useState<string>("status_metric_1");
+  const [selectedCountyName, setSelectedCountyName] = useState<string>("");
+  const [selectedStateName, setSelectedStateName] = useState<StateNames>("");
   const [selectedCensusTract, setSelectedCensusTract] = useState<string>("");
   const [selectedMetricValue, setSelectedMetricValue] = useState<number | null>(
     null,
@@ -23,12 +26,16 @@ function App() {
         >
           <Subheader />
           <LeftSidebar
+            selectedCountyName={selectedCountyName}
+            selectedStateName={selectedStateName}
             selectedCensusTract={selectedCensusTract}
             selectedMetricValue={selectedMetricValue}
           />
           <MapArea
             selectedMetric={selectedMetric}
             selectedCensusTract={selectedCensusTract}
+            setSelectedCountyName={setSelectedCountyName}
+            setSelectedStateName={setSelectedStateName}
             setSelectedCensusTract={setSelectedCensusTract}
             setSelectedMetricValue={setSelectedMetricValue}
           />

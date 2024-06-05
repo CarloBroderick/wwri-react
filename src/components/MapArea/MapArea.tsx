@@ -1,3 +1,6 @@
+import MapOfFullStatenameToAbbreviation, {
+  StateNames,
+} from "data/StateNameToAbbrevsMap";
 import maplibregl, { StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import Papa from "papaparse";
@@ -57,7 +60,7 @@ const fetchData = async (metric: string): Promise<Record<string, number>> => {
 };
 
 const fetchLocationData = async (): Promise<
-  Record<string, { county_name: string; state_name: string }>
+  Record<string, { county_name: string; state_name: StateNames }>
 > => {
   const response = await fetch(
     `https://major-sculpin.nceas.ucsb.edu/api/locations`,
@@ -67,7 +70,7 @@ const fetchLocationData = async (): Promise<
 
   const locationData: Record<
     string,
-    { county_name: string; state_name: string }
+    { county_name: string; state_name: StateNames }
   > = {};
   results.data.forEach((item: any) => {
     if (item.geoid) {
@@ -85,12 +88,16 @@ interface MapAreaProps {
   selectedCensusTract: string;
   selectedMetric: string;
   setSelectedMetricValue?: (value: number) => void;
+  setSelectedCountyName: (countyName: string) => void;
+  setSelectedStateName: (stateName: StateNames) => void;
   setSelectedCensusTract: (censusTract: string) => void;
 }
 
 const MapArea: React.FC<MapAreaProps> = ({
   selectedCensusTract,
   selectedMetric,
+  setSelectedCountyName,
+  setSelectedStateName,
   setSelectedMetricValue,
   setSelectedCensusTract,
 }) => {
@@ -99,11 +106,11 @@ const MapArea: React.FC<MapAreaProps> = ({
     Record<string, number>
   >({});
   const [locationData, setLocationData] = useState<
-    Record<string, { county_name: string; state_name: string }>
+    Record<string, { county_name: string; state_name: StateNames }>
   >({});
   const censusTractMetricsRef = useRef<Record<string, number>>({});
   const locationDataRef = useRef<
-    Record<string, { county_name: string; state_name: string }>
+    Record<string, { county_name: string; state_name: StateNames }>
   >({});
   const [dataLoaded, setDataLoaded] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
@@ -146,6 +153,8 @@ const MapArea: React.FC<MapAreaProps> = ({
           const { GEOID } = feature.properties;
           const metric = censusTractMetricsRef.current[GEOID];
           if (typeof metric === "number" && setSelectedMetricValue) {
+            setSelectedCountyName(locationDataRef.current[GEOID].county_name);
+            setSelectedStateName(locationDataRef.current[GEOID].state_name);
             setSelectedCensusTract(GEOID);
             setSelectedMetricValue(metric);
             console.log("Selected metric value:", metric);
@@ -168,14 +177,17 @@ const MapArea: React.FC<MapAreaProps> = ({
             });
           }
 
+          const stateAbbrev: string =
+            MapOfFullStatenameToAbbreviation[location?.state_name];
+
           const tooltipHTML = `
             <div id="map-tooltip" class="rounded">
               <h1 class="font-bold text-[0.8rem] text-selectedIndicatorTextColor">
-                ${location?.county_name?.toUpperCase() || "N/A"}, ${location?.state_name?.toUpperCase() || "N/A"}
+                ${location?.county_name?.toUpperCase() || "N/A"}, ${stateAbbrev}
               </h1>
               <h2 class="text-xs tracking-widest">TRACT ${GEOID}</h2>
               <div class="mt-1 flex items-center">
-                <div class="blackc mr-1 inline-block min-h-5 min-w-5 rounded-sm border-[1px] border-solid border-black bg-gray-500"></div>
+                <div class="blackc mr-1 inline-block min-h-4 min-w-4 rounded-sm border-[1px] border-solid border-black bg-gray-500"></div>
                 <span class="font-bold text-black">
                   ${metric !== undefined ? `${(metric * 100).toFixed(1)}%` : "N/A"}
                 </span>

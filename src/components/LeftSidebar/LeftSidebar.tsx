@@ -1,3 +1,4 @@
+import { StateNames } from "data/StateNameToAbbrevsMap";
 import React, { useEffect, useState } from "react";
 import { CloseLeftSidebarButton } from "./CloseLeftSidebarButton";
 import { LeftSidebarBody } from "./LeftSidebarBody";
@@ -5,11 +6,15 @@ import LeftSidebarHamburgerIcon from "./LeftSidebarHamburgerIcon";
 import { LeftSidebarHeader } from "./LeftSidebarHeader";
 
 interface LeftSidebarProps {
+  selectedCountyName: string;
+  selectedStateName: StateNames;
   selectedCensusTract: string;
   selectedMetricValue: number | null;
 }
 
 const LeftSidebar: React.FC<LeftSidebarProps> = ({
+  selectedCountyName,
+  selectedStateName,
   selectedCensusTract,
   selectedMetricValue,
 }) => {
@@ -40,7 +45,11 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
         onTransitionEnd={handleTransitionEnd}
       >
         <CloseLeftSidebarButton setOpenLeftSidebar={setOpenLeftSidebar} />
-        <LeftSidebarHeader selectedCensusTract={selectedCensusTract} />
+        <LeftSidebarHeader
+          selectedCountyName={selectedCountyName}
+          selectedStateName={selectedStateName}
+          selectedCensusTract={selectedCensusTract}
+        />
         <LeftSidebarBody overallResilienceScore={selectedMetricValue} />
       </aside>
       {!openLeftSidebar && !isAnimating && (
