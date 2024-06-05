@@ -34,10 +34,10 @@ export function LeftSidebarBody({
       <h1 className="font-BeVietnamePro pb-2 text-sm font-bold text-leftSidebarOverallResilience">
         INDIVIDUAL DOMAIN RESILIENCE SCORES
       </h1>
-      <div className="mb-1 h-[150px] w-[194px]">
+      <div className="mb-1 w-[200px]">
         <FlowerChart />
       </div>
-      <div className="mb-2 px-2">
+      {/* <div className="mb-2 px-2">
         <h1 className="font-BeVietnamePro pb-2 text-sm font-bold text-leftSidebarOverallResilience">
           Legend
         </h1>
@@ -79,7 +79,7 @@ export function LeftSidebarBody({
             <p className="font-BeVietnamPro text-2xs">Infrastructure</p>
           </div>
         </div>
-      </div>
+      </div> */}
       <button className="mt-2 flex w-full flex-row items-center rounded-md border-[1px] border-black p-1">
         <img
           src={GraphReport}

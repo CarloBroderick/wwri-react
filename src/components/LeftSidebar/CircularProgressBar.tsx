@@ -7,7 +7,7 @@ interface CircularProgressBarProps {
 const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
   percentage,
 }) => {
-  const radius = 47;
+  const radius = 60;
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference - (circumference * percentage) / 100;
 
@@ -24,11 +24,11 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
   }
 
   return (
-    <div className="relative h-32 w-32">
+    <div className="relative h-40 w-40">
       <svg className="absolute inset-0 h-full w-full -rotate-90 transform">
         <circle
           className="text-gray-300"
-          strokeWidth="20"
+          strokeWidth="25"
           stroke="currentColor"
           fill="transparent"
           r={radius}
@@ -37,7 +37,7 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
         />
         <circle
           className={`duration-1 transition-colors ${colorClass}`}
-          strokeWidth="20"
+          strokeWidth="25"
           strokeLinecap="butt"
           stroke="currentColor"
           fill="transparent"
@@ -54,7 +54,7 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
       <div
         className={`flex h-full w-full items-center justify-center text-2xl font-semibold transition-colors duration-500 ${colorClass}`}
       >
-        {percentage.toFixed(0)}%
+        {percentage !== 0 ? `${percentage.toFixed(0)}%` : "--"}
       </div>
     </div>
   );
