@@ -5,6 +5,8 @@ import maplibregl, { StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import Papa from "papaparse";
 import React, { useEffect, useRef, useState } from "react";
+import CloseIcon from "../../assets/CloseIcon.svg";
+import SearchIcon from "../../assets/SearchIcon.svg";
 
 const MAP_STYLE: StyleSpecification = {
   version: 8,
@@ -116,6 +118,9 @@ const MapArea: React.FC<MapAreaProps> = ({
   const [mapLoaded, setMapLoaded] = useState(false);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const popupRef = useRef<maplibregl.Popup | null>(null);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchExpanded, setSearchExpanded] = useState(false);
 
   useEffect(() => {
     const initializeData = async () => {
@@ -262,8 +267,123 @@ const MapArea: React.FC<MapAreaProps> = ({
     return `rgb(${r},${g},${b})`;
   };
 
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    if (query.length > 2) {
+      getSuggestions(query);
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = (
+    lat: number,
+    lng: number,
+    formatted: string,
+  ) => {
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: [lng, lat],
+        zoom: 8.5,
+        essential: true, // this animation is considered essential with respect to prefers-reduced-motion
+      });
+    }
+    setSearchQuery(formatted);
+    setSuggestions([]);
+  };
+
+  const getSuggestions = async (query: string) => {
+    const apiKey = "7daab0c61bc84b5d80eb72315d130135"; // Replace with your OpenCage API key
+    const response = await fetch(
+      `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(query)}&key=${apiKey}&countrycode=us,ca&limit=5`,
+    );
+    const data = await response.json();
+    setSuggestions(data.results);
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    setSuggestions([]);
+    setSearchExpanded(false);
+  };
+
   return (
     <div className="relative h-full w-full">
+      <div
+        className={`transition-width absolute right-1 top-1 z-10 rounded bg-white shadow-sm duration-200 ${
+          searchExpanded ? "min-w-80" : "w-10"
+        }`}
+      >
+        {!searchExpanded && (
+          <button
+            className="flex h-10 w-10 items-center justify-center rounded border border-gray-400"
+            onClick={() => setSearchExpanded(true)}
+          >
+            <img
+              src={SearchIcon}
+              alt="search icon"
+              className="h-6 w-6"
+              style={{ filter: "grayscale(100%) invert(70%)" }}
+            />
+          </button>
+        )}
+        {searchExpanded && (
+          <>
+            <div className="relative w-full transition-all duration-100">
+              <input
+                type="text"
+                className="search-input h-10 w-full rounded border border-gray-400 py-1 pl-1 pr-8 focus:border-gray-400 focus:outline-none"
+                placeholder="Search for a location"
+                value={searchQuery}
+                onChange={handleSearchInputChange}
+                onBlur={() => {
+                  setTimeout(() => {
+                    setSuggestions([]);
+                  }, 100);
+                }}
+              />
+              <button
+                className="absolute right-0 top-0 flex h-10 w-10 items-center justify-center text-gray-400"
+                onClick={handleClearSearch}
+              >
+                <img
+                  src={CloseIcon}
+                  alt="close search"
+                  className="h-4 w-4"
+                  style={{ filter: "grayscale(100%) invert(70%)" }}
+                />
+              </button>
+            </div>
+            {suggestions.length > 0 && (
+              <div className="autocomplete-suggestions absolute z-20 w-full rounded bg-white shadow-md">
+                {suggestions.map((suggestion, index) => (
+                  <div
+                    key={index}
+                    className="autocomplete-suggestion cursor-pointer p-2 hover:bg-gray-200"
+                    onClick={() =>
+                      handleSuggestionClick(
+                        suggestion.geometry.lat,
+                        suggestion.geometry.lng,
+                        suggestion.formatted,
+                      )
+                    }
+                  >
+                    <strong>{suggestion.formatted.split(",")[0]}</strong>
+                    <span className="text-gray-500">{`,${suggestion.formatted
+                      .split(",")
+                      .slice(1)
+                      .join(",")}`}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
       <div
         ref={mapContainerRef}
         className="absolute left-0 top-0 flex h-full w-full"

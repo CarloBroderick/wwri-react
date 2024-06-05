@@ -1,18 +1,19 @@
 import React from "react";
+import CloseIcon from "../../assets/CloseIcon.svg";
 
 interface CloseLeftSidebarButtonProps {
-    setOpenLeftSidebar: (value: boolean) => void;
+  setOpenLeftSidebar: (value: boolean) => void;
 }
 export const CloseLeftSidebarButton: React.FC<CloseLeftSidebarButtonProps> = (
-    props
+  props,
 ) => {
-    return (
-        <button
-            className="absolute top-1 right-2 z-10"
-            onClick={() => props.setOpenLeftSidebar(false)}
-            aria-label="Close left sidebar"
-        >
-            x
-        </button>
-    );
+  return (
+    <button
+      className="absolute right-3 top-3 z-10"
+      onClick={() => props.setOpenLeftSidebar(false)}
+      aria-label="Close left sidebar"
+    >
+      <img src={CloseIcon} className="h-3 w-3" alt="Close" />
+    </button>
+  );
 };
