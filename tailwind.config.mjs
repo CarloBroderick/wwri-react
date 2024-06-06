@@ -43,6 +43,7 @@ export default {
         selectedIndicatorTextColor: "#333333",
         geopgrahicContextLabelTextColor: "#313131",
         geopgrahicContextDescriptionTextColor: "#585858",
+        mapIconColor: "#8F8F8F",
       },
     },
   },

@@ -6,7 +6,10 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import Papa from "papaparse";
 import React, { useEffect, useRef, useState } from "react";
 import CloseIcon from "../../assets/CloseIcon.svg";
+import ResetIcon from "../../assets/ResetIcon.svg"; // Add your reset view icon SVG
 import SearchIcon from "../../assets/SearchIcon.svg";
+import ZoomInIcon from "../../assets/ZoomInIcon.svg";
+import ZoomOutIcon from "../../assets/ZoomOutIcon.svg";
 
 const MAP_STYLE: StyleSpecification = {
   version: 8,
@@ -310,16 +313,38 @@ const MapArea: React.FC<MapAreaProps> = ({
     setSearchExpanded(false);
   };
 
+  const handleZoomIn = () => {
+    if (mapRef.current) {
+      mapRef.current.zoomIn();
+    }
+  };
+
+  const handleZoomOut = () => {
+    if (mapRef.current) {
+      mapRef.current.zoomOut();
+    }
+  };
+
+  const handleResetView = () => {
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: [-103.9375, 38.7888894],
+        zoom: 3.3,
+        essential: true,
+      });
+    }
+  };
+
   return (
     <div className="relative h-full w-full">
       <div
-        className={`transition-width absolute right-1 top-1 z-10 rounded bg-white shadow-sm duration-200 ${
-          searchExpanded ? "min-w-80" : "w-10"
+        className={`transition-width absolute right-1 top-1 z-10 rounded-md bg-white shadow-sm duration-200 ${
+          searchExpanded ? "w-80" : "w-10"
         }`}
       >
         {!searchExpanded && (
           <button
-            className="flex h-10 w-10 items-center justify-center rounded border border-gray-400"
+            className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400"
             onClick={() => setSearchExpanded(true)}
           >
             <img
@@ -332,7 +357,7 @@ const MapArea: React.FC<MapAreaProps> = ({
         )}
         {searchExpanded && (
           <>
-            <div className="relative w-full transition-all duration-100">
+            <div className="relative w-full">
               <input
                 type="text"
                 className="search-input h-10 w-full rounded border border-gray-400 py-1 pl-1 pr-8 focus:border-gray-400 focus:outline-none"
@@ -353,12 +378,12 @@ const MapArea: React.FC<MapAreaProps> = ({
                   src={CloseIcon}
                   alt="close search"
                   className="h-4 w-4"
-                  style={{ filter: "grayscale(100%) invert(70%)" }}
+                  style={{ filter: "grayscale(80%) invert(70%)" }}
                 />
               </button>
             </div>
             {suggestions.length > 0 && (
-              <div className="autocomplete-suggestions absolute z-20 w-full rounded bg-white shadow-md">
+              <div className="autocomplete-suggestions absolute z-30 w-[calc(100%-2.8rem)] rounded bg-white shadow-md">
                 {suggestions.map((suggestion, index) => (
                   <div
                     key={index}
@@ -382,6 +407,42 @@ const MapArea: React.FC<MapAreaProps> = ({
             )}
           </>
         )}
+      </div>
+
+      <div className="absolute right-1 top-12 z-10 flex flex-col space-y-1">
+        <button
+          className="text-mapIconColor flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white align-middle text-4xl"
+          onClick={handleZoomIn}
+        >
+          <img
+            src={ZoomInIcon}
+            alt="zoom in"
+            className="h-6 w-6"
+            style={{ filter: "grayscale(50%) invert(50%)" }}
+          />
+        </button>
+        <button
+          className="text-mapIconColor flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white align-middle text-4xl"
+          onClick={handleZoomOut}
+        >
+          <img
+            src={ZoomOutIcon}
+            alt="zoom out"
+            className="stroke-mapIconColor fill-mapIconColor h-6 w-6"
+            style={{ filter: "grayscale(50%) invert(50%)" }}
+          />
+        </button>
+        <button
+          className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white"
+          onClick={handleResetView}
+        >
+          <img
+            src={ResetIcon}
+            alt="reset view"
+            className="stroke-mapIconColor h-6 w-6 fill-current"
+            style={{ filter: "grayscale(50%) invert(50%)" }}
+          />
+        </button>
       </div>
 
       <div
