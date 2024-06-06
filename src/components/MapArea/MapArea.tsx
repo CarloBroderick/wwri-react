@@ -360,7 +360,7 @@ const MapArea: React.FC<MapAreaProps> = ({
             <div className="relative w-full">
               <input
                 type="text"
-                className="search-input h-10 w-full rounded border border-gray-400 py-1 pl-1 pr-8 focus:border-gray-400 focus:outline-none"
+                className="search-input h-10 w-full rounded border border-gray-400 py-1 pl-1 pr-8 text-sm focus:border-gray-400 focus:outline-none"
                 placeholder="Search for a location"
                 value={searchQuery}
                 onChange={handleSearchInputChange}
@@ -396,8 +396,10 @@ const MapArea: React.FC<MapAreaProps> = ({
                       )
                     }
                   >
-                    <strong>{suggestion.formatted.split(",")[0]}</strong>
-                    <span className="text-gray-500">{`,${suggestion.formatted
+                    <strong className="text-sm">
+                      {suggestion.formatted.split(",")[0]}
+                    </strong>
+                    <span className="text-sm text-gray-500">{`,${suggestion.formatted
                       .split(",")
                       .slice(1)
                       .join(",")}`}</span>
