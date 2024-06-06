@@ -39,7 +39,7 @@ const data: DataItem[] = [
     bgColorTWClass: "bg-[#D5A227]",
   },
   {
-    value: 0.43,
+    value: 0.05,
     color: "#DAC32F",
     name: "Culture",
     bgColorTWClass: "bg-[#DAC32F]",
@@ -112,7 +112,7 @@ const FlowerChart: React.FC = () => {
       path.setAttribute("fill", d.color);
       path.setAttribute(
         "class",
-        "aster__solid-arc transition-colors duration-100 ease-in-out",
+        "aster__solid-arc transition-colors duration-100 ease-out",
       );
 
       // Add event listeners for hover effect
@@ -198,7 +198,7 @@ const FlowerChart: React.FC = () => {
               }`}
             >
               <div
-                className={`mr-1 h-[14px] w-[14px] rounded-sm transition-colors duration-300 ease-in-out ${
+                className={`mr-1 h-[14px] w-[14px] rounded-sm transition-colors duration-100 ease-out ${
                   hoveredSlice && hoveredSlice !== domain.name
                     ? "bg-gray-400"
                     : domain.bgColorTWClass

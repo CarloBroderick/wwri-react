@@ -1,5 +1,6 @@
 import { StateNames } from "data/StateNameToAbbrevsMap";
 import { useState } from "react";
+import SelectedMetricIdObject from "../types/componentStatetypes";
 import Header from "./Header/Header";
 import LeftSidebar from "./LeftSidebar/LeftSidebar";
 import MapArea from "./MapArea/MapArea";
@@ -7,14 +8,18 @@ import RightSidebar from "./RightSidebar";
 import Subheader from "./Subheader/Subheader";
 
 function App() {
-  const [selectedMetric, setSelectedMetric] =
-    useState<string>("status_metric_1");
-  const [selectedCountyName, setSelectedCountyName] = useState<string>("");
-  const [selectedStateName, setSelectedStateName] = useState<StateNames>("");
-  const [selectedCensusTract, setSelectedCensusTract] = useState<string>("");
+  const [selectedMetricIdObject, setSelectedMetricIdObject] =
+    useState<SelectedMetricIdObject>({
+      domainId: "air_quality_metrics",
+      metricId: "status_metric_1",
+      label: "Air Pollutants Resistance",
+    });
   const [selectedMetricValue, setSelectedMetricValue] = useState<number | null>(
     null,
   );
+  const [selectedCountyName, setSelectedCountyName] = useState<string>("");
+  const [selectedStateName, setSelectedStateName] = useState<StateNames>("");
+  const [selectedCensusTract, setSelectedCensusTract] = useState<string>("");
 
   return (
     <div className="h-full w-full">
@@ -32,7 +37,7 @@ function App() {
             selectedMetricValue={selectedMetricValue}
           />
           <MapArea
-            selectedMetric={selectedMetric}
+            selectedMetricIdObject={selectedMetricIdObject}
             selectedCensusTract={selectedCensusTract}
             setSelectedCountyName={setSelectedCountyName}
             setSelectedStateName={setSelectedStateName}
@@ -40,7 +45,10 @@ function App() {
             setSelectedMetricValue={setSelectedMetricValue}
           />
         </div>
-        <RightSidebar setSelectedMetric={setSelectedMetric}></RightSidebar>
+        <RightSidebar
+          selectedMetricIdObject={selectedMetricIdObject}
+          setSelectedMetricIdObject={setSelectedMetricIdObject}
+        ></RightSidebar>
       </div>
     </div>
   );

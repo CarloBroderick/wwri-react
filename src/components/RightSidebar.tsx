@@ -1,18 +1,62 @@
 import chroma from "chroma-js";
 import domainHierarchy from "data/domainHierarchy";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import SelectedMetricIdObject from "types/componentStatetypes";
 import { Domain } from "types/domainTypes";
 import DownArrow from "../assets/DownArrow.svg";
 import HierarchyArrows from "../assets/HierarchyArrows.svg";
 import RightSideArrow from "../assets/RightSideArrow.svg";
 import SearchIcon from "../assets/SearchIcon.svg";
 import SubHierarchyArrows from "../assets/SubHierarchyArrows.svg";
+import flattenDomainHierarchy, {
+  IndicatorObject,
+} from "../utils/flattenDomainHierarchyForSearch";
 
 interface RightSidebarProps {
-  setSelectedMetric: (metric: string) => void;
+  selectedMetricIdObject: SelectedMetricIdObject | null;
+  setSelectedMetricIdObject: (metric: SelectedMetricIdObject) => void;
 }
 
-const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
+const stateMap = [
+  ["AK", "", "", "", "", "", "", "", "", "", "ME"],
+  ["", "", "", "", "", "", "", "", "NY", "VT", "NH"],
+  ["WA", "", "MT", "ND", "MN", "WI", "MI", "", "NJ", "CT", "NH"],
+  ["OR", "ID", "WY", "SD", "IL", "IN", "OH", "PA", "MD", "RI", ""],
+  ["CA", "NV", "UT", "NE", "IA", "KY", "WV", "VA", "DC", "", ""],
+  ["", "AZ", "CO", "KS", "MO", "TN", "NC", "SC", "DE", "", ""],
+  ["", "", "NM", "OK", "AR", "MS", "AL", "GA", "", "", ""],
+  ["HI", "", "", "TX", "LA", "", "", "", "FL", "", ""],
+];
+
+const stateBGColorMapPossibilities: string[] = [
+  "bg-[#DFE3D5]",
+  "bg-[#DFE2D2]",
+  "bg-[#7D9FA7]",
+  "bg-[#445D7A]",
+  "bg-[#5E7B8B]",
+  "bg-[#162836]",
+];
+
+const getHexFromClass = (colorClass: string) => {
+  return colorClass.slice(4, -1); // Remove "bg-[" from the beginning and "]" from the end
+};
+
+const isDarkColor = (colorClass: string) => {
+  const hexColor = getHexFromClass(colorClass);
+  return chroma(hexColor).luminance() < 0.5;
+};
+
+const getRandomItem = (array: string[]) => {
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+};
+
+const RightSidebar: React.FC<RightSidebarProps> = ({
+  selectedMetricIdObject,
+  setSelectedMetricIdObject,
+}) => {
+  const [showIndicatorSuggestions, setShowIndicatorSuggestions] =
+    useState(false);
   const [activeButton, setActiveButton] = useState<string | null>(null);
   const [statusLabel, setStatusLabel] = useState<string | null>(null);
   const [resistanceLabel, setResistanceLabel] = useState<string | null>(null);
@@ -23,23 +67,42 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
   const [expandedSections, setExpandedSections] = useState<{
     [key: string]: boolean;
   }>({
-    Water: true,
-    Air: false,
-    Ecosystems: false,
-    Biodiversity: false,
-    Infrastructure: false,
-    Social: false,
-    Economy: false,
-    Culture: false,
-    Carbon: false,
+    water: true,
+    air: false,
+    ecosystems: false,
+    biodiversity: false,
+    infrastructure: false,
+    social: false,
+    economy: false,
+    culture: false,
+    carbon: false,
   });
 
-  /** Function to toggle the expanded state of a section and collapse the rest
-   */
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filteredSuggestions, setFilteredSuggestions] = useState<
+    IndicatorObject[]
+  >([]);
+
+  const hierarchicalStrings = flattenDomainHierarchy(domainHierarchy);
+
+  useEffect(() => {
+    if (searchTerm) {
+      const lowerCaseTerm = searchTerm.toLowerCase();
+      const filtered = hierarchicalStrings.filter(
+        (indicatorObject: IndicatorObject) =>
+          indicatorObject.traversedPathForSearchSuggestions
+            .toLowerCase()
+            .includes(lowerCaseTerm),
+      );
+      setFilteredSuggestions(filtered);
+    } else {
+      setFilteredSuggestions([]);
+    }
+  }, [searchTerm]);
+
   const toggleSection = (section: string) => {
     setExpandedSections((prevState) => {
       const newState: { [key: string]: boolean } = {};
-
       for (const key in prevState) {
         if (key === section) {
           newState[key] = !prevState[key];
@@ -47,57 +110,64 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
           newState[key] = false;
         }
       }
-
       return newState;
     });
   };
 
-  const stateMap = [
-    ["AK", "", "", "", "", "", "", "", "", "", "ME"],
-    ["", "", "", "", "", "", "", "", "NY", "VT", "NH"],
-    ["WA", "", "MT", "ND", "MN", "WI", "MI", "", "NJ", "CT", "NH"],
-    ["OR", "ID", "WY", "SD", "IL", "IN", "OH", "PA", "MD", "RI", ""],
-    ["CA", "NV", "UT", "NE", "IA", "KY", "WV", "VA", "DC", "", ""],
-    ["", "AZ", "CO", "KS", "MO", "TN", "NC", "SC", "DE", "", ""],
-    ["", "", "NM", "OK", "AR", "MS", "AL", "GA", "", "", ""],
-    ["HI", "", "", "TX", "LA", "", "", "", "FL", "", ""],
-  ];
-
-  const stateBGColorMapPossibilities: string[] = [
-    "bg-[#DFE3D5]",
-    "bg-[#DFE2D2]",
-    "bg-[#7D9FA7]",
-    "bg-[#445D7A]",
-    "bg-[#5E7B8B]",
-    "bg-[#162836]",
-  ];
-
-  const getHexFromClass = (colorClass: string) => {
-    return colorClass.slice(4, -1); // Remove "bg-[" from the beginning and "]" from the end
-  };
-
-  const isDarkColor = (colorClass: string) => {
-    const hexColor = getHexFromClass(colorClass);
-    return chroma(hexColor).luminance() < 0.5;
-  };
-
-  const getRandomItem = (array: string[]) => {
-    const randomIndex = Math.floor(Math.random() * array.length);
-    return array[randomIndex];
-  };
-
   return (
-    <div className="h-[calc(100vh-60px)] min-w-[470px] max-w-[470px] overflow-scroll border-l-[1px] border-t-[1px] border-solid border-rightSidebarBorder px-4 pb-2 pt-[0.8rem]">
-      <h1 className="mb-1 font-BeVietnamPro text-xl font-medium">
+    <div
+      id="right-sidebar"
+      className="h-[calc(100vh-60px)] min-w-[470px] max-w-[470px] overflow-scroll border-l-[1px] border-t-[1px] border-solid border-rightSidebarBorder px-4 pb-2 pt-[0.8rem]"
+    >
+      <h1
+        id="indicator-navigation-header"
+        className="mb-1 font-BeVietnamPro text-xl font-medium"
+      >
         Indicator Navigation
       </h1>
-      <div className="mb-2 flex w-full flex-row rounded-lg border-[1px] border-rightSidebarSearchBoxGray px-2 py-1">
+      <div
+        id="indicator-search-box"
+        className="relative mb-2 flex w-full flex-row rounded-lg border-[1px] border-rightSidebarSearchBoxGray px-2 py-1"
+      >
         <img src={SearchIcon} alt="" />
         <input
           type="text"
           placeholder="Search or select a topic to update the map..."
           className="ml-2 w-full border-none bg-transparent text-rightSidebarSearchBoxGray outline-none"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onFocus={() => setShowIndicatorSuggestions(true)}
+          onBlur={() => setShowIndicatorSuggestions(false)}
         />
+        {showIndicatorSuggestions && (
+          <div
+            id="indicator-search-suggestions"
+            className="absolute left-[0.3rem] top-[2rem] z-20 max-h-48 min-h-[10rem] w-[calc(100%-0.5rem)] overflow-y-auto rounded-b-sm border-b border-l border-r border-rightSidebarSearchBoxGray bg-white"
+          >
+            {filteredSuggestions.map((suggestion, index) => (
+              <div
+                key={index}
+                className="cursor-pointer p-1 hover:bg-gray-200"
+                onMouseDown={() => {
+                  setActiveButton(
+                    `${suggestion.domainId}-${suggestion.metricId}`,
+                  );
+                  toggleSection(suggestion.domainId);
+                  setSelectedIndicator(suggestion.label);
+                  setSelectedMetricIdObject({
+                    domainId: suggestion.domainId,
+                    metricId: suggestion.metricId,
+                    label: suggestion.label,
+                  });
+                  setSearchTerm("");
+                  setShowIndicatorSuggestions(false);
+                }}
+              >
+                {suggestion.traversedPathForSearchSuggestions}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       <div id="overall-resilience" className="relative mb-1 ml-[0.35rem]">
         <div className="flex items-center">
@@ -116,7 +186,11 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
           <span className="font-bold">Overall Resilience</span>
         </div>
         {domainHierarchy.map((domain: Domain) => (
-          <div id={domain.id} className="ml-[calc(2.05rem-0.35rem)] mt-1">
+          <div
+            id={domain.id}
+            className="ml-[calc(2.05rem-0.35rem)] mt-1"
+            key={domain.id}
+          >
             <div className="flex w-[39%] items-center justify-between">
               <div className="flex items-center">
                 <button
@@ -134,10 +208,10 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
                 <span className="font-bold">{domain.label}</span>
               </div>
               <button
-                onClick={() => toggleSection(domain.label)}
+                onClick={() => toggleSection(domain.id)}
                 className="ml-2 text-[lightgray]"
               >
-                {expandedSections[domain.label] ? (
+                {expandedSections[domain.id] ? (
                   <img
                     src={DownArrow}
                     alt="down-arrow"
@@ -152,7 +226,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
                 )}
               </button>
             </div>
-            {expandedSections[domain.label] && (
+            {expandedSections[domain.id] && (
               <div
                 id="subdomain-container"
                 className="ml-[0.95rem] mt-1 h-[9.5rem]"
@@ -176,13 +250,14 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
                       <button
                         id={domain.status.id}
                         onClick={() => {
-                          setActiveButton(domain.status.id);
+                          setActiveButton(`${domain.id}-${domain.status.id}`);
                           setSelectedIndicator(
                             `${domain.label} ${domain.status.label}`,
                           );
                         }}
                         className={`mr-1 h-4 w-4 rounded-[0.2rem] border-[1px] ${
-                          activeButton === domain.status.id
+                          activeButton ===
+                          `${domain.label} ${domain.status.label}`
                             ? "border-metricSelectorBoxesBorderDefault bg-selectedMetricBGColorDefault"
                             : "border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault"
                         }`}
@@ -198,7 +273,11 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
                           onMouseLeave={() => setStatusLabel(null)}
                           onClick={() => {
                             setActiveButton(`${domain.id}-${metric.id}`);
-                            setSelectedMetric(`${domain.id}-${metric.id}`);
+                            setSelectedMetricIdObject({
+                              domainId: domain.id,
+                              metricId: metric.id,
+                              label: `${domain.label} ${metric.label}`,
+                            });
                             setSelectedIndicator(
                               `${domain.label} ${metric.label}`,
                             );
@@ -293,9 +372,11 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
                                 }}
                                 onClick={() => {
                                   setActiveButton(`${domain.id}-${metric.id}`);
-                                  setSelectedMetric(
-                                    `${domain.id}-${metric.id}`,
-                                  );
+                                  setSelectedMetricIdObject({
+                                    domainId: domain.id,
+                                    metricId: metric.id,
+                                    label: `${domain.label} ${metric.label}`,
+                                  });
                                   setSelectedIndicator(
                                     `${domain.label} ${metric.label}`,
                                   );
@@ -347,9 +428,11 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
                                 id={`${domain.id}-${metric.id}`}
                                 onClick={() => {
                                   setActiveButton(`${domain.id}-${metric.id}`);
-                                  setSelectedMetric(
-                                    `${domain.id}-${metric.id}`,
-                                  );
+                                  setSelectedMetricIdObject({
+                                    domainId: domain.id,
+                                    metricId: metric.id,
+                                    label: `${domain.label} ${metric.label}`,
+                                  });
                                   setSelectedIndicator(
                                     `${domain.label} ${metric.label}`,
                                   );
@@ -398,7 +481,9 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ setSelectedMetric }) => {
             <div className="h-full w-full rounded-sm"></div>
           </button>
           <span className="ml-2 font-BeVietnamPro font-semibold">
-            {selectedIndicator}
+            {selectedMetricIdObject
+              ? selectedMetricIdObject.label
+              : "Water Pollutants Resistance"}
           </span>
         </div>
       </div>

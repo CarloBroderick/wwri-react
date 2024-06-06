@@ -51,7 +51,7 @@ const domainHierarchy: Domain[] = [
     },
   },
   {
-    id: "air",
+    id: "air_quality_metrics",
     label: "Air",
     status: {
       id: "status",

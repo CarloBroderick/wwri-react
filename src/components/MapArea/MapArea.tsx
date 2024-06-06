@@ -5,6 +5,7 @@ import maplibregl, { StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import Papa from "papaparse";
 import React, { useEffect, useRef, useState } from "react";
+import SelectedMetricIdObject from "types/componentStatetypes";
 import CloseIcon from "../../assets/CloseIcon.svg";
 import ResetIcon from "../../assets/ResetIcon.svg"; // Add your reset view icon SVG
 import SearchIcon from "../../assets/SearchIcon.svg";
@@ -47,17 +48,19 @@ const MAP_STYLE: StyleSpecification = {
   ],
 };
 
-const fetchData = async (metric: string): Promise<Record<string, number>> => {
+const fetchData = async (
+  metric: SelectedMetricIdObject,
+): Promise<Record<string, number>> => {
   const response = await fetch(
-    `https://major-sculpin.nceas.ucsb.edu/api/air_quality_metrics/${metric}`,
+    `https://major-sculpin.nceas.ucsb.edu/api/${metric.domainId}/${metric.metricId}`,
   );
   const csvText = await response.text();
   const results = Papa.parse(csvText, { header: true });
 
   const censusTractMetrics: Record<string, number> = {};
   results.data.forEach((item: any) => {
-    if (item.geoid && item[metric]) {
-      censusTractMetrics[item.geoid] = parseFloat(item[metric]);
+    if (item.geoid && item[metric.metricId]) {
+      censusTractMetrics[item.geoid] = parseFloat(item[metric.metricId]);
     }
   });
 
@@ -91,7 +94,7 @@ const fetchLocationData = async (): Promise<
 
 interface MapAreaProps {
   selectedCensusTract: string;
-  selectedMetric: string;
+  selectedMetricIdObject: SelectedMetricIdObject;
   setSelectedMetricValue?: (value: number) => void;
   setSelectedCountyName: (countyName: string) => void;
   setSelectedStateName: (stateName: StateNames) => void;
@@ -100,7 +103,7 @@ interface MapAreaProps {
 
 const MapArea: React.FC<MapAreaProps> = ({
   selectedCensusTract,
-  selectedMetric,
+  selectedMetricIdObject,
   setSelectedCountyName,
   setSelectedStateName,
   setSelectedMetricValue,
@@ -127,7 +130,7 @@ const MapArea: React.FC<MapAreaProps> = ({
 
   useEffect(() => {
     const initializeData = async () => {
-      const fetchDataPromise = fetchData(selectedMetric);
+      const fetchDataPromise = fetchData(selectedMetricIdObject);
       const fetchLocationDataPromise = fetchLocationData();
       const metrics = await fetchDataPromise;
       const locations = await fetchLocationDataPromise;
@@ -138,7 +141,7 @@ const MapArea: React.FC<MapAreaProps> = ({
       setDataLoaded(true);
     };
     initializeData();
-  }, [selectedMetric]);
+  }, [selectedMetricIdObject]);
 
   useEffect(() => {
     if (mapContainerRef.current && !mapRef.current) {
@@ -199,7 +202,7 @@ const MapArea: React.FC<MapAreaProps> = ({
                 <span class="font-bold text-black">
                   ${metric !== undefined ? `${(metric * 100).toFixed(1)}%` : "N/A"}
                 </span>
-                <span class="ml-1 text-xs"> Water pollutants resistance</span>
+                <span class="ml-1 text-xs"> ${selectedMetricIdObject}</span>
               </div>
             </div>
           `;
@@ -336,8 +339,9 @@ const MapArea: React.FC<MapAreaProps> = ({
   };
 
   return (
-    <div className="relative h-full w-full">
+    <div id="map-area" className="relative h-full w-full">
       <div
+        id="search-icon-searchbox-container"
         className={`transition-width absolute right-1 top-1 z-10 rounded-md bg-white shadow-sm duration-200 ${
           searchExpanded ? "w-80" : "w-10"
         }`}
@@ -357,10 +361,10 @@ const MapArea: React.FC<MapAreaProps> = ({
         )}
         {searchExpanded && (
           <>
-            <div className="relative w-full">
+            <div id="location-search-box" className="relative w-full">
               <input
                 type="text"
-                className="search-input h-10 w-full rounded border border-gray-400 py-1 pl-1 pr-8 text-sm focus:border-gray-400 focus:outline-none"
+                className="search-input h-10 w-full rounded border border-gray-400 py-1 pl-2 pr-8 text-sm focus:border-gray-400 focus:outline-none"
                 placeholder="Search for a location"
                 value={searchQuery}
                 onChange={handleSearchInputChange}
@@ -383,7 +387,10 @@ const MapArea: React.FC<MapAreaProps> = ({
               </button>
             </div>
             {suggestions.length > 0 && (
-              <div className="autocomplete-suggestions absolute z-30 w-[calc(100%-2.8rem)] rounded bg-white shadow-md">
+              <div
+                id="location-autocomplete-suggestions"
+                className="autocomplete-suggestions absolute z-30 w-[calc(100%-2.8rem)] rounded bg-white shadow-md"
+              >
                 {suggestions.map((suggestion, index) => (
                   <div
                     key={index}
@@ -411,9 +418,13 @@ const MapArea: React.FC<MapAreaProps> = ({
         )}
       </div>
 
-      <div className="absolute right-1 top-12 z-10 flex flex-col space-y-1">
+      <div
+        id="map-area-controls"
+        className="absolute right-1 top-12 z-10 flex flex-col space-y-1"
+      >
         <button
-          className="text-mapIconColor flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white align-middle text-4xl"
+          id="zoom-in-button"
+          className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white align-middle text-4xl text-mapIconColor"
           onClick={handleZoomIn}
         >
           <img
@@ -424,24 +435,26 @@ const MapArea: React.FC<MapAreaProps> = ({
           />
         </button>
         <button
-          className="text-mapIconColor flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white align-middle text-4xl"
+          id="zoom-out-button"
+          className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white align-middle text-4xl text-mapIconColor"
           onClick={handleZoomOut}
         >
           <img
             src={ZoomOutIcon}
             alt="zoom out"
-            className="stroke-mapIconColor fill-mapIconColor h-6 w-6"
+            className="h-6 w-6 fill-mapIconColor stroke-mapIconColor"
             style={{ filter: "grayscale(50%) invert(50%)" }}
           />
         </button>
         <button
+          id="reset-view-button"
           className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white"
           onClick={handleResetView}
         >
           <img
             src={ResetIcon}
             alt="reset view"
-            className="stroke-mapIconColor h-6 w-6 fill-current"
+            className="h-6 w-6 fill-current stroke-mapIconColor"
             style={{ filter: "grayscale(50%) invert(50%)" }}
           />
         </button>
