@@ -51,6 +51,17 @@ const getRandomItem = (array: string[]) => {
   return array[randomIndex];
 };
 
+const highlightMatches = (text: string, searchTerm: string) => {
+  const parts = text.split(new RegExp(`(${searchTerm})`, "gi"));
+  return parts.map((part, index) =>
+    part.toLowerCase() === searchTerm.toLowerCase() ? (
+      <strong key={index}>{part}</strong>
+    ) : (
+      part
+    ),
+  );
+};
+
 const RightSidebar: React.FC<RightSidebarProps> = ({
   selectedMetricIdObject,
   setSelectedMetricIdObject,
@@ -175,7 +186,10 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                 }}
               >
                 <span className="font-be-vietnam-pro text-sm text-rightSidebarSearchBoxGray">
-                  {suggestion.traversedPathForSearchSuggestions}
+                  {highlightMatches(
+                    suggestion.traversedPathForSearchSuggestions,
+                    searchTerm,
+                  )}
                 </span>
               </div>
             ))}
