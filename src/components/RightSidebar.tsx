@@ -164,7 +164,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
         {showIndicatorSuggestions && (
           <div
             id="indicator-search-suggestions"
-            className="absolute left-[-1px] top-[2rem] z-20 max-h-48 min-h-[10rem] w-[calc(100%+2px)] overflow-y-auto rounded-b-sm border-b border-l border-r border-rightSidebarSearchBoxGray bg-white"
+            className="absolute left-[-1px] top-[2rem] z-20 max-h-48 min-h-[10rem] w-[calc(100%+2px)] overflow-y-auto rounded-b-lg border-b border-l border-r border-t border-rightSidebarSearchBoxGray border-t-gray-200 bg-white"
           >
             {filteredSuggestions.map((suggestion, index) => (
               <div
@@ -185,7 +185,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                   setShowIndicatorSuggestions(false);
                 }}
               >
-                <span className="font-be-vietnam-pro text-sm text-rightSidebarSearchBoxGray">
+                <span className="font-be-vietnam-pro text-base text-rightSidebarSearchBoxGray">
                   {highlightMatches(
                     suggestion.traversedPathForSearchSuggestions,
                     searchTerm,
