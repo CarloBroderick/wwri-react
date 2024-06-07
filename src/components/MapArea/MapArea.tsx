@@ -159,12 +159,6 @@ const MapArea: React.FC<MapAreaProps> = ({
       mapRef.current = map;
 
       map.getCanvas().style.cursor = "pointer";
-      map.addControl(
-        new maplibregl.AttributionControl({
-          compact: false,
-        }),
-        "bottom-right",
-      );
 
       map.on("load", () => {
         setMapLoaded(true);
