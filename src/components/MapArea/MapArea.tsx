@@ -202,7 +202,7 @@ const MapArea: React.FC<MapAreaProps> = ({
                 <span class="font-bold text-black">
                   ${metric !== undefined ? `${(metric * 100).toFixed(1)}%` : "N/A"}
                 </span>
-                <span class="ml-1 text-xs"> ${selectedMetricIdObject}</span>
+                <span class="ml-1 text-xs"> ${selectedMetricIdObject.label}</span>
               </div>
             </div>
           `;
@@ -222,7 +222,7 @@ const MapArea: React.FC<MapAreaProps> = ({
       });
 
       map.on("moveend", () => {
-        console.log("movend event");
+        console.log("moveend event");
         loadColors(map);
       });
     }
@@ -241,6 +241,64 @@ const MapArea: React.FC<MapAreaProps> = ({
       loadColors(mapRef.current);
     }
   }, [censusTractMetrics, dataLoaded, mapLoaded]);
+
+  useEffect(() => {
+    if (mapRef.current) {
+      const map = mapRef.current;
+
+      const handleMousemove = (event: any) => {
+        const features = event.features;
+        if (features && features.length > 0) {
+          const feature = features[0];
+          const { GEOID } = feature.properties;
+          const metric = censusTractMetricsRef.current[GEOID];
+          const location = locationDataRef.current[GEOID];
+
+          if (!popupRef.current) {
+            popupRef.current = new maplibregl.Popup({
+              closeButton: false,
+              closeOnClick: false,
+            });
+          }
+
+          const stateAbbrev: string =
+            MapOfFullStatenameToAbbreviation[location?.state_name];
+
+          const tooltipHTML = `
+            <div id="map-tooltip" class="rounded">
+              <h1 class="font-bold text-[0.8rem] text-selectedIndicatorTextColor">
+                ${location?.county_name?.toUpperCase() || "N/A"}, ${stateAbbrev}
+              </h1>
+              <h2 class="text-xs tracking-widest">TRACT ${GEOID}</h2>
+              <div class="mt-1 flex items-center">
+                <div class="blackc mr-1 inline-block min-h-4 min-w-4 rounded-sm border-[1px] border-solid border-black bg-gray-500"></div>
+                <span class="font-bold text-black">
+                  ${metric !== undefined ? `${(metric * 100).toFixed(1)}%` : "N/A"}
+                </span>
+                <span class="ml-1 text-xs"> ${selectedMetricIdObject.label}</span>
+              </div>
+            </div>
+          `;
+
+          popupRef.current
+            .setLngLat(event.lngLat)
+            .setHTML(tooltipHTML)
+            .addTo(map);
+        }
+      };
+
+      // Remove the previous event handler
+      map.off("mousemove", "tiles", handleMousemove);
+
+      // Add the new event handler
+      map.on("mousemove", "tiles", handleMousemove);
+
+      // Cleanup function to remove the event handler when the component unmounts or before re-registering it
+      return () => {
+        map.off("mousemove", "tiles", handleMousemove);
+      };
+    }
+  }, [selectedMetricIdObject]);
 
   const loadColors = (map: maplibregl.Map) => {
     const features = map.queryRenderedFeatures({ layers: ["tiles"] });
