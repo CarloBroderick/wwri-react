@@ -100,7 +100,7 @@ const domainHierarchy: Domain[] = [
     },
   },
   {
-    id: "Ecosystems",
+    id: "ecosystems",
     label: "Ecosystems",
     status: {
       id: "status",

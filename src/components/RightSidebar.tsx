@@ -68,7 +68,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
     [key: string]: boolean;
   }>({
     water: true,
-    air: false,
+    air_quality_metrics: false,
     ecosystems: false,
     biodiversity: false,
     infrastructure: false,
@@ -127,7 +127,9 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
       </h1>
       <div
         id="indicator-search-box"
-        className="relative mb-2 flex w-full flex-row rounded-lg border-[1px] border-rightSidebarSearchBoxGray px-2 py-1"
+        className={`relative mb-2 flex w-full flex-row border-[1px] border-rightSidebarSearchBoxGray px-2 py-1 ${
+          showIndicatorSuggestions ? "rounded-t-lg" : "rounded-lg rounded-b-lg"
+        }`}
       >
         <img src={SearchIcon} alt="" />
         <input
@@ -136,18 +138,27 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
           className="ml-2 w-full border-none bg-transparent text-rightSidebarSearchBoxGray outline-none"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          onFocus={() => setShowIndicatorSuggestions(true)}
+          onInput={(e) =>
+            setShowIndicatorSuggestions(
+              (e.target as HTMLInputElement).value !== "",
+            )
+          }
+          onFocus={(e) => {
+            if (e.target.value) {
+              setShowIndicatorSuggestions(true);
+            }
+          }}
           onBlur={() => setShowIndicatorSuggestions(false)}
         />
         {showIndicatorSuggestions && (
           <div
             id="indicator-search-suggestions"
-            className="absolute left-[0.3rem] top-[2rem] z-20 max-h-48 min-h-[10rem] w-[calc(100%-0.5rem)] overflow-y-auto rounded-b-sm border-b border-l border-r border-rightSidebarSearchBoxGray bg-white"
+            className="absolute left-[-1px] top-[2rem] z-20 max-h-48 min-h-[10rem] w-[calc(100%+2px)] overflow-y-auto rounded-b-sm border-b border-l border-r border-rightSidebarSearchBoxGray bg-white"
           >
             {filteredSuggestions.map((suggestion, index) => (
               <div
                 key={index}
-                className="cursor-pointer p-1 hover:bg-gray-200"
+                className="cursor-pointer py-1 pl-9 hover:bg-gray-200"
                 onMouseDown={() => {
                   setActiveButton(
                     `${suggestion.domainId}-${suggestion.metricId}`,
@@ -163,7 +174,9 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                   setShowIndicatorSuggestions(false);
                 }}
               >
-                {suggestion.traversedPathForSearchSuggestions}
+                <span className="font-be-vietnam-pro text-sm text-rightSidebarSearchBoxGray">
+                  {suggestion.traversedPathForSearchSuggestions}
+                </span>
               </div>
             ))}
           </div>
