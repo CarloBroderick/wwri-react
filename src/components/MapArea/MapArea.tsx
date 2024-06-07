@@ -153,6 +153,8 @@ const MapArea: React.FC<MapAreaProps> = ({
       });
       mapRef.current = map;
 
+      map.getCanvas().style.cursor = "pointer";
+
       map.on("load", () => {
         setMapLoaded(true);
       });
@@ -241,8 +243,14 @@ const MapArea: React.FC<MapAreaProps> = ({
             </div>
           `;
 
+          // Adjust the tooltip position 5 pixels above the mouse pointer
+          const mouseLngLat = event.lngLat;
+          const mousePoint = map.project(mouseLngLat); // Convert to point on screen
+          mousePoint.y -= 5; // Move the point 8 pixels up
+          const adjustedLngLat = map.unproject(mousePoint); // Convert back to map coordinates
+
           popupRef.current
-            .setLngLat(event.lngLat)
+            .setLngLat(adjustedLngLat)
             .setHTML(tooltipHTML)
             .addTo(map);
         }
