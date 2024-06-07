@@ -6,6 +6,7 @@ export interface IndicatorObject {
   metricId: string;
   traversedPathForSearchSuggestions: string;
   label: string;
+  description: string;
 }
 
 /**
@@ -84,6 +85,7 @@ const flattenDomainHierarchy = (domains: Domain[]): IndicatorObject[] => {
         metricId: metric.id,
         traversedPathForSearchSuggestions: `${newPath} > ${domain.status.label} > ${metric.label}`,
         label: metric.label,
+        description: metric.description,
       });
     });
 
@@ -94,6 +96,7 @@ const flattenDomainHierarchy = (domains: Domain[]): IndicatorObject[] => {
         metricId: metric.id,
         traversedPathForSearchSuggestions: `${newPath} > ${domain.resilience.label} > ${domain.resilience.resistance.label} > ${metric.label}`,
         label: metric.label,
+        description: metric.description,
       });
     });
 
@@ -104,6 +107,7 @@ const flattenDomainHierarchy = (domains: Domain[]): IndicatorObject[] => {
         metricId: metric.id,
         traversedPathForSearchSuggestions: `${newPath} > ${domain.resilience.label} > ${domain.resilience.recovery.label} > ${metric.label}`,
         label: metric.label,
+        description: metric.description,
       });
     });
   };

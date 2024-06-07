@@ -1,13 +1,14 @@
 import React from "react";
+import SelectedMetricIdObject from "types/componentStatetypes";
 
 interface SubheaderProps {
-  // TODO
+  selectedMetricObject: SelectedMetricIdObject;
 }
 
-const Subheader: React.FC<SubheaderProps> = () => {
-  const selectedMetricTitle = "Water Pollutants Resistance";
+const Subheader: React.FC<SubheaderProps> = ({ selectedMetricObject }) => {
+  const selectedMetricTitle = "Overall Resilience";
   const selectedMetricDescription =
-    "Information about selected domain (Water pollutants are toxic to human health and harm wildlife).";
+    "The overall resilience score to wildfires. This score is calculated from the resilience scores of each domain (e.g. Water, Air, etc.).";
 
   return (
     <div
@@ -16,10 +17,10 @@ const Subheader: React.FC<SubheaderProps> = () => {
     >
       <div className="flex w-full flex-col">
         <h1 className="font-BeVietnamPro text-2xl font-bold">
-          {selectedMetricTitle}
+          {selectedMetricObject.label || selectedMetricTitle}
         </h1>
         <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap font-BeVietnamPro text-base">
-          {selectedMetricDescription}
+          {selectedMetricObject.description || selectedMetricDescription}
         </h3>
       </div>
     </div>

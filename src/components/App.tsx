@@ -12,7 +12,9 @@ function App() {
     useState<SelectedMetricIdObject>({
       domainId: "air_quality_metrics",
       metricId: "status_metric_1",
-      label: "Air Pollutants Resistance",
+      label: "Overall Resilience",
+      description:
+        "The overall resilience score to wildfires. This score is calculated from the resilience scores of each domain (e.g. Water, Air, etc.).",
     });
   const [selectedMetricValue, setSelectedMetricValue] = useState<number | null>(
     null,
@@ -29,7 +31,7 @@ function App() {
           id="body-minus-right-sidebar"
           className="flex min-w-[580px] flex-1 flex-col"
         >
-          <Subheader />
+          <Subheader selectedMetricObject={selectedMetricIdObject} />
           <LeftSidebar
             selectedCountyName={selectedCountyName}
             selectedStateName={selectedStateName}

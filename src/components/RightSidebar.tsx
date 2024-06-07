@@ -180,6 +180,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                     domainId: suggestion.domainId,
                     metricId: suggestion.metricId,
                     label: suggestion.label,
+                    description: suggestion.description,
                   });
                   setSearchTerm("");
                   setShowIndicatorSuggestions(false);
@@ -304,6 +305,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                               domainId: domain.id,
                               metricId: metric.id,
                               label: `${domain.label} ${metric.label}`,
+                              description: metric.description,
                             });
                             setSelectedIndicator(
                               `${domain.label} ${metric.label}`,
@@ -403,6 +405,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                                     domainId: domain.id,
                                     metricId: metric.id,
                                     label: `${domain.label} ${metric.label}`,
+                                    description: metric.description,
                                   });
                                   setSelectedIndicator(
                                     `${domain.label} ${metric.label}`,
@@ -459,6 +462,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                                     domainId: domain.id,
                                     metricId: metric.id,
                                     label: `${domain.label} ${metric.label}`,
+                                    description: metric.description,
                                   });
                                   setSelectedIndicator(
                                     `${domain.label} ${metric.label}`,
