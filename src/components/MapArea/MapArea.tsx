@@ -6,11 +6,13 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import Papa from "papaparse";
 import React, { useEffect, useRef, useState } from "react";
 import SelectedMetricIdObject from "types/componentStatetypes";
+import getColor from "utils/getColor";
 import CloseIcon from "../../assets/CloseIcon.svg";
 import ResetIcon from "../../assets/ResetIcon.svg"; // Add your reset view icon SVG
 import SearchIcon from "../../assets/SearchIcon.svg";
 import ZoomInIcon from "../../assets/ZoomInIcon.svg";
 import ZoomOutIcon from "../../assets/ZoomOutIcon.svg";
+import MapLegend from "./MapLegend";
 
 const MAP_STYLE: StyleSpecification = {
   version: 8,
@@ -128,6 +130,9 @@ const MapArea: React.FC<MapAreaProps> = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [searchExpanded, setSearchExpanded] = useState(false);
 
+  const startColor = { r: 211, g: 211, b: 211 }; // Light gray
+  const endColor = { r: 27, g: 41, b: 61 }; // Dark blueish gray
+
   useEffect(() => {
     const initializeData = async () => {
       const fetchDataPromise = fetchData(selectedMetricIdObject);
@@ -154,6 +159,12 @@ const MapArea: React.FC<MapAreaProps> = ({
       mapRef.current = map;
 
       map.getCanvas().style.cursor = "pointer";
+      map.addControl(
+        new maplibregl.AttributionControl({
+          compact: false,
+        }),
+        "bottom-right",
+      );
 
       map.on("load", () => {
         setMapLoaded(true);
@@ -225,7 +236,7 @@ const MapArea: React.FC<MapAreaProps> = ({
           const stateAbbrev: string =
             MapOfFullStatenameToAbbreviation[location?.state_name];
 
-          const color: string = getColor(metric);
+          const color: string = getColor(startColor, endColor, metric);
 
           const tooltipHTML = `
             <div id="map-tooltip" class="rounded">
@@ -276,7 +287,7 @@ const MapArea: React.FC<MapAreaProps> = ({
       const metric = censusTractMetricsRef.current[censusTractId];
 
       if (metric !== undefined) {
-        const color = getColor(metric);
+        const color = getColor(startColor, endColor, metric);
         map.setFeatureState(
           {
             source: "tilesource",
@@ -287,17 +298,6 @@ const MapArea: React.FC<MapAreaProps> = ({
         );
       }
     });
-  };
-
-  const getColor = (value: number): string => {
-    const startColor = { r: 211, g: 211, b: 211 }; // Light gray
-    const endColor = { r: 27, g: 41, b: 61 }; // Dark blueish gray
-
-    const r = Math.round(startColor.r + (endColor.r - startColor.r) * value);
-    const g = Math.round(startColor.g + (endColor.g - startColor.g) * value);
-    const b = Math.round(startColor.b + (endColor.b - startColor.b) * value);
-
-    return `rgb(${r},${g},${b})`;
   };
 
   const handleSearchInputChange = (
@@ -486,6 +486,12 @@ const MapArea: React.FC<MapAreaProps> = ({
           />
         </button>
       </div>
+
+      <MapLegend
+        startColor={startColor}
+        endColor={endColor}
+        label={selectedMetricIdObject.label}
+      ></MapLegend>
 
       <div
         ref={mapContainerRef}

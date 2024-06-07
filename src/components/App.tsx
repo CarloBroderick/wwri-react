@@ -1,5 +1,6 @@
 import { StateNames } from "data/StateNameToAbbrevsMap";
 import { useState } from "react";
+import "../index.css";
 import SelectedMetricIdObject from "../types/componentStatetypes";
 import Header from "./Header/Header";
 import LeftSidebar from "./LeftSidebar/LeftSidebar";
