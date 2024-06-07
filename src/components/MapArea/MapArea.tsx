@@ -173,47 +173,6 @@ const MapArea: React.FC<MapAreaProps> = ({
         }
       });
 
-      map.on("mousemove", "tiles", (event) => {
-        const features = event.features;
-        if (features && features.length > 0) {
-          const feature = features[0];
-          const { GEOID } = feature.properties;
-          const metric = censusTractMetricsRef.current[GEOID];
-          const location = locationDataRef.current[GEOID];
-
-          if (!popupRef.current) {
-            popupRef.current = new maplibregl.Popup({
-              closeButton: false,
-              closeOnClick: false,
-            });
-          }
-
-          const stateAbbrev: string =
-            MapOfFullStatenameToAbbreviation[location?.state_name];
-
-          const tooltipHTML = `
-            <div id="map-tooltip" class="rounded">
-              <h1 class="font-bold text-[0.8rem] text-selectedIndicatorTextColor">
-                ${location?.county_name?.toUpperCase() || "N/A"}, ${stateAbbrev}
-              </h1>
-              <h2 class="text-xs tracking-widest">TRACT ${GEOID}</h2>
-              <div class="mt-1 flex items-center">
-                <div class="blackc mr-1 inline-block min-h-4 min-w-4 rounded-sm border-[1px] border-solid border-black bg-gray-500"></div>
-                <span class="font-bold text-black">
-                  ${metric !== undefined ? `${(metric * 100).toFixed(1)}%` : "N/A"}
-                </span>
-                <span class="ml-1 text-xs"> ${selectedMetricIdObject.label}</span>
-              </div>
-            </div>
-          `;
-
-          popupRef.current
-            .setLngLat(event.lngLat)
-            .setHTML(tooltipHTML)
-            .addTo(map);
-        }
-      });
-
       map.on("mouseleave", "tiles", () => {
         if (popupRef.current) {
           popupRef.current.remove();
@@ -264,6 +223,8 @@ const MapArea: React.FC<MapAreaProps> = ({
           const stateAbbrev: string =
             MapOfFullStatenameToAbbreviation[location?.state_name];
 
+          const color: string = getColor(metric);
+
           const tooltipHTML = `
             <div id="map-tooltip" class="rounded">
               <h1 class="font-bold text-[0.8rem] text-selectedIndicatorTextColor">
@@ -271,7 +232,7 @@ const MapArea: React.FC<MapAreaProps> = ({
               </h1>
               <h2 class="text-xs tracking-widest">TRACT ${GEOID}</h2>
               <div class="mt-1 flex items-center">
-                <div class="blackc mr-1 inline-block min-h-4 min-w-4 rounded-sm border-[1px] border-solid border-black bg-gray-500"></div>
+                <div class="blackc mr-1 inline-block min-h-4 min-w-4 rounded-sm border-[1px] border-solid border-black" style="background-color: ${color}"></div>
                 <span class="font-bold text-black">
                   ${metric !== undefined ? `${(metric * 100).toFixed(1)}%` : "N/A"}
                 </span>
