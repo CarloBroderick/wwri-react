@@ -8,7 +8,7 @@ import React, { useEffect, useRef, useState } from "react";
 import SelectedMetricIdObject from "types/componentStatetypes";
 import getColor from "utils/getColor";
 import CloseIcon from "../../assets/CloseIcon.svg";
-import ResetIcon from "../../assets/ResetIcon.svg"; // Add your reset view icon SVG
+import ResetIcon from "../../assets/ResetIcon.svg";
 import SearchIcon from "../../assets/SearchIcon.svg";
 import ZoomInIcon from "../../assets/ZoomInIcon.svg";
 import ZoomOutIcon from "../../assets/ZoomOutIcon.svg";
@@ -130,8 +130,13 @@ const MapArea: React.FC<MapAreaProps> = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [searchExpanded, setSearchExpanded] = useState(false);
 
-  const startColor = { r: 211, g: 211, b: 211 }; // Light gray
-  const endColor = { r: 27, g: 41, b: 61 }; // Dark blueish gray
+  const startColorRef = useRef(selectedMetricIdObject.colorGradient.startColor);
+  const endColorRef = useRef(selectedMetricIdObject.colorGradient.endColor);
+
+  useEffect(() => {
+    startColorRef.current = selectedMetricIdObject.colorGradient.startColor;
+    endColorRef.current = selectedMetricIdObject.colorGradient.endColor;
+  }, [selectedMetricIdObject]);
 
   useEffect(() => {
     const initializeData = async () => {
@@ -187,23 +192,24 @@ const MapArea: React.FC<MapAreaProps> = ({
         }
       });
 
-      map.on("moveend", () => {
+      const handleMoveEnd = () => {
         console.log("moveend event");
         loadColors(map);
-      });
-    }
+      };
 
-    return () => {
-      if (popupRef.current) {
-        popupRef.current.remove();
-        popupRef.current = null;
-      }
-      mapRef.current?.remove();
-    };
+      map.on("moveend", handleMoveEnd);
+
+      return () => {
+        map.off("moveend", handleMoveEnd);
+        mapRef.current?.remove();
+      };
+    }
   }, []);
 
   useEffect(() => {
+    console.log("Reloading the colors A");
     if (dataLoaded && mapLoaded && mapRef.current) {
+      console.log("Reloading the colors B");
       loadColors(mapRef.current);
     }
   }, [censusTractMetrics, dataLoaded, mapLoaded]);
@@ -230,7 +236,11 @@ const MapArea: React.FC<MapAreaProps> = ({
           const stateAbbrev: string =
             MapOfFullStatenameToAbbreviation[location?.state_name];
 
-          const color: string = getColor(startColor, endColor, metric);
+          const color: string = getColor(
+            startColorRef.current,
+            endColorRef.current,
+            metric,
+          );
 
           const tooltipHTML = `
             <div id="map-tooltip" class="rounded">
@@ -272,7 +282,7 @@ const MapArea: React.FC<MapAreaProps> = ({
         map.off("mousemove", "tiles", handleMousemove);
       };
     }
-  }, [selectedMetricIdObject]);
+  }, [censusTractMetrics, dataLoaded, mapLoaded, selectedMetricIdObject]);
 
   const loadColors = (map: maplibregl.Map) => {
     const features = map.queryRenderedFeatures({ layers: ["tiles"] });
@@ -281,7 +291,11 @@ const MapArea: React.FC<MapAreaProps> = ({
       const metric = censusTractMetricsRef.current[censusTractId];
 
       if (metric !== undefined) {
-        const color = getColor(startColor, endColor, metric);
+        const color = getColor(
+          startColorRef.current,
+          endColorRef.current,
+          metric,
+        );
         map.setFeatureState(
           {
             source: "tilesource",
@@ -325,7 +339,9 @@ const MapArea: React.FC<MapAreaProps> = ({
   const getSuggestions = async (query: string) => {
     const apiKey = "7daab0c61bc84b5d80eb72315d130135"; // Replace with your OpenCage API key
     const response = await fetch(
-      `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(query)}&key=${apiKey}&countrycode=us,ca&limit=5`,
+      `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
+        query,
+      )}&key=${apiKey}&countrycode=us,ca&limit=5`,
     );
     const data = await response.json();
     setSuggestions(data.results);
@@ -482,8 +498,8 @@ const MapArea: React.FC<MapAreaProps> = ({
       </div>
 
       <MapLegend
-        startColor={startColor}
-        endColor={endColor}
+        startColor={startColorRef.current}
+        endColor={endColorRef.current}
         label={selectedMetricIdObject.label}
       ></MapLegend>
 

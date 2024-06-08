@@ -16,6 +16,10 @@ function App() {
       label: "Overall Resilience",
       description:
         "The overall resilience score to wildfires. This score is calculated from the resilience scores of each domain (e.g. Water, Air, etc.).",
+      colorGradient: {
+        startColor: { r: 250, g: 250, b: 244 },
+        endColor: { r: 26, g: 41, b: 60 },
+      },
     });
   const [selectedMetricValue, setSelectedMetricValue] = useState<number | null>(
     null,

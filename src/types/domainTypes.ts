@@ -32,6 +32,10 @@ export interface Domain {
   description: string;
   status: Status;
   resilience: Resilience;
+  colorGradient: {
+    startColor: { r: number; g: number; b: number };
+    endColor: { r: number; g: number; b: number };
+  };
 }
 
 export interface FlatMetric {

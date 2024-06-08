@@ -7,6 +7,10 @@ export interface IndicatorObject {
   traversedPathForSearchSuggestions: string;
   label: string;
   description: string;
+  colorGradient: {
+    startColor: { r: number; g: number; b: number };
+    endColor: { r: number; g: number; b: number };
+  };
 }
 
 /**
@@ -86,6 +90,7 @@ const flattenDomainHierarchy = (domains: Domain[]): IndicatorObject[] => {
         traversedPathForSearchSuggestions: `${newPath} > ${domain.status.label} > ${metric.label}`,
         label: metric.label,
         description: metric.description,
+        colorGradient: domain.colorGradient,
       });
     });
 
@@ -97,6 +102,7 @@ const flattenDomainHierarchy = (domains: Domain[]): IndicatorObject[] => {
         traversedPathForSearchSuggestions: `${newPath} > ${domain.resilience.label} > ${domain.resilience.resistance.label} > ${metric.label}`,
         label: metric.label,
         description: metric.description,
+        colorGradient: domain.colorGradient,
       });
     });
 
@@ -108,6 +114,7 @@ const flattenDomainHierarchy = (domains: Domain[]): IndicatorObject[] => {
         traversedPathForSearchSuggestions: `${newPath} > ${domain.resilience.label} > ${domain.resilience.recovery.label} > ${metric.label}`,
         label: metric.label,
         description: metric.description,
+        colorGradient: domain.colorGradient,
       });
     });
   };

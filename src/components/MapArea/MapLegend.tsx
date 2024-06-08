@@ -5,10 +5,7 @@ const MapLegend: React.FC<{
   label: string;
   startColor: Rgb;
   endColor: Rgb;
-}> = ({ label }) => {
-  const startColor = { r: 211, g: 211, b: 211 }; // Light gray
-  const endColor = { r: 27, g: 41, b: 61 }; // Dark blueish gray
-
+}> = ({ label, startColor, endColor }) => {
   const legendColors = Array.from({ length: 10 }, (_, i) =>
     getColor(startColor, endColor, (10 - i) / 10),
   );

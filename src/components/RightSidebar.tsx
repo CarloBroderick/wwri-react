@@ -81,7 +81,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
     water: true,
     air_quality_metrics: false,
     ecosystems: false,
-    biodiversity: false,
+    biodiversity_metrics: false,
     infrastructure: false,
     social: false,
     economy: false,
@@ -181,6 +181,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                     metricId: suggestion.metricId,
                     label: suggestion.label,
                     description: suggestion.description,
+                    colorGradient: suggestion.colorGradient,
                   });
                   setSearchTerm("");
                   setShowIndicatorSuggestions(false);
@@ -204,6 +205,17 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
             onClick={() => {
               setActiveButton("overall_resilience");
               setSelectedIndicator("Overall Resilience");
+              setSelectedMetricIdObject({
+                domainId: "overall_resilience",
+                metricId: "overall_resilience",
+                label: "Overall Resilience",
+                description:
+                  "The overall resilience score to wildfires. This score is calculated from the resilience scores of each domain (e.g. Water, Air, etc.).",
+                colorGradient: {
+                  startColor: { r: 250, g: 250, b: 244 },
+                  endColor: { r: 26, g: 41, b: 60 },
+                },
+              });
             }}
             className={`mr-2 h-6 w-6 rounded-[0.2rem] border-[1px] ${
               activeButton === "overall_resilience"
@@ -226,6 +238,13 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                   onClick={() => {
                     setActiveButton(domain.id);
                     setSelectedIndicator(domain.label);
+                    setSelectedMetricIdObject({
+                      domainId: domain.id,
+                      metricId: domain.id,
+                      label: domain.label,
+                      description: domain.description,
+                      colorGradient: domain.colorGradient,
+                    });
                   }}
                   className={`mr-2 h-[20px] w-[20px] justify-self-start rounded-[0.2rem] border-[1px] ${
                     activeButton === domain.id
@@ -306,6 +325,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                               metricId: metric.id,
                               label: `${domain.label} ${metric.label}`,
                               description: metric.description,
+                              colorGradient: domain.colorGradient,
                             });
                             setSelectedIndicator(
                               `${domain.label} ${metric.label}`,
@@ -406,6 +426,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                                     metricId: metric.id,
                                     label: `${domain.label} ${metric.label}`,
                                     description: metric.description,
+                                    colorGradient: domain.colorGradient,
                                   });
                                   setSelectedIndicator(
                                     `${domain.label} ${metric.label}`,
@@ -463,6 +484,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                                     metricId: metric.id,
                                     label: `${domain.label} ${metric.label}`,
                                     description: metric.description,
+                                    colorGradient: domain.colorGradient,
                                   });
                                   setSelectedIndicator(
                                     `${domain.label} ${metric.label}`,
