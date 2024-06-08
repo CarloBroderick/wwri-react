@@ -24,7 +24,7 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
   }
 
   return (
-    <div className="relative h-40 w-40">
+    <div className="relative mb-4 h-40 w-40">
       <svg className="absolute inset-0 h-full w-full -rotate-90 transform">
         <circle
           className="text-gray-300"

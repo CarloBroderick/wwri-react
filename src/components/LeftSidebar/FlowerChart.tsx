@@ -162,13 +162,13 @@ const FlowerChart: React.FC = () => {
 
   return (
     <div>
-      <div className="h-full w-full">
+      <div className="h-[11rem] w-full">
         <svg
           className="aster__plot flex flex-shrink flex-row justify-start"
           preserveAspectRatio="xMidYMid"
           viewBox="0 0 400 400"
         >
-          <g id="chart" transform="translate(165,200)" ref={chartRef}>
+          <g id="chart" transform="translate(165,170)" ref={chartRef}>
             <text
               className="text-3xl font-bold text-leftSidebarRightBorder"
               dy=".35em"
