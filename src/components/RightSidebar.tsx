@@ -46,9 +46,9 @@ const isDarkColor = (colorClass: string) => {
   return chroma(hexColor).luminance() < 0.5;
 };
 
-const getRandomItem = (array: string[]) => {
-  const randomIndex = Math.floor(Math.random() * array.length);
-  return array[randomIndex];
+const getColorBasedOnIndex = (index: number, colorArray: string[]) => {
+  const colorIndex = index % colorArray.length;
+  return colorArray[colorIndex];
 };
 
 const highlightMatches = (text: string, searchTerm: string) => {
@@ -578,7 +578,10 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
       <div id="state-navigation-bottom-bar" className="ml-8 mt-4 max-w-[280px]">
         <div className="grid grid-cols-11 grid-rows-7 gap-1">
           {stateMap.flat().map((state, index) => {
-            const bgColorClass = getRandomItem(stateBGColorMapPossibilities);
+            const bgColorClass = getColorBasedOnIndex(
+              index,
+              stateBGColorMapPossibilities,
+            );
             const textColorClass =
               state && isDarkColor(bgColorClass) ? "text-white" : "text-black";
             return (
