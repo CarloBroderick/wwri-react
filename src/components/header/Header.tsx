@@ -13,7 +13,7 @@ const Header: React.FC = () => {
           className="min-h-[45px] min-w-[50px]"
         />
         <h1 className="ml-4 min-w-[500px] font-IBMPlexSerif text-2xl font-bold ">
-          Western Wildfire Resilience Index
+          Test Demo Wildfire Concept
         </h1>
       </div>
     </div>
