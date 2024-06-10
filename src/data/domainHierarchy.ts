@@ -6,8 +6,8 @@ const domainHierarchy: Domain[] = [
     label: "Water",
     description: "The overall resilience of the water domain to wildfires.",
     colorGradient: {
-      startColor: { r: 0, g: 0, b: 255 },
-      endColor: { r: 255, g: 0, b: 0 },
+      startColor: { r: 255, g: 255, b: 255 },
+      endColor: { r: 78, g: 160, b: 220 },
     },
     status: {
       id: "status_summary",
@@ -311,8 +311,8 @@ const domainHierarchy: Domain[] = [
     description:
       "The overall resilience of the ecosystems domain to wildfires.",
     colorGradient: {
-      startColor: { r: 0, g: 0, b: 255 },
-      endColor: { r: 255, g: 0, b: 0 },
+      startColor: { r: 255, g: 255, b: 255 },
+      endColor: { r: 255, g: 145, b: 178 },
     },
     status: {
       id: "status_summary",
@@ -463,8 +463,8 @@ const domainHierarchy: Domain[] = [
     description:
       "The overall resilience of the biodiversity domain to wildfires.",
     colorGradient: {
-      startColor: { r: 0, g: 0, b: 255 },
-      endColor: { r: 255, g: 0, b: 0 },
+      startColor: { r: 255, g: 255, b: 255 },
+      endColor: { r: 103, g: 14, b: 10 },
     },
     status: {
       id: "status_summary",
@@ -615,8 +615,8 @@ const domainHierarchy: Domain[] = [
     description:
       "The overall resilience of the infrastructure domain to wildfires.",
     colorGradient: {
-      startColor: { r: 0, g: 0, b: 255 },
-      endColor: { r: 255, g: 0, b: 0 },
+      startColor: { r: 255, g: 255, b: 255 },
+      endColor: { r: 78, g: 160, b: 220 },
     },
     status: {
       id: "status_summary",
@@ -767,8 +767,8 @@ const domainHierarchy: Domain[] = [
     label: "Social",
     description: "The overall resilience of the social domain to wildfires.",
     colorGradient: {
-      startColor: { r: 0, g: 0, b: 255 },
-      endColor: { r: 255, g: 0, b: 0 },
+      startColor: { r: 255, g: 255, b: 255 },
+      endColor: { r: 23, g: 46, b: 106 },
     },
     status: {
       id: "status_summary",
@@ -918,8 +918,8 @@ const domainHierarchy: Domain[] = [
     label: "Economy",
     description: "The overall resilience of the economy domain to wildfires.",
     colorGradient: {
-      startColor: { r: 0, g: 0, b: 255 },
-      endColor: { r: 255, g: 0, b: 0 },
+      startColor: { r: 255, g: 255, b: 255 },
+      endColor: { r: 90, g: 56, b: 15 },
     },
     status: {
       id: "status_summary",
@@ -1069,8 +1069,8 @@ const domainHierarchy: Domain[] = [
     label: "Culture",
     description: "The overall resilience of the culture domain to wildfires.",
     colorGradient: {
-      startColor: { r: 0, g: 0, b: 255 },
-      endColor: { r: 255, g: 0, b: 0 },
+      startColor: { r: 255, g: 255, b: 255 },
+      endColor: { r: 20, g: 13, b: 70 },
     },
     status: {
       id: "status_summary",
@@ -1220,8 +1220,8 @@ const domainHierarchy: Domain[] = [
     label: "Carbon",
     description: "The overall resilience of the carbon domain to wildfires.",
     colorGradient: {
-      startColor: { r: 0, g: 0, b: 255 },
-      endColor: { r: 255, g: 0, b: 0 },
+      startColor: { r: 255, g: 255, b: 255 },
+      endColor: { r: 15, g: 15, b: 15 },
     },
     status: {
       id: "status_summary",
