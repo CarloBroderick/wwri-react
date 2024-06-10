@@ -4,10 +4,23 @@ import FlowerChart from "./FlowerChart";
 
 interface LeftSidebarBodyProps {
   overallResilienceScore: number | null;
+  domainScores: {
+    overall_resilience: number;
+    air: number;
+    water: number;
+    ecosystems: number;
+    biodiversity: number;
+    infrastructure: number;
+    social: number;
+    economy: number;
+    culture: number;
+    carbon: number;
+  };
 }
 
 export function LeftSidebarBody({
   overallResilienceScore,
+  domainScores,
 }: LeftSidebarBodyProps) {
   let overallResilienceScoreFormatted: number;
   if (overallResilienceScore && overallResilienceScore < 1) {
@@ -34,7 +47,7 @@ export function LeftSidebarBody({
         INDIVIDUAL DOMAIN RESILIENCE SCORES
       </h1>
       <div className="mb-1 w-[200px]">
-        <FlowerChart />
+        <FlowerChart domainScores={domainScores} />
       </div>
       <button className="mt-2 flex w-full flex-row items-center rounded-md border-[1px] border-black p-1">
         <img

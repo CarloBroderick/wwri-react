@@ -12,6 +12,21 @@ interface LeftSidebarProps {
   selectedMetricValue: number | null;
 }
 
+interface SummaryInfo {
+  [geoid: string]: {
+    overall_resilience: number;
+    air: number;
+    water: number;
+    ecosystems: number;
+    biodiversity: number;
+    infrastructure: number;
+    social: number;
+    economy: number;
+    culture: number;
+    carbon: number;
+  };
+}
+
 const LeftSidebar: React.FC<LeftSidebarProps> = ({
   selectedCountyName,
   selectedStateName,
@@ -20,6 +35,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
 }) => {
   const [openLeftSidebar, setOpenLeftSidebar] = useState<boolean>(true);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [summaryInfoData, setSummaryInfoData] = useState<SummaryInfo>({});
 
   useEffect(() => {
     if (!openLeftSidebar) {
@@ -27,13 +43,56 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
     }
   }, [openLeftSidebar]);
 
+  useEffect(() => {
+    const fetchSummaryInfoData = async () => {
+      try {
+        const response = await fetch(
+          "https://major-sculpin.nceas.ucsb.edu/api/summary_info",
+        );
+        const csvText = await response.text();
+
+        const lines = csvText.trim().split("\n");
+        const headers = lines[0].split(",");
+
+        const data: SummaryInfo = lines.slice(1).reduce((acc, line) => {
+          const values = line.split(",");
+          const geoid = values[0];
+
+          const record = headers.reduce(
+            (obj, header, index) => {
+              if (header !== "geoid") {
+                obj[header] = parseFloat(values[index]);
+              }
+              return obj;
+            },
+            {} as Record<string, number>,
+          );
+
+          acc[geoid] = record as SummaryInfo[string];
+          return acc;
+        }, {} as SummaryInfo);
+
+        setSummaryInfoData(data);
+      } catch (error) {
+        console.error("Error fetching summary info data:", error);
+      }
+    };
+
+    fetchSummaryInfoData();
+  }, []);
+
   const handleTransitionEnd = () => {
     if (!openLeftSidebar) {
       setIsAnimating(false);
     }
   };
 
-  // 88px 80px
+  // Attempt to get the overall-resilience score for the selected census tract
+  const overallResilienceScoreForCensusTract =
+    summaryInfoData[selectedCensusTract]?.overall_resilience || null;
+
+  // Attempt to get the domain scores for the chosen census tract
+  const domainScoresForCensusTract = summaryInfoData[selectedCensusTract] || {};
 
   return (
     <div className="">
@@ -50,7 +109,10 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
           selectedStateName={selectedStateName}
           selectedCensusTract={selectedCensusTract}
         />
-        <LeftSidebarBody overallResilienceScore={selectedMetricValue} />
+        <LeftSidebarBody
+          overallResilienceScore={overallResilienceScoreForCensusTract}
+          domainScores={domainScoresForCensusTract}
+        />
       </aside>
       {!openLeftSidebar && !isAnimating && (
         <div

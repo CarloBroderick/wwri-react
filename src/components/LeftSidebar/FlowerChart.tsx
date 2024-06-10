@@ -1,62 +1,72 @@
 import React, { useEffect, useRef, useState } from "react";
 
 interface DataItem {
+  id: string;
   value: number;
   color: string;
   name: string;
   bgColorTWClass: string;
 }
 
-const data: DataItem[] = [
+let data: DataItem[] = [
   {
+    id: "water",
     value: 0.91,
     color: "#A7344E",
     name: "Water",
     bgColorTWClass: "bg-[#A7344E]",
   },
   {
+    id: "social",
     value: 0.72,
     color: "#B94E31",
     name: "Social",
     bgColorTWClass: "bg-[#B94E31]",
   },
   {
+    id: "air",
     value: 0.9,
     color: "#E16727",
     name: "Air",
     bgColorTWClass: "bg-[#E16727]",
   },
   {
+    id: "economy",
     value: 0.64,
     color: "#D78935",
     name: "Economy",
     bgColorTWClass: "bg-[#D78935]",
   },
   {
+    id: "ecosystems",
     value: 0.8,
     color: "#D5A227",
     name: "Ecosystems",
     bgColorTWClass: "bg-[#D5A227]",
   },
   {
+    id: "culture",
     value: 0.05,
     color: "#DAC32F",
     name: "Culture",
     bgColorTWClass: "bg-[#DAC32F]",
   },
   {
+    id: "biodiversity",
     value: 0.72,
     color: "#A9B646",
     name: "Biodiversity",
     bgColorTWClass: "bg-[#A9B646]",
   },
   {
+    id: "carbon",
     value: 0.84,
     color: "#2FBD89",
     name: "Carbon",
     bgColorTWClass: "bg-[#2FBD89]",
   },
   {
+    id: "infrastructure",
     value: 1.0,
     color: "#4EA09F",
     name: "Infrastructure",
@@ -64,12 +74,37 @@ const data: DataItem[] = [
   },
 ];
 
-const FlowerChart: React.FC = () => {
+interface FlowerChartProps {
+  domainScores: {
+    overall_resilience: number;
+    air: number;
+    water: number;
+    ecosystems: number;
+    biodiversity: number;
+    infrastructure: number;
+    social: number;
+    economy: number;
+    culture: number;
+    carbon: number;
+  };
+}
+
+const FlowerChart: React.FC<FlowerChartProps> = ({ domainScores }) => {
   const chartRef = useRef<SVGGElement | null>(null);
   const legendRef = useRef<HTMLDivElement | null>(null);
   const [centerText, setCenterText] = useState("--");
   const [textColor, setTextColor] = useState("currentColor");
   const [hoveredSlice, setHoveredSlice] = useState<string | null>(null);
+
+  const domainKeys = Object.keys(domainScores) as (keyof typeof domainScores)[];
+
+  if (domainKeys.length > 0) {
+    const updatedData = data.map((item) => {
+      const score = domainScores[item.id as keyof typeof domainScores];
+      return { ...item, value: score };
+    });
+    data = updatedData;
+  }
 
   useEffect(() => {
     const chart = chartRef.current;
@@ -158,7 +193,13 @@ const FlowerChart: React.FC = () => {
       outlinePath.setAttribute("stroke-width", "1");
       chart.appendChild(outlinePath);
     });
-  }, []);
+    return () => {
+      // Delete all of the path objects so that we can re-render them
+      chart.querySelectorAll("path.aster__solid-arc").forEach((path) => {
+        path.remove();
+      });
+    };
+  }, [domainScores]);
 
   return (
     <div>

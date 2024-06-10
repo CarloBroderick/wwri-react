@@ -11,7 +11,7 @@ import Subheader from "./Subheader/Subheader";
 function App() {
   const [selectedMetricIdObject, setSelectedMetricIdObject] =
     useState<SelectedMetricIdObject>({
-      domainId: "air_quality_metrics",
+      domainId: "air",
       metricId: "status_metric_1",
       label: "Overall Resilience",
       description:

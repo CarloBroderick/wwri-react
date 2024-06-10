@@ -79,9 +79,9 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
     [key: string]: boolean;
   }>({
     water: true,
-    air_quality_metrics: false,
+    air: false,
     ecosystems: false,
-    biodiversity_metrics: false,
+    biodiversity: false,
     infrastructure: false,
     social: false,
     economy: false,
@@ -301,10 +301,16 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                           setSelectedIndicator(
                             `${domain.label} ${domain.status.label}`,
                           );
+                          setSelectedMetricIdObject({
+                            domainId: domain.id,
+                            metricId: domain.status.id,
+                            label: `${domain.status.label}`,
+                            description: domain.status.description,
+                            colorGradient: domain.colorGradient,
+                          });
                         }}
                         className={`mr-1 h-4 w-4 rounded-[0.2rem] border-[1px] ${
-                          activeButton ===
-                          `${domain.label} ${domain.status.label}`
+                          activeButton === `${domain.id}-${domain.status.id}`
                             ? "border-metricSelectorBoxesBorderDefault bg-selectedMetricBGColorDefault"
                             : "border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault"
                         }`}
@@ -359,6 +365,13 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                           setSelectedIndicator(
                             `${domain.label} ${domain.resilience.label}`,
                           );
+                          setSelectedMetricIdObject({
+                            domainId: domain.id,
+                            metricId: domain.resilience.id,
+                            label: `${domain.resilience.label}`,
+                            description: domain.resilience.description,
+                            colorGradient: domain.colorGradient,
+                          });
                         }}
                         className={`mr-1 h-4 w-4 rounded-[0.2rem] border-[1px] ${
                           activeButton ===
@@ -397,6 +410,14 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                               setSelectedIndicator(
                                 `${domain.label} ${domain.resilience.resistance.label}`,
                               );
+                              setSelectedMetricIdObject({
+                                domainId: domain.id,
+                                metricId: domain.resilience.resistance.id,
+                                label: `${domain.resilience.resistance.label}`,
+                                description:
+                                  domain.resilience.resistance.description,
+                                colorGradient: domain.colorGradient,
+                              });
                             }}
                             className={`mr-1 h-4 w-4 rounded-[0.2rem] border-[1px] ${
                               activeButton ===
@@ -461,6 +482,14 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                               setSelectedIndicator(
                                 `${domain.label} ${domain.resilience.recovery.label}`,
                               );
+                              setSelectedMetricIdObject({
+                                domainId: domain.id,
+                                metricId: domain.resilience.recovery.id,
+                                label: `${domain.resilience.recovery.label}`,
+                                description:
+                                  domain.resilience.recovery.description,
+                                colorGradient: domain.colorGradient,
+                              });
                             }}
                             className={`mr-1 h-4 w-4 rounded-[0.2rem] border-[1px] ${
                               activeButton ===
