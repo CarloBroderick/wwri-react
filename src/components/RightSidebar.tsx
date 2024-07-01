@@ -315,7 +315,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                             : "border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault"
                         }`}
                       ></button>
-                      <span>Status</span>
+                      <span>{domain.status.label}</span>
                     </div>
                     <div className="ml-[1.14rem] grid grid-cols-5 gap-x-1 gap-y-1">
                       {domain.status.metrics.map((metric, index) => (
@@ -426,7 +426,8 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                                 : "border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault"
                             }`}
                           ></button>
-                          <span>Resistance</span>
+                          {/* TODO: increase the font size later */}
+                          <span>{domain.resilience.resistance.label}</span>
                         </div>
                         <div className="ml-[1.14rem] grid grid-cols-5 gap-x-1 gap-y-1">
                           {domain.resilience.resistance.metrics.map(
@@ -498,7 +499,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                                 : "border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault"
                             }`}
                           ></button>
-                          <span>Recovery</span>
+                          <span>{domain.resilience.recovery.label}</span>
                         </div>
                         <div className="ml-[1.14rem] grid grid-cols-5 gap-x-1 gap-y-1">
                           {domain.resilience.recovery.metrics.map(

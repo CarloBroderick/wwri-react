@@ -40,11 +40,11 @@ export function LeftSidebarBody({
         The following information pertains to the selected region
       </h3>
       <h1 className="font-BeVietnamePro text-sm font-bold text-leftSidebarOverallResilience">
-        OVERALL RESILIENCE
+        OVERALL SCORE
       </h1>
       <CircularProgressBar percentage={overallResilienceScoreFormatted} />
       <h1 className="font-BeVietnamePro pb-2 text-sm font-bold text-leftSidebarOverallResilience">
-        INDIVIDUAL DOMAIN RESILIENCE SCORES
+        INDIVIDUAL DOMAIN SCORES
       </h1>
       <div className="mb-1 w-[200px]">
         <FlowerChart domainScores={domainScores} />

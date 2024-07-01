@@ -13,9 +13,9 @@ function App() {
     useState<SelectedMetricIdObject>({
       domainId: "air",
       metricId: "status_metric_1",
-      label: "Overall Resilience",
+      label: "Overall Domain Score",
       description:
-        "The overall resilience score to wildfires. This score is calculated from the resilience scores of each domain (e.g. Water, Air, etc.).",
+        "The overall domain score for each area. This score is calculated from the subdomain scores of each domain.",
       colorGradient: {
         startColor: { r: 250, g: 250, b: 244 },
         endColor: { r: 26, g: 41, b: 60 },
