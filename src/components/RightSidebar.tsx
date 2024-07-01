@@ -208,7 +208,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
               setSelectedMetricIdObject({
                 domainId: "overall_resilience",
                 metricId: "overall_resilience",
-                label: "Overall Resilience",
+                label: "Overall Score",
                 description:
                   "The overall resilience score to wildfires. This score is calculated from the resilience scores of each domain (e.g. Water, Air, etc.).",
                 colorGradient: {
@@ -223,7 +223,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                 : "border-metricSelectorBoxesBorderDefault bg-metricSelectorBoxesDefault"
             }`}
           ></button>
-          <span className="font-bold">Overall Resilience</span>
+          <span className="font-bold">Overall Score</span>
         </div>
         {domainHierarchy.map((domain: Domain) => (
           <div
