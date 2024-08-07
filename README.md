@@ -1,21 +1,18 @@
-![reactjs-vite-tailwindcss-boilerplate](https://user-images.githubusercontent.com/16243531/217138979-b854309c-4742-4275-a705-f9fec5158217.jpg)
+# Western Wildfire Resilience Index - Front-End
 
-# React Tailwindcss Boilerplate build with Vite
+This is the GitHub repository for the front-end of the Western Wildfire Resilience Index, built as a volunteer project for NCEAS. The purpose of this project is to visualize and communicate data related to wildfire vulnerability in the Western United States.
 
-This is a boilerplate build with Vite, React 18, TypeScript, Vitest, Testing Library, TailwindCSS 3, Eslint and Prettier.
+### Project Status
 
-## What is inside?
+The current version of the website uses placeholder data. Once real data is provided by NCEAS, which is expected to be available by 2025, the website will be updated with accurate labels and data visualizations.
 
-This project uses many tools like:
+### Contribution
 
-- [Vite](https://vitejs.dev)
-- [ReactJS](https://reactjs.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Vitest](https://vitest.dev)
-- [Testing Library](https://testing-library.com)
-- [Tailwindcss](https://tailwindcss.com)
-- [Eslint](https://eslint.org)
-- [Prettier](https://prettier.io)
+This project was developed as a volunteer effort in collaboration with NCEAS. Contributions are welcome; please submit a pull request or open an issue if you have suggestions or improvements.
+
+### Future Updates
+
+Expect significant updates in 2025 when the final dataset is released by NCEAS. Until then, the current implementation may undergo incremental improvements.
 
 ## Getting Started
 
