@@ -18,58 +18,26 @@ Expect significant updates in 2025 when the final dataset is released by NCEAS. 
 
 ### Install
 
-Create the project.
-
 ```bash
-npx degit joaopaulomoraes/reactjs-vite-tailwindcss-boilerplate my-app
-```
-
-Access the project directory.
-
-```bash
-cd my-app
-```
-
-Install dependencies.
-
-```bash
-pnpm install
+npm install
 ```
 
 Serve with hot reload at <http://localhost:5173>.
 
 ```bash
-pnpm run dev
-```
-
-### Lint
-
-```bash
-pnpm run lint
+npm run dev
 ```
 
 ### Typecheck
 
 ```bash
-pnpm run typecheck
+npm run typecheck
 ```
 
 ### Build
 
 ```bash
-pnpm run build
-```
-
-### Test
-
-```bash
-pnpm run test
-```
-
-View and interact with your tests via UI.
-
-```bash
-pnpm run test:ui
+npm run build
 ```
 
 ## License
