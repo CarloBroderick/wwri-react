@@ -1,6 +1,6 @@
-# Western Wildfire Resilience Index - Front-End
+# Wildfire Vulnerability Awareness Visualization - Front-End
 
-This is the GitHub repository for the front-end of the Western Wildfire Resilience Index, built as a volunteer project for NCEAS. The purpose of this project is to visualize and communicate data related to wildfire vulnerability.
+Front-end for a website to visualize wildfire vulnerability, built as a volunteer project for NCEAS. The purpose of this project is to visualize and communicate data related to wildfire vulnerability.
 
 ### Project Status
 
