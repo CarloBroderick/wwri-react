@@ -1,3 +1,5 @@
+![Screenshot of the website](src/assets/Desktop-Screenshot.jpg)
+
 # Wildfire Vulnerability Awareness Visualization - Front-End
 
 Front-end for a website to visualize wildfire vulnerability, built as a volunteer project for NCEAS. The purpose of this project is to visualize and communicate data related to wildfire vulnerability.
