@@ -47,34 +47,4 @@ export default {
       },
     },
   },
-  plugins: [
-    function ({ addUtilities, e }) {
-      addUtilities({
-        ".stroke-dasharray": {},
-        ".stroke-dashoffset": {},
-      });
-
-      addUtilities(
-        {
-          ".stroke-dasharray-\\[.*\\]": {
-            "stroke-dasharray": "var(--tw-stroke-dasharray)",
-          },
-          ".stroke-dashoffset-\\[.*\\]": {
-            "stroke-dashoffset": "var(--tw-stroke-dashoffset)",
-          },
-        },
-        ["responsive", "hover"],
-      );
-    },
-  ],
-  safelist: [
-    {
-      pattern: /stroke-dasharray-\[.*\]/,
-      variants: ["responsive", "hover"],
-    },
-    {
-      pattern: /stroke-dashoffset-\[.*\]/,
-      variants: ["responsive", "hover"],
-    },
-  ],
 };
