@@ -13,7 +13,7 @@ const Header: React.FC = () => {
           className="min-h-[45px] min-w-[50px]"
         />
         <h1 className="ml-4 min-w-[500px] font-IBMPlexSerif text-2xl font-bold ">
-          Test Demo
+          Pre-production Demo
         </h1>
       </div>
     </div>
