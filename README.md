@@ -6,7 +6,7 @@ Front-end for a website to visualize wildfire vulnerability, built as a voluntee
 
 ### Project Status
 
-The current version of the website uses placeholder data. Once real data is provided by NCEAS, which is expected to be available by 2025, the website will be updated with accurate labels and data visualizations.
+The current version of the website uses placeholder data. Once real data is provided by NCEAS, which is expected to be available by the end of 2025, the website will be updated with accurate labels and data visualizations.
 
 ### Contribution
 
