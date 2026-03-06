@@ -73,12 +73,6 @@ function HomePage() {
                 around practical actions.
               </p>
             </ContentBlock>
-            <ImageBlock
-              id="why-resilience-secondary-image"
-              title="Image Placeholder"
-              description="Cat to provide: replacement image for this section."
-              className="mt-8 border-white/30 bg-white/5"
-            />
           </div>
         </div>
       </ColorBlock>
@@ -134,7 +128,7 @@ function HomePage() {
         </div>
       </ColorBlock>
 
-      <ColorBlock id="domains-overview" tone="cream" className={PUBLIC_WEBSITE_THEME.layout.sectionSpacing}>
+      <ColorBlock id="domains-overview" tone="cream" className="pt-20 pb-12 lg:pt-24 lg:pb-14">
         <div id="domains-overview-container" className="mx-auto max-w-6xl px-6">
           <SectionHeader
             idPrefix="domains-overview"
@@ -157,7 +151,7 @@ function HomePage() {
         </div>
       </ColorBlock>
 
-      <ColorBlock id="quote-section" tone="warm" className="py-10">
+      <ColorBlock id="quote-section" tone="warm" className="py-8 lg:py-10">
         <div id="quote-section-container" className="mx-auto max-w-4xl px-6 text-center">
           <p id="quote-section-text" className="text-2xl font-medium leading-10 text-[#2a1810]">
             "Wildfire is natural and inevitable. The goal is not to eliminate fire,
