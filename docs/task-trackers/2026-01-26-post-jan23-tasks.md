@@ -22,9 +22,9 @@
 
 **Progress:** 30/31 complete (2 pending, 1 blocked, 1 on hold)
 
-**Note:** All completed tasks (1-24) archived in [post-jan23-completed-tasks.md](./archive/post-jan23-completed-tasks.md)
+**Note:** All completed tasks (1-24) archived in [post-jan23-completed-tasks.md](../archive/post-jan23-completed-tasks.md)
 
-**Note:** All completed task details archived in [post-jan23-completed-tasks.md](./archive/post-jan23-completed-tasks.md)
+**Note:** All completed task details archived in [post-jan23-completed-tasks.md](../archive/post-jan23-completed-tasks.md)
 
 **Note:** Task 1 (map labels) ✅ COMPLETE! Two issues fixed: (1) Y-flip script was breaking tiles - removed, (2) `text-variable-anchor` was causing labels to slide during zoom - switched to fixed `text-anchor: "center"`.
 
@@ -65,7 +65,7 @@
 | Feb 4 | **✅ Task 9 COMPLETE!** - Set initial map orientation to center on west coast study region. Updated map initialization center to [-143.47, 52.53] (longitude: -143.47°W, latitude: 52.53°N) with zoom level 2.9 to properly frame the entire study region (12 US states: AK, AZ, CA, CO, ID, MT, NV, NM, OR, UT, WA, WY + 2 Canadian provinces: BC, Yukon). Also updated reset view button to use same coordinates. Added center coordinate display to Label Config widget for easier fine-tuning. Files modified: `MapArea.tsx`, `App.tsx`, `LabelConfigWidget.tsx`. |
 | Feb 4 | **📋 Task 14 ADDED** - From Cat Fong meeting (Feb 3). Make one domain (e.g., Infrastructure) expanded by default in right sidebar indicator navigation. Users need to see an expanded state on load to discover the expand/collapse interaction pattern. High priority UX improvement, ~1 hour effort. |
 | Feb 4 | **✅ Task 14 COMPLETE!** - Infrastructure domain now expanded by default in right sidebar indicator navigation. Updated `expandedSections` state initialization to use function initializer `() => ({ infrastructure: true })` so default expansion only occurs on initial load. Users can still collapse/expand all domains normally. This makes the expand/collapse interaction pattern immediately discoverable. Files modified: `RightSidebar.tsx`. |
-| Feb 4 | **📦 ARCHIVED COMPLETED TASKS** - Moved detailed descriptions of Tasks 1-14 to `archive/post-jan23-completed-tasks.md` to keep main plan concise. |
+| Feb 4 | **📦 ARCHIVED COMPLETED TASKS** - Moved detailed descriptions of Tasks 1-14 to `../archive/post-jan23-completed-tasks.md` to keep main plan concise. |
 | Feb 4 | **📋 ADDED TASKS 15-18** - New tasks for polygon borders (white-black-white sandwich), legend redesign, metric naming bug fix, and Overall Score label restoration. |
 | Feb 4 | **✅ Task 15 COMPLETE!** - Implemented white-black-white sandwich border for selected map polygons. Replaced single cyan highlight layer with 2-layer system: white outer (5px) + black inner (3px), creating 3-band border pattern (white | black | white). Border widths extracted to configurable constants (`BORDER_OUTER_WIDTH`, `BORDER_INNER_WIDTH`) for easy adjustment. Works for both US and Canada polygons. Files modified: `MapArea.tsx`. |
 | Feb 5 | **✅ Task 17 COMPLETE!** - Fixed metric naming bug. Individual metrics were displaying with domain/subdomain prefix (e.g., "Infrastructure Building Codes" instead of "Building Codes"). Root cause: `label` field in click handlers was set to `` `${domain.label} ${metric.label}` `` instead of just `metric.label`. Fixed in `LayoutUnified.tsx` (3 metric-level + 4 category-level), `LayoutUnifiedCompact.tsx` (3 metric-level + 4 category-level), and `flattenDomainHierarchyForSearch.ts` (3 category-level labels). Breadcrumb path already provides full hierarchy context. |
@@ -86,7 +86,7 @@
 ## 📝 Completed Tasks (Archive)
 
 **Detailed descriptions for Tasks 1-14 have been moved to:**
-[archive/post-jan23-completed-tasks.md](./archive/post-jan23-completed-tasks.md)
+[archive/post-jan23-completed-tasks.md](../archive/post-jan23-completed-tasks.md)
 
 This includes implementation details, file changes, and technical notes for:
 - Task 1a/1b/1c: Map labels (self-hosted, refined, deployed)

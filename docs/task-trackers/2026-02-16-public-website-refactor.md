@@ -391,7 +391,7 @@ These tasks were discussed in the Feb 16 meeting but are separate from the refac
 
 ## Archive Reference
 
-**Previous Task Tracker:** `/plans/archive/public-website-high-priority-tasks-2026-02-15.md`
+**Previous Task Tracker:** `../archive/public-website-high-priority-tasks-2026-02-15.md`
 - Contains historical context on T1-T13 (logo integration, navigation, color palette, etc.)
 - Most tasks from that tracker are complete
 - This refactor is the next phase of the public website development
