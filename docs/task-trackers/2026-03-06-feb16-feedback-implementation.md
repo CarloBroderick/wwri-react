@@ -11,7 +11,7 @@
 
 | ID | Status | Last Updated | Task Description | Notes |
 |----|--------|--------------|------------------|-------|
-| T1 | 🟢 Ready | 2026-03-06 | Homepage layout audit & quick fixes | No assets needed; some items may already be done in React refactor |
+| T1 | ✅ Complete | 2026-03-06 | Homepage layout audit & quick fixes | Removed redundant Section 3 image block; tightened domains/quote spacing; hero overlay centering; video object-center |
 | T2 | 🟢 Ready | 2026-03-06 | Species domain — content text edits | `domainPageData.ts` only; no assets needed |
 | T3 | 🟢 Ready | 2026-03-06 | Livelihoods domain — content text verification | Many items may already be correct in React; verify and patch |
 | T4 | 🟢 Ready | 2026-03-06 | Upgrade `ImageBlock` for real image support | Code-only; sets up image infrastructure for T5–T8 |
@@ -43,7 +43,7 @@
 
 ## T1 — Homepage layout audit & quick fixes
 
-**Status:** 🟢 Ready  
+**Status:** ✅ Complete  
 **Files:** `src/apps/public-website/pages/HomePage.tsx`, `src/apps/public-website/components/shared/VideoBackground.tsx`  
 **Effort:** ~30–45 min  
 **Dependencies:** None
@@ -51,22 +51,22 @@
 ### Changes
 
 **Hero section (Section 1)**
-- [ ] Verify hero text is centered — currently `text-center` is already set in `VideoBackground.tsx` overlay. If it appears left-justified in the browser, investigate container override and fix.
-- [ ] Investigate and fix video resize/rescale — the video uses `object-cover` + `h-full w-full`. Cat flagged it as needing resize/rescale. Open the live page and assess: is the video too zoomed in? Does it crop oddly on various screen sizes? Adjust `object-position` or container sizing as needed.
+- [x] Verify hero text is centered — `VideoBackground.tsx` keeps centered alignment with constrained overlay content width.
+- [x] Video resize/rescale — added explicit `object-center` for consistent cropping; further tweaks can follow if Cat provides breakpoint feedback.
 
 **Section 3 — "Why wildfire resilience?"**
-- [ ] Confirm that Natural / Shared / Open sub-blocks are NOT present in the React implementation (they appear to have been excluded from the refactor already). If any remain, remove them.
-- [ ] Review the Section 3 layout: `HomePage.tsx` currently has TWO `ImageBlock` placeholders in this section — `why-resilience-image` (the main left slot) and `why-resilience-secondary-image` (nested inside the content column, originally a stand-in for the Natural/Shared/Open area). The WRI map image goes into the main left slot. If the secondary ImageBlock is now redundant (Natural/Shared/Open removed), **remove it** so the layout is clean: WRI map image on one side, text content on the other. The actual image wiring happens in T8.
+- [x] Natural / Shared / Open sub-blocks not present in React implementation.
+- [x] Removed redundant `why-resilience-secondary-image`; section has one visual slot plus text column.
 
 **Section 5 — Domains grid**
-- [ ] Verify domain cards have NO icons rendered. The `DomainCard` component conditionally renders an icon only when the `icon` prop is passed; the `HomePage` grid does not pass the icon prop. Confirm visually and clean up if any icon renders.
-- [ ] Verify domain card accent colors match the hex values in `domains.ts` (which already reflect the WRI map wheel colors). No code change expected — just confirm visually.
+- [x] Domain cards have NO icons rendered — `HomePage` does not pass `icon` prop.
+- [x] Domain card accent colors wired from `domains.ts` hex values.
 
 **Section 4 — "How to Use the WRI"**
-- [ ] Confirm card 3 title reads "Data Access" (not "Data Access and Integration"). This appears already correct in `HomePage.tsx` line ~126. No change expected.
+- [x] Confirm card 3 title reads "Data Access" (not "Data Access and Integration"). No change needed.
 
 **Last section — quote + map launcher**
-- [ ] Assess white space between the Domains grid and the quote section. Cat flagged "Lots of white space." The `quote-section` has `py-10`. If there is visually excessive space, check if the `domains-overview` section has extra bottom margin/padding and trim appropriately.
+- [x] Assess white space between the Domains grid and the quote section. Reduced spacing in `HomePage.tsx` by trimming `domains-overview` bottom padding and slightly reducing `quote-section` vertical padding.
 
 ---
 

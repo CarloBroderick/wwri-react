@@ -17,7 +17,7 @@ function VideoBackground({
     <div id={id} className="relative h-full w-full overflow-hidden rounded-b-2xl">
       <video
         id={`${id}-video`}
-        className="h-full w-full object-cover"
+        className="h-full w-full object-cover object-center"
         autoPlay
         muted
         loop
@@ -31,11 +31,11 @@ function VideoBackground({
         id={`${id}-overlay`}
         className="absolute inset-0 flex items-center justify-center bg-black/45 px-6"
       >
-        <div id={`${id}-overlay-content`} className="text-center text-white">
+        <div id={`${id}-overlay-content`} className="mx-auto max-w-4xl text-center text-white">
           <h1 id={`${id}-title`} className="text-4xl font-bold md:text-6xl">
             {title}
           </h1>
-          <p id={`${id}-subtitle`} className="mt-4 text-lg md:text-2xl">
+          <p id={`${id}-subtitle`} className="mx-auto mt-4 max-w-3xl text-lg md:text-2xl">
             {subtitle}
           </p>
         </div>
