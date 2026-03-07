@@ -198,40 +198,30 @@ export const DOMAIN_PAGE_CONTENT: Record<DomainPageKey, DomainPageContent> = {
     key: "species",
     title: "Species",
     subtitle:
-      "Biodiversity is a core indicator of ecological resilience. This domain measures species conservation status and capacity to survive and recover from fire.",
+      "This domain measures species conservation status and capacity to survive and recover from fire.",
     sourceHtmlFile: "species.html",
     sections: [
       {
         heading: "Conservation Status and Baseline Vulnerability",
         paragraphs: [
           "Species resilience begins with baseline conditions. The WRI tracks conservation, threat, and extinction status to identify where fire impacts may compound existing vulnerabilities.",
-          "Status indicators are paired with life-history information to show which populations may be most sensitive to repeated fire exposure and which have stronger persistence capacity.",
+          "",
         ],
-        indicators: [
-          "Conservation, threat, and extinction status (status)",
-          "Trait-based resistance factors",
-          "Number of reproductive events",
-          "Bipartite life cycle",
-        ],
+        indicators: ["Conservation, threat, and extinction status (status)"],
       },
       {
-        heading: "Morphology and Fire Resistance",
+        heading: "Morphological Traits",
         paragraphs: [
-          "Morphological traits influence how species tolerate fire effects and recover afterward. Structural characteristics can support survival under heat, smoke, and habitat disturbance. Examples of traits include gills, wings, mass, and bark.",
-          "Including morphology ensures species resilience is measured through both ecological status and functional traits tied to resistance.",
+          "Morphological traits influence how species tolerate fire effects. Examples of traits include gills, wings, mass, and bark.",
+          "",
         ],
-        indicators: [
-          "Morphology: gills",
-          "Morphology: wings",
-          "Morphology: mass",
-          "Trait synthesis for resistance and recovery",
-        ],
+        indicators: [],
       },
       {
-        heading: "Life-History Traits and Recovery Potential",
+        heading: "Recovery Potential",
         paragraphs: [
-          "Recovery after fire depends on whether species can reproduce, mature, and persist under changing post-fire conditions. This section captures key life-history factors linked to regeneration.",
-          "By combining reproductive timing and output metrics, the index helps identify species that may need stronger conservation attention in frequently burned landscapes.",
+          "Recovery after fire depends on whether species can reproduce, mature, and persist under post-fire conditions.",
+          "Examples include reproductive output, longevity, and range size.",
         ],
         indicators: [
           "Longevity",
