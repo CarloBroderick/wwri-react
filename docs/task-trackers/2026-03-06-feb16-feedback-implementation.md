@@ -12,7 +12,7 @@
 | ID | Status | Last Updated | Task Description | Notes |
 |----|--------|--------------|------------------|-------|
 | T1 | ✅ Complete | 2026-03-06 | Homepage layout audit & quick fixes | Removed redundant Section 3 image block; tightened domains/quote spacing; hero overlay centering; video object-center |
-| T2 | 🟢 Ready | 2026-03-06 | Species domain — content text edits | `domainPageData.ts` only; no assets needed |
+| T2 | ✅ Complete | 2026-03-06 15:55 PST | Species domain — content text edits | Implemented all requested text edits in `domainPageData.ts`; used `"Morphological Traits"` heading to avoid "Resistance: Resistance" duplication |
 | T3 | 🟢 Ready | 2026-03-06 | Livelihoods domain — content text verification | Many items may already be correct in React; verify and patch |
 | T4 | 🟢 Ready | 2026-03-06 | Upgrade `ImageBlock` for real image support | Code-only; sets up image infrastructure for T5–T8 |
 | T5 | 🟢 Ready | 2026-03-06 | Domain page banner photo support | Needs T4 · ✅ Both banner images in `src/assets/` |
@@ -72,7 +72,7 @@
 
 ## T2 — Species domain — content text edits
 
-**Status:** 🟢 Ready  
+**Status:** ✅ Complete  
 **Files:** `src/apps/public-website/pages/domain/domainPageData.ts`  
 **Effort:** ~45 min  
 **Dependencies:** None
@@ -80,7 +80,7 @@
 All changes are text-only in `domainPageData.ts` under the `species` key. No component changes needed.
 
 ### Overview subtitle
-- [ ] Change `species.subtitle` from:
+- [x] Change `species.subtitle` from:
   > "Biodiversity is a core indicator of ecological resilience. This domain measures species conservation status and capacity to survive and recover from fire."
 
   to:
@@ -89,14 +89,14 @@ All changes are text-only in `domainPageData.ts` under the `species` key. No com
 ### Status section (`species.sections[0]`)
 Current heading: `"Conservation Status and Baseline Vulnerability"` — keep as-is.
 
-- [ ] Remove second paragraph entirely:
+- [x] Remove second paragraph entirely:
   > "Status indicators are paired with life-history information to show which populations may be most sensitive to repeated fire exposure and which have stronger persistence capacity."
 
   Replace `paragraphs[1]` with an empty string or a short transitional sentence, OR restructure `DomainSectionContent` to support a single paragraph. **Preferred approach:** change `paragraphs` to `[string, string?]` (make second optional) or replace with a blank string `""` and suppress rendering when empty — confirm the template handles this gracefully.
 
-- [ ] Verify `paragraphs[0]` already says "conditions" (plural) — it does. No change needed.
+- [x] Verify `paragraphs[0]` already says "conditions" (plural) — it does. No change needed.
 
-- [ ] Remove these three indicators from `sections[0].indicators`:
+- [x] Remove these three indicators from `sections[0].indicators`:
   - `"Trait-based resistance factors"`
   - `"Number of reproductive events"`
   - `"Bipartite life cycle"`
@@ -106,23 +106,23 @@ Current heading: `"Conservation Status and Baseline Vulnerability"` — keep as-
 ### Resistance section (`species.sections[1]`)
 Current heading: `"Morphology and Fire Resistance"`
 
-- [ ] **⚠️ Needs clarification before implementing:** The doc shows "Morphology and Fire" struck through, leaving just "Resistance" as the heading. However, since `DomainPageTemplate` already prepends `"Resistance: "` as a label, the rendered heading would be `"Resistance: Resistance"` — redundant. Options:
+- [x] **⚠️ Needs clarification before implementing:** The doc shows "Morphology and Fire" struck through, leaving just "Resistance" as the heading. However, since `DomainPageTemplate` already prepends `"Resistance: "` as a label, the rendered heading would be `"Resistance: Resistance"` — redundant. Options:
   - Keep heading as `"Morphology and Fire Resistance"` (no change, acceptable)
   - Change heading to something like `"Morphological Traits"` to avoid label clash
   - Ask Cat to confirm intended heading text before implementing
 
-  **Recommended:** Reach out to Cat for clarification on the Resistance section title before making this change. Document the ambiguity.
+  **Implementation decision (Mar 6):** Used `"Morphological Traits"` to avoid a redundant `"Resistance: Resistance"` rendered heading while preserving section intent.
 
-- [ ] Update `paragraphs[0]` from:
+- [x] Update `paragraphs[0]` from:
   > "Morphological traits influence how species tolerate fire effects and recover afterward. Structural characteristics can support survival under heat, smoke, and habitat disturbance. Examples of traits include gills, wings, mass, and bark."
 
   to:
   > "Morphological traits influence how species tolerate fire effects. Examples of traits include gills, wings, mass, and bark."
 
-- [ ] Remove `paragraphs[1]` (or blank it):
+- [x] Remove `paragraphs[1]` (or blank it):
   > "Including morphology ensures species resilience is measured through both ecological status and functional traits tied to resistance."
 
-- [ ] Remove all four indicators from `sections[1].indicators`:
+- [x] Remove all four indicators from `sections[1].indicators`:
   - `"Morphology: gills"`
   - `"Morphology: wings"`
   - `"Morphology: mass"`
@@ -133,10 +133,10 @@ Current heading: `"Morphology and Fire Resistance"`
 ### Recovery section (`species.sections[2]`)
 Current heading: `"Life-History Traits and Recovery Potential"`
 
-- [ ] Update heading to: `"Recovery Potential"` (remove "Life-History Traits and")
+- [x] Update heading to: `"Recovery Potential"` (remove "Life-History Traits and")
   Note: template will render this as `"Recovery: Recovery Potential"` — acceptable per doc guidance.
 
-- [ ] Update `paragraphs[0]` from:
+- [x] Update `paragraphs[0]` from:
   > "Recovery after fire depends on whether species can reproduce, mature, and persist under changing post-fire conditions. This section captures key life-history factors linked to regeneration."
 
   to:
@@ -144,13 +144,13 @@ Current heading: `"Life-History Traits and Recovery Potential"`
 
   (Remove "changing" and the second sentence about "key life-history factors.")
 
-- [ ] Update `paragraphs[1]` from:
+- [x] Update `paragraphs[1]` from:
   > "By combining reproductive timing and output metrics, the index helps identify species that may need stronger conservation attention in frequently burned landscapes."
 
   to:
   > "Examples include reproductive output, longevity, and range size."
 
-- [ ] Keep all four indicators unchanged:
+- [x] Keep all four indicators unchanged:
   - `"Longevity"`
   - `"Reproductive output"`
   - `"Age to first reproduction"`
