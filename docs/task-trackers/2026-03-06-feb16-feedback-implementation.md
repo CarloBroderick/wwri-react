@@ -13,8 +13,8 @@
 |----|--------|--------------|------------------|-------|
 | T1 | ✅ Complete | 2026-03-06 | Homepage layout audit & quick fixes | Removed redundant Section 3 image block; tightened domains/quote spacing; hero overlay centering; video object-center |
 | T2 | ✅ Complete | 2026-03-06 15:55 PST | Species domain — content text edits | Implemented all requested text edits in `domainPageData.ts`; used `"Morphological Traits"` heading to avoid "Resistance: Resistance" duplication |
-| T3 | 🟢 Ready | 2026-03-06 | Livelihoods domain — content text verification | Many items may already be correct in React; verify and patch |
-| T4 | 🟢 Ready | 2026-03-06 | Upgrade `ImageBlock` for real image support | Code-only; sets up image infrastructure for T5–T8 |
+| T3 | ✅ Complete | 2026-03-06 | Livelihoods domain — content text verification | Verified clean — no changes needed |
+| T4 | ✅ Complete | 2026-03-13 16:23 PDT | Upgrade `ImageBlock` for real image support | Added `src`/`alt`/`showCaption` support in `ImageBlock`; added `public-website/assets/domainImages.ts` Vite asset index; smoke-tested and reverted temporary HomePage hookup |
 | T5 | 🟢 Ready | 2026-03-06 | Domain page banner photo support | Needs T4 · ✅ Both banner images in `src/assets/` |
 | T6 | 🟢 Ready | 2026-03-06 | Livelihoods section image wiring | Needs T4 · ✅ All 3 images in `src/assets/` |
 | T7 | 🟢 Ready | 2026-03-06 | Species section image wiring | Needs T4 · ✅ All 3 images in `src/assets/` |
@@ -160,7 +160,7 @@ Current heading: `"Life-History Traits and Recovery Potential"`
 
 ## T3 — Livelihoods domain — content text verification
 
-**Status:** 🟢 Ready  
+**Status:** ✅ Complete  
 **Files:** `src/apps/public-website/pages/domain/domainPageData.ts`  
 **Effort:** ~20–30 min  
 **Dependencies:** None
@@ -170,37 +170,37 @@ Many of Cat's Livelihoods text changes appear to already be reflected in the Rea
 ### Checklist — verify each item, patch if not already correct
 
 **Subtitle / Overview text**
-- [ ] Verify `livelihoods.subtitle` reads: "Livelihoods reflect how people make a living and are tied to well-being, security, and identity. This domain tracks how local economies absorb wildfire disruption and recover over time." — appears correct already.
+- [x] Verify `livelihoods.subtitle` reads: "Livelihoods reflect how people make a living and are tied to well-being, security, and identity. This domain tracks how local economies absorb wildfire disruption and recover over time." — confirmed correct.
 
 **Status section (`livelihoods.sections[0]`)**
-- [ ] Verify indicators. Currently: `["Percent employed and unemployment (status)", "Median income (status)", "Housing burden (status)"]`. Cat's feedback flags these items as being in the WRONG sections (resistance and recovery respectively). As long as they remain only in Status, no change needed.
+- [x] Verify indicators. Currently: `["Percent employed and unemployment (status)", "Median income (status)", "Housing burden (status)"]`. Cat's feedback flags these items as being in the WRONG sections (resistance and recovery respectively). As long as they remain only in Status, no change needed — confirmed.
 
 **Resistance section (`livelihoods.sections[1]`)**
-- [ ] Verify `paragraphs[0]` does NOT contain "supply chains". Currently reads: "Wildfires can interrupt tourism, agriculture, and service-sector work." — appears correct.
-- [ ] Verify indicators list does NOT contain "Median income as a financial buffer" or any median income indicator. Currently: `["Percent of jobs interrupted by fire and job vulnerability (resistance)"]` — appears correct.
+- [x] Verify `paragraphs[0]` does NOT contain "supply chains". Currently reads: "Wildfires can interrupt tourism, agriculture, and service-sector work." — confirmed.
+- [x] Verify indicators list does NOT contain "Median income as a financial buffer" or any median income indicator. Currently: `["Percent of jobs interrupted by fire and job vulnerability (resistance)"]` — confirmed.
 
 **Recovery section (`livelihoods.sections[2]`)**
-- [ ] Verify heading contains "Recovery Potential". Currently: `"Economic Diversity and Recovery Potential"` — appears correct.
-- [ ] Verify indicators list does NOT contain "Housing burden as a recovery constraint". Currently: `["Diversity of jobs (recovery)"]` — appears correct.
+- [x] Verify heading contains "Recovery Potential". Currently: `"Economic Diversity and Recovery Potential"` — confirmed.
+- [x] Verify indicators list does NOT contain "Housing burden as a recovery constraint". Currently: `["Diversity of jobs (recovery)"]` — confirmed.
 
-**If all items above are confirmed correct:** mark T3 complete with a note "verified clean — no changes needed."
+**Outcome:** All checklist items verified in `src/apps/public-website/pages/domain/domainPageData.ts`. T3 marked complete with note: "Verified clean — no changes needed."
 
 ---
 
 ## T4 — Upgrade `ImageBlock` for real image support
 
-**Status:** 🟢 Ready  
-**Files:** `src/apps/public-website/components/shared/ImageBlock.tsx`, `src/apps/public-website/components/shared/index.ts`  
+**Status:** ✅ Complete  
+**Files:** `src/apps/public-website/components/shared/ImageBlock.tsx`, `src/apps/public-website/assets/domainImages.ts`  
 **Effort:** ~1 hr  
 **Dependencies:** None (T5–T8 depend on this)
 
 ### Changes
 
 **Update `ImageBlock` component:**
-- [ ] Add optional `src?: string` and `alt?: string` props
-- [ ] When `src` is provided, render an `<img>` element filling the container (use `object-cover`, maintain rounded corners and aspect ratio to match the placeholder's min-height)
-- [ ] When `src` is not provided, keep the existing orange gradient placeholder behavior unchanged
-- [ ] Keep `title` and `description` props working in placeholder mode; in image mode, use `alt` for accessibility and optionally render `title` as a visible caption below the image if a `showCaption?: boolean` prop is added (optional enhancement)
+- [x] Add optional `src?: string` and `alt?: string` props
+- [x] When `src` is provided, render an `<img>` element filling the container (use `object-cover`, maintain rounded corners and aspect ratio to match the placeholder's min-height)
+- [x] When `src` is not provided, keep the existing orange gradient placeholder behavior unchanged
+- [x] Keep `title` and `description` props working in placeholder mode; in image mode, use `alt` for accessibility and optionally render `title` as a visible caption below the image if a `showCaption?: boolean` prop is added (optional enhancement)
 
 **Suggested new interface:**
 ```typescript
@@ -221,15 +221,15 @@ All provided images are in `src/assets/`. Vite resolves these at build time and 
 
 ```typescript
 // src/apps/public-website/assets/domainImages.ts
-import livelihoodsBanner from '../../../../assets/livelihoods-banner-asset.jpg';
-import livelihoodsStatus from '../../../../assets/status-banner-asset.jpg';
-import livelihoodsResistance from '../../../../assets/resistance-banner-asset-1.jpg';
-import livelihoodsRecovery from '../../../../assets/recovery-banner-asset.jpg';
-import speciesBanner from '../../../../assets/species-asset.jpg';
-import speciesStatus from '../../../../assets/status-asset.jpg';
-import speciesResistance from '../../../../assets/resistance-banner-asset-2.jpg';
-import speciesRecovery from '../../../../assets/recovery-banner-asset-2.jpg';
-import wriMapPreview from '../../../../assets/wwri-scores-w-westcoast.png';
+import livelihoodsBanner from '../../../assets/livelihoods-banner-asset.jpg';
+import livelihoodsStatus from '../../../assets/status-banner-asset.jpg';
+import livelihoodsResistance from '../../../assets/resistance-banner-asset-1.jpg';
+import livelihoodsRecovery from '../../../assets/recovery-banner-asset.jpg';
+import speciesBanner from '../../../assets/species-asset.jpg';
+import speciesStatus from '../../../assets/status-asset.jpg';
+import speciesResistance from '../../../assets/resistance-banner-asset-2.jpg';
+import speciesRecovery from '../../../assets/recovery-banner-asset-2.jpg';
+import wriMapPreview from '../../../assets/wwri-scores-w-westcoast.png';
 
 export {
   livelihoodsBanner, livelihoodsStatus, livelihoodsResistance, livelihoodsRecovery,
@@ -240,7 +240,7 @@ export {
 
 This file is then imported in `domainPageData.ts` and `HomePage.tsx` to wire images into the data layer. **Do not** use hardcoded `/public/...` path strings — the images are not in the `public/` folder.
 
-- [ ] Create `src/apps/public-website/assets/domainImages.ts` with the imports above
+- [x] Create `src/apps/public-website/assets/domainImages.ts` with the imports above
 
 ---
 

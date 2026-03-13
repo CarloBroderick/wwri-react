@@ -2,10 +2,41 @@ interface ImageBlockProps {
   id: string;
   title: string;
   description: string;
+  src?: string;
+  alt?: string;
+  showCaption?: boolean;
   className?: string;
 }
 
-function ImageBlock({ id, title, description, className = "" }: ImageBlockProps) {
+function ImageBlock({
+  id,
+  title,
+  description,
+  src,
+  alt,
+  showCaption = false,
+  className = "",
+}: ImageBlockProps) {
+  if (src) {
+    return (
+      <div id={id} className={`rounded-2xl ${className}`}>
+        <div id={`${id}-image-container`} className="overflow-hidden rounded-2xl">
+          <img
+            id={`${id}-image`}
+            src={src}
+            alt={alt ?? title}
+            className="h-full min-h-[280px] w-full rounded-2xl object-cover"
+          />
+        </div>
+        {showCaption ? (
+          <p id={`${id}-caption`} className="mt-3 text-sm font-medium text-[#2e2e2e]">
+            {title}
+          </p>
+        ) : null}
+      </div>
+    );
+  }
+
   return (
     <div
       id={id}
