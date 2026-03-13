@@ -1,3 +1,5 @@
+import { livelihoodsBanner, speciesBanner } from "../../assets/domainImages";
+
 export type DomainPageKey =
   | "infrastructure"
   | "airQuality"
@@ -18,6 +20,7 @@ export interface DomainPageContent {
   key: DomainPageKey;
   title: string;
   subtitle: string;
+  bannerImageSrc?: string;
   sourceHtmlFile: string;
   sections: [DomainSectionContent, DomainSectionContent, DomainSectionContent];
 }
@@ -199,6 +202,7 @@ export const DOMAIN_PAGE_CONTENT: Record<DomainPageKey, DomainPageContent> = {
     title: "Species",
     subtitle:
       "This domain measures species conservation status and capacity to survive and recover from fire.",
+    bannerImageSrc: speciesBanner,
     sourceHtmlFile: "species.html",
     sections: [
       {
@@ -237,6 +241,7 @@ export const DOMAIN_PAGE_CONTENT: Record<DomainPageKey, DomainPageContent> = {
     title: "Livelihoods",
     subtitle:
       "Livelihoods reflect how people make a living and are tied to well-being, security, and identity. This domain tracks how local economies absorb wildfire disruption and recover over time.",
+    bannerImageSrc: livelihoodsBanner,
     sourceHtmlFile: "livelihoods.html",
     sections: [
       {
