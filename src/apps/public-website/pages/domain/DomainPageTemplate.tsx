@@ -30,6 +30,7 @@ const DOMAIN_PAGE_TO_DEFINITION_KEY: Record<DomainPageKey, string> = {
 
 function DomainPageTemplate({ domainKey }: DomainPageTemplateProps) {
   const content = DOMAIN_PAGE_CONTENT[domainKey];
+  const hasBannerImage = Boolean(content.bannerImageSrc);
   const currentDomainDefinition = DOMAIN_DEFINITIONS.find(
     (domain) => domain.key === DOMAIN_PAGE_TO_DEFINITION_KEY[domainKey],
   );
@@ -44,15 +45,40 @@ function DomainPageTemplate({ domainKey }: DomainPageTemplateProps) {
       <ColorBlock
         id={`${domainKey}-hero-section`}
         tone="cream"
-        className="border-b border-[#dc7e49]/20 py-10"
+        className={`relative overflow-hidden border-b ${
+          hasBannerImage ? "border-white/20 py-8 md:py-10" : "border-[#dc7e49]/20 py-10"
+        }`}
       >
-        <div id={`${domainKey}-hero-container`} className="mx-auto max-w-6xl px-6">
+        {hasBannerImage && (
+          <>
+            <img
+              id={`${domainKey}-hero-background-image`}
+              src={content.bannerImageSrc}
+              alt={`${content.title} domain banner`}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div
+              id={`${domainKey}-hero-background-overlay`}
+              className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/55 to-black/45"
+              aria-hidden="true"
+            />
+          </>
+        )}
+        <div
+          id={`${domainKey}-hero-container`}
+          className={`relative z-10 mx-auto max-w-6xl px-6 ${hasBannerImage ? "text-white" : ""}`}
+        >
           <span
             id={`${domainKey}-hero-accent-bar`}
             className="block h-2 w-16 rounded-full"
             style={{ backgroundColor: currentDomainDefinition?.colorHex ?? "#dc7e49" }}
           />
-          <h1 id={`${domainKey}-hero-title`} className="mt-3 text-4xl font-bold text-[#160e08] md:text-5xl">
+          <h1
+            id={`${domainKey}-hero-title`}
+            className={`mt-3 text-4xl font-bold md:text-5xl ${
+              hasBannerImage ? "text-white" : "text-[#160e08]"
+            }`}
+          >
             {content.title}
           </h1>
         </div>

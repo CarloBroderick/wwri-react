@@ -15,7 +15,7 @@
 | T2 | ✅ Complete | 2026-03-06 15:55 PST | Species domain — content text edits | Implemented all requested text edits in `domainPageData.ts`; used `"Morphological Traits"` heading to avoid "Resistance: Resistance" duplication |
 | T3 | ✅ Complete | 2026-03-06 | Livelihoods domain — content text verification | Verified clean — no changes needed |
 | T4 | ✅ Complete | 2026-03-13 16:23 PDT | Upgrade `ImageBlock` for real image support | Added `src`/`alt`/`showCaption` support in `ImageBlock`; added `public-website/assets/domainImages.ts` Vite asset index; smoke-tested and reverted temporary HomePage hookup |
-| T5 | 🟢 Ready | 2026-03-06 | Domain page banner photo support | Needs T4 · ✅ Both banner images in `src/assets/` |
+| T5 | ✅ Complete | 2026-03-13 16:34 PDT | Domain page banner photo support | Added `bannerImageSrc` data field + photo hero overlay/fallback logic in `DomainPageTemplate`; wired Livelihoods + Species banner assets |
 | T6 | 🟢 Ready | 2026-03-06 | Livelihoods section image wiring | Needs T4 · ✅ All 3 images in `src/assets/` |
 | T7 | 🟢 Ready | 2026-03-06 | Species section image wiring | Needs T4 · ✅ All 3 images in `src/assets/` |
 | T8 | 🟡 Partial | 2026-03-06 | Landing page visual assets (Section 2 teaser + Section 3 map) | ✅ WRI map image in `src/assets/` · 🔴 Section 2 teaser video still needed from Cat |
@@ -246,7 +246,7 @@ This file is then imported in `domainPageData.ts` and `HomePage.tsx` to wire ima
 
 ## T5 — Domain page banner photo support
 
-**Status:** 🟢 Ready  
+**Status:** ✅ Complete (2026-03-13 16:34 PDT)  
 **Files:** `src/apps/public-website/pages/domain/DomainPageTemplate.tsx`, `src/apps/public-website/pages/domain/domainPageData.ts`  
 **Effort:** ~1 hr  
 **Dependencies:** T4 complete
@@ -258,16 +258,16 @@ This file is then imported in `domainPageData.ts` and `HomePage.tsx` to wire ima
 ### Changes
 
 **Update `DomainPageContent` type in `domainPageData.ts`:**
-- [ ] Add optional `bannerImageSrc?: string` field
+- [x] Add optional `bannerImageSrc?: string` field
 
 **Update `DomainPageTemplate.tsx` hero section:**
-- [ ] When `bannerImageSrc` is provided, render the domain title area over a full-bleed photo background with a dark/gradient overlay (photo fills the hero `ColorBlock`, title and accent bar overlay on top)
-- [ ] When `bannerImageSrc` is not provided, keep existing flat cream background + accent bar behavior
-- [ ] Cat's note: "make the banner smaller, no descriptor" — the current template already omits the subtitle from the banner area, but consider reducing banner height (currently `py-10`) when using a photo to give it more visual weight
+- [x] When `bannerImageSrc` is provided, render the domain title area over a full-bleed photo background with a dark/gradient overlay (photo fills the hero `ColorBlock`, title and accent bar overlay on top)
+- [x] When `bannerImageSrc` is not provided, keep existing flat cream background + accent bar behavior
+- [x] Cat's note: "make the banner smaller, no descriptor" — the current template already omits the subtitle from the banner area; applied reduced vertical padding for photo banners (`py-8 md:py-10`)
 
 **Wire up banner images** (use Vite imports from `domainImages.ts` created in T4):
-- [ ] `livelihoods.bannerImageSrc = livelihoodsBanner`
-- [ ] `species.bannerImageSrc = speciesBanner`
+- [x] `livelihoods.bannerImageSrc = livelihoodsBanner`
+- [x] `species.bannerImageSrc = speciesBanner`
 
 ---
 
