@@ -72,15 +72,18 @@ function Navigation() {
           <div id="nav-domains-group" className="group relative">
             <span
               id="nav-link-domains"
-              className={`cursor-default text-sm font-semibold ${
+              className={`inline-flex cursor-default items-center gap-1 text-sm font-semibold ${
                 isDomainActive ? "text-[#dc7e49]" : "text-white"
               }`}
             >
-              Domains
+              <span id="nav-link-domains-text">Domains</span>
+              <span id="nav-link-domains-caret" className="text-xs leading-none text-white/80">
+                ▾
+              </span>
             </span>
             <div
               id="nav-domains-dropdown"
-              className="invisible absolute right-0 top-8 z-20 min-w-[210px] rounded-xl border border-[#dc7e49]/30 bg-[#160e08] opacity-0 shadow-xl transition-all group-hover:visible group-hover:opacity-100"
+              className="invisible absolute left-1/2 top-full z-20 mt-2 min-w-[210px] -translate-x-1/2 rounded-xl border border-[#dc7e49]/30 bg-[#160e08] opacity-0 shadow-xl transition-all group-hover:visible group-hover:opacity-100"
             >
               {DOMAIN_NAV_LINKS.map((route) => (
                 <NavLink
