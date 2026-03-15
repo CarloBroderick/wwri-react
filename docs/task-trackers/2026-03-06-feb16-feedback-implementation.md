@@ -9,8 +9,8 @@
 
 ## Task Summary
 
-| ID | Status | Last Updated | Task Description | Notes |
-|----|--------|--------------|------------------|-------|
+| ID | Status | Last Updated (Timestamp) | Task Description | Notes |
+|----|--------|--------------------------|------------------|-------|
 | T1 | ✅ Complete | 2026-03-06 | Homepage layout audit & quick fixes | Removed redundant Section 3 image block; tightened domains/quote spacing; hero overlay centering; video object-center |
 | T2 | ✅ Complete | 2026-03-06 15:55 PST | Species domain — content text edits | Implemented all requested text edits in `domainPageData.ts`; used `"Morphological Traits"` heading to avoid "Resistance: Resistance" duplication |
 | T3 | ✅ Complete | 2026-03-06 | Livelihoods domain — content text verification | Verified clean — no changes needed |
@@ -18,7 +18,7 @@
 | T5 | ✅ Complete | 2026-03-13 16:34 PDT | Domain page banner photo support | Added `bannerImageSrc` data field + photo hero overlay/fallback logic in `DomainPageTemplate`; wired Livelihoods + Species banner assets |
 | T6 | ✅ Complete | 2026-03-15 15:18 PDT | Livelihoods section image wiring | Added `sectionImageSrc`/`sectionImageAlt` to section schema; wired all 3 Livelihoods section images + alts · Visually verified in dev |
 | T7 | ✅ Complete | 2026-03-15 15:30 PDT | Species section image wiring | Wired all 3 Species section images + alts in `domainPageData.ts` |
-| T8 | 🟡 Partial | 2026-03-06 | Landing page visual assets (Section 2 teaser + Section 3 map) | ✅ WRI map image in `src/assets/` · 🔴 Section 2 teaser video still needed from Cat |
+| T8 | 🟡 Partial | 2026-03-15 15:35 PDT | Landing page visual assets (Section 2 teaser + Section 3 map) | ✅ Section 3 map wired in `HomePage.tsx` · 🔴 Section 2 teaser video still needed from Cat |
 
 **Status legend:** 🟢 Ready · 🟡 In Progress · 🔴 Blocked · ✅ Complete
 
@@ -329,13 +329,13 @@ Add `sectionImageSrc?: string` and `sectionImageAlt?: string` to `DomainSectionC
 **Effort:** ~45 min total  
 **Dependencies:** T4 complete + T1 complete (Section 3 layout cleanup)
 
-### Section 3 — WRI map image ✅ Asset in hand
+### Section 3 — WRI map image ✅ Complete
 
 **Asset:** `src/assets/wwri-scores-w-westcoast.png` — WRI score choropleth map + domain wheel pie chart
 
-- [ ] Import `wriMapPreview` from `domainImages.ts` (created in T4) in `HomePage.tsx`
-- [ ] Update `why-resilience-image` `ImageBlock` to use `src={wriMapPreview}` and `alt="WRI score map showing Western US with domain scores wheel"`
-- [ ] Confirm T1 removed the redundant `why-resilience-secondary-image` before doing this step
+- [x] Import `wriMapPreview` from `domainImages.ts` (created in T4) in `HomePage.tsx`
+- [x] Update `why-resilience-image` `ImageBlock` to use `src={wriMapPreview}` and `alt="WRI score map showing Western US with domain scores wheel"`
+- [x] Confirm T1 removed the redundant `why-resilience-secondary-image` before doing this step
 
 ### Section 2 — teaser video 🔴 Blocked on Cat
 
