@@ -91,10 +91,7 @@ function HomePage() {
           />
           <div id="how-it-works-grid" className="grid gap-5 md:grid-cols-3">
             <article id="how-it-works-card-1" className="rounded-2xl border border-white/30 bg-white/10 p-6">
-              <p id="how-it-works-card-1-icon" className="text-3xl">
-                📊
-              </p>
-              <h3 id="how-it-works-card-1-title" className="mt-3 text-xl font-semibold text-white">
+              <h3 id="how-it-works-card-1-title" className="text-xl font-semibold text-white">
                 Interactive Web Interface
               </h3>
               <p id="how-it-works-card-1-text" className="mt-3 text-sm leading-7 text-white/85">
@@ -103,10 +100,7 @@ function HomePage() {
               </p>
             </article>
             <article id="how-it-works-card-2" className="rounded-2xl border border-white/30 bg-white/10 p-6">
-              <p id="how-it-works-card-2-icon" className="text-3xl">
-                🔍
-              </p>
-              <h3 id="how-it-works-card-2-title" className="mt-3 text-xl font-semibold text-white">
+              <h3 id="how-it-works-card-2-title" className="text-xl font-semibold text-white">
                 Regional Reports
               </h3>
               <p id="how-it-works-card-2-text" className="mt-3 text-sm leading-7 text-white/85">
@@ -116,10 +110,7 @@ function HomePage() {
               </p>
             </article>
             <article id="how-it-works-card-3" className="rounded-2xl border border-white/30 bg-white/10 p-6">
-              <p id="how-it-works-card-3-icon" className="text-3xl">
-                💡
-              </p>
-              <h3 id="how-it-works-card-3-title" className="mt-3 text-xl font-semibold text-white">
+              <h3 id="how-it-works-card-3-title" className="text-xl font-semibold text-white">
                 Data Access
               </h3>
               <p id="how-it-works-card-3-text" className="mt-3 text-sm leading-7 text-white/85">
