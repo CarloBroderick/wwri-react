@@ -25,7 +25,6 @@ export interface InfoPageContent {
   key: InfoPageKey;
   title: string;
   subtitle: string;
-  sourceHtmlFile: string;
   introParagraphs: [string, string];
   sections: [InfoPageSection, InfoPageSection, InfoPageSection];
 }
@@ -88,7 +87,6 @@ export const INFO_PAGE_CONTENT: Record<InfoPageKey, InfoPageContent> = {
     title: "About",
     subtitle:
       "The Wildfire Resilience Index brings social, ecological, and infrastructure signals into one practical framework for decision-making.",
-    sourceHtmlFile: "about.html",
     introParagraphs: [
       "The index was created to support people who need to make complex choices under real constraints. It helps teams compare places consistently, align stakeholders around shared evidence, and prioritize actions with transparency.",
       "Our approach is intentionally collaborative and iterative. We combine open data, domain expertise, and practitioner feedback so the index remains useful for planning conversations before, during, and after wildfire events.",
@@ -122,7 +120,6 @@ export const INFO_PAGE_CONTENT: Record<InfoPageKey, InfoPageContent> = {
     title: "Why Resilience",
     subtitle:
       "Wildfire cannot be fully eliminated. The practical goal is improving how people and ecosystems withstand fire impacts and recover over time.",
-    sourceHtmlFile: "why-resilience.html",
     introParagraphs: [
       "Resilience framing acknowledges that wildfire is part of many landscapes. Instead of treating fire only as a failure to prevent, we evaluate whether systems can absorb stress, maintain function, and adapt after disturbance.",
       "This perspective supports long-horizon thinking. It helps teams avoid short-term fixes that look good immediately but reduce recovery potential later.",
@@ -156,7 +153,6 @@ export const INFO_PAGE_CONTENT: Record<InfoPageKey, InfoPageContent> = {
     title: "Why an Index",
     subtitle:
       "An index creates common structure for complex evidence so people can compare places, discuss trade-offs, and prioritize action coherently.",
-    sourceHtmlFile: "why-index.html",
     introParagraphs: [
       "Wildfire resilience decisions often involve fragmented data and mixed methods. Without structure, teams can struggle to compare options or explain why a priority changed.",
       "The index provides a transparent framework that organizes indicators consistently while still preserving room for local interpretation and expertise.",
@@ -190,7 +186,6 @@ export const INFO_PAGE_CONTENT: Record<InfoPageKey, InfoPageContent> = {
     title: "How It Works",
     subtitle:
       "The WRI combines domain-based indicators, map exploration, and clear outputs to support real-world planning workflows.",
-    sourceHtmlFile: "how-it-works.html",
     introParagraphs: [
       "Users explore resilience patterns across geographies and domains, then drill into indicator context to understand what is driving a score.",
       "Outputs are designed for practical use: proposal support, stakeholder communication, prioritization workshops, and internal planning reviews.",
@@ -224,7 +219,6 @@ export const INFO_PAGE_CONTENT: Record<InfoPageKey, InfoPageContent> = {
     title: "Meet the Team",
     subtitle:
       "The Wildfire Resilience Index is built by an interdisciplinary team combining science, data, design, and implementation experience.",
-    sourceHtmlFile: "meet-the-team.html",
     introParagraphs: [
       "This work sits at the intersection of research and practice. Building a usable index requires domain expertise, technical implementation, and strong communication design.",
       "Our team structure reflects that reality. We collaborate across disciplines to keep the index credible, transparent, and useful for decision-makers.",
@@ -258,7 +252,6 @@ export const INFO_PAGE_CONTENT: Record<InfoPageKey, InfoPageContent> = {
     title: "Resources",
     subtitle:
       "Supporting materials provide deeper context for methods, implementation, and communication of wildfire resilience insights.",
-    sourceHtmlFile: "resources.html",
     introParagraphs: [
       "Resources are intended to help teams move quickly from exploration to action. They include foundational context, technical references, and communication-ready materials.",
       "As this work evolves, we will continue curating and organizing materials so users can find the right level of detail for their needs.",
@@ -292,7 +285,6 @@ export const INFO_PAGE_CONTENT: Record<InfoPageKey, InfoPageContent> = {
     title: "In the News",
     subtitle:
       "Updates and external coverage highlight how wildfire resilience conversations are evolving and where this work is being applied.",
-    sourceHtmlFile: "in-the-news.html",
     introParagraphs: [
       "News and updates help contextualize why this work matters now. They also show how resilience framing is being discussed across communities, institutions, and media.",
       "As more people engage the index, this section will capture stories that reflect adoption, feedback, and opportunities for refinement.",

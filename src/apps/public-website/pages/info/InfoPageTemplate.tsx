@@ -38,12 +38,6 @@ function InfoPageTemplate({ pageKey }: InfoPageTemplateProps) {
           <p id={`${pageKey}-hero-subtitle`} className="mt-5 max-w-4xl text-lg leading-8 text-[#513221]">
             {content.subtitle}
           </p>
-          <p
-            id={`${pageKey}-hero-source-file`}
-            className="mt-6 inline-block rounded-full bg-[#fff5e8] px-4 py-2 text-xs font-semibold tracking-wide text-[#8e4b27]"
-          >
-            Source: {content.sourceHtmlFile}
-          </p>
         </div>
       </ColorBlock>
 
