@@ -7,6 +7,7 @@ import {
     ImageBlock,
     SectionHeader,
 } from "../components/shared";
+import { wriMapPreview } from "../assets/domainImages";
 import { DOMAIN_DEFINITIONS } from "../data/domains";
 import { PUBLIC_ROUTES } from "../routes/routeConfig";
 import { PUBLIC_WEBSITE_THEME } from "../styles/theme";
@@ -56,8 +57,10 @@ function HomePage() {
         <div id="why-resilience-container" className="mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-2">
           <ImageBlock
             id="why-resilience-image"
-            title="Visual Placeholder"
-            description="Cat to provide: Wildfire urgency imagery. Suggested: dramatic fire/recovery scenes."
+            title="WRI Score Map"
+            description="WRI score map showing Western US with domain scores wheel."
+            src={wriMapPreview}
+            alt="WRI score map showing Western US with domain scores wheel"
           />
           <div id="why-resilience-content-wrapper">
             <SectionHeader idPrefix="why-resilience" title="Why wildfire resilience?" light />
