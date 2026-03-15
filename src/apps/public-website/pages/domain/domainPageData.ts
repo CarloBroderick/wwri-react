@@ -1,4 +1,10 @@
-import { livelihoodsBanner, speciesBanner } from "../../assets/domainImages";
+import {
+  livelihoodsBanner,
+  livelihoodsRecovery,
+  livelihoodsResistance,
+  livelihoodsStatus,
+  speciesBanner,
+} from "../../assets/domainImages";
 
 export type DomainPageKey =
   | "infrastructure"
@@ -14,6 +20,8 @@ export interface DomainSectionContent {
   heading: string;
   paragraphs: [string, string];
   indicators: string[];
+  sectionImageSrc?: string;
+  sectionImageAlt?: string;
 }
 
 export interface DomainPageContent {
@@ -250,6 +258,8 @@ export const DOMAIN_PAGE_CONTENT: Record<DomainPageKey, DomainPageContent> = {
           "Resilience starts with current economic condition. Employment rates, unemployment levels, median income, and housing burden indicate how much baseline flexibility households have before fire impacts occur.",
           "These indicators provide context for where financial stress is already high and where wildfire shocks may have outsized effects on livelihood stability.",
         ],
+        sectionImageSrc: livelihoodsStatus,
+        sectionImageAlt: "Elderly couple reviewing household finances",
         indicators: [
           "Percent employed and unemployment (status)",
           "Median income (status)",
@@ -262,6 +272,8 @@ export const DOMAIN_PAGE_CONTENT: Record<DomainPageKey, DomainPageContent> = {
           "Wildfires can interrupt tourism, agriculture, and service-sector work. This section captures how vulnerable local job structures are to fire-related interruption.",
           "Tracking exposure to disruption helps identify where recovery planning should prioritize workforce continuity and rapid economic stabilization.",
         ],
+        sectionImageSrc: livelihoodsResistance,
+        sectionImageAlt: "Farm tractor at golden sunset in smoky field",
         indicators: ["Percent of jobs interrupted by fire and job vulnerability (resistance)"],
       },
       {
@@ -270,6 +282,8 @@ export const DOMAIN_PAGE_CONTENT: Record<DomainPageKey, DomainPageContent> = {
           "Long-term livelihood resilience depends on whether local economies can adapt rather than collapse after disturbance. Diversity of jobs is a key recovery factor.",
           "Communities with more diverse economic pathways are better positioned to absorb shocks, maintain income, and rebuild over time.",
         ],
+        sectionImageSrc: livelihoodsRecovery,
+        sectionImageAlt: "Abandoned farmhouse in overgrown field",
         indicators: ["Diversity of jobs (recovery)"],
       },
     ],

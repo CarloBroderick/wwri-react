@@ -119,6 +119,8 @@ function DomainPageTemplate({ domainKey }: DomainPageTemplateProps) {
                 id={`${sectionId}-media`}
                 title="Visual Placeholder"
                 description={`Cat to provide: Visual asset for "${section.heading}" on ${content.title}. Suggested format: 16:9 image or short clip still.`}
+                src={section.sectionImageSrc}
+                alt={section.sectionImageAlt}
                 className={isVisualFirst ? "" : "lg:order-2"}
               />
 
