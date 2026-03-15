@@ -4,6 +4,9 @@ import {
   livelihoodsResistance,
   livelihoodsStatus,
   speciesBanner,
+  speciesRecovery,
+  speciesResistance,
+  speciesStatus,
 } from "../../assets/domainImages";
 
 export type DomainPageKey =
@@ -219,6 +222,8 @@ export const DOMAIN_PAGE_CONTENT: Record<DomainPageKey, DomainPageContent> = {
           "Species resilience begins with baseline conditions. The WRI tracks conservation, threat, and extinction status to identify where fire impacts may compound existing vulnerabilities.",
           "",
         ],
+        sectionImageSrc: speciesStatus,
+        sectionImageAlt: "Monarch butterfly on milkweed flower",
         indicators: ["Conservation, threat, and extinction status (status)"],
       },
       {
@@ -227,6 +232,8 @@ export const DOMAIN_PAGE_CONTENT: Record<DomainPageKey, DomainPageContent> = {
           "Morphological traits influence how species tolerate fire effects. Examples of traits include gills, wings, mass, and bark.",
           "",
         ],
+        sectionImageSrc: speciesResistance,
+        sectionImageAlt: "Redwood trees viewed from forest floor",
         indicators: [],
       },
       {
@@ -235,6 +242,8 @@ export const DOMAIN_PAGE_CONTENT: Record<DomainPageKey, DomainPageContent> = {
           "Recovery after fire depends on whether species can reproduce, mature, and persist under post-fire conditions.",
           "Examples include reproductive output, longevity, and range size.",
         ],
+        sectionImageSrc: speciesRecovery,
+        sectionImageAlt: "Cottontail rabbit in dry grass habitat",
         indicators: [
           "Longevity",
           "Reproductive output",
