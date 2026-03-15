@@ -17,7 +17,7 @@
 | T4 | ✅ Complete | 2026-03-13 16:23 PDT | Upgrade `ImageBlock` for real image support | Added `src`/`alt`/`showCaption` support in `ImageBlock`; added `public-website/assets/domainImages.ts` Vite asset index; smoke-tested and reverted temporary HomePage hookup |
 | T5 | ✅ Complete | 2026-03-13 16:34 PDT | Domain page banner photo support | Added `bannerImageSrc` data field + photo hero overlay/fallback logic in `DomainPageTemplate`; wired Livelihoods + Species banner assets |
 | T6 | ✅ Complete | 2026-03-15 15:18 PDT | Livelihoods section image wiring | Added `sectionImageSrc`/`sectionImageAlt` to section schema; wired all 3 Livelihoods section images + alts · Visually verified in dev |
-| T7 | 🟢 Ready | 2026-03-06 | Species section image wiring | Needs T4 · ✅ All 3 images in `src/assets/` |
+| T7 | ✅ Complete | 2026-03-15 15:30 PDT | Species section image wiring | Wired all 3 Species section images + alts in `domainPageData.ts` |
 | T8 | 🟡 Partial | 2026-03-06 | Landing page visual assets (Section 2 teaser + Section 3 map) | ✅ WRI map image in `src/assets/` · 🔴 Section 2 teaser video still needed from Cat |
 
 **Status legend:** 🟢 Ready · 🟡 In Progress · 🔴 Blocked · ✅ Complete
@@ -302,7 +302,7 @@ Add `sectionImageSrc?: string` and `sectionImageAlt?: string` to `DomainSectionC
 
 ## T7 — Species section image wiring
 
-**Status:** 🟢 Ready  
+**Status:** ✅ Complete (2026-03-15 15:30 PDT)  
 **Files:** `src/apps/public-website/pages/domain/domainPageData.ts`  
 **Effort:** ~30 min  
 **Dependencies:** T4 complete + T6 schema changes (`sectionImageSrc`/`sectionImageAlt` fields) done
@@ -313,10 +313,12 @@ Add `sectionImageSrc?: string` and `sectionImageAlt?: string` to `DomainSectionC
 - `recovery-banner-asset-2.jpg` — cottontail rabbit in dry grass → Species recovery section
 
 ### Changes
-- [ ] Wire images in `domainPageData.ts` under `species.sections` (use Vite imports from `domainImages.ts`):
+- [x] Wire images in `domainPageData.ts` under `species.sections` (use Vite imports from `domainImages.ts`):
   - `sections[0]` (Status): `sectionImageSrc: speciesStatus`, `sectionImageAlt: "Monarch butterfly on milkweed flower"`
   - `sections[1]` (Resistance): `sectionImageSrc: speciesResistance`, `sectionImageAlt: "Redwood trees viewed from forest floor"`
   - `sections[2]` (Recovery): `sectionImageSrc: speciesRecovery`, `sectionImageAlt: "Cottontail rabbit in dry grass habitat"`
+
+**Verification:** Data wiring completed for all three Species sections; `DomainPageTemplate` already supports section image rendering from T6 schema/template updates.
 
 ---
 
