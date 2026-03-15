@@ -77,7 +77,7 @@ function Navigation() {
               }`}
             >
               <span id="nav-link-domains-text">Domains</span>
-              <span id="nav-link-domains-caret" className="text-xs leading-none text-white/80">
+              <span id="nav-link-domains-caret" className="text-sm leading-none text-white/85">
                 ▾
               </span>
             </span>
