@@ -27,6 +27,36 @@ export interface InfoPageContent {
   subtitle: string;
   introParagraphs: [string, string];
   sections: [InfoPageSection, InfoPageSection, InfoPageSection];
+  featuredModules?: {
+    title: string;
+    description: string;
+    items: [
+      {
+        key: string;
+        title: string;
+        description: string;
+        status: string;
+        icon: "documents" | "news" | "people";
+        examples: [string, string];
+      },
+      {
+        key: string;
+        title: string;
+        description: string;
+        status: string;
+        icon: "documents" | "news" | "people";
+        examples: [string, string];
+      },
+      {
+        key: string;
+        title: string;
+        description: string;
+        status: string;
+        icon: "documents" | "news" | "people";
+        examples: [string, string];
+      }
+    ];
+  };
 }
 
 export const INFO_PAGE_LINKS: Record<InfoPageKey, InfoPageLink> = {
@@ -218,31 +248,64 @@ export const INFO_PAGE_CONTENT: Record<InfoPageKey, InfoPageContent> = {
     key: "team",
     title: "Meet the Team",
     subtitle:
-      "The Wildfire Resilience Index is built by an interdisciplinary team combining science, data, design, and implementation experience.",
+      "People from ecology, social science, geospatial analysis, and product design collaborate to keep this work rigorous and usable.",
     introParagraphs: [
-      "This work sits at the intersection of research and practice. Building a usable index requires domain expertise, technical implementation, and strong communication design.",
-      "Our team structure reflects that reality. We collaborate across disciplines to keep the index credible, transparent, and useful for decision-makers.",
+      "This section uses placeholder team profiles so the site has a familiar science-communication layout while final names, headshots, and biographies are being prepared.",
+      "Each profile card will eventually link to fuller biographies, current projects, and contact pathways for collaboration requests.",
     ],
+    featuredModules: {
+      title: "Team Directory (Placeholder)",
+      description: "Replace these cards with real staff details, portraits, and publication links as soon as final assets are approved.",
+      items: [
+        {
+          key: "science-lead",
+          title: "Science Lead",
+          description:
+            "Placeholder profile for the person responsible for methodology stewardship, scientific review, and cross-domain quality checks.",
+          status: "Bio and photo coming soon",
+          icon: "people",
+          examples: ["Focus area: resilience metrics and indicator validity", "Latest activity: methodology refresh planning memo"],
+        },
+        {
+          key: "data-lead",
+          title: "Data and Modeling Lead",
+          description:
+            "Placeholder profile for the person coordinating data pipelines, validation routines, and updates to indicator documentation.",
+          status: "Bio and photo coming soon",
+          icon: "people",
+          examples: ["Focus area: geospatial processing and data quality control", "Latest activity: metadata schema update draft"],
+        },
+        {
+          key: "engagement-lead",
+          title: "Partnerships and Engagement Lead",
+          description:
+            "Placeholder profile for the person supporting partner onboarding, workshops, and communication with external collaborators.",
+          status: "Bio and photo coming soon",
+          icon: "people",
+          examples: ["Focus area: partner workshops and training support", "Latest activity: regional briefing outline"],
+        },
+      ],
+    },
     sections: [
       {
-        heading: "Interdisciplinary contributors",
+        heading: "Who is represented on this page",
         paragraphs: [
-          "Contributors include researchers, technical developers, and strategy partners who bring complementary expertise to the same problem space.",
-          "That mix helps ensure methodological rigor while keeping implementation grounded in practical constraints and user needs.",
+          "A typical science communication team page includes research leadership, technical implementation roles, and communications partners.",
+          "This placeholder structure keeps the page useful now and makes future updates straightforward when approved content is ready.",
         ],
       },
       {
-        heading: "How we collaborate",
+        heading: "How team content will be maintained",
         paragraphs: [
-          "We work iteratively: draft, review, test, refine. Content and design decisions are revisited as stakeholder feedback and new information emerge.",
-          "This collaborative cadence improves quality and keeps delivery aligned with near-term communication priorities and long-term product goals.",
+          "When finalized details are available, each profile card can include areas of expertise, selected publications, and current focus areas.",
+          "Consistent profile formatting supports trust, readability, and easy scanning for site visitors looking for domain-specific contacts.",
         ],
       },
       {
-        heading: "How we stay accountable",
+        heading: "Next content additions planned",
         paragraphs: [
-          "We prioritize transparent assumptions, clear documentation, and traceable updates to reduce ambiguity and support trust in outputs.",
-          "As the project evolves, we continue refining roles, processes, and deliverables to improve clarity and execution speed.",
+          "Upcoming additions include headshots with accessibility text, short bios, and links to organization pages where relevant.",
+          "Optional expansions may include advisor acknowledgements and a contributors list for partner institutions.",
         ],
       },
     ],
@@ -251,31 +314,64 @@ export const INFO_PAGE_CONTENT: Record<InfoPageKey, InfoPageContent> = {
     key: "resources",
     title: "Resources",
     subtitle:
-      "Supporting materials provide deeper context for methods, implementation, and communication of wildfire resilience insights.",
+      "Reference material, downloads, and implementation guides will live here in a format designed for rapid reuse by practitioners.",
     introParagraphs: [
-      "Resources are intended to help teams move quickly from exploration to action. They include foundational context, technical references, and communication-ready materials.",
-      "As this work evolves, we will continue curating and organizing materials so users can find the right level of detail for their needs.",
+      "This page now uses structured placeholder categories that mirror common science communication websites: guides, data references, and downloadable assets.",
+      "As documents are approved, each card will convert from placeholder state to direct links with version and date metadata.",
     ],
+    featuredModules: {
+      title: "Resource Library (Placeholder)",
+      description: "These collections are staged to keep navigation stable while the final PDF, spreadsheet, and template assets are assembled.",
+      items: [
+        {
+          key: "guides",
+          title: "Methods and Guides",
+          description:
+            "Placeholder location for methodology briefs, indicator definitions, and plain-language explainers for new stakeholders.",
+          status: "Downloads coming soon",
+          icon: "documents",
+          examples: ["Example file: WRI_Methods_Overview_v0.1.pdf", "Example file: Indicator_Glossary_v0.1.pdf"],
+        },
+        {
+          key: "datasets",
+          title: "Data and Metadata",
+          description:
+            "Placeholder location for source inventories, processing notes, and metadata snapshots tied to each release cycle.",
+          status: "Downloads coming soon",
+          icon: "documents",
+          examples: ["Example file: Data_Sources_Register_v0.1.xlsx", "Example file: Release_Metadata_Notes_v0.1.pdf"],
+        },
+        {
+          key: "toolkits",
+          title: "Presentation Toolkit",
+          description:
+            "Placeholder location for slide templates, visual assets, and communication talking points for workshops and briefings.",
+          status: "Downloads coming soon",
+          icon: "documents",
+          examples: ["Example file: WRI_Stakeholder_Slides_v0.1.pptx", "Example file: One_Page_Talking_Points_v0.1.docx"],
+        },
+      ],
+    },
     sections: [
       {
-        heading: "Method and framework references",
+        heading: "How to use this page",
         paragraphs: [
-          "These resources explain why indicators are grouped as they are, how domains are interpreted, and where users should apply caution.",
-          "Clear method references support better analysis quality and reduce misinterpretation when outputs are shared across organizations.",
+          "Visitors should be able to find practical material quickly by browsing category cards and then filtering by intended use.",
+          "For science communication websites, this structure reduces time-to-find and keeps technical and non-technical resources clearly separated.",
         ],
       },
       {
-        heading: "Implementation support materials",
+        heading: "How files will be organized",
         paragraphs: [
-          "Implementation-oriented documents help teams use index outputs in planning workflows, internal prioritization, and stakeholder discussions.",
-          "Templates and examples can shorten onboarding time and improve consistency across projects and regions.",
+          "Each final resource entry should include a concise description, file format, publish date, and owner for maintenance.",
+          "That metadata pattern helps users evaluate relevance quickly and helps maintainers identify outdated files.",
         ],
       },
       {
-        heading: "Communication and presentation assets",
+        heading: "What to expect next",
         paragraphs: [
-          "Communication resources provide language and visuals that make resilience concepts easier to explain in proposals, meetings, and briefings.",
-          "These assets are especially useful when aligning technical and non-technical audiences around the same decisions.",
+          "Future updates can add filtering controls, pinned featured resources, and a simple changelog by release.",
+          "A lightweight governance process is recommended so new resources stay consistent in tone, quality, and accessibility.",
         ],
       },
     ],
@@ -284,31 +380,64 @@ export const INFO_PAGE_CONTENT: Record<InfoPageKey, InfoPageContent> = {
     key: "news",
     title: "In the News",
     subtitle:
-      "Updates and external coverage highlight how wildfire resilience conversations are evolving and where this work is being applied.",
+      "Coverage highlights, project announcements, and event recaps will be published here to show momentum and public visibility.",
     introParagraphs: [
-      "News and updates help contextualize why this work matters now. They also show how resilience framing is being discussed across communities, institutions, and media.",
-      "As more people engage the index, this section will capture stories that reflect adoption, feedback, and opportunities for refinement.",
+      "This section now follows a standard newsroom-style placeholder structure with featured stories, media mentions, and event updates.",
+      "Each item is currently a content placeholder and can be replaced with publication-ready links, source names, and publish dates.",
     ],
+    featuredModules: {
+      title: "Newsroom Feed (Placeholder)",
+      description: "Use these placeholders until approved story links are available from communications and partner teams.",
+      items: [
+        {
+          key: "featured-story",
+          title: "Featured Story",
+          description:
+            "Placeholder for the most recent long-form update about the project, written for a broad public and partner audience.",
+          status: "Story link coming soon",
+          icon: "news",
+          examples: ["Sample headline: Regional Wildfire Resilience Pilot Launches", "Sample date: March 2026"],
+        },
+        {
+          key: "press-mentions",
+          title: "Press Mentions",
+          description:
+            "Placeholder list for third-party media coverage, interviews, and references to wildfire resilience framing in related outlets.",
+          status: "Story links coming soon",
+          icon: "news",
+          examples: ["Sample source: Public Lands Journal", "Sample source: Community Adaptation Brief"],
+        },
+        {
+          key: "events-and-briefings",
+          title: "Events and Briefings",
+          description:
+            "Placeholder for conference updates, webinar recordings, and workshop recaps connected to index adoption or research findings.",
+          status: "Event updates coming soon",
+          icon: "news",
+          examples: ["Sample event: Spring Resilience Roundtable", "Sample asset: Webinar recap and slides"],
+        },
+      ],
+    },
     sections: [
       {
-        heading: "Project updates and milestones",
+        heading: "Editorial structure",
         paragraphs: [
-          "Milestone updates track platform progress, content revisions, and major releases that affect users and partner teams.",
-          "Keeping this information visible supports transparency and helps stakeholders understand what changed and why.",
+          "A strong science communication news page separates owned announcements, external coverage, and event reporting for clarity.",
+          "That separation helps readers quickly understand whether a story is authored internally or references external publication context.",
         ],
       },
       {
-        heading: "External coverage and references",
+        heading: "Publishing workflow",
         paragraphs: [
-          "External coverage provides an outside view of wildfire resilience priorities and the broader landscape of related tools and initiatives.",
-          "These references can help teams benchmark communication strategies and identify emerging themes in the field.",
+          "Each future article should include a date, source attribution, and short abstract so users can scan headlines efficiently.",
+          "Publishing from a shared template improves consistency and reduces rework across communications and product teams.",
         ],
       },
       {
-        heading: "Signals for future direction",
+        heading: "Future enhancements",
         paragraphs: [
-          "News trends often surface questions that should influence future product and content decisions, including where users need more clarity.",
-          "We use these signals alongside direct feedback to prioritize next steps and keep the project aligned with real-world needs.",
+          "Potential future enhancements include topic tags, archive filters, and RSS support for external subscribers.",
+          "Those additions can be staged incrementally once real stories are being published on a regular cadence.",
         ],
       },
     ],
