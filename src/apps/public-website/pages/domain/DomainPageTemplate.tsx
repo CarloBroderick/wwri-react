@@ -86,11 +86,31 @@ function DomainPageTemplate({ domainKey }: DomainPageTemplateProps) {
 
       <ColorBlock id={`${domainKey}-overview-section-wrapper`} tone="warm" className={PUBLIC_WEBSITE_THEME.layout.sectionSpacing}>
         <div id={`${domainKey}-overview-section-container`} className="mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-2">
-          <ImageBlock
-            id={`${domainKey}-overview-section-media`}
-            title="Overview Asset Placeholder"
-            description={`Cat to provide: Overview media for ${content.title} (image or short video still).`}
-          />
+          {content.overviewVideoSrc ? (
+            <div
+              id={`${domainKey}-overview-video-wrapper`}
+              className="aspect-video overflow-hidden rounded-2xl border border-[#dc7e49]/20 bg-[#1f1712]"
+            >
+              <video
+                id={`${domainKey}-overview-video`}
+                className="h-full w-full rounded-2xl object-cover"
+                controls
+                playsInline
+                preload="metadata"
+                poster={content.overviewVideoPosterSrc}
+                aria-label={content.overviewMediaAlt ?? `${content.title} overview video`}
+              >
+                <source id={`${domainKey}-overview-video-source`} src={content.overviewVideoSrc} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          ) : (
+            <ImageBlock
+              id={`${domainKey}-overview-section-media`}
+              title="Overview Asset Placeholder"
+              description={`Cat to provide: Overview media for ${content.title} (image or short video still).`}
+            />
+          )}
           <div id={`${domainKey}-overview-section-content-wrapper`}>
             <SectionHeader idPrefix={`${domainKey}-overview-header`} title="Overview" />
             <ContentBlock id={`${domainKey}-overview-copy`}>

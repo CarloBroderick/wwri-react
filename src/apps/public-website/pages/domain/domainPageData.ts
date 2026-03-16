@@ -4,6 +4,7 @@ import {
   livelihoodsResistance,
   livelihoodsStatus,
   speciesBanner,
+  speciesOverviewVideo,
   speciesRecovery,
   speciesResistance,
   speciesStatus,
@@ -32,6 +33,9 @@ export interface DomainPageContent {
   title: string;
   subtitle: string;
   bannerImageSrc?: string;
+  overviewVideoSrc?: string;
+  overviewVideoPosterSrc?: string;
+  overviewMediaAlt?: string;
   sourceHtmlFile: string;
   sections: [DomainSectionContent, DomainSectionContent, DomainSectionContent];
 }
@@ -214,6 +218,9 @@ export const DOMAIN_PAGE_CONTENT: Record<DomainPageKey, DomainPageContent> = {
     subtitle:
       "This domain measures species conservation status and capacity to survive and recover from fire.",
     bannerImageSrc: speciesBanner,
+    overviewVideoSrc: speciesOverviewVideo,
+    overviewVideoPosterSrc: speciesBanner,
+    overviewMediaAlt: "Species domain overview video",
     sourceHtmlFile: "species.html",
     sections: [
       {

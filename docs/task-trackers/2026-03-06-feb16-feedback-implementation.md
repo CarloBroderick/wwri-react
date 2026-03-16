@@ -19,6 +19,7 @@
 | T6 | ✅ Complete | 2026-03-15 15:18 PDT | Livelihoods section image wiring | Added `sectionImageSrc`/`sectionImageAlt` to section schema; wired all 3 Livelihoods section images + alts · Visually verified in dev |
 | T7 | ✅ Complete | 2026-03-15 15:30 PDT | Species section image wiring | Wired all 3 Species section images + alts in `domainPageData.ts` |
 | T8 | 🟡 Partial | 2026-03-15 15:35 PDT | Landing page visual assets (Section 2 teaser + Section 3 map) | ✅ Section 3 map wired in `HomePage.tsx` · 🔴 Section 2 teaser video still needed from Cat |
+| T9 | ✅ Complete | 2026-03-16 | Species overview video | Added `species-overview-video.mp4` to Overview block; wired via `overviewVideoSrc` in domain data; fixed aspect-ratio shrink on play |
 
 **Status legend:** 🟢 Ready · 🟡 In Progress · 🔴 Blocked · ✅ Complete
 
@@ -36,6 +37,7 @@
 - ✅ Section 3 WRI map: `wwri-scores-w-westcoast.png` — WRI score choropleth + domain pie chart
 - 🔴 Section 2 teaser: still needed from Cat (video file or embed URL)
 - 🔴 Livelihoods overview: Cat noted "[I need to make this and it's not super fast]" — placeholder remains until provided
+- ✅ Species overview video: `species-overview-video.mp4` (~38MB) — wired in Overview block; consider external hosting if repo size is a concern
 
 **Important — asset import pattern:** All images are in `src/assets/` and should be imported as ES modules (Vite pattern), not referenced as runtime `/public/` paths. See T4 for updated guidance.
 
@@ -351,13 +353,38 @@ Add `sectionImageSrc?: string` and `sectionImageAlt?: string` to `DomainSectionC
 
 ---
 
+## T9 — Species overview video
+
+**Status:** ✅ Complete (2026-03-16)  
+**Files:** `src/apps/public-website/pages/domain/DomainPageTemplate.tsx`, `src/apps/public-website/pages/domain/domainPageData.ts`, `src/apps/public-website/assets/domainImages.ts`, `src/assets/species-overview-video.mp4`  
+**Effort:** ~30 min  
+**Dependencies:** T4 (domainImages), T5 (domain page structure)
+
+**Asset:** `species-overview-video.mp4` (~38MB) — 30-second Species domain overview video from Cat
+
+### Changes
+- [x] Add `overviewVideoSrc`, `overviewVideoPosterSrc`, `overviewMediaAlt` to `DomainPageContent` schema
+- [x] Import and export video in `domainImages.ts`; wire Species domain in `domainPageData.ts`
+- [x] Update `DomainPageTemplate` to render `<video>` with controls when `overviewVideoSrc` is set; other domains keep `ImageBlock` placeholder
+- [x] Fix height shrink on play by using `aspect-video` on wrapper and `object-cover` on video element
+
+### Video file size & deployment
+The video is ~38MB. GitHub allows files up to 100MB, so it *can* be committed. If repo size or clone speed is a concern:
+- **Option A:** Commit as-is (works, but increases repo size)
+- **Option B:** Host externally (S3, CDN, Vimeo unlisted) and reference via URL — would require changing the data layer to support `overviewVideoUrl` instead of bundled asset
+- **Option C:** Use Git LFS for large binaries (requires LFS setup in repo)
+
+For deployment: Vite bundles the video into `dist/` at build time. If you deploy by copying the built output (e.g. `dist/` → server), the video is included automatically — no manual copy needed. Manual copy is only needed if your deploy process skips the build or uses a different asset pipeline.
+
+---
+
 ## Future Considerations (Not Actionable Yet)
 
 These items were noted in the feedback doc as ideas or deferred work, not immediate tasks:
 
 **Section 5 — 15-second domain panel videos:** Cat raised this as a brainstorm: "would it be nice for each of these 8 panels to have a little 15 second video instead of words? I'm not sure it might be overwhelming…" Not a committed change — if Cat decides to pursue this, it would require a `VideoCard` variant of `DomainCard` and 8 short video assets per domain. Hold for a future tracker item once Cat confirms direction.
 
-**Overview videos for all domain pages:** Cat's feedback specifies that each domain's Overview color block should contain a "~30 second video describing the domain as a whole." Currently all domain pages show an `ImageBlock` placeholder for the overview. The Species page has an "Overview video" link in the doc (URL not captured — see Open Questions Q5). As each domain's overview video becomes available, the overview `ImageBlock` will need to be replaced with a video embed. This will likely require the same `VideoEmbedBlock` component mentioned in T8. Treat each domain's overview video as a separate mini-task when assets are provided.
+**Overview videos for all domain pages:** Cat's feedback specifies that each domain's Overview color block should contain a "~30 second video describing the domain as a whole." Species is done (T9): `DomainPageTemplate` now supports optional `overviewVideoSrc` and renders a native `<video>` when provided. Other domains still show the `ImageBlock` placeholder. As each domain's overview video becomes available, wire it via `domainPageData.ts` using the same pattern.
 
 ---
 
@@ -371,7 +398,7 @@ These items were noted in the feedback doc as ideas or deferred work, not immedi
 
 4. **Livelihoods Overview asset:** Doc notes "[I need to make this and it's not super fast]" — is there an ETA or should we keep the placeholder until further notice?
 
-5. **Overview videos for domains:** Doc references an "Overview video" for Species (with a hyperlink in the Google Doc that wasn't captured in screenshots). What is that URL? Should it be embedded in the Overview block?
+5. **Overview videos for domains:** Species overview video received and wired (T9). Other domains: same pattern when assets are provided.
 
 ---
 
@@ -390,3 +417,4 @@ These items were noted in the feedback doc as ideas or deferred work, not immedi
 | Section 3 WRI map | `src/assets/wwri-scores-w-westcoast.png` | T8 | ✅ Received |
 | Section 2 teaser video | TBD — video file or embed URL | T8 | 🔴 Still needed from Cat |
 | Livelihoods overview asset | TBD | T6 | 🔴 Cat still creating this |
+| Species overview video | `src/assets/species-overview-video.mp4` (~38MB) | T9 | ✅ Received & wired |
