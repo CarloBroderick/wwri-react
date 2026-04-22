@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import logoSvg from "../../../../assets/public-website-redesign/icons/logo.svg";
+import legacyWriLogo from "../../../../../public-website-mockups/assets/icons/WWRI_logo.png";
 import { PRIMARY_NAV, type NavItem } from "../../config/navigation";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 
@@ -22,9 +22,9 @@ function SiteHeader() {
         >
           <img
             id="public-website-redesign-header-logo"
-            src={logoSvg}
+            src={legacyWriLogo}
             alt="Wildfire Resilience Index"
-            className="h-12 w-auto"
+            className="h-12 w-12 object-contain"
           />
           <span
             id="public-website-redesign-header-logo-text"
@@ -51,7 +51,7 @@ function SiteHeader() {
         <Link
           id="public-website-redesign-header-cta"
           to={REDESIGN_ROUTES.exploreIndex}
-          className="hidden whitespace-nowrap rounded-full border-2 border-[#a5be6c] px-5 py-2 text-sm font-bold uppercase tracking-wide text-[#a5be6c] transition-colors hover:bg-[#a5be6c] hover:text-[#22402c] md:inline-block"
+          className="hidden whitespace-nowrap rounded-full border-[3px] border-[#a5be6c] px-5 py-2 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-[#a5be6c] hover:text-[#22402c] md:inline-block"
         >
           Explore the Index
         </Link>
