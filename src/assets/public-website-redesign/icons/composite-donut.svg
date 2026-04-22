@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Composite WRI score donut chart">
+  <g transform="translate(120,120)">
+    <circle r="100" fill="none" stroke="#efeae0" stroke-width="28"/>
+    <g fill="none" stroke-width="28" stroke-linecap="butt">
+      <path d="M0 -100 A100 100 0 0 1 70.7 -70.7" stroke="#b0335a"/>
+      <path d="M70.7 -70.7 A100 100 0 0 1 100 0" stroke="#e47a68"/>
+      <path d="M100 0 A100 100 0 0 1 70.7 70.7" stroke="#f0a85d"/>
+      <path d="M70.7 70.7 A100 100 0 0 1 0 100" stroke="#8cd2b2"/>
+      <path d="M0 100 A100 100 0 0 1 -70.7 70.7" stroke="#58b6a5"/>
+      <path d="M-70.7 70.7 A100 100 0 0 1 -100 0" stroke="#2c7a6f"/>
+      <path d="M-100 0 A100 100 0 0 1 -70.7 -70.7" stroke="#1f3c63"/>
+      <path d="M-70.7 -70.7 A100 100 0 0 1 0 -100" stroke="#2a1f3d"/>
+    </g>
+    <text x="0" y="8" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="#22402c">73</text>
+  </g>
+</svg>
