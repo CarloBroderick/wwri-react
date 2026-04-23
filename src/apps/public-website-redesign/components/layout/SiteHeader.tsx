@@ -40,7 +40,7 @@ function SiteHeader() {
 
         <nav
           id="public-website-redesign-header-nav"
-          className="hidden items-center gap-8 lg:flex"
+          className="hidden items-center gap-4 md:flex lg:gap-8"
           aria-label="Primary"
         >
           {PRIMARY_NAV.map((item) => (
