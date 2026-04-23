@@ -72,8 +72,12 @@ function AboutPage() {
         />
         <div
           id="public-website-redesign-about-challenge-text"
-          className="space-y-4 border-t-[3px] border-wriMoss pt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy md:text-right"
+          className="space-y-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
         >
+          <div
+            id="public-website-redesign-about-challenge-divider"
+            className="h-[3px] w-16 rounded-full bg-wriMoss"
+          />
           <p>
             Because wildfire resilience spans ecological, social, and infrastructural factors, it
             can be difficult to measure and compare. The index addresses this challenge by
@@ -136,8 +140,12 @@ function AboutPage() {
         />
         <div
           id="public-website-redesign-about-access-text"
-          className="space-y-4 border-t-[3px] border-wriMoss pt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy md:text-right"
+          className="space-y-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
         >
+          <div
+            id="public-website-redesign-about-access-divider"
+            className="h-[3px] w-16 rounded-full bg-wriMoss"
+          />
           <p>
             Because the index and its underlying datasets are open source (free to all), it is
             accessible to a wide range of users. It can be applied at multiple scales, from local

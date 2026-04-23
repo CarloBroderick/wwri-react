@@ -10,12 +10,17 @@ function ContactFaqsPage() {
   return (
     <div id="public-website-redesign-contact-faqs-page" className="mx-auto max-w-[1200px] px-6 py-16">
       <SectionHeader id="public-website-redesign-contact-faqs-heading" eyebrow="FAQs" />
-      <img
-        id="public-website-redesign-contact-faqs-image"
-        src={faqImage}
-        alt="Frequently asked questions about the Wildfire Resilience Index"
-        className="mx-auto mt-10 w-full max-w-[1000px] rounded-sm"
-      />
+      <div
+        id="public-website-redesign-contact-faqs-image-wrapper"
+        className="mt-10 flex w-full justify-center"
+      >
+        <img
+          id="public-website-redesign-contact-faqs-image"
+          src={faqImage}
+          alt="Frequently asked questions about the Wildfire Resilience Index"
+          className="block w-full max-w-[1000px] rounded-sm"
+        />
+      </div>
     </div>
   );
 }

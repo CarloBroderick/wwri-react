@@ -61,8 +61,12 @@ function DomainsPage() {
       >
         <div
           id="public-website-redesign-domains-reflects-text"
-          className="space-y-5 border-t-[3px] border-wriMoss pt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
+          className="space-y-5 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
         >
+          <div
+            id="public-website-redesign-domains-reflects-divider"
+            className="h-[3px] w-16 rounded-full bg-wriMoss"
+          />
           <div id="public-website-redesign-domains-reflects-summary">
             <div className="mb-2 font-semibold text-wriForest">Each domain reflects both:</div>
             <ul className="space-y-2 pl-0">
