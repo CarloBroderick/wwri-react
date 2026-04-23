@@ -1,46 +1,50 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import legacyWriLogo from "../../../../../public-website-mockups/assets/icons/WWRI_logo.png";
+import { Link, NavLink, useLocation, useMatch } from "react-router-dom";
+import wriLogoFull from "../../../../assets/public-website-redesign/images/logos/wri-full-white.png";
+import wriLogoSelected from "../../../../assets/public-website-redesign/images/logos/wri-selected-white.png";
 import { PRIMARY_NAV, type NavItem } from "../../config/navigation";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 
-/** Top navigation bar matching the PDF spec: dark forest-green bar, hex logo, links, CTA pill. */
+/**
+ * Top navigation bar — Canva spec:
+ *   • Container: Forest #2F5D3A
+ *   • Logo: WRI Logo Full (white text + outline); swaps to the "Selected" variant
+ *     (filled white) whenever the user is on the homepage
+ *   • Nav items: Poppins Normal size 24, Smoke Fog color, Sage underline (5px) when
+ *     the current page is selected, Poppins Bold text on selection
+ *   • Dropdowns: Forest container, Moss outline, Moss Menu Highlight on hover
+ *   • CTA: "EXPLORE THE INDEX" transparent pill with Moss outline (5px); flips to
+ *     filled Moss-clicked on active
+ *   • Separation line under bar: 1px Smoke Fog
+ */
 function SiteHeader() {
+  const onHome = !!useMatch({ path: REDESIGN_ROUTES.home, end: true });
   return (
     <header
       id="public-website-redesign-site-header"
-      className="sticky top-0 z-40 w-full bg-[#2f5a3d] font-[Be_Vietnam_Pro,system-ui,sans-serif] text-white shadow-sm"
+      className="sticky top-0 z-40 w-full border-b border-wriSmokeFog/90 bg-wriForest font-Poppins text-wriSmokeFog shadow-sm"
     >
       <div
         id="public-website-redesign-header-inner"
-        className="mx-auto flex h-20 max-w-[1280px] items-center justify-between gap-6 px-6"
+        className="mx-auto flex h-24 max-w-[1400px] items-center justify-between gap-6 px-6"
       >
         <Link
           id="public-website-redesign-header-home-link"
           to={REDESIGN_ROUTES.home}
-          className="flex items-center gap-3"
+          className="flex items-center"
+          aria-label="Wildfire Resilience Index — home"
         >
           <img
             id="public-website-redesign-header-logo"
-            src={legacyWriLogo}
+            src={onHome ? wriLogoSelected : wriLogoFull}
             alt="Wildfire Resilience Index"
-            className="h-12 w-12 object-contain"
+            className="h-16 w-auto object-contain"
           />
-          <span
-            id="public-website-redesign-header-logo-text"
-            className="max-w-[110px] text-[10px] font-bold uppercase leading-tight tracking-[0.08em]"
-          >
-            Wildfire
-            <br />
-            Resilience
-            <br />
-            Index
-          </span>
         </Link>
 
         <nav
           id="public-website-redesign-header-nav"
-          className="hidden items-center gap-4 md:flex lg:gap-8"
+          className="hidden items-center gap-6 md:flex lg:gap-10"
           aria-label="Primary"
         >
           {PRIMARY_NAV.map((item) => (
@@ -48,15 +52,32 @@ function SiteHeader() {
           ))}
         </nav>
 
-        <Link
-          id="public-website-redesign-header-cta"
-          to={REDESIGN_ROUTES.exploreIndex}
-          className="hidden whitespace-nowrap rounded-full border-[3px] border-[#a5be6c] px-5 py-2 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-[#a5be6c] hover:text-[#22402c] md:inline-block"
-        >
-          Explore the Index
-        </Link>
+        <ExploreIndexButton />
       </div>
     </header>
+  );
+}
+
+/**
+ * CTA pill: transparent + Moss outline by default; once the user navigates to
+ * the index map, the button flips to a filled "clicked" Moss state per spec.
+ */
+function ExploreIndexButton() {
+  const { pathname } = useLocation();
+  const isActive = pathname === REDESIGN_ROUTES.exploreIndex;
+  const base =
+    "hidden whitespace-nowrap rounded-full px-6 py-2 text-[clamp(16px,1.4vw,22px)] leading-none tracking-wide transition-colors md:inline-block";
+  const styles = isActive
+    ? "border-[5px] border-wriMossClicked bg-wriMossClicked font-bold text-wriSmokeFog"
+    : "border-[5px] border-wriSmokeFog font-normal text-wriSmokeFog hover:bg-wriMossClicked hover:border-wriMossClicked";
+  return (
+    <Link
+      id="public-website-redesign-header-cta"
+      to={REDESIGN_ROUTES.exploreIndex}
+      className={`${base} ${styles}`}
+    >
+      EXPLORE THE INDEX
+    </Link>
   );
 }
 
@@ -75,9 +96,11 @@ function HeaderNavItem({ item }: { item: NavItem }) {
         id={id}
         to={item.to}
         className={({ isActive }) =>
-          `relative py-8 text-sm font-bold uppercase tracking-[0.12em] ${
-            isActive ? "after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:bg-[#a5be6c]" : ""
-          } hover:text-[#dde7c2]`
+          `relative block py-9 text-[clamp(16px,1.6vw,24px)] uppercase tracking-[0.06em] transition-colors ${
+            isActive
+              ? "font-bold after:absolute after:inset-x-0 after:-bottom-0 after:h-[5px] after:bg-wriSage"
+              : "font-normal hover:text-wriSmokeFog/85"
+          }`
         }
         end={item.to === REDESIGN_ROUTES.home}
       >
@@ -86,7 +109,7 @@ function HeaderNavItem({ item }: { item: NavItem }) {
       {hasChildren && open && (
         <div
           id={`${id}-dropdown`}
-          className="absolute left-1/2 top-full z-50 min-w-[220px] -translate-x-1/2 overflow-hidden rounded-md border border-[#22402c] bg-[#3a6b48] shadow-xl"
+          className="absolute left-1/2 top-full z-50 min-w-[240px] -translate-x-1/2 overflow-hidden rounded-sm border-2 border-wriSmokeFog bg-wriForest shadow-xl"
           role="menu"
         >
           {item.children!.map((child, idx) => (
@@ -94,15 +117,15 @@ function HeaderNavItem({ item }: { item: NavItem }) {
               key={child.to}
               id={`${id}-child-${idx}`}
               to={child.to}
-              className={({ isActive }) =>
-                `block px-5 py-2.5 text-center text-sm transition-colors ${
-                  isActive || idx === 0
-                    ? "bg-[#4a7a58] font-bold text-white"
-                    : "text-[#eef3dc] hover:bg-[#4a7a58] hover:text-white"
-                }`
-              }
               end
               role="menuitem"
+              className={({ isActive }) =>
+                `block px-6 py-3 text-center transition-colors ${
+                  isActive
+                    ? "text-[21px] font-bold text-wriSmokeFog"
+                    : "text-[19px] font-normal text-wriSmokeFog hover:bg-wriMossMenuHighlight hover:text-[21px] hover:font-bold"
+                }`
+              }
             >
               {child.label}
             </NavLink>

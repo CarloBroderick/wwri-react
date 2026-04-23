@@ -16,7 +16,7 @@ function RedesignLayout() {
   return (
     <div
       id="public-website-redesign-layout"
-      className="min-h-screen bg-[#f5f1e8] font-[Be_Vietnam_Pro,system-ui,sans-serif] text-[#1c1c1c]"
+      className="min-h-screen bg-wriSmokeFog font-Poppins text-wriCanopy"
     >
       <ScrollToTop />
       <SiteHeader />

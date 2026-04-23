@@ -32,17 +32,19 @@ function MediaLandingPage() {
 
   return (
     <div id="public-website-redesign-media-landing" className="mx-auto max-w-[1100px] px-6 py-16">
-      <SectionHeader id="public-website-redesign-media-heading" title="Media" />
+      <SectionHeader id="public-website-redesign-media-heading" eyebrow="Media" />
       <div id="public-website-redesign-media-links" className="mt-10 grid gap-4 sm:grid-cols-2">
         {links.map((l) => (
           <Link
             key={l.to}
             id={`public-website-redesign-media-link-${l.label.toLowerCase().replace(/\s+/g, "-").replace(/&/g, "and")}`}
             to={l.to}
-            className="group flex flex-col justify-between rounded-sm border border-[#35553f]/30 bg-white/60 p-6 transition-colors hover:border-[#35553f] hover:bg-white"
+            className="group flex flex-col justify-between rounded-sm border-[3px] border-wriForest/30 bg-wriSmokeFog p-6 transition-colors hover:border-wriForest"
           >
-            <div className="text-xl font-bold text-[#22402c] group-hover:text-[#779062]">{l.label}</div>
-            <div className="mt-2 text-sm text-[#555]">{l.copy}</div>
+            <div className="font-Montserrat text-xl font-bold text-wriForest group-hover:text-wriSage">
+              {l.label}
+            </div>
+            <div className="mt-2 font-Poppins text-sm text-wriCanopy/80">{l.copy}</div>
           </Link>
         ))}
       </div>

@@ -14,7 +14,14 @@ export const PRIMARY_NAV: NavItem[] = [
       ...DOMAINS.map((d) => ({ label: d.label, to: REDESIGN_ROUTES.domain(d.slug) })),
     ],
   },
-  { label: "Methology", to: REDESIGN_ROUTES.methodology },
+  {
+    label: "Methodology",
+    to: REDESIGN_ROUTES.methodology,
+    children: [
+      { label: "Deep Dive", to: REDESIGN_ROUTES.methodologyDeepDive },
+      { label: "How to Use", to: REDESIGN_ROUTES.methodologyHowToUse },
+    ],
+  },
   {
     label: "Media",
     to: REDESIGN_ROUTES.news,
@@ -25,5 +32,13 @@ export const PRIMARY_NAV: NavItem[] = [
       { label: "Resources", to: REDESIGN_ROUTES.resources },
     ],
   },
-  { label: "Contact", to: REDESIGN_ROUTES.contact },
+  {
+    label: "Contact",
+    to: REDESIGN_ROUTES.contact,
+    children: [
+      { label: "Meet the Team", to: REDESIGN_ROUTES.contactTeam },
+      { label: "Connect with Us", to: REDESIGN_ROUTES.contactConnect },
+      { label: "FAQs", to: REDESIGN_ROUTES.contactFaqs },
+    ],
+  },
 ];

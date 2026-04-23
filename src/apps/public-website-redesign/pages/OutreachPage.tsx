@@ -30,27 +30,27 @@ const PREVIOUS_EVENTS: Event[] = [
   },
 ];
 
-/** Outreach (PDF page 19). Upcoming + previous events list. */
+/** Outreach (PDF page 19) — upcoming + previous events list. */
 function OutreachPage() {
   return (
-    <div id="public-website-redesign-outreach-page" className="mx-auto max-w-[1100px] px-6 py-16">
-      <SectionHeader id="public-website-redesign-outreach-heading" title="Outreach" />
+    <div id="public-website-redesign-outreach-page" className="mx-auto max-w-[1200px] px-6 py-16">
+      <SectionHeader id="public-website-redesign-outreach-heading" eyebrow="Outreach" />
       <p
         id="public-website-redesign-outreach-blurb"
-        className="mt-6 max-w-3xl text-[15px] leading-relaxed text-[#333]"
+        className="mt-6 max-w-3xl font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
       >
         Discover opportunities to learn more about the index — from public talks to webinar
         trainings.
       </p>
       <p
         id="public-website-redesign-outreach-resources-note"
-        className="mt-2 max-w-3xl text-[15px] leading-relaxed text-[#333]"
+        className="mt-2 max-w-3xl font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
       >
         Missed an event? Check out recordings and more on our{" "}
         <Link
           id="public-website-redesign-outreach-resources-link"
           to={REDESIGN_ROUTES.resources}
-          className="font-semibold text-[#6f8a3f] underline underline-offset-4 hover:text-[#22402c]"
+          className="font-bold text-wriMoss underline underline-offset-4 hover:text-wriForest"
         >
           Resources
         </Link>{" "}
@@ -58,17 +58,24 @@ function OutreachPage() {
       </p>
 
       <section id="public-website-redesign-outreach-upcoming" className="mt-14">
-        <h2 className="text-2xl font-bold text-[#779062] md:text-3xl">Upcoming Events</h2>
-        <div className="mt-2 h-[3px] w-14 rounded-full bg-[#b3c167]" />
-        <p id="public-website-redesign-outreach-upcoming-empty" className="mt-6 text-[15px] italic text-[#555]">
+        <h2 className="font-Montserrat text-2xl font-bold text-wriSage md:text-3xl">
+          Upcoming Events
+        </h2>
+        <div className="mt-2 h-[3px] w-14 rounded-full bg-wriMoss" />
+        <p
+          id="public-website-redesign-outreach-upcoming-empty"
+          className="mt-6 font-Poppins text-[15px] italic text-wriCanopy/70"
+        >
           No upcoming events scheduled yet — check back soon.
         </p>
       </section>
 
       <section id="public-website-redesign-outreach-previous" className="mt-14 space-y-12">
         <div>
-          <h2 className="text-2xl font-bold text-[#779062] md:text-3xl">Previous Events</h2>
-          <div className="mt-2 h-[3px] w-14 rounded-full bg-[#b3c167]" />
+          <h2 className="font-Montserrat text-2xl font-bold text-wriSage md:text-3xl">
+            Previous Events
+          </h2>
+          <div className="mt-2 h-[3px] w-14 rounded-full bg-wriMoss" />
         </div>
         {PREVIOUS_EVENTS.map((ev) => (
           <article
@@ -83,9 +90,13 @@ function OutreachPage() {
               className="aspect-[4/3] w-full rounded-sm object-cover"
             />
             <div id={`public-website-redesign-outreach-event-${ev.id}-body`}>
-              <h3 className="text-2xl font-bold leading-tight text-[#779062]">{ev.title}</h3>
-              <div className="mt-1 text-lg font-light italic text-[#779062]/80">{ev.date}</div>
-              <p className="mt-4 text-[15px] leading-relaxed text-[#333]">{ev.description}</p>
+              <h3 className="font-Montserrat text-2xl font-bold leading-tight text-wriSage">
+                {ev.title}
+              </h3>
+              <div className="mt-1 font-Poppins text-lg italic text-wriSage/80">{ev.date}</div>
+              <p className="mt-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy">
+                {ev.description}
+              </p>
             </div>
           </article>
         ))}

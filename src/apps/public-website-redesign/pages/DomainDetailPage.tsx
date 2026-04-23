@@ -2,15 +2,20 @@ import { Navigate, useParams } from "react-router-dom";
 import ExploreAnotherDomain from "../components/shared/ExploreAnotherDomain";
 import MeasureSection from "../components/shared/MeasureSection";
 import SectionHeader from "../components/shared/SectionHeader";
-import { DOMAINS_BY_SLUG, type DomainSlug } from "../config/domains";
+import {
+  DOMAINS_BY_SLUG,
+  senseOfPlaceIconicPlacesHero,
+  type DomainSlug,
+} from "../config/domains";
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
 
 /**
- * Single-domain detail page — matches PDF pages 9–16 layout:
- *   - Hero photo + "Why it matters"
- *   - How it's measured (status | resistance | recovery) rows
- *   - "Explore Another Domain" grid at the bottom
- * Sense of Place (page 12) also renders a second sub-block for Iconic Species.
+ * Single-domain detail page — Canva spec pages 9–16 / change-requests doc.
+ *   1. Why it matters (WIM hero + copy + domain-square chip)
+ *   2. How it's measured heading
+ *   3. Status / Resistance / Recovery rows (HIM photos on far left)
+ *   4. (Sense of Place only) Iconic Places block + Iconic Species block
+ *   5. Explore Another Domain grid (current dimmed, next highlighted Sage)
  */
 function DomainDetailPage() {
   const { slug } = useParams<{ slug: DomainSlug }>();
@@ -20,14 +25,14 @@ function DomainDetailPage() {
     return <Navigate to={REDESIGN_ROUTES.domains} replace />;
   }
 
-  const chipTextColor = domain.textOn === "dark" ? "text-[#22402c]" : "text-white";
+  const isSenseOfPlace = domain.slug === "sense-of-place";
 
   return (
     <div id={`public-website-redesign-domain-${domain.slug}-page`} className="pb-16">
-      {/* Hero photo row + Why it matters */}
+      {/* ===== Why it matters hero row =============================== */}
       <section
         id={`public-website-redesign-domain-${domain.slug}-hero`}
-        className="mx-auto grid max-w-[1100px] grid-cols-1 gap-0 px-0 md:grid-cols-[1fr_1.1fr] md:gap-10 md:px-6 md:pt-10"
+        className="mx-auto grid max-w-[1200px] grid-cols-1 gap-0 px-0 md:grid-cols-[1fr_1.1fr] md:gap-10 md:px-6 md:pt-10"
       >
         <img
           id={`public-website-redesign-domain-${domain.slug}-hero-photo`}
@@ -43,102 +48,201 @@ function DomainDetailPage() {
             <div className="flex-1">
               <h1
                 id={`public-website-redesign-domain-${domain.slug}-title`}
-                className="text-4xl font-light leading-tight text-[#22402c] md:text-5xl"
+                className="font-Poppins text-[clamp(2.25rem,5vw,2.75rem)] font-normal leading-tight text-wriForest"
               >
                 {domain.label}
               </h1>
-              <div className="mt-3 h-[3px] w-14 rounded-full bg-[#b3c167]" />
+              <div className="my-3 h-[3px] w-16 rounded-full bg-wriMoss" />
               <h2
                 id={`public-website-redesign-domain-${domain.slug}-why`}
-                className="mt-4 text-2xl font-bold text-[#779062] md:text-3xl"
+                className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
               >
                 Why it matters
               </h2>
             </div>
-            <span
-              id={`public-website-redesign-domain-${domain.slug}-hero-icon`}
-              className={`inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-sm ${chipTextColor}`}
-              style={{ backgroundColor: domain.color }}
+            <img
+              id={`public-website-redesign-domain-${domain.slug}-hero-chip`}
+              src={domain.tile}
+              alt=""
               aria-hidden
-            >
-              <img
-                src={domain.icon}
-                alt=""
-                className="h-9 w-9"
-                style={{
-                  filter: domain.textOn === "dark" ? undefined : "brightness(0) invert(1)",
-                }}
-              />
-            </span>
+              className="h-16 w-16 shrink-0 rounded-sm object-cover"
+            />
           </div>
           <p
             id={`public-website-redesign-domain-${domain.slug}-why-copy`}
-            className="mt-5 max-w-prose text-[15px] leading-relaxed text-[#333]"
+            className="mt-5 max-w-prose font-Poppins text-[clamp(16px,1.5vw,19px)] leading-relaxed text-wriCanopy"
           >
             {domain.whyItMatters}
           </p>
         </div>
       </section>
 
-      {/* Measured sections */}
-      <div
-        id={`public-website-redesign-domain-${domain.slug}-measures`}
-        className="mx-auto mt-10 max-w-[1100px] space-y-12 px-6"
-      >
-        <SectionHeader
-          id={`public-website-redesign-domain-${domain.slug}-measures-heading`}
-          eyebrow="How it’s"
-          title="measured"
-        />
-        <MeasureSection
-          id={`public-website-redesign-domain-${domain.slug}-status`}
-          domain={domain}
-          section={domain.status}
-        />
-        <MeasureSection
-          id={`public-website-redesign-domain-${domain.slug}-resistance`}
-          domain={domain}
-          section={domain.resistance}
-        />
-        <MeasureSection
-          id={`public-website-redesign-domain-${domain.slug}-recovery`}
-          domain={domain}
-          section={domain.recovery}
-        />
-      </div>
-
-      {/* Optional sub-domain (Sense of Place → Iconic Species) */}
-      {domain.extra && (
+      {/* ===== How it's measured (only for non-SOP domains) ========== */}
+      {!isSenseOfPlace && (
         <div
-          id={`public-website-redesign-domain-${domain.slug}-extra`}
-          className="mx-auto mt-16 max-w-[1100px] space-y-12 px-6"
+          id={`public-website-redesign-domain-${domain.slug}-measures`}
+          className="mx-auto mt-10 max-w-[1200px] space-y-12 px-6"
         >
           <SectionHeader
-            id={`public-website-redesign-domain-${domain.slug}-extra-heading`}
-            eyebrow={domain.label}
-            title={domain.extra.subheading}
+            id={`public-website-redesign-domain-${domain.slug}-measures-heading`}
+            eyebrow={
+              <>
+                How it’s
+                <br />
+                measured
+              </>
+            }
           />
-          <div>
-            <div id={`public-website-redesign-domain-${domain.slug}-extra-why-divider`} className="mb-3 h-[3px] w-14 rounded-full bg-[#b3c167]" />
-            <h3 className="text-2xl font-bold text-[#779062]">Why it matters</h3>
-            <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-[#333]">
+          <MeasureSection
+            id={`public-website-redesign-domain-${domain.slug}-status`}
+            domain={domain}
+            section={domain.status}
+          />
+          <MeasureSection
+            id={`public-website-redesign-domain-${domain.slug}-resistance`}
+            domain={domain}
+            section={domain.resistance}
+          />
+          <MeasureSection
+            id={`public-website-redesign-domain-${domain.slug}-recovery`}
+            domain={domain}
+            section={domain.recovery}
+          />
+        </div>
+      )}
+
+      {/* ===== Sense of Place: Iconic Places block =================== */}
+      {isSenseOfPlace && (
+        <div
+          id={`public-website-redesign-domain-${domain.slug}-iconic-places`}
+          className="mx-auto mt-16 max-w-[1200px] space-y-12 px-6"
+        >
+          <SectionHeader
+            id={`public-website-redesign-domain-${domain.slug}-ip-heading`}
+            eyebrow="Iconic Places"
+          />
+          <h3
+            id={`public-website-redesign-domain-${domain.slug}-ip-why`}
+            className="-mt-6 font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
+          >
+            Why it matters
+          </h3>
+          <section
+            id={`public-website-redesign-domain-${domain.slug}-ip-intro`}
+            className="grid grid-cols-1 gap-6 border-t border-wriMoss/40 pt-10 md:grid-cols-[1fr_1.1fr] md:gap-10"
+          >
+            <img
+              id={`public-website-redesign-domain-${domain.slug}-ip-hero`}
+              src={senseOfPlaceIconicPlacesHero}
+              alt="Iconic places hero"
+              className="aspect-[4/5] w-full rounded-sm object-cover md:max-w-[500px]"
+            />
+            <div className="font-Poppins text-[clamp(16px,1.5vw,19px)] leading-relaxed text-wriCanopy">
+              <p>
+                There are areas that are culturally significant for a variety of reasons — such as
+                landmarks, monuments, parks, and/or protected areas.
+              </p>
+              <p className="mt-4">
+                The resilience for structural and natural places is evaluated differently.
+              </p>
+            </div>
+          </section>
+          <SectionHeader
+            id={`public-website-redesign-domain-${domain.slug}-ip-measured-heading`}
+            eyebrow={
+              <>
+                How it’s
+                <br />
+                measured
+                <div className="mt-1 font-Poppins text-base uppercase tracking-[0.08em] text-wriForest/70">
+                  Iconic Places
+                </div>
+              </>
+            }
+          />
+          <MeasureSection
+            id={`public-website-redesign-domain-${domain.slug}-ip-status`}
+            domain={domain}
+            section={domain.status}
+            overline="Iconic Places"
+          />
+          <MeasureSection
+            id={`public-website-redesign-domain-${domain.slug}-ip-resistance`}
+            domain={domain}
+            section={domain.resistance}
+            overline="Iconic Places"
+          />
+          <MeasureSection
+            id={`public-website-redesign-domain-${domain.slug}-ip-recovery`}
+            domain={domain}
+            section={domain.recovery}
+            overline="Iconic Places"
+          />
+        </div>
+      )}
+
+      {/* ===== Sense of Place: Iconic Species block ================== */}
+      {isSenseOfPlace && domain.extra && (
+        <div
+          id={`public-website-redesign-domain-${domain.slug}-iconic-species`}
+          className="mx-auto mt-20 max-w-[1200px] space-y-12 px-6"
+        >
+          <SectionHeader
+            id={`public-website-redesign-domain-${domain.slug}-is-heading`}
+            eyebrow="Iconic Species"
+          />
+          <h3
+            id={`public-website-redesign-domain-${domain.slug}-is-why`}
+            className="-mt-6 font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
+          >
+            Why it matters
+          </h3>
+          <section
+            id={`public-website-redesign-domain-${domain.slug}-is-intro`}
+            className="grid grid-cols-1 gap-6 border-t border-wriMoss/40 pt-10 md:grid-cols-[1fr_1.1fr] md:gap-10"
+          >
+            {domain.extra.hero && (
+              <img
+                id={`public-website-redesign-domain-${domain.slug}-is-hero`}
+                src={domain.extra.hero}
+                alt="Iconic species hero"
+                className="aspect-[4/5] w-full rounded-sm object-cover md:max-w-[500px]"
+              />
+            )}
+            <p className="font-Poppins text-[clamp(16px,1.5vw,19px)] leading-relaxed text-wriCanopy">
               {domain.extra.whyItMatters}
             </p>
-          </div>
+          </section>
+          <SectionHeader
+            id={`public-website-redesign-domain-${domain.slug}-is-measured-heading`}
+            eyebrow={
+              <>
+                How it’s
+                <br />
+                measured
+                <div className="mt-1 font-Poppins text-base uppercase tracking-[0.08em] text-wriForest/70">
+                  Iconic Species
+                </div>
+              </>
+            }
+          />
           <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-extra-status`}
+            id={`public-website-redesign-domain-${domain.slug}-is-status`}
             domain={domain}
             section={domain.extra.status}
+            overline="Iconic Species"
           />
           <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-extra-resistance`}
+            id={`public-website-redesign-domain-${domain.slug}-is-resistance`}
             domain={domain}
             section={domain.extra.resistance}
+            overline="Iconic Species"
           />
           <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-extra-recovery`}
+            id={`public-website-redesign-domain-${domain.slug}-is-recovery`}
             domain={domain}
             section={domain.extra.recovery}
+            overline="Iconic Species"
           />
         </div>
       )}

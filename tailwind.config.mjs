@@ -7,6 +7,8 @@ export default {
       fontFamily: {
         IBMPlexSerif: ["IBM Plex Serif", "serif"],
         BeVietnamPro: ["Be Vietnam Pro", "sans-serif"],
+        Montserrat: ["Montserrat", "system-ui", "sans-serif"],
+        Poppins: ["Poppins", "system-ui", "sans-serif"],
       },
       fontSize: {
         "2xs": ".625rem",
@@ -44,6 +46,14 @@ export default {
         geopgrahicContextLabelTextColor: "#313131",
         geopgrahicContextDescriptionTextColor: "#585858",
         mapIconColor: "#8F8F8F",
+        // --- Wildfire Resilience Index redesign brand tokens (Canva spec) ---
+        wriSmokeFog: "#F4F6F3",
+        wriForest: "#2F5D3A",
+        wriMoss: "#A3B86C",
+        wriMossClicked: "#8FA65A",
+        wriMossMenuHighlight: "#5B7D4C",
+        wriSage: "#7FA68B",
+        wriCanopy: "#1F2A23",
       },
     },
   },

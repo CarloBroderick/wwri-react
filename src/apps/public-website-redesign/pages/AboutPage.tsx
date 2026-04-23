@@ -5,15 +5,23 @@ import regionMap from "../../../assets/public-website-redesign/icons/region-map.
 import SectionHeader from "../components/shared/SectionHeader";
 
 /**
- * About page — matches PDF page 3. Three stacked sections:
- *   1. What is WRI?  (with region map image)
- *   2. Why is the Index Useful? (mountain town photo on right)
- *   3. Accessibility & acknowledgement (forest regrowth on left)
+ * About page — Canva spec (pages 3).
+ *   Eyebrow "About" Poppins 44 Forest, title Montserrat 41 Sage, body Poppins
+ *   20 Canopy. Four alternating scroll sections:
+ *     1. What is the WRI? (region map on right)
+ *     2. Continued body + burnt forest photo on left
+ *     3. Why is the Index Useful? (Banff-like town photo on right)
+ *     4. Continued body + new-growth photo on left
+ *
+ *   Note: the Canva doc references specific About-page images (Location Map,
+ *   New Growth Post Fire, Banff Town, New Pine Growth). These were not in the
+ *   Apr 23 2026 drive; we keep the existing imagery as placeholders.
  */
 function AboutPage() {
   return (
-    <div id="public-website-redesign-about-page" className="mx-auto max-w-[1100px] px-6 py-16">
-      <section id="public-website-redesign-about-what" className="grid gap-10 md:grid-cols-[1fr_1fr] md:items-start">
+    <div id="public-website-redesign-about-page" className="mx-auto max-w-[1200px] px-6 py-16">
+      {/* Section 1 — What is the WRI? (with region map) */}
+      <section id="public-website-redesign-about-what-1" className="grid gap-10 md:grid-cols-[1fr_1fr] md:items-start">
         <div id="public-website-redesign-about-what-text">
           <SectionHeader
             id="public-website-redesign-about-what-heading"
@@ -22,11 +30,14 @@ function AboutPage() {
               <>
                 What is the
                 <br />
-                Wildfire Resiliance Index?
+                Wildfire Resilience Index?
               </>
             }
           />
-          <div id="public-website-redesign-about-what-body" className="mt-6 space-y-4 text-[15px] leading-relaxed text-[#333]">
+          <div
+            id="public-website-redesign-about-what-body"
+            className="mt-6 space-y-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
+          >
             <p>
               The <strong>Wildfire Resilience Index (WRI)</strong> is an interactive tool designed to
               support communities and landscapes living with wildfire in 12 Western US states,
@@ -44,12 +55,13 @@ function AboutPage() {
           id="public-website-redesign-about-region-map"
           src={regionMap}
           alt="Map of 12 Western US states, British Columbia, and the Yukon Territory"
-          className="mx-auto w-full max-w-[380px]"
+          className="mx-auto w-full max-w-[420px]"
         />
       </section>
 
+      {/* Section 2 — continued, photo on left, text right-aligned per Canva */}
       <section
-        id="public-website-redesign-about-challenge"
+        id="public-website-redesign-about-what-2"
         className="mt-20 grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-center"
       >
         <img
@@ -58,7 +70,10 @@ function AboutPage() {
           alt="Burned forest with yellow wildflowers returning after wildfire"
           className="aspect-[4/3] w-full rounded-sm object-cover"
         />
-        <div id="public-website-redesign-about-challenge-text" className="space-y-4 text-[15px] leading-relaxed text-[#333]">
+        <div
+          id="public-website-redesign-about-challenge-text"
+          className="space-y-4 border-t-[3px] border-wriMoss pt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy md:text-right"
+        >
           <p>
             Because wildfire resilience spans ecological, social, and infrastructural factors, it
             can be difficult to measure and compare. The index addresses this challenge by
@@ -75,14 +90,18 @@ function AboutPage() {
         </div>
       </section>
 
-      <section id="public-website-redesign-about-why" className="mt-20 grid gap-10 md:grid-cols-[1fr_1.1fr] md:items-center">
+      {/* Section 3 — Why is the Index Useful? (photo on right) */}
+      <section id="public-website-redesign-about-why-1" className="mt-20 grid gap-10 md:grid-cols-[1fr_1.1fr] md:items-center">
         <div id="public-website-redesign-about-why-text">
           <SectionHeader
             id="public-website-redesign-about-why-heading"
             eyebrow="Why is the"
             title="Index Useful?"
           />
-          <div id="public-website-redesign-about-why-body" className="mt-6 space-y-4 text-[15px] leading-relaxed text-[#333]">
+          <div
+            id="public-website-redesign-about-why-body"
+            className="mt-6 space-y-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
+          >
             <p>
               The index is designed to inform land management, policy planning, and community
               preparedness by supporting evidence-based decisions that enhance safety and
@@ -104,14 +123,21 @@ function AboutPage() {
         />
       </section>
 
-      <section id="public-website-redesign-about-access" className="mt-20 grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-center">
+      {/* Section 4 — continued, photo on left, text right-aligned */}
+      <section
+        id="public-website-redesign-about-why-2"
+        className="mt-20 grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-center"
+      >
         <img
           id="public-website-redesign-about-access-photo"
           src={forestRegrowth}
           alt="Young conifer regenerating in a forest clearing"
           className="aspect-[4/3] w-full rounded-sm object-cover"
         />
-        <div id="public-website-redesign-about-access-text" className="space-y-4 text-[15px] leading-relaxed text-[#333]">
+        <div
+          id="public-website-redesign-about-access-text"
+          className="space-y-4 border-t-[3px] border-wriMoss pt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy md:text-right"
+        >
           <p>
             Because the index and its underlying datasets are open source (free to all), it is
             accessible to a wide range of users. It can be applied at multiple scales, from local
@@ -119,12 +145,12 @@ function AboutPage() {
             and prioritize effective interventions.
           </p>
           <p>
-            By creating a shared, data-driven understanding of wildfire <strong>resilience</strong>,
-            the index supports collaboration among land managers, scientists, policymakers, and
-            the public. This common foundation enables more informed, transparent
-            decision-making—helping communities and ecosystems live more sustainably with
-            wildfire while allowing fire to continue playing its natural role. The index provides
-            a shared framework for action and understanding.
+            By creating a shared, data-driven understanding of wildfire{" "}
+            <strong>resilience</strong>, the index supports collaboration among land managers,
+            scientists, policymakers, and the public. This common foundation enables more
+            informed, transparent decision-making—helping communities and ecosystems live more
+            sustainably with wildfire while allowing fire to continue playing its natural role.
+            The index provides a shared framework for action and understanding.
           </p>
         </div>
       </section>

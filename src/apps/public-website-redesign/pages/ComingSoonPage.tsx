@@ -11,11 +11,13 @@ function ComingSoonPage({ title, id, body }: Props) {
     <div id={id} className="mx-auto max-w-[900px] px-6 py-24 text-center">
       <SectionHeader
         id={`${id}-heading`}
-        title={title}
-        eyebrow="Coming soon"
+        eyebrow={title}
         className="flex flex-col items-center"
       />
-      <p id={`${id}-body`} className="mx-auto mt-8 max-w-prose text-[15px] leading-relaxed text-[#333]">
+      <p
+        id={`${id}-body`}
+        className="mx-auto mt-8 max-w-prose font-Poppins text-[16px] leading-relaxed text-wriCanopy"
+      >
         {body ??
           "This page isn’t included in the current visual spec. A detailed layout will be added in a future design pass."}
       </p>

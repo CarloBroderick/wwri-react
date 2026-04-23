@@ -1,52 +1,78 @@
-import homeHero from "../../../assets/public-website-redesign/images/hero/home-hero.jpg";
+import homeHeroVideo from "../../../assets/public-website-redesign/videos/home-hero.mp4";
+import homeHeroPoster from "../../../assets/public-website-redesign/images/hero/home-hero.jpg";
+import nceasLogoWhite from "../../../assets/public-website-redesign/images/logos/nceas-white.png";
+import mooreLogoWhite from "../../../assets/public-website-redesign/images/logos/moore-white.png";
 import CTAButton from "../components/shared/CTAButton";
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
 
 /**
- * Hero-only home page matching PDF page 1–2. The PDF shows a full-bleed landscape
- * photo/video with a centered title, subtitle, and pill CTA. A real looping MP4
- * should replace the <img> via the <video> tag noted in the TODO below.
+ * Homepage — Canva spec page 1.
+ *   • Background: looping muted WRI hero video
+ *   • Heading: "The Wildfire Resilience Index" (Montserrat Bold 60, Smoke Fog)
+ *   • Subheading: italic Poppins 26
+ *   • CTA: EXPLORE THE INDEX (Poppins Normal 32, Moss fill + Forest outline)
+ *   • Bottom-right: NCEAS + Gordon & Betty Moore Foundation partner logos
  */
 function HomePage() {
   return (
     <section
       id="public-website-redesign-home-hero"
-      className="relative -mt-px h-[calc(100vh-5rem)] min-h-[560px] w-full overflow-hidden bg-[#0d2a1a]"
+      className="relative -mt-px h-[calc(100vh-6rem)] min-h-[620px] w-full overflow-hidden bg-wriCanopy"
     >
-      {/* TODO(video): replace <img> with a looping <video> of a western US
-          mountain/forest landscape (poster fallback is the current image). */}
-      <img
-        id="public-website-redesign-home-hero-media"
-        src={homeHero}
-        alt=""
+      <video
+        id="public-website-redesign-home-hero-video"
+        src={homeHeroVideo}
+        poster={homeHeroPoster}
+        autoPlay
+        muted
+        loop
+        playsInline
         aria-hidden
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div
         id="public-website-redesign-home-hero-scrim"
-        className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/40"
+        className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/55"
       />
       <div
         id="public-website-redesign-home-hero-content"
-        className="relative z-10 mx-auto flex h-full max-w-[1280px] flex-col items-center justify-center px-6 text-center text-white"
+        className="relative z-10 mx-auto flex h-full max-w-[1280px] flex-col items-center justify-center px-6 text-center text-wriSmokeFog"
       >
         <h1
           id="public-website-redesign-home-hero-title"
-          className="text-4xl font-bold tracking-tight drop-shadow-md md:text-6xl lg:text-7xl"
+          className="font-Montserrat text-[clamp(2.5rem,6vw,3.75rem)] font-bold leading-[1.05] text-wriSmokeFog drop-shadow-md"
         >
-          Wildfire Resilience Index
+          The Wildfire Resilience Index
         </h1>
         <p
           id="public-website-redesign-home-hero-subtitle"
-          className="mt-4 max-w-3xl text-lg italic text-white/95 drop-shadow md:text-2xl"
+          className="mt-5 max-w-3xl font-Poppins text-[clamp(1.125rem,2vw,1.625rem)] italic text-wriSmokeFog drop-shadow"
         >
           Measuring wildfire resilience in communities and landscapes
         </p>
         <div id="public-website-redesign-home-hero-cta" className="mt-10">
           <CTAButton id="public-website-redesign-home-hero-cta-button" to={REDESIGN_ROUTES.exploreIndex}>
-            Explore the Index
+            <span className="text-[clamp(1rem,1.8vw,2rem)]">Explore the Index</span>
           </CTAButton>
         </div>
+      </div>
+
+      <div
+        id="public-website-redesign-home-hero-partners"
+        className="absolute bottom-6 right-6 z-10 flex items-center gap-6"
+      >
+        <img
+          id="public-website-redesign-home-hero-partner-nceas"
+          src={nceasLogoWhite}
+          alt="NCEAS"
+          className="h-10 w-auto object-contain opacity-95 drop-shadow md:h-12"
+        />
+        <img
+          id="public-website-redesign-home-hero-partner-moore"
+          src={mooreLogoWhite}
+          alt="Gordon and Betty Moore Foundation"
+          className="h-10 w-auto object-contain opacity-95 drop-shadow md:h-12"
+        />
       </div>
     </section>
   );
