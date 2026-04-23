@@ -75,6 +75,6 @@ Per-domain hero photos were cropped directly from each domain page in the PDF (p
 
 - **Hero video**: the home hero is currently a static image. The PDF implies a cinematic loop. A `TODO(video)` comment in `HomePage.tsx` marks the swap-in point.
 - **Composite donut & heat-map example** on the Domains overview are simplified SVGs. Replace with the real WRI dashboard preview once available.
-- **Region map SVG** (`icons/region-map.svg`) is stylized rather than cartographically accurate. Swap for a real GeoJSON-backed map if fidelity is required.
+- **Region map** now uses the supplied cropped `Location Map for WRI, 1 What is the WRI (1).png` image in `AboutPage.tsx`. A future geodata-driven map is optional if interactive fidelity is needed.
 - **Methology / Contact / Publications / Resources** pages — currently placeholders. Awaiting design.
 - **“Explore the Index” CTA** currently links to `/` (the legacy interactive map). Rewire once the redesign becomes the root app.

@@ -1,7 +1,7 @@
 import burntForest from "../../../assets/public-website-redesign/images/about/burnt-forest.jpg";
 import mountainTown from "../../../assets/public-website-redesign/images/about/mountain-town.jpg";
 import forestRegrowth from "../../../assets/public-website-redesign/images/about/forest-regrowth.jpg";
-import regionMap from "../../../assets/public-website-redesign/icons/region-map.svg";
+import regionMap from "../../../assets/public-website-redesign/icons/Location Map for WRI, 1 What is the WRI (1).png";
 import SectionHeader from "../components/shared/SectionHeader";
 
 /**
@@ -13,15 +13,17 @@ import SectionHeader from "../components/shared/SectionHeader";
  *     3. Why is the Index Useful? (Banff-like town photo on right)
  *     4. Continued body + new-growth photo on left
  *
- *   Note: the Canva doc references specific About-page images (Location Map,
- *   New Growth Post Fire, Banff Town, New Pine Growth). These were not in the
- *   Apr 23 2026 drive; we keep the existing imagery as placeholders.
+ *   Note: The map asset now uses the supplied "Location Map for WRI" source
+ *   image to match the current design direction.
  */
 function AboutPage() {
   return (
     <div id="public-website-redesign-about-page" className="mx-auto max-w-[1200px] px-6 py-16">
       {/* Section 1 — What is the WRI? (with region map) */}
-      <section id="public-website-redesign-about-what-1" className="grid gap-10 md:grid-cols-[1fr_1fr] md:items-start">
+      <section
+        id="public-website-redesign-about-what-1"
+        className="grid gap-10 md:grid-cols-[1fr_1fr] md:items-stretch"
+      >
         <div id="public-website-redesign-about-what-text">
           <SectionHeader
             id="public-website-redesign-about-what-heading"
@@ -51,12 +53,17 @@ function AboutPage() {
             </p>
           </div>
         </div>
-        <img
-          id="public-website-redesign-about-region-map"
-          src={regionMap}
-          alt="Map of 12 Western US states, British Columbia, and the Yukon Territory"
-          className="mx-auto w-full max-w-[420px]"
-        />
+        <div
+          id="public-website-redesign-about-region-map-wrap"
+          className="mx-auto flex w-full max-w-[420px] items-stretch md:max-w-none"
+        >
+          <img
+            id="public-website-redesign-about-region-map"
+            src={regionMap}
+            alt="Map of 12 Western US states, British Columbia, and the Yukon Territory"
+            className="h-full w-full object-contain md:mx-0"
+          />
+        </div>
       </section>
 
       {/* Section 2 — continued, photo on left, text right-aligned per Canva */}

@@ -29,5 +29,5 @@ Source PDF: `/Users/wthompson/Downloads/Updated WRI Website.pdf`.
 | `src/assets/public-website-redesign/icons/domain-air.svg` | Hand-built outline icon | `DomainTile`, `MeasureSection` chip | Air iconography | |
 | `src/assets/public-website-redesign/icons/domain-stack.svg` | Hand-built isometric stack | `pages/DomainsPage.tsx` | Domains overview "stack of layers" visual | Stand-in for the PDF's 3D isometric layers illustration. |
 | `src/assets/public-website-redesign/icons/composite-donut.svg` | Hand-built SVG | `pages/DomainsPage.tsx` | Example composite score donut (the "73" diagram) | Stand-in for the real dashboard screenshot. |
-| `src/assets/public-website-redesign/icons/region-map.svg` | Hand-built stylized map | `pages/AboutPage.tsx` | Highlighted 12 Western US states + British Columbia + Yukon | Not cartographically accurate. Replace with real geodata later. |
+| `src/assets/public-website-redesign/icons/Location Map for WRI, 1 What is the WRI (1).png` | Provided cropped reference map asset | `pages/AboutPage.tsx` | Highlighted 12 Western US states + British Columbia + Yukon | Cropped variant replacing the earlier full-frame export for better visual fit. |
 | `src/assets/public-website-redesign/videos/` (empty) | — | — | Reserved for the home-hero loop MP4 | `TODO(video)` marker in `HomePage.tsx`. |
