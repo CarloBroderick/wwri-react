@@ -46,7 +46,7 @@ function HomePage() {
         </h1>
         <p
           id="public-website-redesign-home-hero-subtitle"
-          className="mt-5 max-w-3xl font-Poppins text-[clamp(1.125rem,2vw,1.625rem)] italic text-wriSmokeFog drop-shadow"
+          className="mt-5 max-w-[60rem] font-Poppins text-[clamp(1.125rem,2vw,1.625rem)] italic text-wriSmokeFog drop-shadow"
         >
           Measuring wildfire resilience in communities and landscapes
         </p>

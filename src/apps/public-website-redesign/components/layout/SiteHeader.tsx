@@ -38,6 +38,11 @@ function SiteHeader() {
             className="h-[4.75rem] w-auto object-contain md:h-20"
           />
         </Link>
+        <div
+          id="public-website-redesign-header-logo-divider"
+          className="hidden h-9 w-px bg-wriSmokeFog/75 md:block"
+          aria-hidden="true"
+        />
 
         <nav
           id="public-website-redesign-header-nav"
