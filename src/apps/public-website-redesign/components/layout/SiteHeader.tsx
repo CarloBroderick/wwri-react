@@ -1,15 +1,13 @@
 import { useState } from "react";
-import { Link, NavLink, useLocation, useMatch } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import wriLogoFull from "../../../../assets/public-website-redesign/images/logos/wri-full-white.png";
-import wriLogoSelected from "../../../../assets/public-website-redesign/images/logos/wri-selected-white.png";
 import { PRIMARY_NAV, type NavItem } from "../../config/navigation";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 
 /**
  * Top navigation bar — Canva spec:
  *   • Container: Forest #2F5D3A
- *   • Logo: WRI Logo Full (white text + outline); swaps to the "Selected" variant
- *     (filled white) whenever the user is on the homepage
+ *   • Logo: WRI Logo Full (white text + outline with transparent surrounding area)
  *   • Nav items: Poppins Normal size 24, Smoke Fog color, Sage underline (5px) when
  *     the current page is selected, Poppins Bold text on selection
  *   • Dropdowns: Forest container, Moss outline, Moss Menu Highlight on hover
@@ -18,7 +16,6 @@ import { REDESIGN_ROUTES } from "../../routes/routeConfig";
  *   • Separation line under bar: 1px Smoke Fog
  */
 function SiteHeader() {
-  const onHome = !!useMatch({ path: REDESIGN_ROUTES.home, end: true });
   return (
     <header
       id="public-website-redesign-site-header"
@@ -31,14 +28,14 @@ function SiteHeader() {
         <Link
           id="public-website-redesign-header-home-link"
           to={REDESIGN_ROUTES.home}
-          className="flex items-center"
+          className="flex h-[5.5rem] w-[190px] shrink-0 items-center overflow-hidden lg:w-[225px] xl:w-[260px]"
           aria-label="Wildfire Resilience Index — home"
         >
           <img
             id="public-website-redesign-header-logo"
-            src={onHome ? wriLogoSelected : wriLogoFull}
+            src={wriLogoFull}
             alt="Wildfire Resilience Index"
-            className="h-16 w-auto object-contain"
+            className="h-full w-auto max-w-none origin-left scale-[1.58] object-contain object-left"
           />
         </Link>
 
@@ -69,7 +66,7 @@ function ExploreIndexButton() {
     "hidden whitespace-nowrap rounded-full px-6 py-2 text-[clamp(16px,1.4vw,22px)] leading-none tracking-wide transition-colors md:inline-block";
   const styles = isActive
     ? "border-[5px] border-wriMossClicked bg-wriMossClicked font-bold text-wriSmokeFog"
-    : "border-[5px] border-wriSmokeFog font-normal text-wriSmokeFog hover:bg-wriMossClicked hover:border-wriMossClicked";
+    : "border-[5px] border-wriMoss font-normal text-wriSmokeFog hover:bg-wriMossClicked hover:border-wriMossClicked";
   return (
     <Link
       id="public-website-redesign-header-cta"
