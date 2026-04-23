@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import wriLogoFull from "../../../../assets/public-website-redesign/images/logos/wri-full-white.png";
+import wriLogoFull from "../../../../assets/public-website-redesign/images/logos/wri-full-white-trimmed.png";
 import { PRIMARY_NAV, type NavItem } from "../../config/navigation";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 
@@ -28,14 +28,14 @@ function SiteHeader() {
         <Link
           id="public-website-redesign-header-home-link"
           to={REDESIGN_ROUTES.home}
-          className="flex h-[5.5rem] w-[190px] shrink-0 items-center overflow-hidden lg:w-[225px] xl:w-[260px]"
+          className="flex items-center"
           aria-label="Wildfire Resilience Index — home"
         >
           <img
             id="public-website-redesign-header-logo"
             src={wriLogoFull}
             alt="Wildfire Resilience Index"
-            className="h-full w-auto max-w-none origin-left scale-[1.58] object-contain object-left"
+            className="h-[4.75rem] w-auto object-contain md:h-20"
           />
         </Link>
 
