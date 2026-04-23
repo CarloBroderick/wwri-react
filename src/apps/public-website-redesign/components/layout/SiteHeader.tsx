@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import wriLogoFull from "../../../../assets/public-website-redesign/images/logos/wri-full-white-trimmed.png";
+import wriLogoMark from "../../../../assets/public-website-redesign/icons/WWRI_logo.png";
 import { PRIMARY_NAV, type NavItem } from "../../config/navigation";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 
 /**
  * Top navigation bar — Canva spec:
  *   • Container: Forest #2F5D3A
- *   • Logo: WRI Logo Full (white text + outline with transparent surrounding area)
+ *   • Logo: WRI mark icon + "Wildfire Resilience Index" wordmark text
  *   • Nav items: Poppins Normal size 24, Smoke Fog color, Sage underline (5px) when
  *     the current page is selected, Poppins Bold text on selection
  *   • Dropdowns: Forest container, Moss outline, Moss Menu Highlight on hover
@@ -33,10 +33,33 @@ function SiteHeader() {
         >
           <img
             id="public-website-redesign-header-logo"
-            src={wriLogoFull}
-            alt="Wildfire Resilience Index"
-            className="h-[4.75rem] w-auto object-contain md:h-20"
+            src={wriLogoMark}
+            alt="Wildfire Resilience Index icon"
+            className="h-14 w-auto object-contain md:h-16"
           />
+          <span
+            id="public-website-redesign-header-logo-text"
+            className="ml-3 leading-none text-wriSmokeFog"
+          >
+            <span
+              id="public-website-redesign-header-logo-text-wildfire"
+              className="block text-xs font-bold uppercase leading-none tracking-[0.08em] md:text-sm"
+            >
+              Wildfire
+            </span>
+            <span
+              id="public-website-redesign-header-logo-text-resilience"
+              className="block text-xs font-bold uppercase leading-none tracking-[0.08em] md:text-sm"
+            >
+              Resilience
+            </span>
+            <span
+              id="public-website-redesign-header-logo-text-index"
+              className="block text-xs font-bold uppercase leading-none tracking-[0.08em] md:text-sm"
+            >
+              Index
+            </span>
+          </span>
         </Link>
         <div
           id="public-website-redesign-header-logo-divider"
