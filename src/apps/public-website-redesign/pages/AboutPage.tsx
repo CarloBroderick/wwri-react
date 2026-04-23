@@ -55,13 +55,13 @@ function AboutPage() {
         </div>
         <div
           id="public-website-redesign-about-region-map-wrap"
-          className="mx-auto flex w-full max-w-[420px] items-stretch md:max-w-none"
+          className="mx-auto w-full max-w-[420px] md:relative md:h-full md:max-w-none"
         >
           <img
             id="public-website-redesign-about-region-map"
             src={regionMap}
             alt="Map of 12 Western US states, British Columbia, and the Yukon Territory"
-            className="h-full w-full object-contain md:mx-0"
+            className="w-full object-contain md:absolute md:inset-0 md:h-full md:object-bottom"
           />
         </div>
       </section>
