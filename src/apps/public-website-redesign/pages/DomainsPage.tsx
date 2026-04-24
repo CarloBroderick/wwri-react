@@ -18,7 +18,7 @@ function DomainsPage() {
     <div id="public-website-redesign-domains-page" className="mx-auto max-w-[1200px] px-6 py-16">
       <section
         id="public-website-redesign-domains-intro-1"
-        className="grid items-start gap-10 md:grid-cols-[1fr_1fr]"
+        className="grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-stretch"
       >
         <div id="public-website-redesign-domains-intro-text">
           <SectionHeader
@@ -48,12 +48,17 @@ function DomainsPage() {
             </p>
           </div>
         </div>
-        <img
-          id="public-website-redesign-domains-layered-map"
-          src={layeredDomainsMap}
-          alt="Eight translucent domain layers stacked above a map of the index region"
-          className="mx-auto w-full max-w-[480px]"
-        />
+        <div
+          id="public-website-redesign-domains-layered-map-wrap"
+          className="mx-auto w-full max-w-[680px] md:relative md:h-full md:max-w-none"
+        >
+          <img
+            id="public-website-redesign-domains-layered-map"
+            src={layeredDomainsMap}
+            alt="Eight translucent domain layers stacked above a map of the index region"
+            className="w-full object-contain md:absolute md:inset-0 md:h-full md:object-right"
+          />
+        </div>
       </section>
 
       <section
