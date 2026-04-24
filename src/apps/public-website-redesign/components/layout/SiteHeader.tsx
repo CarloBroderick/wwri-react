@@ -130,11 +130,9 @@ function HeaderNavItem({ item }: { item: NavItem }) {
         {({ isActive }) => (
           <span
             id={`${id}-label`}
-            className={
-              isActive
-                ? "relative inline-block pb-1.5 font-bold after:absolute after:inset-x-0 after:bottom-0 after:h-[5px] after:bg-wriSage"
-                : "inline-block"
-            }
+            className={`relative inline-block after:absolute after:inset-x-0 after:-bottom-2 after:h-[5px] after:bg-wriSage ${
+              isActive ? "font-bold after:opacity-100" : "font-normal after:opacity-0"
+            }`}
           >
             {item.label}
           </span>
