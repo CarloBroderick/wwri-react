@@ -121,15 +121,24 @@ function HeaderNavItem({ item }: { item: NavItem }) {
         id={id}
         to={item.to}
         className={({ isActive }) =>
-          `relative block py-9 text-[clamp(16px,1.6vw,24px)] uppercase tracking-[0.06em] transition-colors ${
-            isActive
-              ? "font-bold after:absolute after:inset-x-0 after:-bottom-0 after:h-[5px] after:bg-wriSage"
-              : "font-normal hover:text-wriSmokeFog/85"
+          `relative flex items-center text-[clamp(16px,1.6vw,24px)] uppercase tracking-[0.06em] transition-colors ${
+            isActive ? "" : "font-normal hover:text-wriSmokeFog/85"
           }`
         }
         end={item.to === REDESIGN_ROUTES.home}
       >
-        {item.label}
+        {({ isActive }) => (
+          <span
+            id={`${id}-label`}
+            className={
+              isActive
+                ? "relative inline-block pb-1.5 font-bold after:absolute after:inset-x-0 after:bottom-0 after:h-[5px] after:bg-wriSage"
+                : "inline-block"
+            }
+          >
+            {item.label}
+          </span>
+        )}
       </NavLink>
       {hasChildren && open && (
         <div
