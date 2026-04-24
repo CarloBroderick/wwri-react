@@ -63,7 +63,7 @@ function DomainsPage() {
 
       <section
         id="public-website-redesign-domains-intro-2"
-        className="mt-20 grid items-start gap-10 md:grid-cols-[1fr_1fr]"
+        className="mt-20 grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-stretch"
       >
         <div
           id="public-website-redesign-domains-reflects-text"
@@ -112,7 +112,10 @@ function DomainsPage() {
             page!
           </p>
         </div>
-        <div id="public-website-redesign-domains-tiles" className="w-full">
+        <div
+          id="public-website-redesign-domains-tiles"
+          className="mx-auto w-full max-w-[760px] md:max-w-none"
+        >
           <DomainGrid id="public-website-redesign-domains-overview-tiles" columns={2} />
         </div>
       </section>
