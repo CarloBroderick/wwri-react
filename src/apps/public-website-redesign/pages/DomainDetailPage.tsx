@@ -38,7 +38,7 @@ function DomainDetailPage() {
           id={`public-website-redesign-domain-${domain.slug}-hero-photo`}
           src={domain.hero}
           alt={`${domain.label} hero`}
-          className="aspect-[4/5] w-full object-cover md:max-w-[520px] md:rounded-sm"
+          className="aspect-square w-full object-cover md:rounded-sm"
         />
         <div
           id={`public-website-redesign-domain-${domain.slug}-hero-body`}
@@ -126,7 +126,7 @@ function DomainDetailPage() {
               id={`public-website-redesign-domain-${domain.slug}-ip-hero`}
               src={senseOfPlaceIconicPlacesHero}
               alt="Iconic places hero"
-              className="aspect-[4/5] w-full rounded-sm object-cover md:max-w-[500px]"
+              className="aspect-square w-full rounded-sm object-cover"
             />
             <div
               id={`public-website-redesign-domain-${domain.slug}-ip-intro-body`}
@@ -173,12 +173,14 @@ function DomainDetailPage() {
             domain={domain}
             section={domain.resistance}
             overline="Iconic Places"
+            photoAspectClassName="aspect-[2/1]"
           />
           <MeasureSection
             id={`public-website-redesign-domain-${domain.slug}-ip-recovery`}
             domain={domain}
             section={domain.recovery}
             overline="Iconic Places"
+            photoAspectClassName="aspect-[2/1]"
           />
         </div>
       )}
@@ -198,7 +200,7 @@ function DomainDetailPage() {
                 id={`public-website-redesign-domain-${domain.slug}-is-hero`}
                 src={domain.extra.hero}
                 alt="Iconic species hero"
-                className="aspect-[4/5] w-full rounded-sm object-cover md:max-w-[500px]"
+                className="aspect-square w-full rounded-sm object-cover"
               />
             )}
             <div

@@ -18,11 +18,20 @@ type Props = {
    * Status photo rather than giving it its own full-width row.
    */
   measureLabel?: ReactNode;
+  /**
+   * Tailwind aspect-ratio utility for the row photo. Defaults to
+   * `aspect-square`, which matches the near-square trimmed HIM sources. Rows
+   * with ultrawide source photos (e.g. Iconic Places Resistance/Recovery)
+   * should pass a wider ratio like `aspect-[2/1]` to avoid heavy side crops.
+   */
+  photoAspectClassName?: string;
 };
 
 /**
  * One row of a domain detail page — Canva spec:
- *   • HIM photo on the far LEFT of the text (≈4:5 aspect)
+ *   • HIM photo on the far LEFT of the text (~4:3 landscape aspect)
+ *   • Domain-square chip on the far RIGHT of the text column, aligned with
+ *     the section title (matches the hero row on every measured row)
  *   • Optional "How it's measured" label stacked above the short Moss divider
  *   • Title (Status / Resistance / Recovery / …) Montserrat Bold Sage
  *   • Body text Poppins 17 Canopy
@@ -32,17 +41,15 @@ type Props = {
  *         left-aligned within the text column (NOT full-width)
  *       - Label: Poppins Normal ~22 Forest
  *       - Detail: Poppins italic ~17 Canopy
- *
- * Note: the small domain-square "chip" is only rendered on the hero row at the
- * top of `DomainDetailPage`, not on each MeasureSection row.
  */
 function MeasureSection({
   id,
-  domain: _domain,
+  domain,
   section,
   photo,
   overline,
   measureLabel,
+  photoAspectClassName = "aspect-square",
 }: Props) {
   const effectivePhoto = photo ?? section.photo;
   return (
@@ -55,35 +62,46 @@ function MeasureSection({
           id={`${id}-photo`}
           src={effectivePhoto}
           alt=""
-          className="aspect-[4/5] w-full rounded-sm object-cover md:max-w-[500px]"
+          className={`${photoAspectClassName} w-full rounded-sm object-cover`}
         />
       ) : (
         <div aria-hidden />
       )}
       <div id={`${id}-body`}>
-        {measureLabel && (
-          <div
-            id={`${id}-measure-label`}
-            className="font-Poppins text-[clamp(1.75rem,3vw,2.5rem)] font-normal leading-tight text-wriForest"
-          >
-            {measureLabel}
+        <div id={`${id}-header-row`} className="flex items-start justify-between gap-4">
+          <div id={`${id}-header-text`} className="flex-1">
+            {measureLabel && (
+              <div
+                id={`${id}-measure-label`}
+                className="font-Poppins text-[clamp(1.75rem,3vw,2.5rem)] font-normal leading-tight text-wriForest"
+              >
+                {measureLabel}
+              </div>
+            )}
+            {overline && (
+              <div
+                id={`${id}-overline`}
+                className="font-Poppins text-base font-normal uppercase tracking-[0.08em] text-wriForest/80"
+              >
+                {overline}
+              </div>
+            )}
+            <MossDivider id={`${id}-divider`} className="my-3" widthClassName="w-14" />
+            <h3
+              id={`${id}-title`}
+              className="font-Montserrat text-[clamp(1.5rem,3vw,2rem)] font-bold leading-tight text-wriSage"
+            >
+              {section.title}
+            </h3>
           </div>
-        )}
-        {overline && (
-          <div
-            id={`${id}-overline`}
-            className="font-Poppins text-base font-normal uppercase tracking-[0.08em] text-wriForest/80"
-          >
-            {overline}
-          </div>
-        )}
-        <MossDivider id={`${id}-divider`} className="my-3" widthClassName="w-14" />
-        <h3
-          id={`${id}-title`}
-          className="font-Montserrat text-[clamp(1.5rem,3vw,2rem)] font-bold leading-tight text-wriSage"
-        >
-          {section.title}
-        </h3>
+          <img
+            id={`${id}-chip`}
+            src={domain.tile}
+            alt=""
+            aria-hidden
+            className="h-16 w-16 shrink-0 rounded-sm object-cover"
+          />
+        </div>
         <p
           id={`${id}-description`}
           className="mt-4 max-w-prose font-Poppins text-[clamp(16px,1.5vw,19px)] leading-relaxed text-wriCanopy"
