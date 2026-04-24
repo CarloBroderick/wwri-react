@@ -121,7 +121,7 @@ function HeaderNavItem({ item }: { item: NavItem }) {
         id={id}
         to={item.to}
         className={({ isActive }) =>
-          `relative flex items-center text-[clamp(16px,1.6vw,24px)] uppercase tracking-[0.06em] transition-[color,font-weight] duration-200 ease-out ${
+          `relative flex items-center text-[clamp(16px,1.6vw,24px)] uppercase tracking-[0.06em] transition-colors duration-200 ease-out ${
             isActive ? "" : "font-[500] hover:text-wriSmokeFog/85"
           }`
         }
@@ -130,7 +130,8 @@ function HeaderNavItem({ item }: { item: NavItem }) {
         {({ isActive }) => (
           <span
             id={`${id}-label`}
-            className={`relative inline-block transition-[font-weight] duration-200 ease-out after:absolute after:inset-x-0 after:-bottom-2 after:h-[5px] after:origin-left after:bg-wriSage after:transition-[transform,opacity] after:duration-200 after:ease-out ${
+            data-label={item.label}
+            className={`relative inline-block before:block before:h-0 before:overflow-hidden before:font-[700] before:content-[attr(data-label)] before:invisible after:absolute after:inset-x-0 after:-bottom-2 after:h-[5px] after:origin-left after:bg-wriSage after:transition-[transform,opacity] after:duration-200 after:ease-out ${
               isActive
                 ? "font-[700] after:scale-x-100 after:opacity-100"
                 : "font-[500] after:scale-x-0 after:opacity-0"
@@ -143,7 +144,7 @@ function HeaderNavItem({ item }: { item: NavItem }) {
       {hasChildren && open && (
         <div
           id={`${id}-dropdown`}
-          className="absolute left-1/2 top-full z-50 min-w-[240px] -translate-x-1/2 overflow-hidden rounded-sm border-2 border-wriSmokeFog bg-wriForest shadow-xl"
+          className="absolute left-1/2 top-full z-50 mt-3 min-w-[240px] -translate-x-1/2 overflow-hidden rounded-sm border-2 border-wriSmokeFog bg-wriForest shadow-xl"
           role="menu"
         >
           {item.children!.map((child, idx) => (
