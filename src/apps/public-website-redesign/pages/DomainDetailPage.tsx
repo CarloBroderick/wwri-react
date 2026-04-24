@@ -32,7 +32,7 @@ function DomainDetailPage() {
       {/* ===== Why it matters hero row =============================== */}
       <section
         id={`public-website-redesign-domain-${domain.slug}-hero`}
-        className="mx-auto grid max-w-[1200px] grid-cols-1 gap-0 px-0 md:grid-cols-[1fr_1.1fr] md:gap-10 md:px-6 md:pt-10"
+        className="mx-auto grid max-w-[1200px] grid-cols-1 gap-0 px-0 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-10 md:px-6 md:pt-10"
       >
         <img
           id={`public-website-redesign-domain-${domain.slug}-hero-photo`}
@@ -120,7 +120,7 @@ function DomainDetailPage() {
         >
           <section
             id={`public-website-redesign-domain-${domain.slug}-ip-intro`}
-            className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_1.1fr] md:gap-10"
+            className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-10"
           >
             <img
               id={`public-website-redesign-domain-${domain.slug}-ip-hero`}
@@ -191,7 +191,7 @@ function DomainDetailPage() {
         >
           <section
             id={`public-website-redesign-domain-${domain.slug}-is-intro`}
-            className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_1.1fr] md:gap-10"
+            className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-10"
           >
             {domain.extra.hero && (
               <img

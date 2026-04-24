@@ -70,7 +70,7 @@ function AboutPage() {
       {/* Section 2 — continued, photo on left, text right-aligned per Canva */}
       <section
         id="public-website-redesign-about-what-2"
-        className="mt-20 grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-center"
+        className="mt-20 grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-start"
       >
         <img
           id="public-website-redesign-about-challenge-photo"

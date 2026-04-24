@@ -48,7 +48,7 @@ function MeasureSection({
   return (
     <section
       id={id}
-      className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_1.1fr] md:gap-10"
+      className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-10"
     >
       {effectivePhoto ? (
         <img

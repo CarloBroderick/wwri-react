@@ -90,7 +90,7 @@ function OutreachPage() {
           <article
             key={ev.id}
             id={`public-website-redesign-outreach-event-${ev.id}`}
-            className="grid gap-6 md:grid-cols-[1fr_1.4fr] md:gap-10"
+            className="grid gap-6 md:grid-cols-[1fr_1.4fr] md:items-start md:gap-10"
           >
             <img
               id={`public-website-redesign-outreach-event-${ev.id}-image`}
