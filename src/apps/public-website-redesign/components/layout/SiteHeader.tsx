@@ -143,28 +143,33 @@ function HeaderNavItem({ item }: { item: NavItem }) {
       </NavLink>
       {hasChildren && open && (
         <div
-          id={`${id}-dropdown`}
-          className="absolute left-1/2 top-full z-50 mt-3 min-w-[240px] -translate-x-1/2 overflow-hidden rounded-sm border-2 border-wriSmokeFog bg-wriForest shadow-xl"
-          role="menu"
+          id={`${id}-dropdown-hover-target`}
+          className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3"
         >
-          {item.children!.map((child, idx) => (
-            <NavLink
-              key={child.to}
-              id={`${id}-child-${idx}`}
-              to={child.to}
-              end
-              role="menuitem"
-              className={({ isActive }) =>
-                `block px-6 py-3 text-center transition-colors ${
-                  isActive
-                    ? "text-[21px] font-bold text-wriSmokeFog"
-                    : "text-[19px] font-normal text-wriSmokeFog hover:bg-wriMossMenuHighlight hover:text-[21px] hover:font-bold"
-                }`
-              }
-            >
-              {child.label}
-            </NavLink>
-          ))}
+          <div
+            id={`${id}-dropdown`}
+            className="min-w-[240px] overflow-hidden rounded-sm border-2 border-wriSmokeFog bg-wriForest shadow-xl"
+            role="menu"
+          >
+            {item.children!.map((child, idx) => (
+              <NavLink
+                key={child.to}
+                id={`${id}-child-${idx}`}
+                to={child.to}
+                end
+                role="menuitem"
+                className={({ isActive }) =>
+                  `block px-6 py-3 text-center transition-colors ${
+                    isActive
+                      ? "text-[21px] font-bold text-wriSmokeFog"
+                      : "text-[19px] font-normal text-wriSmokeFog hover:bg-wriMossMenuHighlight hover:text-[21px] hover:font-bold"
+                  }`
+                }
+              >
+                {child.label}
+              </NavLink>
+            ))}
+          </div>
         </div>
       )}
     </div>
