@@ -1,6 +1,6 @@
 import burntForest from "../../../assets/public-website-redesign/images/about/burnt-forest.jpg";
-import mountainTown from "../../../assets/public-website-redesign/images/about/mountain-town.jpg";
-import forestRegrowth from "../../../assets/public-website-redesign/images/about/forest-regrowth.jpg";
+import whyIndexBanffTown from "../../../assets/public-website-redesign/images/about/why-is-the-index-useful-banf-town.png";
+import whyIndexNewPineGrowth from "../../../assets/public-website-redesign/images/about/why-is-the-index-useful-new-pine-growth.png";
 import regionMap from "../../../assets/public-website-redesign/icons/Location Map for WRI, 1 What is the WRI (1).png";
 import SectionHeader from "../components/shared/SectionHeader";
 
@@ -10,8 +10,8 @@ import SectionHeader from "../components/shared/SectionHeader";
  *   20 Canopy. Four alternating scroll sections:
  *     1. What is the WRI? (region map on right)
  *     2. Continued body + burnt forest photo on left
- *     3. Why is the Index Useful? (Banff-like town photo on right)
- *     4. Continued body + new-growth photo on left
+ *     3. Why is the Index Useful? (Banff town PNG on right)
+ *     4. Continued body + new pine growth PNG on left
  *
  *   Note: The map asset now uses the supplied "Location Map for WRI" source
  *   image to match the current design direction.
@@ -101,13 +101,15 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* Section 3 — Why is the Index Useful? (photo on right) */}
-      <section id="public-website-redesign-about-why-1" className="mt-20 grid gap-10 md:grid-cols-[1fr_1.1fr] md:items-center">
+      {/* Section 3 — Why is the Index Useful? (photo fills full adjacent panel) */}
+      <section
+        id="public-website-redesign-about-why-1"
+        className="mt-20 grid gap-10 md:grid-cols-2 md:items-start"
+      >
         <div id="public-website-redesign-about-why-text">
           <SectionHeader
             id="public-website-redesign-about-why-heading"
-            eyebrow="Why is the"
-            title="Index Useful?"
+            title="Why is the Index Useful?"
           />
           <div
             id="public-website-redesign-about-why-body"
@@ -126,25 +128,35 @@ function AboutPage() {
             </p>
           </div>
         </div>
-        <img
-          id="public-website-redesign-about-why-photo"
-          src={mountainTown}
-          alt="Mountain town with snowy peaks in the background"
-          className="aspect-[4/3] w-full rounded-sm object-cover"
-        />
+        <div
+          id="public-website-redesign-about-why-photo-wrap"
+          className="relative aspect-square w-full min-w-0 overflow-hidden rounded-sm"
+        >
+          <img
+            id="public-website-redesign-about-why-photo"
+            src={whyIndexBanffTown}
+            alt="Mountain town with snowy peaks in the background"
+            className="absolute inset-0 h-full w-full object-cover object-center"
+          />
+        </div>
       </section>
 
-      {/* Section 4 — continued, photo on left, text right-aligned */}
+      {/* Section 4 — continued, photo on left fills full adjacent panel */}
       <section
         id="public-website-redesign-about-why-2"
-        className="mt-20 grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-center"
+        className="mt-20 grid gap-10 md:grid-cols-2 md:items-start"
       >
-        <img
-          id="public-website-redesign-about-access-photo"
-          src={forestRegrowth}
-          alt="Young conifer regenerating in a forest clearing"
-          className="aspect-[4/3] w-full rounded-sm object-cover"
-        />
+        <div
+          id="public-website-redesign-about-access-photo-wrap"
+          className="relative aspect-square w-full min-w-0 overflow-hidden rounded-sm"
+        >
+          <img
+            id="public-website-redesign-about-access-photo"
+            src={whyIndexNewPineGrowth}
+            alt="Young conifer regenerating in a forest clearing"
+            className="absolute inset-0 h-full w-full object-cover object-center"
+          />
+        </div>
         <div
           id="public-website-redesign-about-access-text"
           className="space-y-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
