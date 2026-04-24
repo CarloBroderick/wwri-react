@@ -121,8 +121,8 @@ function HeaderNavItem({ item }: { item: NavItem }) {
         id={id}
         to={item.to}
         className={({ isActive }) =>
-          `relative flex items-center text-[clamp(16px,1.6vw,24px)] uppercase tracking-[0.06em] transition-colors ${
-            isActive ? "" : "font-normal hover:text-wriSmokeFog/85"
+          `relative flex items-center text-[clamp(16px,1.6vw,24px)] uppercase tracking-[0.06em] transition-[color,font-weight] duration-200 ease-out ${
+            isActive ? "" : "font-[500] hover:text-wriSmokeFog/85"
           }`
         }
         end={item.to === REDESIGN_ROUTES.home}
@@ -130,8 +130,10 @@ function HeaderNavItem({ item }: { item: NavItem }) {
         {({ isActive }) => (
           <span
             id={`${id}-label`}
-            className={`relative inline-block after:absolute after:inset-x-0 after:-bottom-2 after:h-[5px] after:bg-wriSage ${
-              isActive ? "font-bold after:opacity-100" : "font-normal after:opacity-0"
+            className={`relative inline-block transition-[font-weight] duration-200 ease-out after:absolute after:inset-x-0 after:-bottom-2 after:h-[5px] after:origin-left after:bg-wriSage after:transition-[transform,opacity] after:duration-200 after:ease-out ${
+              isActive
+                ? "font-[700] after:scale-x-100 after:opacity-100"
+                : "font-[500] after:scale-x-0 after:opacity-0"
             }`}
           >
             {item.label}
