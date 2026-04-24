@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import layeredDomainsMap from "../../../assets/public-website-redesign/images/domains-landing/layered-domains-map.png";
 import DomainGrid from "../components/shared/DomainGrid";
+import MossDivider from "../components/shared/MossDivider";
 import SectionHeader from "../components/shared/SectionHeader";
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
 
@@ -63,9 +64,9 @@ function DomainsPage() {
           id="public-website-redesign-domains-reflects-text"
           className="space-y-5 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
         >
-          <div
+          <MossDivider
             id="public-website-redesign-domains-reflects-divider"
-            className="h-[3px] w-16 rounded-full bg-wriMoss"
+            widthClassName="w-16"
           />
           <div id="public-website-redesign-domains-reflects-summary">
             <div className="mb-2 font-semibold text-wriForest">Each domain reflects both:</div>

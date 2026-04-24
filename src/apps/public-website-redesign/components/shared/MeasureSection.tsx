@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Domain, DomainSection } from "../../config/domains";
+import MossDivider from "./MossDivider";
 
 type Props = {
   id: string;
@@ -76,7 +77,7 @@ function MeasureSection({
             {overline}
           </div>
         )}
-        <div id={`${id}-divider`} className="my-3 h-[3px] w-14 rounded-full bg-wriMoss" />
+        <MossDivider id={`${id}-divider`} className="my-3" widthClassName="w-14" />
         <h3
           id={`${id}-title`}
           className="font-Montserrat text-[clamp(1.5rem,3vw,2rem)] font-bold leading-tight text-wriSage"

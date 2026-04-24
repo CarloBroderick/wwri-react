@@ -1,6 +1,7 @@
 import { Navigate, useParams } from "react-router-dom";
 import ExploreAnotherDomain from "../components/shared/ExploreAnotherDomain";
 import MeasureSection from "../components/shared/MeasureSection";
+import MossDivider from "../components/shared/MossDivider";
 import {
   DOMAINS_BY_SLUG,
   senseOfPlaceIconicPlacesHero,
@@ -51,7 +52,11 @@ function DomainDetailPage() {
               >
                 {domain.label}
               </h1>
-              <div className="my-3 h-[3px] w-16 rounded-full bg-wriMoss" />
+              <MossDivider
+                id={`public-website-redesign-domain-${domain.slug}-hero-divider`}
+                className="my-3"
+                widthClassName="w-16"
+              />
               <h2
                 id={`public-website-redesign-domain-${domain.slug}-why`}
                 className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
@@ -130,7 +135,11 @@ function DomainDetailPage() {
               <div className="font-Poppins text-base font-normal uppercase tracking-[0.08em] text-wriForest/80">
                 Iconic Places
               </div>
-              <div className="my-3 h-[3px] w-14 rounded-full bg-wriMoss" />
+              <MossDivider
+                id={`public-website-redesign-domain-${domain.slug}-ip-divider`}
+                className="my-3"
+                widthClassName="w-14"
+              />
               <h3
                 id={`public-website-redesign-domain-${domain.slug}-ip-why`}
                 className="mb-4 font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
@@ -199,7 +208,11 @@ function DomainDetailPage() {
               <div className="font-Poppins text-base font-normal uppercase tracking-[0.08em] text-wriForest/80">
                 Iconic Species
               </div>
-              <div className="my-3 h-[3px] w-14 rounded-full bg-wriMoss" />
+              <MossDivider
+                id={`public-website-redesign-domain-${domain.slug}-is-divider`}
+                className="my-3"
+                widthClassName="w-14"
+              />
               <h3
                 id={`public-website-redesign-domain-${domain.slug}-is-why`}
                 className="mb-4 font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"

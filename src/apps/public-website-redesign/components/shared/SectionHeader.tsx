@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import MossDivider from "./MossDivider";
 
 type Props = {
   id?: string;
@@ -36,9 +37,10 @@ function SectionHeader({ id, eyebrow, title, divider = true, className = "" }: P
         </div>
       )}
       {divider && (
-        <div
+        <MossDivider
           id={id ? `${id}-divider` : undefined}
-          className="my-3 h-[3px] w-16 rounded-full bg-wriMoss"
+          className="my-3"
+          widthClassName="w-16"
         />
       )}
       {title && (

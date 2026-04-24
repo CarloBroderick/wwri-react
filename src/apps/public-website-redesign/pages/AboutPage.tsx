@@ -2,6 +2,7 @@ import burntForest from "../../../assets/public-website-redesign/images/about/bu
 import whyIndexBanffTown from "../../../assets/public-website-redesign/images/about/why-is-the-index-useful-banf-town.png";
 import whyIndexNewPineGrowth from "../../../assets/public-website-redesign/images/about/why-is-the-index-useful-new-pine-growth.png";
 import regionMap from "../../../assets/public-website-redesign/icons/Location Map for WRI, 1 What is the WRI (1).png";
+import MossDivider from "../components/shared/MossDivider";
 import SectionHeader from "../components/shared/SectionHeader";
 
 /**
@@ -75,15 +76,15 @@ function AboutPage() {
           id="public-website-redesign-about-challenge-photo"
           src={burntForest}
           alt="Burned forest with yellow wildflowers returning after wildfire"
-          className="aspect-[4/3] w-full rounded-sm object-cover"
+          className="aspect-square w-full rounded-sm object-cover"
         />
         <div
           id="public-website-redesign-about-challenge-text"
           className="space-y-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
         >
-          <div
+          <MossDivider
             id="public-website-redesign-about-challenge-divider"
-            className="h-[3px] w-16 rounded-full bg-wriMoss"
+            widthClassName="w-16"
           />
           <p>
             Because wildfire resilience spans ecological, social, and infrastructural factors, it
@@ -161,10 +162,7 @@ function AboutPage() {
           id="public-website-redesign-about-access-text"
           className="space-y-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
         >
-          <div
-            id="public-website-redesign-about-access-divider"
-            className="h-[3px] w-16 rounded-full bg-wriMoss"
-          />
+          <MossDivider id="public-website-redesign-about-access-divider" widthClassName="w-16" />
           <p>
             Because the index and its underlying datasets are open source (free to all), it is
             accessible to a wide range of users. It can be applied at multiple scales, from local

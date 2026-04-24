@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import eventImage from "../../../assets/public-website-redesign/images/media/science-pub-event.jpg";
+import MossDivider from "../components/shared/MossDivider";
 import SectionHeader from "../components/shared/SectionHeader";
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
 
@@ -61,7 +62,11 @@ function OutreachPage() {
         <h2 className="font-Montserrat text-2xl font-bold text-wriSage md:text-3xl">
           Upcoming Events
         </h2>
-        <div className="mt-2 h-[3px] w-14 rounded-full bg-wriMoss" />
+        <MossDivider
+          id="public-website-redesign-outreach-upcoming-divider"
+          className="mt-2"
+          widthClassName="w-14"
+        />
         <p
           id="public-website-redesign-outreach-upcoming-empty"
           className="mt-6 font-Poppins text-[15px] italic text-wriCanopy/70"
@@ -75,7 +80,11 @@ function OutreachPage() {
           <h2 className="font-Montserrat text-2xl font-bold text-wriSage md:text-3xl">
             Previous Events
           </h2>
-          <div className="mt-2 h-[3px] w-14 rounded-full bg-wriMoss" />
+          <MossDivider
+            id="public-website-redesign-outreach-previous-divider"
+            className="mt-2"
+            widthClassName="w-14"
+          />
         </div>
         {PREVIOUS_EVENTS.map((ev) => (
           <article
