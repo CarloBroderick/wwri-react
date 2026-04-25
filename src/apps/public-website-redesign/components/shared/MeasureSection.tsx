@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Domain, DomainSection } from "../../config/domains";
+import { renderBoldText } from "../../utils/renderBoldText";
 import MossDivider from "./MossDivider";
 
 type Props = {
@@ -106,7 +107,7 @@ function MeasureSection({
           id={`${id}-description`}
           className="mt-4 max-w-prose font-Poppins text-[clamp(16px,1.5vw,19px)] leading-relaxed text-wriCanopy"
         >
-          {section.description}
+          {renderBoldText(section.description)}
         </p>
         {(section.example || section.examples) && (
           <div id={`${id}-example`} className="mt-6">

@@ -116,11 +116,11 @@ export const DOMAINS: Domain[] = [
     tile: infrastructureTile,
     tileDim: infrastructureTileDim,
     whyItMatters:
-      "Infrastructure forms the foundation of communities—shaping where we live, work, and interact. Buildings and other structures provide shelter, safety, and access to essential resources.",
+      "**Infrastructure** forms the foundation of communities—shaping where we live, work, and interact. Buildings and other structures provide shelter, safety, and access to essential resources.",
     status: {
       title: "Status N/A",
       description:
-        "This domain does not assess status, as there is no single “ideal” amount or distribution of infrastructure. Instead, it evaluates where structures are.",
+        "This **domain** does not assess status, as there is no single “ideal” amount or distribution of infrastructure. Instead, it evaluates where structures are.",
       statusLabel: "N/A",
       photo: infrastructureHim1,
     },
@@ -151,11 +151,11 @@ export const DOMAINS: Domain[] = [
     tile: communitiesTile,
     tileDim: communitiesTileDim,
     whyItMatters:
-      "Communities are shaped by social, cultural, and geographic connections that influence how people prepare for, respond to, and recover from wildfire.",
+      "**Communities** are shaped by social, cultural, and geographic connections that influence how people prepare for, respond to, and recover from wildfire.",
     status: {
       title: "Status N/A",
       description:
-        "This domain does not assess status, and instead focuses on where people and communities are located.",
+        "This **domain** does not assess status, and instead focuses on where people and communities are located.",
       statusLabel: "N/A",
       photo: communitiesHim1,
     },
@@ -186,7 +186,7 @@ export const DOMAINS: Domain[] = [
     tile: livelihoodsTile,
     tileDim: livelihoodsTileDim,
     whyItMatters:
-      "Livelihoods reflect how people make a living and maintain well-being. Wildfire can disrupt jobs, income, and local economies.",
+      "**Livelihoods** reflect how people make a living and maintain well-being. Wildfire can disrupt jobs, income, and local economies.",
     status: {
       title: "Status",
       description: "Captures economic conditions that support well-being.",
@@ -214,11 +214,11 @@ export const DOMAINS: Domain[] = [
     tile: senseOfPlaceTile,
     tileDim: senseOfPlaceTileDim,
     whyItMatters:
-      "Sense of Place encompasses the cultural, spiritual, and aesthetic connections people have to landscapes. These connections can be shaped by the presence of distinctive species or the character of the landscape itself. Wildfire can reshape both landscapes and the meanings people attach to them. Therefore this domain considers iconic places and iconic species that hold special significance to people.",
+      "**Sense of Place** encompasses the cultural, spiritual, and aesthetic connections people have to landscapes. These connections can be shaped by the presence of distinctive species or the character of the landscape itself. Wildfire can reshape both landscapes and the meanings people attach to them. Therefore this domain considers iconic places and iconic species that hold special significance to people.",
     status: {
       title: "Status N/A",
       description:
-        "This domain does not assess status, as there is no single way to define an “ideal” special place. Instead, they are evaluated by their physical presence.",
+        "This **domain** does not assess status, as there is no single way to define an “ideal” special place. Instead, they are evaluated by their physical presence.",
       statusLabel: "N/A",
       photo: sopIpHim1,
     },
@@ -328,7 +328,7 @@ export const DOMAINS: Domain[] = [
     tile: habitatsTile,
     tileDim: habitatsTileDim,
     whyItMatters:
-      "Habitats such as forests, grasslands, and shrublands support landscapes and communities. Their condition influences how wildfire behaves and how ecosystems recover.",
+      "**Habitats** such as forests, grasslands, and shrublands support landscapes and communities. Their condition influences how wildfire behaves and how ecosystems recover.",
     status: {
       title: "Status",
       description: "Represents current habitat condition compared to a historical baseline.",
@@ -359,7 +359,7 @@ export const DOMAINS: Domain[] = [
     tile: waterTile,
     tileDim: waterTileDim,
     whyItMatters:
-      "Water reflects the availability and stability of freshwater resources that are essential for community well-being. Wildfires can affect water availability, timing, and quality.",
+      "**Water** reflects the availability and stability of freshwater resources that are essential for community well-being. Wildfires can affect water availability, timing, and quality.",
     status: {
       title: "Status",
       description: "Captures water availability compared to historical conditions.",
@@ -391,7 +391,7 @@ export const DOMAINS: Domain[] = [
     tile: airTile,
     tileDim: airTileDim,
     whyItMatters:
-      "Air quality is one of the most immediate ways people experience wildfire. Smokey air can have widespread health impacts.",
+      "**Air** quality is one of the most immediate ways people experience wildfire. Smokey air can have widespread health impacts.",
     status: {
       title: "Status",
       description: "Captures exposure to poor air quality.",

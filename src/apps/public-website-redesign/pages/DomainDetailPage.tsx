@@ -8,6 +8,7 @@ import {
   type DomainSlug,
 } from "../config/domains";
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
+import { renderBoldText } from "../utils/renderBoldText";
 
 /**
  * Single-domain detail page — Canva spec pages 9–16 / change-requests doc.
@@ -81,23 +82,43 @@ function DomainDetailPage() {
         >
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
-              <h1
-                id={`public-website-redesign-domain-${domain.slug}-title`}
-                className="font-Poppins text-[clamp(2.25rem,5vw,2.75rem)] font-normal leading-tight text-wriForest"
-              >
-                {domain.label}
-              </h1>
-              <MossDivider
-                id={`public-website-redesign-domain-${domain.slug}-hero-divider`}
-                className="my-3"
-                widthClassName="w-16"
-              />
-              <h2
-                id={`public-website-redesign-domain-${domain.slug}-why`}
-                className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
-              >
-                Why it matters
-              </h2>
+              {!isInfrastructure && (
+                <>
+                  <h1
+                    id={`public-website-redesign-domain-${domain.slug}-title`}
+                    className="font-Poppins text-[clamp(2.25rem,5vw,2.75rem)] font-normal leading-tight text-wriForest"
+                  >
+                    {domain.label}
+                  </h1>
+                  <MossDivider
+                    id={`public-website-redesign-domain-${domain.slug}-hero-divider`}
+                    className="my-3"
+                    widthClassName="w-16"
+                  />
+                </>
+              )}
+              {isInfrastructure ? (
+                <>
+                  <div
+                    id={`public-website-redesign-domain-${domain.slug}-why`}
+                    className="font-Poppins text-[clamp(1.75rem,3vw,2.5rem)] font-normal leading-tight text-wriForest"
+                  >
+                    Why it matters
+                  </div>
+                  <MossDivider
+                    id={`public-website-redesign-domain-${domain.slug}-why-divider`}
+                    className="my-3"
+                    widthClassName="w-14"
+                  />
+                </>
+              ) : (
+                <h2
+                  id={`public-website-redesign-domain-${domain.slug}-why`}
+                  className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
+                >
+                  Why it matters
+                </h2>
+              )}
             </div>
             <img
               id={`public-website-redesign-domain-${domain.slug}-hero-chip`}
@@ -109,9 +130,9 @@ function DomainDetailPage() {
           </div>
           <p
             id={`public-website-redesign-domain-${domain.slug}-why-copy`}
-            className="mt-5 max-w-prose font-Poppins text-[clamp(16px,1.5vw,19px)] leading-relaxed text-wriCanopy"
+            className="mt-5 max-w-prose font-Poppins text-[clamp(17px,1.55vw,21px)] leading-relaxed text-wriCanopy"
           >
-            {domain.whyItMatters}
+            {renderBoldText(domain.whyItMatters)}
           </p>
         </div>
       </section>
