@@ -26,13 +26,48 @@ function DomainDetailPage() {
   }
 
   const isSenseOfPlace = domain.slug === "sense-of-place";
+  const isInfrastructure = domain.slug === "infrastructure";
 
   return (
     <div id={`public-website-redesign-domain-${domain.slug}-page`} className="pb-16">
+      {isInfrastructure && (
+        <section
+          id={`public-website-redesign-domain-${domain.slug}-top-media`}
+          className="mx-auto max-w-[1200px] px-0 pt-6 md:px-6 md:pt-8"
+        >
+          <div
+            id={`public-website-redesign-domain-${domain.slug}-top-media-frame`}
+            className="relative overflow-hidden rounded-2xl"
+          >
+            <img
+              id={`public-website-redesign-domain-${domain.slug}-top-media-image`}
+              src={domain.hero}
+              alt={`${domain.label} top media`}
+              className="h-[180px] w-full object-cover md:h-[240px]"
+            />
+            <div
+              id={`public-website-redesign-domain-${domain.slug}-top-media-scrim`}
+              className="absolute inset-0 bg-black/20"
+            />
+            <div
+              id={`public-website-redesign-domain-${domain.slug}-top-media-title-wrapper`}
+              className="absolute inset-x-6 top-1/2 -translate-y-1/2 md:inset-x-12"
+            >
+              <h2
+                id={`public-website-redesign-domain-${domain.slug}-top-media-title`}
+                className="inline-block rounded-xl bg-white/70 px-5 py-2 font-Poppins text-[clamp(2rem,5vw,4rem)] font-semibold leading-none text-wriForest backdrop-blur-[1px]"
+              >
+                {domain.label}
+              </h2>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ===== Why it matters hero row =============================== */}
       <section
         id={`public-website-redesign-domain-${domain.slug}-hero`}
-        className="mx-auto grid max-w-[1200px] grid-cols-1 gap-0 px-0 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-10 md:px-6 md:pt-10"
+        className={`mx-auto grid max-w-[1200px] grid-cols-1 gap-0 px-0 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-10 md:px-6 ${isInfrastructure ? "pt-6 md:pt-8" : "md:pt-10"}`}
       >
         <img
           id={`public-website-redesign-domain-${domain.slug}-hero-photo`}
@@ -69,7 +104,7 @@ function DomainDetailPage() {
               src={domain.tile}
               alt=""
               aria-hidden
-              className="h-20 w-20 shrink-0 rounded-xl object-cover md:h-24 md:w-24"
+              className="h-24 w-24 shrink-0 rounded-2xl object-cover md:h-28 md:w-28"
             />
           </div>
           <p
