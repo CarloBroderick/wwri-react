@@ -11,7 +11,7 @@ interface SubheaderProps {
  */
 function BreadcrumbPathway({ items }: { items: BreadcrumbItem[] }) {
   return (
-    <nav id="metric-breadcrumb-pathway" className="flex items-center gap-1.5 text-base">
+    <nav id="metric-breadcrumb-pathway" className="flex flex-wrap items-center justify-end gap-1.5 text-base">
       {items.map((item, index) => (
         <span key={item.id} className="flex items-center gap-1.5">
           {index > 0 && (
@@ -45,20 +45,20 @@ const Subheader: React.FC<SubheaderProps> = ({ selectedMetricObject }) => {
   return (
     <div
       id="sub-header"
-      className="relative flex min-h-[80px] w-full items-center border-b border-t border-solid border-subheaderBorder bg-subheaderBackground px-5"
+      className="relative flex w-full items-start overflow-hidden border-b border-t border-solid border-subheaderBorder bg-subheaderBackground px-5 py-4"
     >
       {/* Left side: Metric title and description */}
-      <div className="flex flex-1 flex-col pr-4">
+      <div className="flex min-w-0 flex-1 flex-col pr-4">
         <h1 className="font-BeVietnamPro text-2xl font-bold">
           {selectedMetricObject.label || defaultTitle}
         </h1>
-        <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap font-BeVietnamPro text-base text-gray-600">
+        <h3 className="font-BeVietnamPro text-base text-gray-600">
           {selectedMetricObject.description || defaultDescription}
         </h3>
       </div>
 
       {/* Right side: Breadcrumb pathway */}
-      <div id="subheader-breadcrumb-container" className="flex-shrink-0">
+      <div id="subheader-breadcrumb-container" className="min-w-0 shrink self-center text-right">
         <BreadcrumbPathway items={breadcrumbItems} />
       </div>
     </div>
