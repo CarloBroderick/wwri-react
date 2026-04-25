@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import mooreLogo from "../../../assets/public-website-redesign/images/logos/moore-color.png";
+import nceasLogo from "../../../assets/public-website-redesign/images/logos/nceas-color.png";
 import benHalpernPhoto from "../../../assets/public-website-redesign/images/team/ben-halpern.jpg";
 import carloBroderickPhoto from "../../../assets/public-website-redesign/images/team/carlo-broderick.jpg";
 import catFongPhoto from "../../../assets/public-website-redesign/images/team/cat-fong.png";
@@ -8,8 +10,6 @@ import joeDecesaroPhoto from "../../../assets/public-website-redesign/images/tea
 import monaFarnisaPhoto from "../../../assets/public-website-redesign/images/team/mona-farnisa.png";
 import tessaCafritzPhoto from "../../../assets/public-website-redesign/images/team/tessa-cafritz.jpg";
 import willOverbyeThompsonPhoto from "../../../assets/public-website-redesign/images/team/will-overbye-thompson.jpeg";
-import mooreLogo from "../../../assets/public-website-redesign/images/logos/moore-color.png";
-import nceasLogo from "../../../assets/public-website-redesign/images/logos/nceas-color.png";
 import MossDivider from "../components/shared/MossDivider";
 import SectionHeader from "../components/shared/SectionHeader";
 
@@ -114,7 +114,7 @@ function TeamCard({ member, onSelect }: TeamCardProps) {
     <button
       id={`public-website-redesign-contact-team-card-${member.id}`}
       onClick={() => onSelect(member)}
-      className="group flex w-[170px] flex-col text-left transition-transform hover:-translate-y-1 sm:w-[180px] md:w-[190px]"
+      className="group flex w-full flex-col text-left transition-transform hover:-translate-y-1"
     >
       <div
         id={`public-website-redesign-contact-team-card-photo-wrap-${member.id}`}
@@ -148,12 +148,10 @@ type ContributorSectionProps = {
   title: string;
   members: TeamMember[];
   onSelect: (member: TeamMember) => void;
-  /** Tailwind class controlling max columns on lg screens. */
-  lgColsClass: string;
 };
 
 /** Centered section title + responsive grid of TeamCards. */
-function ContributorSection({ id, title, members, onSelect, lgColsClass }: ContributorSectionProps) {
+function ContributorSection({ id, title, members, onSelect }: ContributorSectionProps) {
   return (
     <section id={id} className="mt-16">
       <h3
@@ -164,10 +162,14 @@ function ContributorSection({ id, title, members, onSelect, lgColsClass }: Contr
       </h3>
       <ul
         id={`${id}-grid`}
-        className={`mt-10 grid justify-items-center gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 ${lgColsClass}`}
+        className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-10"
       >
         {members.map((m) => (
-          <li key={m.id} id={`${id}-grid-item-${m.id}`}>
+          <li
+            key={m.id}
+            id={`${id}-grid-item-${m.id}`}
+            className="w-[170px] sm:w-[180px] md:w-[190px]"
+          >
             <TeamCard member={m} onSelect={onSelect} />
           </li>
         ))}
@@ -334,7 +336,6 @@ function ContactTeamPage() {
         title="Current Index Contributors"
         members={CURRENT_CONTRIBUTORS}
         onSelect={setOpenMember}
-        lgColsClass="lg:grid-cols-5"
       />
 
       <ContributorSection
@@ -342,7 +343,6 @@ function ContactTeamPage() {
         title="Past Index Contributors"
         members={PAST_CONTRIBUTORS}
         onSelect={setOpenMember}
-        lgColsClass="lg:grid-cols-4"
       />
 
       <section
