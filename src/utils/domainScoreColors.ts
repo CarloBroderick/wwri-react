@@ -175,8 +175,18 @@ export function getDomainScoreColor(
   domainScores: DomainScores | null | undefined,
   gradientConfig?: GradientConfig | null
 ): string {
-  // If no scores available, return neutral gray
+  // No region selected → show full-saturation brand color as a visual baseline
   if (!domainScores) {
+    const apiKey = DOMAIN_ID_TO_API_KEY[domainId];
+    if (apiKey && gradientConfig?.domains[apiKey as DomainKey]) {
+      const { maxColor } = gradientConfig.domains[apiKey as DomainKey];
+      return `rgb(${maxColor.r}, ${maxColor.g}, ${maxColor.b})`;
+    }
+    const config = DOMAIN_COLOR_MAP[apiKey];
+    if (config) {
+      const { brandColor } = config;
+      return `rgb(${brandColor.r}, ${brandColor.g}, ${brandColor.b})`;
+    }
     return `rgb(${NEUTRAL_GRAY.r}, ${NEUTRAL_GRAY.g}, ${NEUTRAL_GRAY.b})`;
   }
 
@@ -231,8 +241,18 @@ export function getMetricColor(
   score: number | null | undefined,
   gradientConfig?: GradientConfig | null
 ): string {
-  // If no score, return neutral gray
+  // No score → show full-saturation brand color as a visual baseline
   if (score === undefined || score === null) {
+    const apiKey = DOMAIN_ID_TO_API_KEY[domainId];
+    if (apiKey && gradientConfig?.domains[apiKey as DomainKey]) {
+      const { maxColor } = gradientConfig.domains[apiKey as DomainKey];
+      return `rgb(${maxColor.r}, ${maxColor.g}, ${maxColor.b})`;
+    }
+    const config = apiKey ? DOMAIN_COLOR_MAP[apiKey] : undefined;
+    if (config) {
+      const { brandColor } = config;
+      return `rgb(${brandColor.r}, ${brandColor.g}, ${brandColor.b})`;
+    }
     return `rgb(${NEUTRAL_GRAY.r}, ${NEUTRAL_GRAY.g}, ${NEUTRAL_GRAY.b})`;
   }
 
@@ -287,8 +307,13 @@ export function getOverallScoreColor(
   overallScore: number | null | undefined,
   gradientConfig?: GradientConfig | null
 ): string {
+  // No score → show full-saturation end color as a visual baseline
   if (overallScore === undefined || overallScore === null) {
-    return `rgb(${NEUTRAL_GRAY.r}, ${NEUTRAL_GRAY.g}, ${NEUTRAL_GRAY.b})`;
+    if (gradientConfig?.domains.overall_resilience) {
+      const { maxColor } = gradientConfig.domains.overall_resilience;
+      return `rgb(${maxColor.r}, ${maxColor.g}, ${maxColor.b})`;
+    }
+    return `rgb(${OVERALL_RESILIENCE_END_COLOR.r}, ${OVERALL_RESILIENCE_END_COLOR.g}, ${OVERALL_RESILIENCE_END_COLOR.b})`;
   }
 
   // Use custom gradient config if available
