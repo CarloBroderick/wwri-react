@@ -17,21 +17,22 @@ type Props = {
  *   • muted:   swaps to the dimmed PNG, disables pointer events (current page)
  *   • next:    renders with a 6px Sage outline per spec ("next page domain icon")
  */
-function DomainTile({ domain, size: _size, muted = false, next = false }: Props) {
+function DomainTile({ domain, size = "md", muted = false, next = false }: Props) {
   const image = muted ? domain.tileDim : domain.tile;
+  const sizeClass = size === "sm" ? "w-full max-w-[170px]" : "w-full";
   const img = (
     <img
       id={`public-website-redesign-domain-tile-${domain.slug}-image`}
       src={image}
       alt={`${domain.label} domain`}
-      className="aspect-square w-full rounded-sm object-cover"
+      className="aspect-square w-full rounded-[10px] object-cover"
       draggable={false}
     />
   );
 
   const frame = next
-    ? "block overflow-hidden rounded-sm outline outline-[6px] outline-wriSage ring-offset-2 ring-offset-wriSmokeFog"
-    : "block overflow-hidden rounded-sm";
+    ? `block overflow-hidden rounded-[10px] outline outline-[6px] outline-wriSage ring-offset-2 ring-offset-wriSmokeFog ${sizeClass}`
+    : `block overflow-hidden rounded-[10px] ${sizeClass}`;
 
   if (muted) {
     return (

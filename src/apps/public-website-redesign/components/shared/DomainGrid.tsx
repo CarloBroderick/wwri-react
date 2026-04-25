@@ -20,8 +20,10 @@ function DomainGrid({
   id = "public-website-redesign-domain-grid",
 }: Props) {
   const colClass = columns === 2 ? "grid-cols-2" : "grid-cols-2 md:grid-cols-4";
+  const spacingClass = size === "sm" ? "gap-4 md:gap-6" : "gap-3 md:gap-4";
+  const layoutClass = size === "sm" ? "justify-items-center" : "";
   return (
-    <div id={id} className={`grid ${colClass} gap-3 md:gap-4`}>
+    <div id={id} className={`grid ${colClass} ${spacingClass} ${layoutClass}`}>
       {DOMAINS.map((d) => (
         <DomainTile
           key={d.slug}

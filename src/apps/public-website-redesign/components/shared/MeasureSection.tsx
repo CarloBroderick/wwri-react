@@ -99,7 +99,7 @@ function MeasureSection({
             src={domain.tile}
             alt=""
             aria-hidden
-            className="h-16 w-16 shrink-0 rounded-sm object-cover"
+            className="h-20 w-20 shrink-0 rounded-xl object-cover md:h-24 md:w-24"
           />
         </div>
         <p
