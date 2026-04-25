@@ -36,7 +36,7 @@ const MapLegend: React.FC<MapLegendProps> = ({
       </h2>
       <div className="ml-4 flex flex-row justify-center">
         <div className="flex flex-row gap-1">
-          <div className="flex flex-col justify-between border border-gray-200">
+          <div className="flex flex-col justify-between overflow-hidden rounded-md border border-gray-200">
             {legendColors.map((color, index) => (
               <div
                 key={index}
