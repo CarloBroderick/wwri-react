@@ -114,11 +114,11 @@ function TeamCard({ member, onSelect }: TeamCardProps) {
     <button
       id={`public-website-redesign-contact-team-card-${member.id}`}
       onClick={() => onSelect(member)}
-      className="group flex flex-col text-left transition-transform hover:-translate-y-1"
+      className="group flex w-[170px] flex-col text-left transition-transform hover:-translate-y-1 sm:w-[180px] md:w-[190px]"
     >
       <div
         id={`public-website-redesign-contact-team-card-photo-wrap-${member.id}`}
-        className="relative aspect-square w-full overflow-hidden rounded-sm bg-wriSmokeFog ring-1 ring-wriForest/10 transition-shadow group-hover:ring-2 group-hover:ring-wriMoss"
+        className="relative aspect-square w-full overflow-hidden rounded-md bg-wriSmokeFog ring-1 ring-wriForest/10 transition-shadow group-hover:ring-2 group-hover:ring-wriMoss"
       >
         <img
           id={`public-website-redesign-contact-team-card-photo-${member.id}`}
@@ -164,7 +164,7 @@ function ContributorSection({ id, title, members, onSelect, lgColsClass }: Contr
       </h3>
       <ul
         id={`${id}-grid`}
-        className={`mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 ${lgColsClass}`}
+        className={`mt-10 grid justify-items-center gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 ${lgColsClass}`}
       >
         {members.map((m) => (
           <li key={m.id} id={`${id}-grid-item-${m.id}`}>
@@ -211,7 +211,7 @@ function BioModal({ member, onClose }: BioModalProps) {
       <div
         id="public-website-redesign-contact-team-modal"
         onClick={(e) => e.stopPropagation()}
-        className="relative grid w-full max-w-3xl grid-cols-1 overflow-hidden rounded-sm border border-wriForest/15 bg-wriSmokeFog shadow-xl md:grid-cols-[260px_1fr]"
+        className="relative grid w-full max-w-3xl grid-cols-1 overflow-hidden rounded-2xl border border-wriMoss/40 bg-wriMoss/10 shadow-xl md:grid-cols-[260px_1fr]"
       >
         <button
           id="public-website-redesign-contact-team-modal-close"
