@@ -2,8 +2,10 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import RedesignLayout from "../components/RedesignLayout";
 import AboutPage from "../pages/AboutPage";
 import ComingSoonPage from "../pages/ComingSoonPage";
+import ContactConnectPage from "../pages/ContactConnectPage";
 import ContactFaqsPage from "../pages/ContactFaqsPage";
 import ContactPage from "../pages/ContactPage";
+import ContactTeamPage from "../pages/ContactTeamPage";
 import DomainDetailPage from "../pages/DomainDetailPage";
 import DomainsPage from "../pages/DomainsPage";
 import HomePage from "../pages/HomePage";
@@ -14,7 +16,7 @@ import OutreachPage from "../pages/OutreachPage";
 function RedesignRoutes() {
   return (
     <Routes>
-      <Route path="/redesign" element={<RedesignLayout />}>
+      <Route path="/" element={<RedesignLayout />}>
         <Route index element={<HomePage />} />
         <Route path="about" element={<AboutPage />} />
 
@@ -79,28 +81,12 @@ function RedesignRoutes() {
 
         <Route path="contact">
           <Route index element={<ContactPage />} />
-          <Route
-            path="team"
-            element={
-              <ComingSoonPage
-                id="public-website-redesign-contact-team-page"
-                title="Meet the Team"
-              />
-            }
-          />
-          <Route
-            path="connect"
-            element={
-              <ComingSoonPage
-                id="public-website-redesign-contact-connect-page"
-                title="Connect with Us"
-              />
-            }
-          />
+          <Route path="team" element={<ContactTeamPage />} />
+          <Route path="connect" element={<ContactConnectPage />} />
           <Route path="faqs" element={<ContactFaqsPage />} />
         </Route>
 
-        <Route path="*" element={<Navigate to="/redesign" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   );
