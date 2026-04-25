@@ -4,24 +4,26 @@ export interface PublicNavRoute {
   idSuffix: string;
 }
 
+const LEGACY_ROUTE_PREFIX = "/legacy";
+
 export const PUBLIC_ROUTES = {
-  home: "/",
-  about: "/about",
-  whyResilience: "/why-resilience",
-  whyIndex: "/why-index",
-  howItWorks: "/how-it-works",
-  resources: "/resources",
-  news: "/in-the-news",
-  team: "/meet-the-team",
-  dashboard: "/dashboard",
-  infrastructure: "/infrastructure",
-  airQuality: "/air-quality",
-  water: "/water",
-  habitats: "/habitats",
-  species: "/species",
-  livelihoods: "/livelihoods",
-  communities: "/communities",
-  senseOfPlace: "/sense-of-place",
+  home: LEGACY_ROUTE_PREFIX,
+  about: `${LEGACY_ROUTE_PREFIX}/about`,
+  whyResilience: `${LEGACY_ROUTE_PREFIX}/why-resilience`,
+  whyIndex: `${LEGACY_ROUTE_PREFIX}/why-index`,
+  howItWorks: `${LEGACY_ROUTE_PREFIX}/how-it-works`,
+  resources: `${LEGACY_ROUTE_PREFIX}/resources`,
+  news: `${LEGACY_ROUTE_PREFIX}/in-the-news`,
+  team: `${LEGACY_ROUTE_PREFIX}/meet-the-team`,
+  dashboard: `${LEGACY_ROUTE_PREFIX}/dashboard`,
+  infrastructure: `${LEGACY_ROUTE_PREFIX}/infrastructure`,
+  airQuality: `${LEGACY_ROUTE_PREFIX}/air-quality`,
+  water: `${LEGACY_ROUTE_PREFIX}/water`,
+  habitats: `${LEGACY_ROUTE_PREFIX}/habitats`,
+  species: `${LEGACY_ROUTE_PREFIX}/species`,
+  livelihoods: `${LEGACY_ROUTE_PREFIX}/livelihoods`,
+  communities: `${LEGACY_ROUTE_PREFIX}/communities`,
+  senseOfPlace: `${LEGACY_ROUTE_PREFIX}/sense-of-place`,
 } as const;
 
 export const TOP_NAV_LINKS: PublicNavRoute[] = [

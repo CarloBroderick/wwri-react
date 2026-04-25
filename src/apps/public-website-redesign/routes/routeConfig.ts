@@ -1,10 +1,10 @@
 import type { DomainSlug } from "../config/domains";
 
 /** Base path for the redesign app (sibling to `public-website-legacy`). */
-export const REDESIGN_ROUTE_PREFIX = "/redesign";
+export const REDESIGN_ROUTE_PREFIX = "";
 
 export const REDESIGN_ROUTES = {
-  home: REDESIGN_ROUTE_PREFIX,
+  home: "/",
   about: `${REDESIGN_ROUTE_PREFIX}/about`,
 
   // Domains
@@ -29,6 +29,6 @@ export const REDESIGN_ROUTES = {
   contactConnect: `${REDESIGN_ROUTE_PREFIX}/contact/connect`,
   contactFaqs: `${REDESIGN_ROUTE_PREFIX}/contact/faqs`,
 
-  /** Link out to the legacy interactive index map (for the "Explore the Index" CTA). */
-  exploreIndex: "/",
+  /** Link out to the legacy interactive index map dashboard. */
+  exploreIndex: "/legacy/dashboard",
 } as const;
