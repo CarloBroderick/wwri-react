@@ -61,12 +61,6 @@ function SiteHeader() {
             </span>
           </span>
         </Link>
-        <div
-          id="public-website-redesign-header-logo-divider"
-          className="hidden h-9 w-px bg-wriSmokeFog/75 md:block"
-          aria-hidden="true"
-        />
-
         <nav
           id="public-website-redesign-header-nav"
           className="hidden items-center gap-6 md:flex lg:gap-10"
