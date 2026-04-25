@@ -1,15 +1,14 @@
-import { getNextDomainSlug, type DomainSlug } from "../../config/domains";
+import { type DomainSlug } from "../../config/domains";
 import DomainGrid from "./DomainGrid";
 import SectionHeader from "./SectionHeader";
 
 /**
  * Footer CTA at the bottom of every domain detail page.
  *   • Title: "Domain / Explore Another" (Poppins eyebrow + Montserrat title)
- *   • Grid: 8 full-color Canva squares with the current slug dimmed and the
- *     "next" slug outlined in Sage (6px) per spec.
+ *   • Grid: 8 full-color Canva squares with the current slug dimmed and
+ *     outlined in Sage (6px) to match the current page context.
  */
 function ExploreAnotherDomain({ currentSlug }: { currentSlug: DomainSlug }) {
-  const next = getNextDomainSlug(currentSlug) ?? undefined;
   return (
     <section
       id={`public-website-redesign-explore-another-${currentSlug}`}
@@ -26,7 +25,7 @@ function ExploreAnotherDomain({ currentSlug }: { currentSlug: DomainSlug }) {
         }
       />
       <div className="mt-8">
-        <DomainGrid mutedSlug={currentSlug} nextSlug={next} size="sm" />
+        <DomainGrid mutedSlug={currentSlug} nextSlug={currentSlug} size="sm" />
       </div>
     </section>
   );

@@ -18,16 +18,36 @@ type Props = {
  *   • next:    renders with a 6px Sage outline per spec ("next page domain icon")
  */
 function DomainTile({ domain, size = "md", muted = false, next = false }: Props) {
-  const image = muted ? domain.tileDim : domain.tile;
   const sizeClass = size === "sm" ? "w-full max-w-[170px]" : "w-full";
-  const img = (
+  const img = muted ? (
     <img
-      id={`public-website-redesign-domain-tile-${domain.slug}-image`}
-      src={image}
+      id={`public-website-redesign-domain-tile-${domain.slug}-image-dimmed`}
+      src={domain.tileDim}
       alt={`${domain.label} domain`}
       className="aspect-square w-full rounded-[10px] object-cover"
       draggable={false}
     />
+  ) : (
+    <div
+      id={`public-website-redesign-domain-tile-${domain.slug}-image-wrapper`}
+      className="relative aspect-square w-full rounded-[10px]"
+    >
+      <img
+        id={`public-website-redesign-domain-tile-${domain.slug}-image-default`}
+        src={domain.tile}
+        alt={`${domain.label} domain`}
+        className="absolute inset-0 h-full w-full rounded-[10px] object-cover opacity-100 transition-opacity duration-150 group-hover:opacity-0"
+        draggable={false}
+      />
+      <img
+        id={`public-website-redesign-domain-tile-${domain.slug}-image-hover-dimmed`}
+        src={domain.tileDim}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 h-full w-full rounded-[10px] object-cover opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+        draggable={false}
+      />
+    </div>
   );
 
   const frame = next
@@ -49,7 +69,7 @@ function DomainTile({ domain, size = "md", muted = false, next = false }: Props)
     <Link
       id={`public-website-redesign-domain-tile-${domain.slug}`}
       to={REDESIGN_ROUTES.domain(domain.slug)}
-      className={`${frame} transition-transform hover:-translate-y-0.5 hover:shadow-md`}
+      className={`${frame} group`}
     >
       {img}
     </Link>
