@@ -41,6 +41,7 @@ function AppRoutes() {
         <Route path={PUBLIC_ROUTES.news} element={<NewsPage />} />
       </Route>
       <Route path={PUBLIC_ROUTES.dashboard} element={<DashboardApp />} />
+      <Route path="/legacy/dashboard" element={<Navigate to={PUBLIC_ROUTES.dashboard} replace />} />
       <Route path="*" element={<Navigate to={PUBLIC_ROUTES.home} replace />} />
     </Routes>
   );

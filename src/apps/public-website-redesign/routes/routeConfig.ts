@@ -29,6 +29,6 @@ export const REDESIGN_ROUTES = {
   contactConnect: `${REDESIGN_ROUTE_PREFIX}/contact/connect`,
   contactFaqs: `${REDESIGN_ROUTE_PREFIX}/contact/faqs`,
 
-  /** Link out to the legacy interactive index map dashboard. */
-  exploreIndex: "/legacy/dashboard",
+  /** Link out to the interactive index map dashboard. */
+  exploreIndex: "/dashboard",
 } as const;

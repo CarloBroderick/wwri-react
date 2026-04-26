@@ -15,7 +15,7 @@ export const PUBLIC_ROUTES = {
   resources: `${LEGACY_ROUTE_PREFIX}/resources`,
   news: `${LEGACY_ROUTE_PREFIX}/in-the-news`,
   team: `${LEGACY_ROUTE_PREFIX}/meet-the-team`,
-  dashboard: `${LEGACY_ROUTE_PREFIX}/dashboard`,
+  dashboard: "/dashboard",
   infrastructure: `${LEGACY_ROUTE_PREFIX}/infrastructure`,
   airQuality: `${LEGACY_ROUTE_PREFIX}/air-quality`,
   water: `${LEGACY_ROUTE_PREFIX}/water`,
