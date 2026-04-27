@@ -336,11 +336,11 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
   flowerChartConfig,
 }) => {
   const [showIndicatorSuggestions, setShowIndicatorSuggestions] = useState(false);
-  const [activeButton, setActiveButton] = useState<string | null>("infrastructure");
+  const [activeButton, setActiveButton] = useState<string | null>("wwri_final_score");
   const [statusLabel, setStatusLabel] = useState<string | null>(null);
   const [resistanceLabel, setResistanceLabel] = useState<string | null>(null);
   const [recoveryLabel, setRecoveryLabel] = useState<string | null>(null);
-  const [selectedIndicator, setSelectedIndicator] = useState<string | null>("Air Quality Score");
+  const [selectedIndicator, setSelectedIndicator] = useState<string | null>("Overall Resilience");
   // Initialize with Infrastructure domain expanded by default so users discover the expand/collapse pattern
   const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>(() => ({ infrastructure: true }));
   const [searchTerm, setSearchTerm] = useState<string>("");

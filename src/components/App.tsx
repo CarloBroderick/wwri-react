@@ -12,6 +12,10 @@ import Header from "./Header/Header";
 import MapArea, { BASEMAP_OPTIONS, BasemapId, LabelSource, MapProjection } from "./MapArea/MapArea";
 import RightSidebar from "./RightSidebar";
 import Subheader from "./Subheader/Subheader";
+import {
+  OVERALL_RESILIENCE_END_COLOR,
+  OVERALL_RESILIENCE_START_COLOR,
+} from "../utils/domainScoreColors";
 
 // Basemap localStorage key
 const BASEMAP_STORAGE_KEY = "wwri-basemap";
@@ -77,13 +81,13 @@ function parseSummaryCSV(csvText: string): SummaryData {
 function App() {
   const [selectedMetricIdObject, setSelectedMetricIdObject] =
     useState<SelectedMetricIdObject>({
-      domainId: "infrastructure",
-      metricId: "infrastructure_domain_score",
-      label: "Infrastructure",
-      description: "Infrastructure provides the foundation for communities to live, work, and access essential resources in wildfire-prone places.",
+      domainId: "wwri",
+      metricId: "wwri_final_score",
+      label: "Overall Resilience",
+      description: "Overall wildfire resilience score combining all domains.",
       colorGradient: {
-        startColor: { r: 255, g: 255, b: 255 },
-        endColor: { r: 171, g: 16, b: 78 }, // #ab104e Infrastructure brand color
+        startColor: OVERALL_RESILIENCE_START_COLOR,
+        endColor: OVERALL_RESILIENCE_END_COLOR,
       },
     });
   const [selectedMetricValue, setSelectedMetricValue] = useState<number | null>(
