@@ -1,28 +1,32 @@
 /**
  * API Configuration
  * 
- * Controls the base URL for the WWRI Metrics API.
- * Uses environment variable if set, otherwise defaults to production URL.
+ * Controls service URLs for the WWRI Metrics API and tile server.
+ * Local development defaults to the deployed major-sculpin services, while
+ * production defaults to same-origin paths so the app follows its hosted domain.
  */
 
-// For local development, set to localhost. For production, use the server URL.
-// const API_BASE_URL = "http://localhost:8081";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://major-sculpin.nceas.ucsb.edu/api";
+const DEPLOYED_SERVICE_ORIGIN = "https://major-sculpin.nceas.ucsb.edu";
 
-// Tile server base URL
-const TILE_SERVER_URL = "https://major-sculpin.nceas.ucsb.edu";
+const DEFAULT_API_BASE_URL = import.meta.env.DEV
+  ? `${DEPLOYED_SERVICE_ORIGIN}/api`
+  : "/api";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || DEFAULT_API_BASE_URL;
+
+// Empty string means tile URLs resolve against the current production domain.
+export const TILE_SERVER_URL =
+  import.meta.env.VITE_TILE_SERVER_URL ??
+  (import.meta.env.DEV ? DEPLOYED_SERVICE_ORIGIN : "");
 
 // Local tile server for development (run: node labels/serve-tiles.js in wwri-metrics-api)
-// Automatically uses local server when running on localhost
+// Set VITE_LOCAL_TILES=true to use it instead of the deployed tile server.
 const LOCAL_TILE_SERVER_URL = "http://localhost:8082";
 
 // Self-hosted label tiles URL
-// Uses local server when on localhost (dev), production server otherwise
+// Uses the deployed/same-origin tile server unless local tiles are explicitly enabled.
 // Set VITE_FORCE_PRODUCTION_TILES=true to test production tiles on localhost
-const IS_LOCALHOST = typeof window !== 'undefined' && 
-  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 const FORCE_PRODUCTION_TILES = import.meta.env.VITE_FORCE_PRODUCTION_TILES === "true";
-const USE_LOCAL_TILES = !FORCE_PRODUCTION_TILES && (import.meta.env.VITE_LOCAL_TILES === "true" || IS_LOCALHOST);
+const USE_LOCAL_TILES = !FORCE_PRODUCTION_TILES && import.meta.env.VITE_LOCAL_TILES === "true";
 export const LABEL_TILES_URL = USE_LOCAL_TILES
   ? `${LOCAL_TILE_SERVER_URL}/data/labels/{z}/{x}/{y}.pbf`
   : `${TILE_SERVER_URL}/data/labels/{z}/{x}/{y}.pbf`;

@@ -4,6 +4,7 @@ import {
     getUnifiedLocationUrls,
     getUnifiedMetricUrls,
     LABEL_TILES_URL,
+    TILE_SERVER_URL,
     UNIFIED_GEO_LEVELS,
     UnifiedGeoLevel
 } from "config/api";
@@ -134,9 +135,6 @@ const BOUNDARY_LAYERS = [
   "us-state-boundary",
   "canada-province-boundary",
 ];
-
-// Tile server URL (matches api.ts)
-const TILE_SERVER_URL = "https://major-sculpin.nceas.ucsb.edu";
 
 /**
  * Creates the initial map style with configurable basemap, boundary tile sources, and label sources.
