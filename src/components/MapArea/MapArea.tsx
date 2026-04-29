@@ -2130,13 +2130,18 @@ const MapArea: React.FC<MapAreaProps> = ({
             key={level}
             id={`geo-level-${level}`}
             onClick={() => setSelectedGeoLevel(level)}
-            className={`rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-150 ${
+            className={`inline-flex h-full items-center justify-center rounded-md px-3 py-0 text-sm font-medium leading-none transition-all duration-150 ${
               selectedGeoLevel === level
                 ? "bg-leftSidebarOverallResilience text-white shadow-sm"
                 : "bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-800"
             }`}
           >
-            {UNIFIED_GEO_LEVELS[level].label}
+            <span
+              id={`geo-level-${level}-label`}
+              className="block -translate-y-[0.03em] leading-[0.9] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+            >
+              {UNIFIED_GEO_LEVELS[level].label}
+            </span>
           </button>
         ))}
       </div>
