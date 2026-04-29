@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import "../index.css";
 import SelectedMetricIdObject from "../types/componentStatetypes";
 import { DEFAULT_FLOWER_CHART_CONFIG, FLOWER_CHART_CONFIG_STORAGE_KEY, FlowerChartConfig } from "../types/flowerChartConfigTypes";
-import { DEFAULT_GRADIENT_CONFIG, GradientConfig } from "../types/gradientConfigTypes";
+import { DEFAULT_GRADIENT_CONFIG, DOMAIN_KEYS, GradientConfig } from "../types/gradientConfigTypes";
 import { DEFAULT_LABEL_CONFIG, LabelConfig } from "../types/labelConfigTypes";
 import { DomainScores } from "../utils/domainScoreColors";
 import { FlowerChartConfigWidget, GradientCustomizer, LabelConfigWidget } from "./DevTools";
@@ -34,18 +34,18 @@ const GRADIENT_STORAGE_KEY = "wwri-gradient-config";
 const cloneDefaultGradientConfig = (): GradientConfig =>
   JSON.parse(JSON.stringify(DEFAULT_GRADIENT_CONFIG));
 
+const hasAllGradientDomains = (config: unknown): config is GradientConfig => {
+  if (!config || typeof config !== "object") return false;
+  const domains = (config as GradientConfig).domains;
+  if (!domains || typeof domains !== "object") return false;
+  return DOMAIN_KEYS.every((key) => Boolean(domains[key]));
+};
+
 const migrateDefaultGradientConfig = (config: GradientConfig): GradientConfig => {
   if (config.configName !== "default") return config;
 
-  return {
-    ...config,
-    domains: {
-      ...config.domains,
-      overall_resilience: {
-        ...DEFAULT_GRADIENT_CONFIG.domains.overall_resilience,
-      },
-    },
-  };
+  // Keep "default" synced to code-defined palette to avoid stale persisted variants.
+  return cloneDefaultGradientConfig();
 };
 
 // Selected Region panel layout options
@@ -158,7 +158,7 @@ function App() {
       try {
         const parsed = JSON.parse(saved);
         // Validate that the config has all required domains
-        if (!parsed.domains?.overall_resilience) {
+        if (!hasAllGradientDomains(parsed)) {
           console.log("Gradient config outdated, resetting to defaults");
           localStorage.removeItem(GRADIENT_STORAGE_KEY);
           return cloneDefaultGradientConfig();

@@ -117,10 +117,9 @@ const WHITE: Rgb = { r: 255, g: 255, b: 255 };
 // Neutral gray for no selection state
 const NEUTRAL_GRAY: Rgb = { r: 200, g: 200, b: 200 };
 
-// Overall Resilience color scale (Manuel's color scheme)
-// Light yellow for low resilience (score = 0), Crimson for high resilience (score = 1)
-export const OVERALL_RESILIENCE_START_COLOR: Rgb = { r: 255, g: 250, b: 201 }; // #fffac9 - Light Yellow
-export const OVERALL_RESILIENCE_END_COLOR: Rgb = { r: 123, g: 22, b: 40 }; // #7b1628 - Crimson
+// Overall Resilience color scale
+export const OVERALL_RESILIENCE_START_COLOR: Rgb = { r: 249, g: 248, b: 235 }; // #f9f8eb
+export const OVERALL_RESILIENCE_END_COLOR: Rgb = { r: 26, g: 4, b: 8 }; // #1a0408
 
 /**
  * Normalizes a score to 0-1 range.
@@ -175,18 +174,8 @@ export function getDomainScoreColor(
   domainScores: DomainScores | null | undefined,
   gradientConfig?: GradientConfig | null
 ): string {
-  // No region selected → show full-saturation brand color as a visual baseline
+  // If no scores available, return neutral gray
   if (!domainScores) {
-    const apiKey = DOMAIN_ID_TO_API_KEY[domainId];
-    if (apiKey && gradientConfig?.domains[apiKey as DomainKey]) {
-      const { maxColor } = gradientConfig.domains[apiKey as DomainKey];
-      return `rgb(${maxColor.r}, ${maxColor.g}, ${maxColor.b})`;
-    }
-    const config = DOMAIN_COLOR_MAP[apiKey];
-    if (config) {
-      const { brandColor } = config;
-      return `rgb(${brandColor.r}, ${brandColor.g}, ${brandColor.b})`;
-    }
     return `rgb(${NEUTRAL_GRAY.r}, ${NEUTRAL_GRAY.g}, ${NEUTRAL_GRAY.b})`;
   }
 
@@ -241,18 +230,8 @@ export function getMetricColor(
   score: number | null | undefined,
   gradientConfig?: GradientConfig | null
 ): string {
-  // No score → show full-saturation brand color as a visual baseline
+  // If no score, return neutral gray
   if (score === undefined || score === null) {
-    const apiKey = DOMAIN_ID_TO_API_KEY[domainId];
-    if (apiKey && gradientConfig?.domains[apiKey as DomainKey]) {
-      const { maxColor } = gradientConfig.domains[apiKey as DomainKey];
-      return `rgb(${maxColor.r}, ${maxColor.g}, ${maxColor.b})`;
-    }
-    const config = apiKey ? DOMAIN_COLOR_MAP[apiKey] : undefined;
-    if (config) {
-      const { brandColor } = config;
-      return `rgb(${brandColor.r}, ${brandColor.g}, ${brandColor.b})`;
-    }
     return `rgb(${NEUTRAL_GRAY.r}, ${NEUTRAL_GRAY.g}, ${NEUTRAL_GRAY.b})`;
   }
 
@@ -299,21 +278,49 @@ export function getDomainBrandColor(domainId: string): Rgb {
 }
 
 /**
+ * Gets the full-strength display color for indicator navigation buttons.
+ */
+export function getDomainNavigationColor(
+  domainId: string,
+  gradientConfig?: GradientConfig | null
+): string {
+  const apiKey = DOMAIN_ID_TO_API_KEY[domainId];
+  if (!apiKey) {
+    return `rgb(${NEUTRAL_GRAY.r}, ${NEUTRAL_GRAY.g}, ${NEUTRAL_GRAY.b})`;
+  }
+
+  if (gradientConfig?.domains[apiKey as DomainKey]) {
+    const { maxColor } = gradientConfig.domains[apiKey as DomainKey];
+    return `rgb(${maxColor.r}, ${maxColor.g}, ${maxColor.b})`;
+  }
+
+  const config = DOMAIN_COLOR_MAP[apiKey];
+  if (!config) {
+    return `rgb(${NEUTRAL_GRAY.r}, ${NEUTRAL_GRAY.g}, ${NEUTRAL_GRAY.b})`;
+  }
+
+  const { brandColor } = config;
+  return `rgb(${brandColor.r}, ${brandColor.g}, ${brandColor.b})`;
+}
+
+/**
+ * Gets the full-strength overall resilience display color for indicator navigation.
+ */
+export function getOverallNavigationColor(gradientConfig?: GradientConfig | null): string {
+  const maxColor = gradientConfig?.domains.overall_resilience?.maxColor ?? OVERALL_RESILIENCE_END_COLOR;
+  return `rgb(${maxColor.r}, ${maxColor.g}, ${maxColor.b})`;
+}
+
+/**
  * Gets the dynamic color for the overall resilience box.
- * Uses Manuel's color scheme: light yellow (low) to crimson (high).
  * Supports custom gradient configuration from GradientCustomizer widget.
  */
 export function getOverallScoreColor(
   overallScore: number | null | undefined,
   gradientConfig?: GradientConfig | null
 ): string {
-  // No score → show full-saturation end color as a visual baseline
   if (overallScore === undefined || overallScore === null) {
-    if (gradientConfig?.domains.overall_resilience) {
-      const { maxColor } = gradientConfig.domains.overall_resilience;
-      return `rgb(${maxColor.r}, ${maxColor.g}, ${maxColor.b})`;
-    }
-    return `rgb(${OVERALL_RESILIENCE_END_COLOR.r}, ${OVERALL_RESILIENCE_END_COLOR.g}, ${OVERALL_RESILIENCE_END_COLOR.b})`;
+    return `rgb(${NEUTRAL_GRAY.r}, ${NEUTRAL_GRAY.g}, ${NEUTRAL_GRAY.b})`;
   }
 
   // Use custom gradient config if available

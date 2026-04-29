@@ -12,7 +12,7 @@
 
 import { ResilienceSubdomain, Status, Subdomain } from "types/domainTypes";
 import { GradientConfig } from "types/gradientConfigTypes";
-import { DomainScores, getDomainScoreColor, getMetricColor } from "utils/domainScoreColors";
+import { DomainScores, getDomainNavigationColor, getDomainScoreColor, getMetricColor } from "utils/domainScoreColors";
 import HierarchyArrows from "../../../assets/HierarchyArrows.svg";
 import SubHierarchyArrows from "../../../assets/SubHierarchyArrows.svg";
 import { RegionAllMetrics } from "../../App";
@@ -59,8 +59,10 @@ const LayoutUnifiedCompact: React.FC<LayoutUnifiedCompactProps> = ({
   regionAllMetrics,
   gradientConfig,
 }) => {
-  // Get the dynamic color for this domain based on selected polygon's scores
-  const domainColor = getDomainScoreColor(parentDomainId, domainScores, gradientConfig);
+  // Before a region is selected, indicator navigation uses full-strength domain colors.
+  const domainColor = domainScores
+    ? getDomainScoreColor(parentDomainId, domainScores, gradientConfig)
+    : getDomainNavigationColor(parentDomainId, gradientConfig);
   
   const statusAvailable = hasMetrics(subdomain.status);
   const resistanceAvailable = hasMetrics(subdomain.resilience?.resistance);
