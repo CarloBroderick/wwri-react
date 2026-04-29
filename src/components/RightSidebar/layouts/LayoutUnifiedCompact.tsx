@@ -169,7 +169,7 @@ const LayoutUnifiedCompact: React.FC<LayoutUnifiedCompactProps> = ({
                   />
                 ))}
               </div>
-              <span className="ml-[1.125rem] mt-1 block h-8 max-w-[6rem] font-BeVietnamPro text-xs text-selectedMetricTextLabel">
+              <span className="ml-[1.125rem] mt-1 block h-8 max-w-[6rem] font-Poppins text-xs font-normal text-selectedMetricTextLabel">
                 {statusLabel || "\u00A0"}
               </span>
             </>
@@ -271,7 +271,7 @@ const LayoutUnifiedCompact: React.FC<LayoutUnifiedCompactProps> = ({
                       />
                     ))}
                   </div>
-                  <span className="ml-[1.125rem] mt-1 block h-8 font-BeVietnamPro text-xs text-selectedMetricTextLabel">
+                  <span className="ml-[1.125rem] mt-1 block h-8 font-Poppins text-xs font-normal text-selectedMetricTextLabel">
                     {resistanceLabel || "\u00A0"}
                   </span>
                 </>
@@ -339,7 +339,7 @@ const LayoutUnifiedCompact: React.FC<LayoutUnifiedCompactProps> = ({
                       />
                     ))}
                   </div>
-                  <span className="ml-[1.125rem] mt-1 block h-8 font-BeVietnamPro text-xs text-selectedMetricTextLabel">
+                  <span className="ml-[1.125rem] mt-1 block h-8 font-Poppins text-xs font-normal text-selectedMetricTextLabel">
                     {recoveryLabel || "\u00A0"}
                   </span>
                 </>

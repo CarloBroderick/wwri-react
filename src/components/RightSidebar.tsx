@@ -157,20 +157,20 @@ const SideBySideLayout: React.FC<LayoutProps> = ({
         id="selected-region-panel"
         className="flex flex-1 flex-col justify-center border-r border-gray-200 px-4 py-3"
       >
-        <h1 className="font-BeVietnamPro text-sm font-bold uppercase tracking-wide text-gray-500">
+        <h1 className="font-Montserrat text-sm font-bold uppercase tracking-wide text-gray-500">
           Selected Region
         </h1>
         {!hasSelection ? (
-          <p className="mt-1 font-BeVietnamPro text-base text-gray-500">
+          <p className="mt-1 font-Poppins text-base font-normal text-gray-500">
             Click on a region to view data
           </p>
         ) : (
           <div className="mt-1">
-            <p className="font-BeVietnamPro text-xl font-semibold leading-tight text-gray-900">
+            <p className="font-Montserrat text-xl font-bold leading-tight text-gray-900">
               {displayText?.line1}
             </p>
             {displayText?.line2 && (
-              <p className="font-BeVietnamPro text-base text-gray-600">
+              <p className="font-Poppins text-base font-normal text-gray-600">
                 {displayText.line2}
               </p>
             )}
@@ -253,20 +253,20 @@ const StackedBelowLayout: React.FC<LayoutProps> = ({
         id="selected-region-panel"
         className="flex flex-1 flex-col justify-center px-4 pt-3 pb-2"
       >
-        <h1 className="font-BeVietnamPro text-base font-bold uppercase tracking-wide text-gray-500">
+        <h1 className="font-Montserrat text-base font-bold uppercase tracking-wide text-gray-500">
           Selected Region
         </h1>
         {!hasSelection ? (
-          <p className="mt-1 font-BeVietnamPro text-base text-gray-500">
+          <p className="mt-1 font-Poppins text-base font-normal text-gray-500">
             Click on a region to view data
           </p>
         ) : (
           <div className="mt-1">
-            <p className="font-BeVietnamPro text-xl font-semibold leading-tight text-gray-900">
+            <p className="font-Montserrat text-xl font-bold leading-tight text-gray-900">
               {displayText?.line1}
             </p>
             {displayText?.line2 && (
-              <p className="mt-[0.15rem] font-BeVietnamPro text-base text-gray-600">
+              <p className="mt-[0.15rem] font-Poppins text-base font-normal text-gray-600">
                 {displayText.line2}
               </p>
             )}
@@ -427,7 +427,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
       >
         <h1
           id="indicator-navigation-header"
-          className="mb-1 font-BeVietnamPro text-xl font-medium"
+          className="mb-1 font-Montserrat text-xl font-bold"
         >
           Indicator Navigation
         </h1>
@@ -484,7 +484,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                     setShowIndicatorSuggestions(false);
                   }}
                 >
-                  <span className="font-be-vietnam-pro text-base text-rightSidebarSearchBoxGray">
+                  <span className="font-Poppins text-base font-normal text-rightSidebarSearchBoxGray">
                     {highlightMatches(
                       suggestion.traversedPathForSearchSuggestions,
                       searchTerm,
@@ -721,7 +721,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
         id="domain-scores-panel"
         className="overflow-hidden px-4 py-3"
       >
-        <h1 className="mb-2 font-BeVietnamPro text-base font-semibold uppercase tracking-wide text-gray-500">
+        <h1 className="mb-2 font-Montserrat text-base font-bold uppercase tracking-wide text-gray-500">
           Individual Domain Scores
         </h1>
         <div id="flower-chart-right-sidebar-wrapper" className="max-w-[250px]">

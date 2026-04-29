@@ -31,14 +31,14 @@ export function LeftSidebarBody({
       id="left-sidebar-body"
       className="flex w-full flex-1 flex-col px-leftSidebarXAxis"
     >
-      <h3 className="pb-2 pt-3 font-BeVietnamPro text-xs text-leftSidebarNotifier">
+      <h3 className="pb-2 pt-3 font-Poppins text-xs font-normal text-leftSidebarNotifier">
         The following information pertains to the selected region
       </h3>
-      <h1 className="font-BeVietnamePro text-sm font-bold text-leftSidebarOverallResilience">
+      <h1 className="font-Montserrat text-sm font-bold text-leftSidebarOverallResilience">
         OVERALL SCORE
       </h1>
       <CircularProgressBar percentage={overallResilienceScoreFormatted} />
-      <h1 className="font-BeVietnamePro pb-2 text-sm font-bold text-leftSidebarOverallResilience">
+      <h1 className="font-Montserrat pb-2 text-sm font-bold text-leftSidebarOverallResilience">
         INDIVIDUAL DOMAIN SCORES
       </h1>
       <div id="flower-chart-wrapper" className="mb-1 w-full max-w-[220px]">
@@ -55,7 +55,7 @@ export function LeftSidebarBody({
           alt="Graph Report"
           className="ml-2 mr-2 h-5 w-5"
         />
-        <h1 className="font-BeVietnamPro font-bold">VIEW REPORT</h1>
+        <h1 className="font-Montserrat font-bold">VIEW REPORT</h1>
       </button>
     </div>
   );

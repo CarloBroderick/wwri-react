@@ -31,7 +31,7 @@ const MapLegend: React.FC<MapLegendProps> = ({
       id="map-legend"
       className="absolute min-w-[138px] bottom-10 right-1 z-20 flex flex-col rounded-lg bg-white px-3 py-3 shadow-lg"
     >
-      <h2 className="mb-2 text-center text-base font-bold leading-5">
+      <h2 className="mb-2 text-center font-Montserrat text-base font-bold leading-5">
         {label}
       </h2>
       <div className="ml-4 flex flex-row justify-center">

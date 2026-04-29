@@ -2036,11 +2036,11 @@ const MapArea: React.FC<MapAreaProps> = ({
           const secondaryLabel = isTractLevel ? locationLine : "";
 
           const tooltipHTML = `
-            <div id="map-tooltip" class="rounded">
-              <h1 class="font-bold text-[0.8rem] text-selectedIndicatorTextColor">
+            <div id="map-tooltip" class="rounded font-Poppins font-normal">
+              <h1 class="font-Montserrat text-[0.8rem] font-bold text-selectedIndicatorTextColor">
                 ${primaryLabel}
               </h1>
-              ${secondaryLabel ? `<h2 class="text-xs tracking-widest">${secondaryLabel}</h2>` : ""}
+              ${secondaryLabel ? `<h2 class="font-Montserrat text-xs font-bold tracking-widest">${secondaryLabel}</h2>` : ""}
               <div class="mt-1 flex items-center">
                 <div class="blackc mr-1 inline-block min-h-4 min-w-4 rounded-sm border-[1px] border-solid border-black" style="background-color: ${color}"></div>
                 <span class="font-bold text-black">

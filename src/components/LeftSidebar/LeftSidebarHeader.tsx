@@ -95,15 +95,15 @@ export function LeftSidebarHeader({
       className="relative flex min-h-[89px] w-full items-center border-b-[1px] border-solid border-leftSidebarHeaderBottomBorder bg-leftSidebarHeaderBackground pl-[18px] pr-[10px]"
     >
       <div>
-        <h1 className="font-BeVietnamPro text-sm font-bold text-leftSidebarHeaderLabelTextColor">
+        <h1 className="font-Montserrat text-sm font-bold text-leftSidebarHeaderLabelTextColor">
           SELECTED REGION
         </h1>
         {!hasSelection ? (
-          <h2 className="min-h-[49px] max-w-[95%] font-BeVietnamPro text-base font-bold text-leftSidebarHeaderLabelTextColor">
+          <h2 className="min-h-[49px] max-w-[95%] font-Montserrat text-base font-bold text-leftSidebarHeaderLabelTextColor">
             Click on a region to view data
           </h2>
         ) : (
-          <h2 className="font-BeVietnamPro text-base font-bold leading-snug">
+          <h2 className="font-Montserrat text-base font-bold leading-snug">
             {displayText?.line1}
             {displayText?.line2 && (
               <>

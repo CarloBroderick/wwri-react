@@ -49,10 +49,10 @@ const Subheader: React.FC<SubheaderProps> = ({ selectedMetricObject }) => {
     >
       {/* Left side: Metric title and description */}
       <div className="flex min-w-0 flex-1 flex-col pr-4">
-        <h1 className="font-BeVietnamPro text-2xl font-bold">
+        <h1 className="font-Montserrat text-2xl font-bold">
           {selectedMetricObject.label || defaultTitle}
         </h1>
-        <h3 className="font-BeVietnamPro text-base text-gray-600">
+        <h3 className="font-Poppins text-base font-normal text-gray-600">
           {selectedMetricObject.description || defaultDescription}
         </h3>
       </div>

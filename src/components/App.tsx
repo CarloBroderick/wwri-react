@@ -348,7 +348,7 @@ function App() {
   }, [selectedGeoId, selectedCountry, selectedGeoLevel]);
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full font-Poppins font-normal">
       <Header 
         labelConfigOpen={labelConfigOpen}
         onToggleLabelConfig={() => setLabelConfigOpen((prev) => !prev)}

@@ -76,7 +76,7 @@ const Header: React.FC<HeaderProps> = ({
           height="40"
           className="min-h-[45px] min-w-[50px]"
         />
-        <h1 className="ml-4 min-w-[500px] font-IBMPlexSerif text-2xl font-bold">
+        <h1 className="ml-4 min-w-[500px] font-Montserrat text-2xl font-bold">
           Pre-production Demo
         </h1>
       </div>
