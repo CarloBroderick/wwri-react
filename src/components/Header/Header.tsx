@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import nceasLogo from "../../assets/Vector.svg";
-import wriLogoMark from "../../assets/public-website-redesign/icons/WWRI_logo.png";
+import wriLogoFlameOnly from "../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
 import { isDebugMode } from "../../config/featureFlags";
 import { SelectedRegionLayout } from "../App";
 import { BasemapId, BASEMAP_OPTIONS, LabelSource, MapProjection, PROJECTION_OPTIONS } from "../MapArea/MapArea";
@@ -75,35 +75,37 @@ const Header: React.FC<HeaderProps> = ({
         to="/"
         aria-label="Return to the Wildfire Resilience Index home page"
         title="Return to main site"
-        className="ml-[20px] inline-flex items-center gap-3 rounded-sm focus:outline-none focus:ring-2 focus:ring-wriForest focus:ring-offset-2"
+        className="ml-[20px] inline-flex items-center gap-4 rounded-sm focus:outline-none focus:ring-2 focus:ring-wriForest focus:ring-offset-2"
       >
-        <img
-          id="dashboard-header-wri-logo"
-          src={wriLogoMark}
-          alt="Wildfire Resilience Index"
-          className="h-10 w-10 object-contain"
-        />
-        <span
-          id="dashboard-header-wri-logo-text"
-          className="leading-none text-black"
-        >
+        <span id="dashboard-header-wri-brand-lockup" className="inline-flex items-center gap-2">
+          <img
+            id="dashboard-header-wri-logo"
+            src={wriLogoFlameOnly}
+            alt="Wildfire Resilience Index flame icon"
+            className="h-11 w-auto object-contain"
+          />
           <span
-            id="dashboard-header-wri-logo-text-wildfire"
-            className="block text-xs font-bold uppercase leading-none tracking-[0.08em]"
+            id="dashboard-header-wri-wordmark"
+            className="flex h-11 flex-col justify-between font-Poppins text-[11px] font-bold uppercase leading-none tracking-[0.08em] text-wriForest"
           >
-            Wildfire
-          </span>
-          <span
-            id="dashboard-header-wri-logo-text-resilience"
-            className="block text-xs font-bold uppercase leading-none tracking-[0.08em]"
-          >
-            Resilience
-          </span>
-          <span
-            id="dashboard-header-wri-logo-text-index"
-            className="block text-xs font-bold uppercase leading-none tracking-[0.08em]"
-          >
-            Index
+            <span
+              id="dashboard-header-wri-wordmark-line-wildfire"
+              className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+            >
+              Wildfire
+            </span>
+            <span
+              id="dashboard-header-wri-wordmark-line-resilience"
+              className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+            >
+              Resilience
+            </span>
+            <span
+              id="dashboard-header-wri-wordmark-line-index"
+              className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+            >
+              Index
+            </span>
           </span>
         </span>
         <img

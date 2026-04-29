@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { DOMAIN_NAV_LINKS, PUBLIC_ROUTES, TOP_NAV_LINKS } from "../../routes/routeConfig";
 import { PUBLIC_WEBSITE_THEME } from "../../styles/theme";
+import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
 
 function Navigation() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -25,21 +26,36 @@ function Navigation() {
           height: `${PUBLIC_WEBSITE_THEME.layout.navHeightPx}px`,
         }}
       >
-        <Link id="site-logo" to={PUBLIC_ROUTES.home} className="flex items-center gap-3 text-white">
-          <span id="site-logo-icon" className="inline-flex h-10 w-10 items-center justify-center">
+        <Link id="site-logo" to={PUBLIC_ROUTES.home} className="flex items-center gap-2 text-white">
+          <span id="site-logo-brand-lockup" className="inline-flex items-center gap-2">
             <img
               id="site-logo-image"
-              src="/public-website-mockups/assets/icons/WWRI_logo.png"
-              alt="WRI logo"
-              className="h-10 w-10 object-contain"
+              src={wriLogoFlameOnly}
+              alt="Wildfire Resilience Index flame icon"
+              className="h-10 w-auto object-contain"
             />
-          </span>
-          <span id="site-logo-text" className="leading-tight">
-            <span id="site-logo-main" className="block text-xl font-bold">
-              WRI
-            </span>
-            <span id="site-logo-sub" className="block text-[11px] uppercase tracking-wide text-white/80">
-              The Wildfire Resilience Index
+            <span
+              id="site-logo-wordmark"
+              className="flex h-10 flex-col justify-between text-[10px] font-bold uppercase leading-none tracking-[0.08em] text-white"
+            >
+              <span
+                id="site-logo-wordmark-line-wildfire"
+                className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+              >
+                Wildfire
+              </span>
+              <span
+                id="site-logo-wordmark-line-resilience"
+                className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+              >
+                Resilience
+              </span>
+              <span
+                id="site-logo-wordmark-line-index"
+                className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+              >
+                Index
+              </span>
             </span>
           </span>
         </Link>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import wriLogoMark from "../../../../assets/public-website-redesign/icons/WWRI_logo.png";
+import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
 import { PRIMARY_NAV, type NavItem } from "../../config/navigation";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 
@@ -28,36 +28,38 @@ function SiteHeader() {
         <Link
           id="public-website-redesign-header-home-link"
           to={REDESIGN_ROUTES.home}
-          className="flex items-center"
+          className="flex items-center gap-3"
           aria-label="Wildfire Resilience Index — home"
         >
-          <img
-            id="public-website-redesign-header-logo"
-            src={wriLogoMark}
-            alt="Wildfire Resilience Index icon"
-            className="h-14 w-auto object-contain md:h-16"
-          />
-          <span
-            id="public-website-redesign-header-logo-text"
-            className="ml-3 leading-none text-wriSmokeFog"
-          >
+          <span id="public-website-redesign-header-brand-lockup" className="inline-flex items-center gap-2">
+            <img
+              id="public-website-redesign-header-logo"
+              src={wriLogoFlameOnly}
+              alt="Wildfire Resilience Index flame icon"
+              className="h-14 w-auto object-contain md:h-16"
+            />
             <span
-              id="public-website-redesign-header-logo-text-wildfire"
-              className="block text-xs font-bold uppercase leading-none tracking-[0.08em] md:text-sm"
+              id="public-website-redesign-header-wordmark"
+              className="flex h-14 flex-col justify-between font-Poppins py-[2px] text-[11px] font-bold uppercase leading-none tracking-[0.08em] text-wriSmokeFog md:h-16 md:text-[17px]"
             >
-              Wildfire
-            </span>
-            <span
-              id="public-website-redesign-header-logo-text-resilience"
-              className="block text-xs font-bold uppercase leading-none tracking-[0.08em] md:text-sm"
-            >
-              Resilience
-            </span>
-            <span
-              id="public-website-redesign-header-logo-text-index"
-              className="block text-xs font-bold uppercase leading-none tracking-[0.08em] md:text-sm"
-            >
-              Index
+              <span
+                id="public-website-redesign-header-wordmark-line-wildfire"
+                className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+              >
+                Wildfire
+              </span>
+              <span
+                id="public-website-redesign-header-wordmark-line-resilience"
+                className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+              >
+                Resilience
+              </span>
+              <span
+                id="public-website-redesign-header-wordmark-line-index"
+                className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+              >
+                Index
+              </span>
             </span>
           </span>
         </Link>
