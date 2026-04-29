@@ -114,11 +114,11 @@ function TeamCard({ member, onSelect }: TeamCardProps) {
     <button
       id={`public-website-redesign-contact-team-card-${member.id}`}
       onClick={() => onSelect(member)}
-      className="group flex w-full flex-col text-left transition-transform hover:-translate-y-1"
+      className="group flex w-full flex-col text-left transition-transform hover:-translate-y-1 focus:outline-none"
     >
       <div
         id={`public-website-redesign-contact-team-card-photo-wrap-${member.id}`}
-        className="relative aspect-square w-full overflow-hidden rounded-md bg-wriSmokeFog ring-1 ring-wriForest/10 transition-shadow group-hover:ring-2 group-hover:ring-wriMoss"
+        className="relative aspect-square w-full overflow-hidden rounded-md bg-wriSmokeFog ring-1 ring-wriForest/10 transition-shadow group-hover:ring-2 group-hover:ring-wriMoss group-focus-visible:ring-2 group-focus-visible:ring-wriCanopy group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white"
       >
         <img
           id={`public-website-redesign-contact-team-card-photo-${member.id}`}
@@ -207,20 +207,20 @@ function BioModal({ member, onClose }: BioModalProps) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="public-website-redesign-contact-team-modal-name"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-wriCanopy/40 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-wriCanopy/55 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
         id="public-website-redesign-contact-team-modal"
         onClick={(e) => e.stopPropagation()}
-        className="relative grid w-full max-w-3xl grid-cols-1 overflow-hidden rounded-2xl border border-wriMoss/40 bg-wriMoss/10 shadow-xl md:grid-cols-[260px_1fr]"
+        className="relative grid w-full max-w-3xl grid-cols-1 overflow-hidden rounded-2xl border border-wriMoss/35 bg-white shadow-2xl md:grid-cols-[260px_1fr]"
       >
         <button
           id="public-website-redesign-contact-team-modal-close"
           ref={closeBtnRef}
           onClick={onClose}
           aria-label="Close team member bio"
-          className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full text-wriCanopy/60 transition-colors hover:bg-wriForest/10 hover:text-wriForest"
+          className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full text-wriCanopy/60 transition-colors hover:bg-wriForest/10 hover:text-wriForest focus:outline-none focus-visible:ring-2 focus-visible:ring-wriCanopy focus-visible:ring-offset-2 focus-visible:ring-offset-white"
         >
           <svg
             id="public-website-redesign-contact-team-modal-close-icon"
