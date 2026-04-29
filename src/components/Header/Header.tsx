@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import nceasLogo from "../../assets/Vector.svg";
 import wriLogoFlameOnly from "../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
 import { isDebugMode } from "../../config/featureFlags";
 import { SelectedRegionLayout } from "../App";
-import { BasemapId, BASEMAP_OPTIONS, LabelSource, MapProjection, PROJECTION_OPTIONS } from "../MapArea/MapArea";
+import { BASEMAP_OPTIONS, BasemapId, LabelSource, MapProjection, PROJECTION_OPTIONS } from "../MapArea/MapArea";
 
 // Layout options for the Selected Region panel
 export const LAYOUT_OPTIONS: Record<SelectedRegionLayout, { name: string; description: string }> = {
@@ -75,18 +75,18 @@ const Header: React.FC<HeaderProps> = ({
         to="/"
         aria-label="Return to the Wildfire Resilience Index home page"
         title="Return to main site"
-        className="ml-[20px] inline-flex items-center gap-4 rounded-sm focus:outline-none focus:ring-2 focus:ring-wriForest focus:ring-offset-2"
+        className="ml-[20px] inline-flex items-center gap-3 rounded-sm focus:outline-none focus:ring-2 focus:ring-wriForest focus:ring-offset-2"
       >
         <span id="dashboard-header-wri-brand-lockup" className="inline-flex items-center gap-2">
           <img
             id="dashboard-header-wri-logo"
             src={wriLogoFlameOnly}
             alt="Wildfire Resilience Index flame icon"
-            className="h-11 w-auto object-contain"
+            className="h-12 w-auto object-contain"
           />
           <span
             id="dashboard-header-wri-wordmark"
-            className="flex h-11 flex-col justify-between font-Poppins text-[11px] font-bold uppercase leading-none tracking-[0.08em] text-wriForest"
+            className="flex h-12 flex-col justify-between font-Poppins py-[4px] text-[14px] font-bold uppercase leading-none tracking-[0.08em] text-black"
           >
             <span
               id="dashboard-header-wri-wordmark-line-wildfire"
@@ -112,7 +112,7 @@ const Header: React.FC<HeaderProps> = ({
           id="dashboard-header-nceas-logo"
           src={nceasLogo}
           alt="NCEAS"
-          className="h-10 w-auto object-contain"
+          className="h-12 w-auto object-contain"
         />
       </Link>
 

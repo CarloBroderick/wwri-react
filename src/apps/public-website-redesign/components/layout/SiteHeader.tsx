@@ -40,7 +40,7 @@ function SiteHeader() {
             />
             <span
               id="public-website-redesign-header-wordmark"
-              className="flex h-14 flex-col justify-between font-Poppins py-[2px] text-[11px] font-bold uppercase leading-none tracking-[0.08em] text-wriSmokeFog md:h-16 md:text-[17px]"
+              className="flex h-14 flex-col justify-between font-Poppins py-[2px] text-[11px] font-bold uppercase leading-none tracking-[0.08em] text-[#DCE8DF] md:h-16 md:text-[17px]"
             >
               <span
                 id="public-website-redesign-header-wordmark-line-wildfire"
