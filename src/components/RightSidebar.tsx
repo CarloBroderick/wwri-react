@@ -424,7 +424,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
       {/* ============================================ */}
       <div
         id="indicator-navigation-panel"
-        className="flex flex-col overflow-hidden border-b border-gray-200 px-4 pt-3 pb-2"
+        className="flex min-h-0 flex-col overflow-hidden border-b border-gray-200 px-4 pt-3 pb-2"
       >
         <h1
           id="indicator-navigation-header"
@@ -498,7 +498,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
         </div>
 
         {/* Domain List - Scrollable */}
-        <div id="domain-list" className="relative mb-1 min-h-[412px] ml-[0.3rem] pl-[0.2rem] pt-[0.05rem] flex-1 overflow-y-auto overflow-x-visible pb-1">
+        <div id="domain-list" className="relative mb-1 ml-[0.3rem] max-h-[42vh] overflow-y-auto overflow-x-visible pb-1 pl-[0.2rem] pt-[0.05rem]">
           {/* Overall Resilience Score */}
           <div className="flex items-center">
             <button
@@ -724,12 +724,15 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
       {/* ============================================ */}
       <div
         id="domain-scores-panel"
-        className="overflow-hidden px-4 py-3"
+        className="flex flex-col items-center overflow-hidden px-4 pt-3 pb-2"
       >
-        <h1 className="mb-2 font-Montserrat text-base font-bold uppercase tracking-wide text-gray-500">
+        <h1 className="mb-1 w-full font-Montserrat text-base font-bold uppercase tracking-wide text-gray-500">
           Individual Domain Scores
         </h1>
-        <div id="flower-chart-right-sidebar-wrapper" className="max-w-[250px]">
+        <div
+          id="flower-chart-right-sidebar-wrapper"
+          className="mx-auto w-full max-w-[280px]"
+        >
           <FlowerChart
             domainScores={domainScores}
             overallResilienceScore={overallResilienceScore}
