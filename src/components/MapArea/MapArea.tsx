@@ -1947,6 +1947,8 @@ const MapArea: React.FC<MapAreaProps> = ({
       map.on("sourcedata", handleSourceData);
       
       return () => {
+        if (mapRef.current !== map) return;
+
         map.off("idle", handleIdle);
         map.off("sourcedata", handleSourceData);
       };
@@ -2074,6 +2076,8 @@ const MapArea: React.FC<MapAreaProps> = ({
 
       // Cleanup function
       return () => {
+        if (mapRef.current !== map) return;
+
         INTERACTIVE_LAYERS.forEach(layerId => {
           if (map.getLayer(layerId)) {
             map.off("mousemove", layerId, handleMousemove);
