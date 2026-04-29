@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import layeredDomainsMap from "../../../assets/public-website-redesign/images/domains-landing/layered-domains-map.png";
+import pineRegrowthDomainsImage from "../../../assets/public-website-redesign/images/domains-landing/pine-regrowth-domains.jpg";
 import DomainGrid from "../components/shared/DomainGrid";
 import MossDivider from "../components/shared/MossDivider";
 import SectionHeader from "../components/shared/SectionHeader";
@@ -8,7 +8,7 @@ import { REDESIGN_ROUTES } from "../routes/routeConfig";
 /**
  * Domains overview — Canva spec pages 4–8.
  *   • Section 1: "Domains / What are the Index Domains?" + intro copy, with the
- *     "Layered Domains and Map" graphic on the right.
+ *     pine regrowth image on the right.
  *   • Section 2: continued copy + clickable 2×4 grid of the Canva Domain Squares
  *     (rendered by DomainGrid — those PNGs are the "Domain Squares Stacked"
  *     visual, broken out into individually hyperlinked tiles).
@@ -49,14 +49,14 @@ function DomainsPage() {
           </div>
         </div>
         <div
-          id="public-website-redesign-domains-layered-map-wrap"
+          id="public-website-redesign-domains-pine-regrowth-wrap"
           className="mx-auto w-full max-w-[680px] md:relative md:h-full md:max-w-none"
         >
           <img
-            id="public-website-redesign-domains-layered-map"
-            src={layeredDomainsMap}
-            alt="Eight translucent domain layers stacked above a map of the index region"
-            className="w-full object-contain md:absolute md:inset-0 md:h-full md:object-right"
+            id="public-website-redesign-domains-pine-regrowth-image"
+            src={pineRegrowthDomainsImage}
+            alt="Young pine saplings regrowing after a wildfire"
+            className="w-full object-cover md:absolute md:inset-0 md:h-full md:object-right"
           />
         </div>
       </section>
