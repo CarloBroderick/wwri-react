@@ -40,11 +40,11 @@ function DomainDetailPage() {
       {isInfrastructure && (
         <section
           id={`public-website-redesign-domain-${domain.slug}-top-media`}
-          className="mx-auto max-w-[760px] px-6 pt-6 md:pt-8"
+          className="mx-auto max-w-[1400px] px-6 pt-6 md:pt-8"
         >
           <div
             id={`public-website-redesign-domain-${domain.slug}-top-media-frame`}
-            className="relative overflow-hidden rounded-2xl"
+            className="relative max-w-[760px] overflow-hidden rounded-lg"
           >
             <img
               id={`public-website-redesign-domain-${domain.slug}-top-media-image`}
@@ -62,7 +62,7 @@ function DomainDetailPage() {
             >
               <h2
                 id={`public-website-redesign-domain-${domain.slug}-top-media-title`}
-                className="inline-block rounded-xl bg-white/70 px-5 py-2 font-Poppins text-[clamp(2rem,5vw,4rem)] font-semibold leading-none text-wriForest backdrop-blur-[1px]"
+                className="inline-block rounded-md bg-white/70 px-5 py-2 font-Poppins text-[clamp(2rem,5vw,4rem)] font-semibold leading-none text-wriForest backdrop-blur-[1px]"
               >
                 {domain.label}
               </h2>
@@ -76,7 +76,7 @@ function DomainDetailPage() {
         id={`public-website-redesign-domain-${domain.slug}-hero`}
         className={
           isInfrastructure
-            ? "mx-auto max-w-[760px] px-6 pt-6 md:pt-8"
+            ? "mx-auto max-w-[1400px] px-6 pt-6 md:pt-8"
             : "mx-auto grid max-w-[1200px] grid-cols-1 gap-0 px-0 md:grid-cols-[minmax(260px,420px)_minmax(0,1fr)] md:items-start md:gap-10 md:px-6 md:pt-10"
         }
       >
@@ -91,7 +91,9 @@ function DomainDetailPage() {
         <div
           id={`public-website-redesign-domain-${domain.slug}-hero-body`}
           className={
-            isInfrastructure ? "py-6 md:py-8" : "px-6 py-8 md:px-0 md:py-0"
+            isInfrastructure
+              ? "max-w-[760px] py-6 md:py-8"
+              : "px-6 py-8 md:px-0 md:py-0"
           }
         >
           <div id={`public-website-redesign-domain-${domain.slug}-hero-header`}>
@@ -130,14 +132,19 @@ function DomainDetailPage() {
               id={`public-website-redesign-domain-${domain.slug}-why-icon`}
               src={domain.iconNoText}
               alt={`${domain.label} icon`}
-              className="h-20 w-20 shrink-0 rounded-xl object-cover md:h-24 md:w-24"
+              className="h-20 w-20 shrink-0 rounded-md object-cover md:h-24 md:w-24"
             />
-            <p
-              id={`public-website-redesign-domain-${domain.slug}-why-copy`}
-              className="max-w-prose font-Poppins text-[clamp(17px,1.55vw,21px)] leading-relaxed text-wriCanopy"
+            <div
+              id={`public-website-redesign-domain-${domain.slug}-why-copy-wrapper`}
+              className="flex min-h-20 items-center md:min-h-24"
             >
-              {renderBoldText(domain.whyItMatters)}
-            </p>
+              <p
+                id={`public-website-redesign-domain-${domain.slug}-why-copy`}
+                className="max-w-prose font-Poppins text-[clamp(17px,1.55vw,21px)] leading-relaxed text-wriCanopy"
+              >
+                {renderBoldText(domain.whyItMatters)}
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -146,27 +153,42 @@ function DomainDetailPage() {
       {!isSenseOfPlace && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-measures`}
-          className="mx-auto mt-14 max-w-[1200px] space-y-14 px-6 md:pl-24"
+          className={`mx-auto mt-14 px-6 ${isInfrastructure ? "max-w-[1400px]" : "max-w-[1200px]"}`}
         >
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-status`}
-            section={domain.status}
-            measureLabel={
-              <>
-                How it’s
-                <br />
-                measured
-              </>
+          <div
+            id={`public-website-redesign-domain-${domain.slug}-measures-inner`}
+            className={
+              isInfrastructure ? "max-w-[760px] space-y-14" : "space-y-14"
             }
-          />
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-resistance`}
-            section={domain.resistance}
-          />
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-recovery`}
-            section={domain.recovery}
-          />
+          >
+            <div
+              id={`public-website-redesign-domain-${domain.slug}-measured-heading`}
+            >
+              <h2
+                id={`public-website-redesign-domain-${domain.slug}-measured-label`}
+                className={`${mainSectionLabelClassName} whitespace-nowrap`}
+              >
+                How it’s measured
+              </h2>
+              <MossDivider
+                id={`public-website-redesign-domain-${domain.slug}-measured-divider`}
+                className="my-3"
+                widthClassName="w-14"
+              />
+            </div>
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-status`}
+              section={domain.status}
+            />
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-resistance`}
+              section={domain.resistance}
+            />
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-recovery`}
+              section={domain.recovery}
+            />
+          </div>
         </div>
       )}
 

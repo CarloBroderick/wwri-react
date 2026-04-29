@@ -88,14 +88,14 @@ function MeasureSection({
                 {overline}
               </div>
             )}
-            <MossDivider
-              id={`${id}-divider`}
-              className="my-3"
-              widthClassName="w-14"
-            />
             <h3 id={`${id}-title`} className={measureTitleClassName}>
               {section.title}
             </h3>
+            <MossDivider
+              id={`${id}-divider`}
+              className="mb-3 mt-2"
+              widthClassName="w-14"
+            />
           </div>
         </div>
         <p
