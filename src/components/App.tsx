@@ -29,6 +29,25 @@ const DEFAULT_LABEL_SOURCE: LabelSource = "custom";
 const PROJECTION_STORAGE_KEY = "wwri-projection";
 const DEFAULT_PROJECTION: MapProjection = "mercator";
 
+const GRADIENT_STORAGE_KEY = "wwri-gradient-config";
+
+const cloneDefaultGradientConfig = (): GradientConfig =>
+  JSON.parse(JSON.stringify(DEFAULT_GRADIENT_CONFIG));
+
+const migrateDefaultGradientConfig = (config: GradientConfig): GradientConfig => {
+  if (config.configName !== "default") return config;
+
+  return {
+    ...config,
+    domains: {
+      ...config.domains,
+      overall_resilience: {
+        ...DEFAULT_GRADIENT_CONFIG.domains.overall_resilience,
+      },
+    },
+  };
+};
+
 // Selected Region panel layout options
 export type SelectedRegionLayout = "side-by-side" | "stacked-below";
 const LAYOUT_STORAGE_KEY = "wwri-selected-region-layout";
@@ -134,22 +153,22 @@ function App() {
   const [gradientConfigOpen, setGradientConfigOpen] = useState(false);
   const [gradientConfig, setGradientConfig] = useState<GradientConfig>(() => {
     // Try to load from localStorage on mount
-    const saved = localStorage.getItem("wwri-gradient-config");
+    const saved = localStorage.getItem(GRADIENT_STORAGE_KEY);
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
         // Validate that the config has all required domains
         if (!parsed.domains?.overall_resilience) {
           console.log("Gradient config outdated, resetting to defaults");
-          localStorage.removeItem("wwri-gradient-config");
-          return JSON.parse(JSON.stringify(DEFAULT_GRADIENT_CONFIG));
+          localStorage.removeItem(GRADIENT_STORAGE_KEY);
+          return cloneDefaultGradientConfig();
         }
-        return parsed;
+        return migrateDefaultGradientConfig(parsed);
       } catch {
-        return JSON.parse(JSON.stringify(DEFAULT_GRADIENT_CONFIG));
+        return cloneDefaultGradientConfig();
       }
     }
-    return JSON.parse(JSON.stringify(DEFAULT_GRADIENT_CONFIG));
+    return cloneDefaultGradientConfig();
   });
 
   // Dev tools: Flower chart configuration widget
@@ -235,7 +254,7 @@ function App() {
 
   // Save gradient config to localStorage when it changes
   useEffect(() => {
-    localStorage.setItem("wwri-gradient-config", JSON.stringify(gradientConfig));
+    localStorage.setItem(GRADIENT_STORAGE_KEY, JSON.stringify(gradientConfig));
   }, [gradientConfig]);
 
   // Keyboard shortcuts for dev tools (DEBUG mode only)

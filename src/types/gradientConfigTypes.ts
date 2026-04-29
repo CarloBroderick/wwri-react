@@ -71,7 +71,7 @@ const WHITE: Rgb = { r: 255, g: 255, b: 255 };
  * Default gradient configuration.
  * - All domains use 55-90 range (per meeting notes)
  * - Min color is white, max color is brand color
- * - Overall Resilience uses light yellow → crimson
+ * - Overall Resilience uses the original off-white → near-black gradient
  */
 export const DEFAULT_GRADIENT_CONFIG: GradientConfig = {
   configName: "default",
@@ -145,9 +145,9 @@ export const DEFAULT_GRADIENT_CONFIG: GradientConfig = {
       displayName: "Overall Resilience",
       apiKey: "overall_resilience",
       minValue: 55,
-      minColor: { r: 255, g: 250, b: 201 }, // #fffac9 - Light Yellow
+      minColor: { r: 249, g: 248, b: 235 }, // #f9f8eb
       maxValue: 90,
-      maxColor: { r: 123, g: 22, b: 40 }, // #7b1628 - Crimson
+      maxColor: { r: 26, g: 4, b: 8 }, // #1a0408
     },
   },
 };
