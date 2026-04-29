@@ -12,8 +12,9 @@ import RightSideArrow from "../assets/RightSideArrow.svg";
 import SearchIcon from "../assets/SearchIcon.svg";
 import {
     DomainScores,
+    getDomainNavigationColor,
     getDomainScoreColor,
-    getOverallScoreColor,
+    getOverallNavigationColor,
     OVERALL_RESILIENCE_END_COLOR,
     OVERALL_RESILIENCE_START_COLOR,
 } from "../utils/domainScoreColors";
@@ -522,7 +523,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                   : "border-metricSelectorBoxesBorderDefault"
               }`}
               style={{
-                backgroundColor: getOverallScoreColor(regionAllMetrics?.wwri?.wwri_final_score, gradientConfig),
+                backgroundColor: getOverallNavigationColor(gradientConfig),
               }}
             />
             <span className="font-bold">Overall Resilience</span>
@@ -557,7 +558,9 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                         : "border-metricSelectorBoxesBorderDefault"
                     }`}
                     style={{
-                      backgroundColor: getDomainScoreColor(domain.id, domainScores, gradientConfig),
+                      backgroundColor: domainScores
+                        ? getDomainScoreColor(domain.id, domainScores, gradientConfig)
+                        : getDomainNavigationColor(domain.id, gradientConfig),
                     }}
                   />
                   <span className="font-bold">{domain.label}</span>
@@ -616,7 +619,9 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                                     : "border-metricSelectorBoxesBorderDefault"
                                 }`}
                                 style={{
-                                  backgroundColor: getDomainScoreColor(domain.id, domainScores, gradientConfig),
+                                  backgroundColor: domainScores
+                                    ? getDomainScoreColor(domain.id, domainScores, gradientConfig)
+                                    : getDomainNavigationColor(domain.id, gradientConfig),
                                 }}
                               />
                               <span className="font-semibold">{subdomain.label}</span>
