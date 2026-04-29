@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import Vector from "../../assets/Vector.svg";
+import { Link } from "react-router-dom";
+import nceasLogo from "../../assets/Vector.svg";
+import wriLogoMark from "../../assets/public-website-redesign/icons/WWRI_logo.png";
 import { isDebugMode } from "../../config/featureFlags";
 import { SelectedRegionLayout } from "../App";
 import { BasemapId, BASEMAP_OPTIONS, LabelSource, MapProjection, PROJECTION_OPTIONS } from "../MapArea/MapArea";
@@ -68,18 +70,49 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <div className="flex h-[60px] min-w-[580px] items-center justify-between text-nowrap bg-headerBackgroundWhite">
       {/* Left side: Logo and title */}
-      <div className="ml-[20px] inline-flex items-center">
+      <Link
+        id="dashboard-header-main-site-link"
+        to="/"
+        aria-label="Return to the Wildfire Resilience Index home page"
+        title="Return to main site"
+        className="ml-[20px] inline-flex items-center gap-3 rounded-sm focus:outline-none focus:ring-2 focus:ring-wriForest focus:ring-offset-2"
+      >
         <img
-          src={Vector}
-          alt="logo"
-          width="45"
-          height="40"
-          className="min-h-[45px] min-w-[50px]"
+          id="dashboard-header-wri-logo"
+          src={wriLogoMark}
+          alt="Wildfire Resilience Index"
+          className="h-10 w-10 object-contain"
         />
-        <h1 className="ml-4 min-w-[500px] font-Montserrat text-2xl font-bold">
-          Pre-production Demo
-        </h1>
-      </div>
+        <span
+          id="dashboard-header-wri-logo-text"
+          className="leading-none text-black"
+        >
+          <span
+            id="dashboard-header-wri-logo-text-wildfire"
+            className="block text-xs font-bold uppercase leading-none tracking-[0.08em]"
+          >
+            Wildfire
+          </span>
+          <span
+            id="dashboard-header-wri-logo-text-resilience"
+            className="block text-xs font-bold uppercase leading-none tracking-[0.08em]"
+          >
+            Resilience
+          </span>
+          <span
+            id="dashboard-header-wri-logo-text-index"
+            className="block text-xs font-bold uppercase leading-none tracking-[0.08em]"
+          >
+            Index
+          </span>
+        </span>
+        <img
+          id="dashboard-header-nceas-logo"
+          src={nceasLogo}
+          alt="NCEAS"
+          className="h-10 w-auto object-contain"
+        />
+      </Link>
 
       {/* Right side: Debug tools dropdown (only in DEBUG mode) */}
       {showDebugTools && (
