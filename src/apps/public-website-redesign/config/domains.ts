@@ -58,6 +58,16 @@ import habitatsTileDim from "../../../assets/public-website-redesign/images/doma
 import waterTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/water.png";
 import airTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/air.png";
 
+// --- No-text domain icons (used in "Why it matters" body copy) -------------
+import infrastructureIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/infrastructure.png";
+import communitiesIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/communities.png";
+import livelihoodsIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/livelihoods.png";
+import senseOfPlaceIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/sense-of-place.png";
+import speciesIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/species.png";
+import habitatsIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/habitats.png";
+import waterIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/water.png";
+import airIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/air.png";
+
 export type DomainSlug =
   | "infrastructure"
   | "communities"
@@ -92,6 +102,8 @@ export type Domain = {
   tile: string;
   /** Dimmed (grey/washed) square PNG used for the current-domain slot on detail pages. */
   tileDim: string;
+  /** No-text icon used alongside why-it-matters body text. */
+  iconNoText: string;
   whyItMatters: string;
   status: DomainSection;
   resistance: DomainSection;
@@ -115,6 +127,7 @@ export const DOMAINS: Domain[] = [
     hero: infrastructureHero,
     tile: infrastructureTile,
     tileDim: infrastructureTileDim,
+    iconNoText: infrastructureIconNoText,
     whyItMatters:
       "**Infrastructure** forms the foundation of communities—shaping where we live, work, and interact. Buildings and other structures provide shelter, safety, and access to essential resources.",
     status: {
@@ -126,11 +139,13 @@ export const DOMAINS: Domain[] = [
     },
     resistance: {
       title: "Resistance",
-      description: "Reflects features that help infrastructure avoid damage and support recovery.",
+      description:
+        "Reflects features that help infrastructure avoid damage and support recovery.",
       photo: infrastructureHim2,
       example: {
         label: "Building Codes",
-        detail: "Design and construction standards that influence fire resistance",
+        detail:
+          "Design and construction standards that influence fire resistance",
       },
     },
     recovery: {
@@ -150,6 +165,7 @@ export const DOMAINS: Domain[] = [
     hero: communitiesHero,
     tile: communitiesTile,
     tileDim: communitiesTileDim,
+    iconNoText: communitiesIconNoText,
     whyItMatters:
       "**Communities** are shaped by social, cultural, and geographic connections that influence how people prepare for, respond to, and recover from wildfire.",
     status: {
@@ -161,7 +177,8 @@ export const DOMAINS: Domain[] = [
     },
     resistance: {
       title: "Resistance",
-      description: "Reflects the ability to safely respond to wildfire, including evacuation.",
+      description:
+        "Reflects the ability to safely respond to wildfire, including evacuation.",
       photo: communitiesHim2,
       example: {
         label: "Vehicle Access",
@@ -170,7 +187,8 @@ export const DOMAINS: Domain[] = [
     },
     recovery: {
       title: "Recovery",
-      description: "Captures the ability of communities to rebuild after wildfire.",
+      description:
+        "Captures the ability of communities to rebuild after wildfire.",
       photo: communitiesHim3,
       example: {
         label: "Incorporation",
@@ -185,25 +203,35 @@ export const DOMAINS: Domain[] = [
     hero: livelihoodsHero,
     tile: livelihoodsTile,
     tileDim: livelihoodsTileDim,
+    iconNoText: livelihoodsIconNoText,
     whyItMatters:
       "**Livelihoods** reflect how people make a living and maintain well-being. Wildfire can disrupt jobs, income, and local economies.",
     status: {
       title: "Status",
       description: "Captures economic conditions that support well-being.",
       photo: livelihoodsHim1,
-      example: { label: "Unemployment", detail: "Higher rates can indicate economic vulnerability" },
+      example: {
+        label: "Unemployment",
+        detail: "Higher rates can indicate economic vulnerability",
+      },
     },
     resistance: {
       title: "Resistance",
       description: "Reflects how vulnerable jobs are to wildfire disruption.",
       photo: livelihoodsHim2,
-      example: { label: "Job Vulnerability", detail: "Some industries are more affected by wildfire" },
+      example: {
+        label: "Job Vulnerability",
+        detail: "Some industries are more affected by wildfire",
+      },
     },
     recovery: {
       title: "Recovery",
       description: "Reflects how economies rebound after wildfire.",
       photo: livelihoodsHim3,
-      example: { label: "Job Diversity", detail: "More diverse economies recover more easily" },
+      example: {
+        label: "Job Diversity",
+        detail: "More diverse economies recover more easily",
+      },
     },
   },
   {
@@ -213,6 +241,7 @@ export const DOMAINS: Domain[] = [
     hero: senseOfPlaceHero,
     tile: senseOfPlaceTile,
     tileDim: senseOfPlaceTileDim,
+    iconNoText: senseOfPlaceIconNoText,
     whyItMatters:
       "**Sense of Place** encompasses the cultural, spiritual, and aesthetic connections people have to landscapes. These connections can be shaped by the presence of distinctive species or the character of the landscape itself. Wildfire can reshape both landscapes and the meanings people attach to them. Therefore this domain considers iconic places and iconic species that hold special significance to people.",
     status: {
@@ -263,15 +292,22 @@ export const DOMAINS: Domain[] = [
         "These are plants, animals, and fungi that are of special, iconic importance to people that are closely tied to culture and identity. Animals like the bald eagle are an example of an iconic species.",
       status: {
         title: "Status",
-        description: "Captures species' threat of extinction and population health.",
+        description:
+          "Captures species' threat of extinction and population health.",
         photo: sopIsHim1,
-        example: { label: "Conservation Status", detail: "Threat of extinction" },
+        example: {
+          label: "Conservation Status",
+          detail: "Threat of extinction",
+        },
       },
       resistance: {
         title: "Resistance",
         description: "Traits that help species survive wildfire.",
         photo: sopIsHim2,
-        example: { label: "Traits — Wings", detail: "Ability to relocate during a wildfire" },
+        example: {
+          label: "Traits — Wings",
+          detail: "Ability to relocate during a wildfire",
+        },
       },
       recovery: {
         title: "Recovery",
@@ -292,6 +328,7 @@ export const DOMAINS: Domain[] = [
     hero: speciesHero,
     tile: speciesTile,
     tileDim: speciesTileDim,
+    iconNoText: speciesIconNoText,
     whyItMatters:
       "People value the existence of a diverse array of species both for their intrinsic qualities and for the natural services, such as pollination, they provide. Species that survive and recover from fire help maintain healthy ecosystems.",
     status: {
@@ -303,20 +340,24 @@ export const DOMAINS: Domain[] = [
     },
     resistance: {
       title: "Resistance",
-      description: "Reflects traits that help species to avoid harm during a wildfire.",
+      description:
+        "Reflects traits that help species to avoid harm during a wildfire.",
       photo: speciesHim2,
       example: {
         label: "Traits — Gills",
-        detail: "The ability to breathe underwater helps animals avoid wildfire",
+        detail:
+          "The ability to breathe underwater helps animals avoid wildfire",
       },
     },
     recovery: {
       title: "Recovery",
-      description: "Measures the ability of species populations to return after wildfire.",
+      description:
+        "Measures the ability of species populations to return after wildfire.",
       photo: speciesHim3,
       example: {
         label: "Range",
-        detail: "Species with populations outside burn areas recover more easily",
+        detail:
+          "Species with populations outside burn areas recover more easily",
       },
     },
   },
@@ -327,11 +368,13 @@ export const DOMAINS: Domain[] = [
     hero: habitatsHero,
     tile: habitatsTile,
     tileDim: habitatsTileDim,
+    iconNoText: habitatsIconNoText,
     whyItMatters:
       "**Habitats** such as forests, grasslands, and shrublands support landscapes and communities. Their condition influences how wildfire behaves and how ecosystems recover.",
     status: {
       title: "Status",
-      description: "Represents current habitat condition compared to a historical baseline.",
+      description:
+        "Represents current habitat condition compared to a historical baseline.",
       photo: habitatsHim1,
       example: {
         label: "Protection Status",
@@ -342,13 +385,19 @@ export const DOMAINS: Domain[] = [
       title: "Resistance",
       description: "Captures how well habitats can withstand wildfire.",
       photo: habitatsHim2,
-      example: { label: "Traits — Tree Height", detail: "Taller trees are less likely to catch fire" },
+      example: {
+        label: "Traits — Tree Height",
+        detail: "Taller trees are less likely to catch fire",
+      },
     },
     recovery: {
       title: "Recovery",
       description: "Measures how habitats regenerate after wildfire.",
       photo: habitatsHim3,
-      example: { label: "Rainfall", detail: "Frequent precipitation supports plant regrowth" },
+      example: {
+        label: "Rainfall",
+        detail: "Frequent precipitation supports plant regrowth",
+      },
     },
   },
   {
@@ -358,17 +407,23 @@ export const DOMAINS: Domain[] = [
     hero: waterHero,
     tile: waterTile,
     tileDim: waterTileDim,
+    iconNoText: waterIconNoText,
     whyItMatters:
       "**Water** reflects the availability and stability of freshwater resources that are essential for community well-being. Wildfires can affect water availability, timing, and quality.",
     status: {
       title: "Status",
-      description: "Captures water availability compared to historical conditions.",
+      description:
+        "Captures water availability compared to historical conditions.",
       photo: waterHim1,
-      example: { label: "Quantity", detail: "How much water is available at a given time" },
+      example: {
+        label: "Quantity",
+        detail: "How much water is available at a given time",
+      },
     },
     resistance: {
       title: "Resistance",
-      description: "Reflects how water systems are protected from wildfire impacts.",
+      description:
+        "Reflects how water systems are protected from wildfire impacts.",
       photo: waterHim2,
       example: {
         label: "Water Treatment Plants",
@@ -378,7 +433,8 @@ export const DOMAINS: Domain[] = [
     },
     recovery: {
       title: "Recovery N/A",
-      description: "Not included due to limited data on post-wildfire recovery processes.",
+      description:
+        "Not included due to limited data on post-wildfire recovery processes.",
       statusLabel: "N/A",
       photo: waterHim3,
     },
@@ -390,6 +446,7 @@ export const DOMAINS: Domain[] = [
     hero: airHero,
     tile: airTile,
     tileDim: airTileDim,
+    iconNoText: airIconNoText,
     whyItMatters:
       "**Air** quality is one of the most immediate ways people experience wildfire. Smokey air can have widespread health impacts.",
     status: {
@@ -413,7 +470,8 @@ export const DOMAINS: Domain[] = [
     },
     recovery: {
       title: "Recovery N/A",
-      description: "Not included due to limited data linking recovery to long-term health outcomes.",
+      description:
+        "Not included due to limited data linking recovery to long-term health outcomes.",
       statusLabel: "N/A",
       photo: airHim3,
     },

@@ -1,11 +1,16 @@
 import type { ReactNode } from "react";
-import type { Domain, DomainSection } from "../../config/domains";
+import type { DomainSection } from "../../config/domains";
 import { renderBoldText } from "../../utils/renderBoldText";
 import MossDivider from "./MossDivider";
 
+const measureLabelClassName =
+  "font-Poppins text-[clamp(1.75rem,3vw,2.5rem)] font-normal leading-tight text-wriForest";
+
+const measureTitleClassName =
+  "font-Montserrat text-[clamp(1.05rem,1.8vw,1.35rem)] font-bold uppercase leading-tight tracking-[0.06em] text-wriSage";
+
 type Props = {
   id: string;
-  domain: Domain;
   section: DomainSection;
   /** Overrides `section.photo`. */
   photo?: string;
@@ -45,7 +50,6 @@ type Props = {
  */
 function MeasureSection({
   id,
-  domain,
   section,
   photo,
   overline,
@@ -56,26 +60,23 @@ function MeasureSection({
   return (
     <section
       id={id}
-      className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-10"
+      className="grid grid-cols-1 gap-6 md:grid-cols-[minmax(180px,320px)_minmax(0,1fr)] md:items-start md:gap-10"
     >
       {effectivePhoto ? (
         <img
           id={`${id}-photo`}
           src={effectivePhoto}
           alt=""
-          className={`${photoAspectClassName} w-full rounded-sm object-cover`}
+          className={`${photoAspectClassName} mx-auto w-full max-w-[320px] rounded-sm object-cover md:mx-0`}
         />
       ) : (
         <div aria-hidden />
       )}
       <div id={`${id}-body`}>
-        <div id={`${id}-header-row`} className="flex items-start justify-between gap-4">
+        <div id={`${id}-header-row`} className="flex items-start gap-4">
           <div id={`${id}-header-text`} className="flex-1">
             {measureLabel && (
-              <div
-                id={`${id}-measure-label`}
-                className="font-Poppins text-[clamp(1.75rem,3vw,2.5rem)] font-normal leading-tight text-wriForest"
-              >
+              <div id={`${id}-measure-label`} className={measureLabelClassName}>
                 {measureLabel}
               </div>
             )}
@@ -87,21 +88,15 @@ function MeasureSection({
                 {overline}
               </div>
             )}
-            <MossDivider id={`${id}-divider`} className="my-3" widthClassName="w-14" />
-            <h3
-              id={`${id}-title`}
-              className="font-Montserrat text-[clamp(1.5rem,3vw,2rem)] font-bold leading-tight text-wriSage"
-            >
+            <h3 id={`${id}-title`} className={measureTitleClassName}>
               {section.title}
             </h3>
+            <MossDivider
+              id={`${id}-divider`}
+              className="mb-3 mt-2"
+              widthClassName="w-14"
+            />
           </div>
-          <img
-            id={`${id}-chip`}
-            src={domain.tile}
-            alt=""
-            aria-hidden
-            className="h-24 w-24 shrink-0 rounded-2xl object-cover md:h-28 md:w-28"
-          />
         </div>
         <p
           id={`${id}-description`}
@@ -114,11 +109,10 @@ function MeasureSection({
             <div className="mb-3 font-Montserrat text-xl font-bold text-wriSage">
               Example Dataset
             </div>
-            <div
-              id={`${id}-example-cards`}
-              className="flex flex-wrap gap-5"
-            >
-              {(section.examples ?? (section.example ? [section.example] : [])).map((ex, i) => (
+            <div id={`${id}-example-cards`} className="flex flex-wrap gap-5">
+              {(
+                section.examples ?? (section.example ? [section.example] : [])
+              ).map((ex, i) => (
                 <div
                   key={`${ex.label}-${i}`}
                   id={`${id}-example-card-${i}`}

@@ -10,6 +10,9 @@ import {
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
 import { renderBoldText } from "../utils/renderBoldText";
 
+const mainSectionLabelClassName =
+  "font-Poppins text-[clamp(1.75rem,3vw,2.5rem)] font-normal leading-tight text-wriForest";
+
 /**
  * Single-domain detail page — Canva spec pages 9–16 / change-requests doc.
  *   1. Why it matters (WIM hero + copy + domain-square chip)
@@ -30,21 +33,24 @@ function DomainDetailPage() {
   const isInfrastructure = domain.slug === "infrastructure";
 
   return (
-    <div id={`public-website-redesign-domain-${domain.slug}-page`} className="pb-16">
+    <div
+      id={`public-website-redesign-domain-${domain.slug}-page`}
+      className="pb-16"
+    >
       {isInfrastructure && (
         <section
           id={`public-website-redesign-domain-${domain.slug}-top-media`}
-          className="mx-auto max-w-[1200px] px-0 pt-6 md:px-6 md:pt-8"
+          className="mx-auto max-w-[1400px] px-6 pt-6 md:pt-8"
         >
           <div
             id={`public-website-redesign-domain-${domain.slug}-top-media-frame`}
-            className="relative overflow-hidden rounded-2xl"
+            className="relative max-w-[760px] overflow-hidden rounded-lg"
           >
             <img
               id={`public-website-redesign-domain-${domain.slug}-top-media-image`}
               src={domain.hero}
               alt={`${domain.label} top media`}
-              className="h-[180px] w-full object-cover md:h-[240px]"
+              className="h-[140px] w-full object-cover md:h-[180px]"
             />
             <div
               id={`public-website-redesign-domain-${domain.slug}-top-media-scrim`}
@@ -56,7 +62,7 @@ function DomainDetailPage() {
             >
               <h2
                 id={`public-website-redesign-domain-${domain.slug}-top-media-title`}
-                className="inline-block rounded-xl bg-white/70 px-5 py-2 font-Poppins text-[clamp(2rem,5vw,4rem)] font-semibold leading-none text-wriForest backdrop-blur-[1px]"
+                className="inline-block rounded-md bg-white/70 px-5 py-2 font-Poppins text-[clamp(2rem,5vw,4rem)] font-semibold leading-none text-wriForest backdrop-blur-[1px]"
               >
                 {domain.label}
               </h2>
@@ -68,72 +74,78 @@ function DomainDetailPage() {
       {/* ===== Why it matters hero row =============================== */}
       <section
         id={`public-website-redesign-domain-${domain.slug}-hero`}
-        className={`mx-auto grid max-w-[1200px] grid-cols-1 gap-0 px-0 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-10 md:px-6 ${isInfrastructure ? "pt-6 md:pt-8" : "md:pt-10"}`}
+        className={
+          isInfrastructure
+            ? "mx-auto max-w-[1400px] px-6 pt-6 md:pt-8"
+            : "mx-auto grid max-w-[1200px] grid-cols-1 gap-0 px-0 md:grid-cols-[minmax(260px,420px)_minmax(0,1fr)] md:items-start md:gap-10 md:px-6 md:pt-10"
+        }
       >
-        <img
-          id={`public-website-redesign-domain-${domain.slug}-hero-photo`}
-          src={domain.hero}
-          alt={`${domain.label} hero`}
-          className="aspect-square w-full object-cover md:rounded-sm"
-        />
+        {!isInfrastructure && (
+          <img
+            id={`public-website-redesign-domain-${domain.slug}-hero-photo`}
+            src={domain.hero}
+            alt={`${domain.label} hero`}
+            className="mx-auto aspect-square w-full max-w-[420px] object-cover md:rounded-sm"
+          />
+        )}
         <div
           id={`public-website-redesign-domain-${domain.slug}-hero-body`}
-          className="px-6 py-10 md:px-0"
+          className={
+            isInfrastructure
+              ? "max-w-[760px] py-6 md:py-8"
+              : "px-6 py-8 md:px-0 md:py-0"
+          }
         >
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1">
-              {!isInfrastructure && (
-                <>
-                  <h1
-                    id={`public-website-redesign-domain-${domain.slug}-title`}
-                    className="font-Poppins text-[clamp(2.25rem,5vw,2.75rem)] font-normal leading-tight text-wriForest"
-                  >
-                    {domain.label}
-                  </h1>
-                  <MossDivider
-                    id={`public-website-redesign-domain-${domain.slug}-hero-divider`}
-                    className="my-3"
-                    widthClassName="w-16"
-                  />
-                </>
-              )}
-              {isInfrastructure ? (
-                <>
-                  <div
-                    id={`public-website-redesign-domain-${domain.slug}-why`}
-                    className="font-Poppins text-[clamp(1.75rem,3vw,2.5rem)] font-normal leading-tight text-wriForest"
-                  >
-                    Why it matters
-                  </div>
-                  <MossDivider
-                    id={`public-website-redesign-domain-${domain.slug}-why-divider`}
-                    className="my-3"
-                    widthClassName="w-14"
-                  />
-                </>
-              ) : (
-                <h2
-                  id={`public-website-redesign-domain-${domain.slug}-why`}
-                  className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
+          <div id={`public-website-redesign-domain-${domain.slug}-hero-header`}>
+            {!isInfrastructure && (
+              <>
+                <h1
+                  id={`public-website-redesign-domain-${domain.slug}-title`}
+                  className="font-Poppins text-[clamp(2.25rem,5vw,2.75rem)] font-normal leading-tight text-wriForest"
                 >
-                  Why it matters
-                </h2>
-              )}
-            </div>
-            <img
-              id={`public-website-redesign-domain-${domain.slug}-hero-chip`}
-              src={domain.tile}
-              alt=""
-              aria-hidden
-              className="h-24 w-24 shrink-0 rounded-2xl object-cover md:h-28 md:w-28"
+                  {domain.label}
+                </h1>
+                <MossDivider
+                  id={`public-website-redesign-domain-${domain.slug}-hero-divider`}
+                  className="my-3"
+                  widthClassName="w-16"
+                />
+              </>
+            )}
+            <h2
+              id={`public-website-redesign-domain-${domain.slug}-why`}
+              className={mainSectionLabelClassName}
+            >
+              Why it matters
+            </h2>
+            <MossDivider
+              id={`public-website-redesign-domain-${domain.slug}-why-divider`}
+              className="my-3"
+              widthClassName="w-14"
             />
           </div>
-          <p
-            id={`public-website-redesign-domain-${domain.slug}-why-copy`}
-            className="mt-5 max-w-prose font-Poppins text-[clamp(17px,1.55vw,21px)] leading-relaxed text-wriCanopy"
+          <div
+            id={`public-website-redesign-domain-${domain.slug}-why-content`}
+            className="mt-4 flex items-start gap-4 md:mt-5 md:gap-5"
           >
-            {renderBoldText(domain.whyItMatters)}
-          </p>
+            <img
+              id={`public-website-redesign-domain-${domain.slug}-why-icon`}
+              src={domain.iconNoText}
+              alt={`${domain.label} icon`}
+              className="h-20 w-20 shrink-0 rounded-md object-cover md:h-24 md:w-24"
+            />
+            <div
+              id={`public-website-redesign-domain-${domain.slug}-why-copy-wrapper`}
+              className="flex min-h-20 items-center md:min-h-24"
+            >
+              <p
+                id={`public-website-redesign-domain-${domain.slug}-why-copy`}
+                className="max-w-prose font-Poppins text-[clamp(17px,1.55vw,21px)] leading-relaxed text-wriCanopy"
+              >
+                {renderBoldText(domain.whyItMatters)}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -141,30 +153,42 @@ function DomainDetailPage() {
       {!isSenseOfPlace && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-measures`}
-          className="mx-auto mt-16 max-w-[1200px] space-y-16 px-6"
+          className={`mx-auto mt-14 px-6 ${isInfrastructure ? "max-w-[1400px]" : "max-w-[1200px]"}`}
         >
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-status`}
-            domain={domain}
-            section={domain.status}
-            measureLabel={
-              <>
-                How it’s
-                <br />
-                measured
-              </>
+          <div
+            id={`public-website-redesign-domain-${domain.slug}-measures-inner`}
+            className={
+              isInfrastructure ? "max-w-[760px] space-y-14" : "space-y-14"
             }
-          />
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-resistance`}
-            domain={domain}
-            section={domain.resistance}
-          />
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-recovery`}
-            domain={domain}
-            section={domain.recovery}
-          />
+          >
+            <div
+              id={`public-website-redesign-domain-${domain.slug}-measured-heading`}
+            >
+              <h2
+                id={`public-website-redesign-domain-${domain.slug}-measured-label`}
+                className={`${mainSectionLabelClassName} whitespace-nowrap`}
+              >
+                How it’s measured
+              </h2>
+              <MossDivider
+                id={`public-website-redesign-domain-${domain.slug}-measured-divider`}
+                className="my-3"
+                widthClassName="w-14"
+              />
+            </div>
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-status`}
+              section={domain.status}
+            />
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-resistance`}
+              section={domain.resistance}
+            />
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-recovery`}
+              section={domain.recovery}
+            />
+          </div>
         </div>
       )}
 
@@ -172,17 +196,17 @@ function DomainDetailPage() {
       {isSenseOfPlace && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-iconic-places`}
-          className="mx-auto mt-16 max-w-[1200px] space-y-16 px-6"
+          className="mx-auto mt-14 max-w-[1200px] space-y-14 px-6 md:pl-24"
         >
           <section
             id={`public-website-redesign-domain-${domain.slug}-ip-intro`}
-            className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-10"
+            className="grid grid-cols-1 gap-6 md:grid-cols-[minmax(220px,360px)_minmax(0,1fr)] md:items-start md:gap-10"
           >
             <img
               id={`public-website-redesign-domain-${domain.slug}-ip-hero`}
               src={senseOfPlaceIconicPlacesHero}
               alt="Iconic places hero"
-              className="aspect-square w-full rounded-sm object-cover"
+              className="mx-auto aspect-square w-full max-w-[360px] rounded-sm object-cover md:mx-0"
             />
             <div
               id={`public-website-redesign-domain-${domain.slug}-ip-intro-body`}
@@ -198,22 +222,23 @@ function DomainDetailPage() {
               />
               <h3
                 id={`public-website-redesign-domain-${domain.slug}-ip-why`}
-                className="mb-4 font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
+                className={`${mainSectionLabelClassName} mb-4`}
               >
                 Why it matters
               </h3>
               <p>
-                There are areas that are culturally significant for a variety of reasons — such as
-                landmarks, monuments, parks, and/or protected areas.
+                There are areas that are culturally significant for a variety of
+                reasons — such as landmarks, monuments, parks, and/or protected
+                areas.
               </p>
               <p className="mt-4">
-                The resilience for structural and natural places is evaluated differently.
+                The resilience for structural and natural places is evaluated
+                differently.
               </p>
             </div>
           </section>
           <MeasureSection
             id={`public-website-redesign-domain-${domain.slug}-ip-status`}
-            domain={domain}
             section={domain.status}
             overline="Iconic Places"
             measureLabel={
@@ -226,14 +251,12 @@ function DomainDetailPage() {
           />
           <MeasureSection
             id={`public-website-redesign-domain-${domain.slug}-ip-resistance`}
-            domain={domain}
             section={domain.resistance}
             overline="Iconic Places"
             photoAspectClassName="aspect-[2/1]"
           />
           <MeasureSection
             id={`public-website-redesign-domain-${domain.slug}-ip-recovery`}
-            domain={domain}
             section={domain.recovery}
             overline="Iconic Places"
             photoAspectClassName="aspect-[2/1]"
@@ -245,18 +268,18 @@ function DomainDetailPage() {
       {isSenseOfPlace && domain.extra && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-iconic-species`}
-          className="mx-auto mt-20 max-w-[1200px] space-y-16 px-6"
+          className="mx-auto mt-20 max-w-[1200px] space-y-14 px-6 md:pl-24"
         >
           <section
             id={`public-website-redesign-domain-${domain.slug}-is-intro`}
-            className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-10"
+            className="grid grid-cols-1 gap-6 md:grid-cols-[minmax(220px,360px)_minmax(0,1fr)] md:items-start md:gap-10"
           >
             {domain.extra.hero && (
               <img
                 id={`public-website-redesign-domain-${domain.slug}-is-hero`}
                 src={domain.extra.hero}
                 alt="Iconic species hero"
-                className="aspect-square w-full rounded-sm object-cover"
+                className="mx-auto aspect-square w-full max-w-[360px] rounded-sm object-cover md:mx-0"
               />
             )}
             <div
@@ -273,7 +296,7 @@ function DomainDetailPage() {
               />
               <h3
                 id={`public-website-redesign-domain-${domain.slug}-is-why`}
-                className="mb-4 font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
+                className={`${mainSectionLabelClassName} mb-4`}
               >
                 Why it matters
               </h3>
@@ -282,7 +305,6 @@ function DomainDetailPage() {
           </section>
           <MeasureSection
             id={`public-website-redesign-domain-${domain.slug}-is-status`}
-            domain={domain}
             section={domain.extra.status}
             overline="Iconic Species"
             measureLabel={
@@ -295,13 +317,11 @@ function DomainDetailPage() {
           />
           <MeasureSection
             id={`public-website-redesign-domain-${domain.slug}-is-resistance`}
-            domain={domain}
             section={domain.extra.resistance}
             overline="Iconic Species"
           />
           <MeasureSection
             id={`public-website-redesign-domain-${domain.slug}-is-recovery`}
-            domain={domain}
             section={domain.extra.recovery}
             overline="Iconic Species"
           />
