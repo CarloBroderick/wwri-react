@@ -37,7 +37,7 @@ function ContactPage() {
             <div id="contact-connect-links" className="mt-8 flex flex-col gap-5">
               <a
                 id="contact-connect-email"
-                href="mailto:wildfire-index@nceas.ucsb.edu"
+                href="mailto:wri@nceas.ucsb.edu"
                 className="flex items-center gap-4"
               >
                 <img
@@ -48,7 +48,7 @@ function ContactPage() {
                   className="h-10 w-10 object-contain"
                 />
                 <span className="font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-wriMoss hover:underline">
-                  wildfire-index@nceas.ucsb.edu
+                  wri@nceas.ucsb.edu
                 </span>
               </a>
 

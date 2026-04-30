@@ -57,7 +57,7 @@ function SiteFooter() {
         >
           <a
             id="public-website-redesign-footer-email"
-            href="mailto:wildfire-index@nceas.ucsb.edu"
+            href="mailto:wri@nceas.ucsb.edu"
             className="inline-flex items-center gap-2 text-[13px] text-wriMoss transition-colors hover:text-white hover:underline"
           >
             <svg
@@ -71,7 +71,7 @@ function SiteFooter() {
               <rect x="2" y="4" width="20" height="16" rx="2" />
               <path d="m2 4 10 8 10-8" />
             </svg>
-            wildfire-index@nceas.ucsb.edu
+            wri@nceas.ucsb.edu
           </a>
           <a
             id="public-website-redesign-footer-linkedin"
