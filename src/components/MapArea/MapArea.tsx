@@ -352,8 +352,11 @@ export interface ZoomPanConfig {
 }
 
 export const DEFAULT_ZOOM_PAN_CONFIG: ZoomPanConfig = {
-  maxZoom: { state: 7, county: 10, tract: 13 },
-  padding: { state: 120, county: 100, tract: 80 },
+  // district sits between county and state in spatial granularity, so it gets
+  // values that interpolate the two (slightly tighter zoom than state, looser
+  // than county) and matching padding.
+  maxZoom: { state: 7, district: 8.5, county: 10, tract: 13 },
+  padding: { state: 120, district: 110, county: 100, tract: 80 },
   paddingTopExtra: 50,
   paddingRightExtra: 140,
   duration: { baseMs: 800, msPerZoom: 350, minMs: 2200, maxMs: 4600 },
@@ -473,7 +476,7 @@ const ZoomPanDebugPanel: React.FC<{
 
   const handleReset = () => onChange(DEFAULT_ZOOM_PAN_CONFIG);
 
-  const GEO_LEVELS: UnifiedGeoLevel[] = ["state", "county", "tract"];
+  const GEO_LEVELS: UnifiedGeoLevel[] = ["state", "district", "county", "tract"];
 
   return (
     <div

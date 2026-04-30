@@ -110,6 +110,33 @@ export const UNIFIED_GEO_LEVELS = {
       displayName: "Census Division",
     } as TileSourceConfig,
   },
+  district: {
+    label: "Congressional Districts / Ridings",
+    us: {
+      tileUrl: `${TILE_SERVER_URL}/data/us_districts/{z}/{x}/{y}.pbf`,
+      sourceLayer: "us_districts",
+      // Shapefile attribute populated by tippecanoe; matches the geoid stored
+      // in us_district_metrics (state_fips + cd_num zero-padded, e.g. "0612").
+      idField: "geoid",
+      // namelsad is the most user-friendly label on hover ("Congressional District 12").
+      nameField: "namelsad",
+      apiCountry: "us",
+      apiGeoLevel: "district",
+      displayName: "Congressional District",
+    } as TileSourceConfig,
+    canada: {
+      tileUrl: `${TILE_SERVER_URL}/data/ca_ridings/{z}/{x}/{y}.pbf`,
+      sourceLayer: "ca_ridings",
+      // The tippecanoe build script adds a string `geoid` attribute (= csduid
+      // = fed_num zero-padded) so the tile property matches the API geoid
+      // exactly and no client-side casting is needed.
+      idField: "geoid",
+      nameField: "riding",
+      apiCountry: "canada",
+      apiGeoLevel: "riding",
+      displayName: "Federal Riding",
+    } as TileSourceConfig,
+  },
   state: {
     label: "States / Provinces",
     us: {
@@ -140,11 +167,13 @@ export const GEO_LEVEL_CONFIG = {
   us: {
     tract: UNIFIED_GEO_LEVELS.tract.us,
     county: UNIFIED_GEO_LEVELS.county.us,
+    district: UNIFIED_GEO_LEVELS.district.us,
     state: UNIFIED_GEO_LEVELS.state.us,
   },
   canada: {
     subdivision: UNIFIED_GEO_LEVELS.tract.canada,
     division: UNIFIED_GEO_LEVELS.county.canada,
+    riding: UNIFIED_GEO_LEVELS.district.canada,
     province: UNIFIED_GEO_LEVELS.state.canada,
   },
 } as const;
@@ -170,16 +199,21 @@ export function getMetricUrl(domain: string, metric: string, country = DEFAULT_C
 
 /**
  * Resolves the API domain name for a given country and geo level.
- * The backend is inconsistent: US counties store the overall resilience
- * metric under domain "overall", while every other geo level (US and
- * Canada) stores it under "wwri". The frontend uses "wwri" canonically;
- * this function patches the one outlier.
+ * Carlo's zonal pipeline is inconsistent about where the overall resilience
+ * metric (`wwri_final_score`) lives. Most levels store it under domain "wwri",
+ * but a handful store it under "overall". The frontend uses "wwri" canonically
+ * and this function rewrites the request for the outliers.
+ *
+ * Outliers (domain "overall" instead of "wwri"):
+ *   - US: county, district
+ *   - Canada: riding
  */
 function resolveApiDomain(domain: string, apiCountry: string, apiGeoLevel: string): string {
-    if (domain === "wwri" && apiCountry === "us" && apiGeoLevel === "county") {
-        return "overall";
-    }
-    return domain;
+    if (domain !== "wwri") return domain;
+    const isOverallLevel =
+        (apiCountry === "us" && (apiGeoLevel === "county" || apiGeoLevel === "district")) ||
+        (apiCountry === "canada" && apiGeoLevel === "riding");
+    return isOverallLevel ? "overall" : domain;
 }
 
 /**
