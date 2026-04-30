@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import burntForest from "../../../assets/public-website-redesign/images/about/burnt-forest.jpg";
 import whyIndexBanffTown from "../../../assets/public-website-redesign/images/about/why-is-the-index-useful-banf-town.png";
 import whyIndexNewPineGrowth from "../../../assets/public-website-redesign/images/about/why-is-the-index-useful-new-pine-growth.png";
@@ -52,6 +52,10 @@ function AboutPage() {
   const [expandedVideoId, setExpandedVideoId] = useState<(typeof ABOUT_VIDEO_ITEMS)[number]["id"] | null>(
     ABOUT_VIDEO_ITEMS[0].id,
   );
+  const [playingVideoId, setPlayingVideoId] = useState<(typeof ABOUT_VIDEO_ITEMS)[number]["id"] | null>(null);
+  const videoRefs = useRef<
+    Partial<Record<(typeof ABOUT_VIDEO_ITEMS)[number]["id"], HTMLVideoElement | null>>
+  >({});
 
   const expandedVideoIndex = useMemo(
     () => ABOUT_VIDEO_ITEMS.findIndex((item) => item.id === expandedVideoId),
@@ -65,6 +69,7 @@ function AboutPage() {
 
     if (nextVideo) {
       setExpandedVideoId(nextVideo.id);
+      setPlayingVideoId(null);
     }
   };
 
@@ -107,12 +112,15 @@ function AboutPage() {
                 type="button"
                 aria-expanded={isExpanded}
                 aria-controls={accordionPanelId}
-                onClick={() => setExpandedVideoId(isExpanded ? null : videoItem.id)}
-                className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                onClick={() => {
+                  setExpandedVideoId(isExpanded ? null : videoItem.id);
+                  setPlayingVideoId(null);
+                }}
+                className="flex w-full items-center justify-between gap-4 px-5 py-3 text-left md:px-6 md:py-3.5"
               >
                 <span
                   id={`public-website-redesign-about-video-accordion-label-${videoItem.id}`}
-                  className="font-Montserrat text-[clamp(1.2rem,2.3vw,1.7625rem)] font-bold leading-tight text-wriSage"
+                  className="font-Montserrat text-[clamp(1.15rem,2vw,1.7625rem)] font-bold leading-tight text-wriSage"
                 >
                   {videoItem.label}
                 </span>
@@ -165,14 +173,53 @@ function AboutPage() {
                       id={`public-website-redesign-about-video-player-wrap-${videoItem.id}`}
                       className="mx-auto w-full max-w-[760px] border-[3px] border-wriMoss p-3 md:p-4"
                     >
-                      <video
-                        id={`public-website-redesign-about-video-player-${videoItem.id}`}
-                        src={videoItem.src}
-                        controls
-                        playsInline
-                        preload="metadata"
-                        className="aspect-video w-full rounded-sm bg-black"
-                      />
+                      <div
+                        id={`public-website-redesign-about-video-player-frame-${videoItem.id}`}
+                        className="relative"
+                      >
+                        <video
+                          id={`public-website-redesign-about-video-player-${videoItem.id}`}
+                          ref={(node) => {
+                            videoRefs.current[videoItem.id] = node;
+                          }}
+                          src={videoItem.src}
+                          controls
+                          playsInline
+                          preload="metadata"
+                          onPlay={() => setPlayingVideoId(videoItem.id)}
+                          onPause={() => setPlayingVideoId(null)}
+                          onEnded={() => setPlayingVideoId(null)}
+                          className="aspect-video w-full rounded-sm bg-black"
+                        />
+                        {playingVideoId !== videoItem.id ? (
+                          <button
+                            id={`public-website-redesign-about-video-big-play-button-${videoItem.id}`}
+                            type="button"
+                            onClick={() => {
+                              const videoElement = videoRefs.current[videoItem.id];
+                              if (videoElement) {
+                                videoElement.play();
+                                setPlayingVideoId(videoItem.id);
+                              }
+                            }}
+                            aria-label={`Play ${videoItem.label}`}
+                            className="absolute inset-0 flex items-center justify-center"
+                          >
+                            <span
+                              id={`public-website-redesign-about-video-big-play-button-circle-${videoItem.id}`}
+                              className="flex h-20 w-20 items-center justify-center rounded-full bg-wriForest/90 text-white shadow-lg transition-transform hover:scale-105"
+                            >
+                              <span
+                                id={`public-website-redesign-about-video-big-play-button-icon-${videoItem.id}`}
+                                aria-hidden
+                                className="ml-1 text-[34px] leading-none"
+                              >
+                                ▶
+                              </span>
+                            </span>
+                          </button>
+                        ) : null}
+                      </div>
                     </div>
 
                     <div
