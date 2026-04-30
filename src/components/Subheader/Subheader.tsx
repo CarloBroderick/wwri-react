@@ -45,20 +45,23 @@ const Subheader: React.FC<SubheaderProps> = ({ selectedMetricObject }) => {
   return (
     <div
       id="sub-header"
-      className="relative flex w-full items-start overflow-hidden border-b border-t border-solid border-subheaderBorder bg-subheaderBackground px-5 py-4"
+      className="relative flex min-h-[6rem] w-full items-center overflow-hidden border-b border-t border-solid border-subheaderBorder bg-subheaderBackground px-5"
     >
       {/* Left side: Metric title and description */}
-      <div className="flex min-w-0 flex-1 flex-col pr-4">
-        <h1 className="font-Montserrat text-2xl font-bold">
+      <div className="flex h-full min-w-0 flex-1 flex-col justify-center py-2 pr-4">
+        <h1 className="font-Montserrat text-2xl font-bold leading-tight">
           {selectedMetricObject.label || defaultTitle}
         </h1>
-        <h3 className="font-Poppins text-base font-normal text-gray-600">
+        <h3 className="mt-1 line-clamp-2 font-Poppins text-base font-normal leading-5 text-gray-600">
           {selectedMetricObject.description || defaultDescription}
         </h3>
       </div>
 
       {/* Right side: Breadcrumb pathway */}
-      <div id="subheader-breadcrumb-container" className="min-w-0 shrink self-center text-right">
+      <div
+        id="subheader-breadcrumb-container"
+        className="min-w-0 shrink self-center text-right max-[1320px]:hidden"
+      >
         <BreadcrumbPathway items={breadcrumbItems} />
       </div>
     </div>

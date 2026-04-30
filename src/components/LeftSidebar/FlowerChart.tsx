@@ -22,6 +22,7 @@ interface FlowerChartProps {
   gradientConfig?: GradientConfig | null;
   chartConfig?: FlowerChartConfig | null;
   hasSelectedRegion?: boolean;
+  alignment?: "center" | "left";
 }
 
 // White color for gradient interpolation
@@ -29,6 +30,7 @@ const WHITE = { r: 255, g: 255, b: 255 };
 
 // Neutral gray for no-data state
 const NEUTRAL_GRAY = "#c8c8c8";
+const OVERALL_TEXT_COLOR = "#000000";
 
 /**
  * Converts hex color to RGB object
@@ -165,6 +167,7 @@ const FlowerChart: React.FC<FlowerChartProps> = ({
   gradientConfig,
   chartConfig: chartConfigProp,
   hasSelectedRegion = true,
+  alignment = "center",
 }) => {
   const cfg = chartConfigProp ?? DEFAULT_FLOWER_CHART_CONFIG;
 
@@ -184,15 +187,8 @@ const FlowerChart: React.FC<FlowerChartProps> = ({
     [overallResilienceScore, gradientConfig],
   );
 
-  // Text color: overall score color when showing "Overall", domain brand color on hover
-  const [textColor, setTextColor] = useState(overallScoreColor);
-
-  // Keep default text color in sync when overall score / gradient changes
-  useEffect(() => {
-    if (!isHoveringPetal) {
-      setTextColor(overallScoreColor);
-    }
-  }, [overallScoreColor, isHoveringPetal]);
+  // Text color: black for "Overall", domain brand color on hover/preview.
+  const [textColor, setTextColor] = useState(OVERALL_TEXT_COLOR);
 
   // Build data array from domain scores using brand colors
   const data = FLOWER_CHART_DOMAINS.map((domain) => {
@@ -343,7 +339,7 @@ const FlowerChart: React.FC<FlowerChartProps> = ({
           setCenterLabel(preview.name);
         } else {
           setCenterText(formatScore(overallResilienceScore));
-          setTextColor(overallScoreColor);
+          setTextColor(OVERALL_TEXT_COLOR);
           setCenterLabel("Overall");
         }
         setIsHoveringPetal(false);
@@ -409,7 +405,7 @@ const FlowerChart: React.FC<FlowerChartProps> = ({
     } else if (!isHoveringPetal) {
       setCenterText(formatScore(overallResilienceScore));
       setCenterLabel("Overall");
-      setTextColor(overallScoreColor);
+      setTextColor(OVERALL_TEXT_COLOR);
     }
   }, [overallResilienceScore, overallScoreColor, previewDomain, isHoveringPetal]);
 
@@ -448,15 +444,20 @@ const FlowerChart: React.FC<FlowerChartProps> = ({
   const overallPercent = scoreToPercent(overallResilienceScore);
   const ringDashOffset = ringCircumference * (1 - overallPercent / 100);
   const ringFillColor = isHoveringPetal ? cfg.dimColor : overallScoreColor;
+  const chartContainerAlignmentClass = alignment === "left" ? "justify-start" : "justify-center";
+  const preserveAspectRatioMode = alignment === "left" ? "xMinYMid meet" : "xMidYMid meet";
 
   return (
-    <div id="flower-chart-container" className="flex w-full items-center justify-center">
+    <div
+      id="flower-chart-container"
+      className={`flex w-full items-center ${chartContainerAlignmentClass}`}
+    >
       <svg
         id="flower-chart-svg"
         className="aster__plot"
         width="100%"
         height="100%"
-        preserveAspectRatio="xMidYMid meet"
+        preserveAspectRatio={preserveAspectRatioMode}
         viewBox={`0 0 ${cfg.viewBoxSize} ${cfg.viewBoxSize}`}
       >
         <g id="flower-chart-arcs" transform={`translate(${halfViewBox},${halfViewBox})`} ref={chartRef}>
