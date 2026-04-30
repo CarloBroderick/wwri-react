@@ -6,5 +6,5 @@
 export const DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME =
   "mx-auto w-full max-w-[1400px] px-6";
 
-/** Narrow column used under the banner for WIM copy and measured rows. */
-export const DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME = "max-w-[760px]";
+/** Full-width content column aligned with the header container width. */
+export const DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME = "w-full";

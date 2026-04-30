@@ -29,10 +29,26 @@ function formatTractId(geoId: string, country: Country): string {
 }
 
 /**
+ * Formats the US Congressional District geoid (state_fips + cd_num zero-padded)
+ * into the canonical "ST-NN" shorthand used by election trackers, e.g.
+ *   "0612" -> "CA-12", "0200" -> "AK-AL" (at-large).
+ * Returns null for malformed geoids so callers can fall back gracefully.
+ */
+function formatCongressionalDistrictShorthand(geoId: string, stateName: string): string | null {
+  if (geoId.length < 4) return null;
+  const cdNum = geoId.slice(-2);
+  const stateAbbrev = getRegionAbbreviation(stateName);
+  if (!stateAbbrev) return null;
+  const cdLabel = cdNum === "00" ? "AL" : String(parseInt(cdNum, 10));
+  return `${stateAbbrev}-${cdLabel}`;
+}
+
+/**
  * Builds the display text for the selected region based on geographic level.
- * - Tract: Two lines: "County, State" on line 1, "Census Tract 1234.56" on line 2
- * - County: "County, State"
- * - State: "State"
+ * - Tract:    "Census Tract 1234.56" / "County, ST"
+ * - County:   "County, ST"
+ * - District: "CA-12" / "California"  (ridings: "Riding Name" / "BC")
+ * - State:    "State"
  */
 function buildRegionDisplayText(
   geoId: string,
@@ -59,6 +75,22 @@ function buildRegionDisplayText(
         return { line1: `${regionName}, ${stateAbbrev}` };
       } else if (regionName) {
         return { line1: regionName };
+      }
+      return { line1: geoId };
+    }
+    case "district": {
+      if (country === "us") {
+        // US: "CA-12" / "California" — election-tracker shorthand on top,
+        // full state name underneath for context.
+        const shorthand = formatCongressionalDistrictShorthand(geoId, stateName);
+        const line1 = shorthand ?? regionName ?? geoId;
+        return { line1, line2: stateName || undefined };
+      }
+      // Canada: riding name (regionName) on top, province abbrev underneath.
+      // stateName here carries the province; getRegionAbbreviation maps both
+      // US states and Canadian provinces.
+      if (regionName) {
+        return { line1: regionName, line2: stateAbbrev || stateName || undefined };
       }
       return { line1: geoId };
     }

@@ -37,7 +37,7 @@ function ContactPage() {
             <div id="contact-connect-links" className="mt-8 flex flex-col gap-5">
               <a
                 id="contact-connect-email"
-                href="mailto:wildfire-index@nceas.ucsb.edu"
+                href="mailto:wri@nceas.ucsb.edu"
                 className="flex items-center gap-4"
               >
                 <img
@@ -48,7 +48,7 @@ function ContactPage() {
                   className="h-10 w-10 object-contain"
                 />
                 <span className="font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-wriMoss hover:underline">
-                  wildfire-index@nceas.ucsb.edu
+                  wri@nceas.ucsb.edu
                 </span>
               </a>
 
@@ -73,23 +73,6 @@ function ContactPage() {
             </div>
           </section>
 
-          {/* Explore FAQs */}
-          <section id="contact-faqs-section" className="mt-16">
-            <h2
-              id="contact-faqs-heading"
-              className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
-            >
-              Explore FAQs
-            </h2>
-            <MossDivider id="contact-faqs-divider" className="my-3" widthClassName="w-16" />
-
-            <p
-              id="contact-faqs-body"
-              className="mt-4 max-w-md font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
-            >
-              This section is currently under development, check back soon!
-            </p>
-          </section>
         </div>
 
         {/* ── Right column: forest image ── */}

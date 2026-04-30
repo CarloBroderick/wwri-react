@@ -4,7 +4,7 @@ import AboutPage from "../pages/AboutPage";
 import ComingSoonPage from "../pages/ComingSoonPage";
 import ContactConnectPage from "../pages/ContactConnectPage";
 import MethodologyPage from "../pages/MethodologyPage";
-import ContactFaqsPage from "../pages/ContactFaqsPage";
+import MethodologyFaqPage from "../pages/MethodologyFaqPage";
 import ContactTeamPage from "../pages/ContactTeamPage";
 import DomainDetailPage from "../pages/DomainDetailPage";
 import DomainsPage from "../pages/DomainsPage";
@@ -28,7 +28,7 @@ function RedesignRoutes() {
         <Route path="methodology">
           <Route index element={<MethodologyPage />} />
           <Route path="deep-dive" element={<MethodologyPage />} />
-          <Route path="how-to-use" element={<MethodologyPage />} />
+          <Route path="faq" element={<MethodologyFaqPage />} />
         </Route>
 
         <Route path="media">
@@ -59,7 +59,6 @@ function RedesignRoutes() {
           <Route index element={<Navigate to="connect" replace />} />
           <Route path="team" element={<ContactTeamPage />} />
           <Route path="connect" element={<ContactConnectPage />} />
-          <Route path="faqs" element={<ContactFaqsPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

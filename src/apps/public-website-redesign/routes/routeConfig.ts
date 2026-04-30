@@ -14,7 +14,7 @@ export const REDESIGN_ROUTES = {
   // Methodology
   methodology: `${REDESIGN_ROUTE_PREFIX}/methodology`,
   methodologyDeepDive: `${REDESIGN_ROUTE_PREFIX}/methodology/deep-dive`,
-  methodologyHowToUse: `${REDESIGN_ROUTE_PREFIX}/methodology/how-to-use`,
+  methodologyFaq: `${REDESIGN_ROUTE_PREFIX}/methodology/faq`,
 
   // Media
   media: `${REDESIGN_ROUTE_PREFIX}/media`,
@@ -27,7 +27,6 @@ export const REDESIGN_ROUTES = {
   contact: `${REDESIGN_ROUTE_PREFIX}/contact`,
   contactTeam: `${REDESIGN_ROUTE_PREFIX}/contact/team`,
   contactConnect: `${REDESIGN_ROUTE_PREFIX}/contact/connect`,
-  contactFaqs: `${REDESIGN_ROUTE_PREFIX}/contact/faqs`,
 
   /** Link out to the interactive index map dashboard. */
   exploreIndex: "/dashboard",

@@ -463,6 +463,7 @@ function App() {
             onCenterChange={setCurrentCenter}
             gradientConfig={gradientConfig}
             selectedBasemap={selectedBasemap}
+            onBasemapChange={setSelectedBasemap}
             labelSource={labelSource}
             selectedProjection={selectedProjection}
             zoomPanDebugOpen={zoomPanConfigOpen}
