@@ -49,7 +49,10 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
     }
   };
 
-  const overallResilienceScore = regionAllMetrics?.wwri?.wwri_final_score ?? null;
+  const overallResilienceScore =
+    regionAllMetrics?.wwri?.wwri_final_score ??
+    regionAllMetrics?.overall?.wwri_final_score ??
+    null;
 
   return (
     <div className="">

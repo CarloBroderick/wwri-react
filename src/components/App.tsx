@@ -65,6 +65,28 @@ export interface RegionAllMetrics {
   };
 }
 
+/**
+ * Normalizes backend domain naming inconsistencies for region metrics.
+ * Some US county responses return overall scores under "overall" instead of "wwri".
+ */
+function normalizeRegionAllMetrics(
+  metrics: RegionAllMetrics | null | undefined,
+): RegionAllMetrics | null {
+  if (!metrics) return null;
+
+  const hasWwri = Boolean(metrics.wwri);
+  const hasOverall = Boolean(metrics.overall);
+
+  if (hasWwri || !hasOverall) {
+    return metrics;
+  }
+
+  return {
+    ...metrics,
+    wwri: metrics.overall,
+  };
+}
+
 // Country type for geographic context
 export type Country = "us" | "canada" | "";
 
@@ -357,7 +379,7 @@ function App() {
           return;
         }
         const data = await response.json();
-        setRegionAllMetrics(data.metrics || null);
+        setRegionAllMetrics(normalizeRegionAllMetrics(data.metrics || null));
       } catch (error) {
         console.error("Error fetching region metrics:", error);
         setRegionAllMetrics(null);

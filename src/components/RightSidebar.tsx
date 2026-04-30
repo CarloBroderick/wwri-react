@@ -100,6 +100,16 @@ function buildRegionDisplayText(
   }
 }
 
+function getOverallResilienceScore(
+  regionAllMetrics: RegionAllMetrics | null,
+): number | null {
+  return (
+    regionAllMetrics?.wwri?.wwri_final_score ??
+    regionAllMetrics?.overall?.wwri_final_score ??
+    null
+  );
+}
+
 /**
  * Props for the layout components
  */
@@ -268,7 +278,10 @@ const SideBySideLayout: React.FC<LayoutProps> = ({
 
   const overallFullSaturationColor = getOverallNavigationColor(gradientConfig);
 
-  const metricLabel = selectedMetricIdObject?.label || "Selected Metric";
+  const metricLabel =
+    selectedMetricIdObject?.metricId === "wwri_final_score"
+      ? "Overall"
+      : selectedMetricIdObject?.label || "Selected Metric";
 
   return (
     <div
@@ -292,15 +305,25 @@ const SideBySideLayout: React.FC<LayoutProps> = ({
         id="overall-score-panel"
         className="flex w-[90px] flex-col items-center justify-center border-r border-gray-200 px-2 py-1.5"
       >
-        <span className="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500">
-          Overall
-        </span>
-        <CircularProgressBar
-          percentage={overallScoreFormatted}
-          gradientConfig={gradientConfig}
-          size="xsmall"
-          overrideColor={overallFullSaturationColor}
-        />
+        <div
+          id="overall-score-label-slot"
+          className="relative mb-1 flex h-[14px] w-full items-end justify-center overflow-visible"
+        >
+          <span
+            id="overall-score-label"
+            className="whitespace-nowrap text-xs font-semibold uppercase tracking-wide text-gray-500"
+          >
+            Overall
+          </span>
+        </div>
+        <div id="overall-score-progress-circle">
+          <CircularProgressBar
+            percentage={overallScoreFormatted}
+            gradientConfig={gradientConfig}
+            size="xsmall"
+            overrideColor={overallFullSaturationColor}
+          />
+        </div>
       </div>
 
       {/* Right: Selected Metric Score */}
@@ -308,17 +331,25 @@ const SideBySideLayout: React.FC<LayoutProps> = ({
         id="selected-metric-panel"
         className="flex w-[130px] flex-col items-center justify-center px-2 py-1.5"
       >
-        <span 
-          className="mb-1 max-w-[120px] whitespace-normal break-words text-center text-xs font-semibold uppercase leading-tight tracking-wide text-gray-500"
+        <div
+          id="selected-metric-label-slot"
+          className="relative mb-1 flex h-[14px] w-full items-end justify-center overflow-visible"
         >
-          {metricLabel}
-        </span>
-        <CircularProgressBar
-          percentage={hasSelection ? metricValueFormatted : 0}
-          gradientConfig={gradientConfig}
-          size="xsmall"
-          overrideColor={metricColor}
-        />
+          <span
+            id="selected-metric-label"
+            className="max-w-[120px] whitespace-normal break-words text-center text-xs font-semibold uppercase leading-tight tracking-wide text-gray-500"
+          >
+            {metricLabel}
+          </span>
+        </div>
+        <div id="selected-metric-progress-circle">
+          <CircularProgressBar
+            percentage={hasSelection ? metricValueFormatted : 0}
+            gradientConfig={gradientConfig}
+            size="xsmall"
+            overrideColor={metricColor}
+          />
+        </div>
       </div>
     </div>
   );
@@ -348,7 +379,10 @@ const StackedBelowLayout: React.FC<LayoutProps> = ({
     ? rgbToHex(selectedMetricIdObject.colorGradient.endColor)
     : undefined;
 
-  const metricLabel = selectedMetricIdObject?.label || "Selected Metric";
+  const metricLabel =
+    selectedMetricIdObject?.metricId === "wwri_final_score"
+      ? "Overall"
+      : selectedMetricIdObject?.label || "Selected Metric";
 
   return (
     <div
@@ -370,19 +404,27 @@ const StackedBelowLayout: React.FC<LayoutProps> = ({
       {/* Right: Selected Metric Score Widget */}
       <div
         id="selected-metric-panel"
-        className="flex w-[110px] flex-col items-center px-2 py-1.5"
+        className="flex w-[110px] flex-col items-center justify-center px-2 py-1.5"
       >
-        <span
-          className="mb-1 max-w-[100px] whitespace-normal break-words text-center text-[10px] leading-tight font-semibold uppercase tracking-wide text-gray-500"
+        <div
+          id="selected-metric-label-slot"
+          className="relative mb-1 flex h-[12px] w-full items-end justify-center overflow-visible"
         >
-          {metricLabel}
-        </span>
-        <CircularProgressBar
-          percentage={hasSelection ? metricValueFormatted : 0}
-          gradientConfig={gradientConfig}
-          size="xsmall"
-          overrideColor={metricColor}
-        />
+          <span
+            id="selected-metric-label"
+            className="max-w-[100px] whitespace-normal break-words text-center text-[10px] font-semibold uppercase leading-tight tracking-wide text-gray-500"
+          >
+            {metricLabel}
+          </span>
+        </div>
+        <div id="selected-metric-progress-circle">
+          <CircularProgressBar
+            percentage={hasSelection ? metricValueFormatted : 0}
+            gradientConfig={gradientConfig}
+            size="xsmall"
+            overrideColor={metricColor}
+          />
+        </div>
       </div>
     </div>
   );
@@ -440,7 +482,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
   const hierarchicalStrings = flattenDomainHierarchy(domainHierarchy);
 
   // Get overall resilience score
-  const overallResilienceScore = regionAllMetrics?.wwri?.wwri_final_score ?? null;
+  const overallResilienceScore = getOverallResilienceScore(regionAllMetrics);
   let overallScoreFormatted: number;
   if (overallResilienceScore && overallResilienceScore < 1) {
     overallScoreFormatted = overallResilienceScore * 100;
