@@ -33,7 +33,6 @@ const OVERVIEW_ACCORDION_ITEMS = [
     title: "How do I interpret my score?",
   },
 ] as const;
-
 /**
  * Homepage — Canva spec pages 1–2.
  *   • Hero: full-viewport looping muted video, heading, subtitle, CTA, partner logos
