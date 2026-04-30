@@ -216,7 +216,7 @@ const FAQ_SECTIONS: FaqSection[] = [
         answer: (
           <>
             <p>
-              The WRI has pre-calculated scores for thousands of geographies that are viewable on
+              The WRI has pre-calculated scores for over thousands of geographies that are viewable on
               our dashboard including:
             </p>
             <ul className="ml-5 list-disc space-y-1">
@@ -242,7 +242,7 @@ const FAQ_SECTIONS: FaqSection[] = [
           <p>
             Yes! The underlying pixel-level data, domain scores, aggregated geographies, full methods
             documentation, and all code are freely available for download on KNB. For code
-            specifically, please visit our GitHub repo. There are no paywalls, no registration
+            specifically, please visit our GitHub repo (TBD). There are no paywalls, no registration
             requirements, and no restrictions on use.
           </p>
         ),
