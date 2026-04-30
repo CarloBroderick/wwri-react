@@ -13,10 +13,12 @@ const DEFAULT_API_BASE_URL = import.meta.env.DEV
   : "/api";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || DEFAULT_API_BASE_URL;
 
-// Empty string means tile URLs resolve against the current production domain.
+// Use window.location.origin in production so tile URLs are absolute.
+// MapLibre fetches tiles in a Web Worker with a blob: origin, which cannot
+// resolve relative paths like "/data/...". An absolute URL avoids this.
 export const TILE_SERVER_URL =
   import.meta.env.VITE_TILE_SERVER_URL ??
-  (import.meta.env.DEV ? DEPLOYED_SERVICE_ORIGIN : "");
+  (import.meta.env.DEV ? DEPLOYED_SERVICE_ORIGIN : window.location.origin);
 
 // Local tile server for development (run: node labels/serve-tiles.js in wwri-metrics-api)
 // Set VITE_LOCAL_TILES=true to use it instead of the deployed tile server.
