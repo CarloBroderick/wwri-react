@@ -1,13 +1,13 @@
-import { useMemo, useRef, useState } from "react";
+import { ReactNode, useMemo, useRef, useState } from "react";
+import DownArrow from "../../../assets/DownArrow.svg";
+import regionMap from "../../../assets/public-website-redesign/icons/Location Map for WRI, 1 What is the WRI (1).png";
 import burntForest from "../../../assets/public-website-redesign/images/about/burnt-forest.jpg";
 import whyIndexBanffTown from "../../../assets/public-website-redesign/images/about/why-is-the-index-useful-banf-town.png";
 import whyIndexNewPineGrowth from "../../../assets/public-website-redesign/images/about/why-is-the-index-useful-new-pine-growth.png";
-import regionMap from "../../../assets/public-website-redesign/icons/Location Map for WRI, 1 What is the WRI (1).png";
-import overviewHowToUseIt from "../../../assets/public-website-redesign/videos/overview-3-how-to-use-it.mp4";
-import overviewHowWeBuiltIt from "../../../assets/public-website-redesign/videos/overview-2-how-we-built-it.mp4";
-import overviewInterpretScore from "../../../assets/public-website-redesign/videos/overview-4-interpret-your-score.mp4";
 import overviewWhatIsIt from "../../../assets/public-website-redesign/videos/overview-1-what-is-it.mp4";
-import DownArrow from "../../../assets/DownArrow.svg";
+import overviewHowWeBuiltIt from "../../../assets/public-website-redesign/videos/overview-2-how-we-built-it.mp4";
+import overviewHowToUseIt from "../../../assets/public-website-redesign/videos/overview-3-how-to-use-it.mp4";
+import overviewInterpretScore from "../../../assets/public-website-redesign/videos/overview-4-interpret-your-score.mp4";
 import RightSideArrow from "../../../assets/RightSideArrow.svg";
 
 const ABOUT_VIDEO_ITEMS = [
@@ -33,19 +33,100 @@ const ABOUT_VIDEO_ITEMS = [
   },
 ] as const;
 
-const DATA_DRIVEN_COPY = [
-  "The Wildfire Resilience Index (WRI) is an interactive tool designed to support communities and landscapes living with wildfire in 12 Western US states, British Columbia, and the Yukon Territory (see image on the right).",
-  "Wildfire is natural and inevitable across the western United States and Canada. Living with it requires a shared understanding of how systems-both ecological and human-resist harm and recover after fire. Together, these abilities define resilience.",
-  "Because wildfire resilience spans ecological, social, and infrastructural factors, it can be difficult to measure and compare. The index addresses this challenge by combining many types of data into a single, easy-to-understand measure. Grounded in the latest research, it integrates spatial data and expert knowledge to assess resilience across different locations.",
-  "The index brings together multiple indicators-organized into 8 key topic areas called domains-to create a composite score. This approach allows diverse information to be translated into a shared framework, helping everyone talk about wildfire resilience in a consistent and meaningful way.",
-] as const;
-
-const ACTIONABLE_INSIGHT_COPY = [
-  "The index is designed to inform land management, policy planning, and community preparedness by supporting evidence-based decisions that enhance safety and ecosystem sustainability.",
-  "Rather than prescribing one solution, the index offers flexible insights that communities can adapt to their unique needs. It highlights where resilience can be strengthened-whether through vegetation management, infrastructure planning, community preparedness, or other targeted actions.",
-  "Because the index and its underlying datasets are open source (free to all), it is accessible to a wide range of users. It can be applied at multiple scales, from local communities to regional landscapes, helping identify areas of higher vulnerability and prioritize effective interventions.",
-  "By creating a shared, data-driven understanding of wildfire resilience, the index supports collaboration among land managers, scientists, policymakers, and the public.",
-  "This common foundation enables more informed, transparent decision-making-helping communities and ecosystems live more sustainably with wildfire while allowing fire to continue playing its natural role. The index provides a shared framework for action and understanding.",
+const ABOUT_CONTENT_ROWS: ReadonlyArray<{
+  id: string;
+  heading?: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+  imagePosition: "left" | "right";
+  paragraphs: ReadonlyArray<ReactNode>;
+}> = [
+  {
+    id: "map-overview",
+    image: {
+      src: regionMap,
+      alt: "Map of 12 Western US states, British Columbia, and the Yukon Territory",
+    },
+    imagePosition: "right",
+    paragraphs: [
+      <>
+        The <strong>Wildfire Resilience Index (WRI)</strong> is an interactive tool designed to support
+        communities and landscapes living with wildfire in 12 Western US states, British Columbia, and the
+        Yukon Territory (see image on the right).
+      </>,
+      <>
+        Wildfire is natural and inevitable across the western United States and Canada. Living with it
+        requires a shared understanding of how systems-both ecological and human-<strong>resist harm</strong>{" "}
+        and <strong>recover</strong> after fire. Together, these abilities define <strong>resilience</strong>.
+      </>,
+    ],
+  },
+  {
+    id: "measurement-challenge",
+    image: {
+      src: burntForest,
+      alt: "Burned forest with yellow wildflowers returning after wildfire",
+    },
+    imagePosition: "left",
+    paragraphs: [
+      <>
+        Because wildfire resilience spans ecological, social, and infrastructural factors, it can be difficult
+        to measure and compare. The index addresses this challenge by combining many types of data into a
+        single, easy-to-understand measure. Grounded in the latest research, it integrates spatial data and
+        expert knowledge to assess <strong>resilience</strong> across different locations.
+      </>,
+      <>
+        The index brings together multiple indicators-organized into eight key topic areas called{" "}
+        <strong>domains</strong>-to create a composite score. This approach allows diverse information to be
+        translated into a shared framework, helping everyone talk about wildfire resilience in a consistent and
+        meaningful way.
+      </>,
+    ],
+  },
+  {
+    id: "actionable-insight-overview",
+    heading: "Turning Data into Actionable Insight",
+    image: {
+      src: whyIndexBanffTown,
+      alt: "Mountain town with snowy peaks in the background",
+    },
+    imagePosition: "right",
+    paragraphs: [
+      <>
+        The index is designed to inform land management, policy planning, and community preparedness by
+        supporting evidence-based decisions that enhance safety and ecosystem sustainability.
+      </>,
+      <>
+        Rather than prescribing one solution, the index offers flexible insights that communities can adapt to
+        their unique needs. It highlights where resilience can be strengthened-whether through vegetation
+        management, infrastructure planning, community preparedness, or other targeted actions.
+      </>,
+    ],
+  },
+  {
+    id: "open-source-collaboration",
+    image: {
+      src: whyIndexNewPineGrowth,
+      alt: "Young conifer regenerating in a forest clearing",
+    },
+    imagePosition: "left",
+    paragraphs: [
+      <>
+        Because the index and its underlying datasets are open source (free to all), it is accessible to a
+        wide range of users. It can be applied at multiple scales, from local communities to regional
+        landscapes, helping identify areas of higher vulnerability and prioritize effective interventions.
+      </>,
+      <>
+        By creating a <strong>shared, data-driven understanding</strong> of wildfire <strong>resilience</strong>,
+        the index supports collaboration among land managers, scientists, policymakers, and the public. This
+        common foundation enables more informed, transparent decision-making-helping communities and ecosystems
+        live more sustainably with wildfire while allowing fire to continue playing its natural role. The index
+        provides a shared framework for action and understanding.
+      </>,
+    ],
+  },
 ] as const;
 
 function AboutPage() {
@@ -286,110 +367,83 @@ function AboutPage() {
         })}
       </section>
 
-      <section
-        id="public-website-redesign-about-data-driven-section"
-        className="mt-20 grid gap-10 md:grid-cols-[1fr_1fr]"
-      >
-        <div id="public-website-redesign-about-data-driven-text">
+      <section id="public-website-redesign-about-copy-and-images-section" className="mt-20 space-y-14">
+        <article id="public-website-redesign-about-intro-heading-block">
+          <div id="public-website-redesign-about-intro-heading-divider" className="h-[4px] w-20 rounded-full bg-wriMoss" />
           <h2
-            id="public-website-redesign-about-data-driven-page-heading"
-            className="font-Poppins text-[clamp(2.25rem,4.3vw,2.75rem)] font-normal leading-tight text-wriForest"
+            id="public-website-redesign-about-intro-heading-title"
+            className="mt-6 font-Poppins text-[clamp(2.25rem,4.3vw,2.75rem)] font-semibold leading-tight text-wriForest"
           >
             About
           </h2>
           <h3
-            id="public-website-redesign-about-data-driven-title"
-            className="mt-2 font-Montserrat text-[clamp(1.75rem,3.7vw,2.5625rem)] font-bold leading-tight text-wriSage"
-          >
-            What is the Wildfire Resilience Index?
-          </h3>
-          <h4
-            id="public-website-redesign-about-data-driven-subtitle"
-            className="mt-6 font-Montserrat text-[clamp(1.25rem,2.2vw,1.75rem)] font-bold leading-tight text-wriForest"
+            id="public-website-redesign-about-intro-heading-subtitle"
+            className="mt-2 font-Montserrat text-[clamp(1.75rem,3.7vw,2.5625rem)] font-medium leading-tight text-wriSage"
           >
             A Data-Driven View of Wildfire Resilience
-          </h4>
-          <div
-            id="public-website-redesign-about-data-driven-copy"
-            className="mt-6 space-y-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
-          >
-            {DATA_DRIVEN_COPY.map((paragraph, index) => (
-              <p id={`public-website-redesign-about-data-driven-copy-paragraph-${index + 1}`} key={paragraph}>
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        </div>
-        <div
-          id="public-website-redesign-about-region-map-wrap"
-          className="mx-auto w-full max-w-[420px] md:relative md:h-full md:max-w-none"
-        >
-          <img
-            id="public-website-redesign-about-region-map"
-            src={regionMap}
-            alt="Map of 12 Western US states, British Columbia, and the Yukon Territory"
-            className="w-full object-contain md:absolute md:inset-0 md:h-full md:object-bottom"
-          />
-        </div>
-      </section>
-
-      <section
-        id="public-website-redesign-about-data-driven-image-section"
-        className="mt-14 grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-start"
-      >
-        <img
-          id="public-website-redesign-about-challenge-photo"
-          src={burntForest}
-          alt="Burned forest with yellow wildflowers returning after wildfire"
-          className="aspect-square w-full rounded-sm object-cover"
-        />
-        <img
-          id="public-website-redesign-about-challenge-photo-secondary"
-          src={whyIndexBanffTown}
-          alt="Mountain town with snowy peaks in the background"
-          className="aspect-square w-full rounded-sm object-cover"
-        />
-      </section>
-
-      <section
-        id="public-website-redesign-about-index-useful-section"
-        className="mt-20 grid gap-10 md:grid-cols-2 md:items-start"
-      >
-        <div id="public-website-redesign-about-index-useful-text">
-          <h3
-            id="public-website-redesign-about-index-useful-title"
-            className="font-Montserrat text-[clamp(1.75rem,3.7vw,2.5625rem)] font-bold leading-tight text-wriSage"
-          >
-            How is the index useful?
           </h3>
-          <h4
-            id="public-website-redesign-about-turning-data-title"
-            className="mt-6 font-Montserrat text-[clamp(1.25rem,2.2vw,1.75rem)] font-bold leading-tight text-wriForest"
-          >
-            Turning Data into Actionable Insight
-          </h4>
-          <div
-            id="public-website-redesign-about-index-useful-copy"
-            className="mt-6 space-y-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
-          >
-            {ACTIONABLE_INSIGHT_COPY.map((paragraph, index) => (
-              <p id={`public-website-redesign-about-index-useful-copy-paragraph-${index + 1}`} key={paragraph}>
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        </div>
-        <div
-          id="public-website-redesign-about-actionable-insight-photo-wrap"
-          className="relative aspect-square w-full min-w-0 overflow-hidden rounded-sm"
-        >
-          <img
-            id="public-website-redesign-about-actionable-insight-photo"
-            src={whyIndexNewPineGrowth}
-            alt="Young conifer regenerating in a forest clearing"
-            className="absolute inset-0 h-full w-full object-cover object-center"
-          />
-        </div>
+        </article>
+
+        {ABOUT_CONTENT_ROWS.map((contentRow, rowIndex) => {
+          const isImageLeft = contentRow.imagePosition === "left";
+
+          return (
+            <article
+              id={`public-website-redesign-about-content-row-${contentRow.id}`}
+              key={contentRow.id}
+              className="grid gap-8 md:grid-cols-2 md:items-start md:gap-10"
+            >
+              <div
+                id={`public-website-redesign-about-content-row-image-wrap-${contentRow.id}`}
+                className={`${isImageLeft ? "md:order-1" : "md:order-2"}`}
+              >
+                <img
+                  id={`public-website-redesign-about-content-row-image-${contentRow.id}`}
+                  src={contentRow.image.src}
+                  alt={contentRow.image.alt}
+                  className={`w-full rounded-sm ${
+                    contentRow.id === "map-overview"
+                      ? "mx-auto max-w-[350px] object-contain md:max-h-375px]"
+                      : "aspect-square object-cover"
+                  }`}
+                />
+              </div>
+
+              <div
+                id={`public-website-redesign-about-content-row-text-wrap-${contentRow.id}`}
+                className={`${isImageLeft ? "md:order-2" : "md:order-1"}`}
+              >
+                {rowIndex > 0 ? (
+                  <div
+                    id={`public-website-redesign-about-content-row-divider-${contentRow.id}`}
+                    className="mb-5 h-[4px] w-20 rounded-full bg-wriMoss"
+                  />
+                ) : null}
+                {contentRow.heading ? (
+                  <h4
+                    id={`public-website-redesign-about-content-row-heading-${contentRow.id}`}
+                    className="mb-5 font-Montserrat text-[clamp(1.7rem,3.5vw,2.5rem)] font-medium leading-tight text-wriSage"
+                  >
+                    {contentRow.heading}
+                  </h4>
+                ) : null}
+                <div
+                  id={`public-website-redesign-about-content-row-copy-${contentRow.id}`}
+                  className="space-y-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
+                >
+                  {contentRow.paragraphs.map((paragraph, paragraphIndex) => (
+                    <p
+                      id={`public-website-redesign-about-content-row-copy-paragraph-${contentRow.id}-${paragraphIndex + 1}`}
+                      key={`${contentRow.id}-${paragraphIndex + 1}`}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </section>
     </div>
   );

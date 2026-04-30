@@ -17,7 +17,7 @@ const LINKS = [
   },
   {
     id: "faqs",
-    label: "FAQs",
+    label: "Explore the FAQs",
     to: REDESIGN_ROUTES.contactFaqs,
     copy: "Answers to the most common questions about the WRI.",
   },
