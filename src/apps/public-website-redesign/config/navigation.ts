@@ -19,7 +19,7 @@ export const PRIMARY_NAV: NavItem[] = [
     to: REDESIGN_ROUTES.methodology,
     children: [
       { label: "Deep Dive", to: REDESIGN_ROUTES.methodologyDeepDive },
-      { label: "How to Use", to: REDESIGN_ROUTES.methodologyHowToUse },
+      { label: "FAQ", to: REDESIGN_ROUTES.methodologyFaq },
     ],
   },
   {
@@ -38,7 +38,6 @@ export const PRIMARY_NAV: NavItem[] = [
     children: [
       { label: "Connect with Us", to: REDESIGN_ROUTES.contactConnect },
       { label: "Meet the Team", to: REDESIGN_ROUTES.contactTeam },
-      { label: "Explore the FAQs", to: REDESIGN_ROUTES.contactFaqs },
     ],
   },
 ];
