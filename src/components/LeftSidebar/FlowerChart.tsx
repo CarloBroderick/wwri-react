@@ -446,6 +446,11 @@ const FlowerChart: React.FC<FlowerChartProps> = ({
   const ringFillColor = isHoveringPetal ? cfg.dimColor : overallScoreColor;
   const chartContainerAlignmentClass = alignment === "left" ? "justify-start" : "justify-center";
   const preserveAspectRatioMode = alignment === "left" ? "xMinYMid meet" : "xMidYMid meet";
+  const maxRenderedRadius = cfg.showProgressRing
+    ? ringRadius + cfg.progressRingWidth / 2
+    : cfg.innerRadius + cfg.maxPetalLength + cfg.outlineStrokeWidth / 2;
+  const tightViewBoxSize = maxRenderedRadius * 2;
+  const tightViewBoxOrigin = halfViewBox - maxRenderedRadius;
 
   return (
     <div
@@ -454,11 +459,11 @@ const FlowerChart: React.FC<FlowerChartProps> = ({
     >
       <svg
         id="flower-chart-svg"
-        className="aster__plot"
+        className="aster__plot block"
         width="100%"
         height="100%"
         preserveAspectRatio={preserveAspectRatioMode}
-        viewBox={`0 0 ${cfg.viewBoxSize} ${cfg.viewBoxSize}`}
+        viewBox={`${tightViewBoxOrigin} ${tightViewBoxOrigin} ${tightViewBoxSize} ${tightViewBoxSize}`}
       >
         <g id="flower-chart-arcs" transform={`translate(${halfViewBox},${halfViewBox})`} ref={chartRef}>
           {/* Progress ring around inner circle (#3) */}

@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import homeHeroVideo from "../../../assets/public-website-redesign/videos/home-hero.mp4";
 import homeHeroPoster from "../../../assets/public-website-redesign/images/hero/home-hero.jpg";
 import nceasLogoWhite from "../../../assets/public-website-redesign/images/logos/nceas-white.png";
@@ -10,20 +11,51 @@ import MossDivider from "../components/shared/MossDivider";
 import CTAButton from "../components/shared/CTAButton";
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
 
-const OVERVIEW_VIDEOS = [
-  { id: "what-is-it", src: overviewWhatIsIt, label: "What it is" },
-  { id: "how-we-built-it", src: overviewHowWeBuiltIt, label: "How we built it" },
-  { id: "how-to-use-it", src: overviewHowToUseIt, label: "How to use it" },
-  { id: "interpret-score", src: overviewInterpretScore, label: "Interpret your score" },
+const OVERVIEW_ACCORDION_ITEMS = [
+  {
+    id: "what-is-it",
+    src: overviewWhatIsIt,
+    title: "What is the Wildfire Resilience Index?",
+  },
+  {
+    id: "how-we-built-it",
+    src: overviewHowWeBuiltIt,
+    title: "How was the index built?",
+  },
+  {
+    id: "how-to-use-it",
+    src: overviewHowToUseIt,
+    title: "How do I use the index?",
+  },
+  {
+    id: "interpret-score",
+    src: overviewInterpretScore,
+    title: "How do I interpret my score?",
+  },
 ] as const;
 
 /**
  * Homepage — Canva spec pages 1–2.
  *   • Hero: full-viewport looping muted video, heading, subtitle, CTA, partner logos
- *   • Overview: "Overview" heading with moss underline, 2×2 grid of autoplay-muted
- *     overview videos (What it is, How we built it, How to use it, Interpret your score)
+ *   • Overview: accordion overview videos with smooth expand/collapse
  */
 function HomePage() {
+  const [openOverviewId, setOpenOverviewId] = useState<string | null>(null);
+  const overviewVideoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
+
+  useEffect(() => {
+    OVERVIEW_ACCORDION_ITEMS.forEach(({ id }) => {
+      const el = overviewVideoRefs.current[id];
+      if (!el) return;
+      if (openOverviewId === id) {
+        void el.play().catch(() => {});
+      } else {
+        el.pause();
+        el.currentTime = 0;
+      }
+    });
+  }, [openOverviewId]);
+
   return (
     <div id="public-website-redesign-home-page">
       {/* ===== Hero ===== */}
@@ -88,7 +120,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ===== Overview video grid ===== */}
+      {/* ===== Overview accordions ===== */}
       <section
         id="public-website-redesign-home-overview"
         className="mx-auto max-w-[1200px] px-6 py-16"
@@ -105,28 +137,99 @@ function HomePage() {
           widthClassName="w-20"
         />
         <div
-          id="public-website-redesign-home-overview-grid"
-          className="grid gap-8 sm:grid-cols-2"
+          id="public-website-redesign-home-overview-accordion-list"
+          className="flex flex-col gap-3"
         >
-          {OVERVIEW_VIDEOS.map((v) => (
-            <div key={v.id} id={`public-website-redesign-home-overview-${v.id}`} className="flex flex-col">
-              <h3
-                id={`public-website-redesign-home-overview-${v.id}-title`}
-                className="mb-3 text-center font-Montserrat text-[clamp(1.25rem,2.5vw,1.75rem)] font-normal text-wriSage"
+          {OVERVIEW_ACCORDION_ITEMS.map((item) => {
+            const isOpen = openOverviewId === item.id;
+            return (
+              <div
+                key={item.id}
+                id={`public-website-redesign-home-overview-accordion-${item.id}`}
+                className="rounded-sm border border-wriSage bg-wriSmokeFog/40"
               >
-                {v.label}
-              </h3>
-              <video
-                id={`public-website-redesign-home-overview-${v.id}-video`}
-                src={v.src}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full rounded-lg object-cover"
-              />
-            </div>
-          ))}
+                <button
+                  type="button"
+                  id={`public-website-redesign-home-overview-accordion-${item.id}-toggle`}
+                  aria-expanded={isOpen}
+                  aria-controls={`public-website-redesign-home-overview-accordion-${item.id}-panel`}
+                  className="flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left font-Montserrat text-[clamp(1rem,2vw,1.25rem)] font-normal text-wriSage transition-colors duration-200 hover:bg-wriSage/10"
+                  onClick={() =>
+                    setOpenOverviewId(isOpen ? null : item.id)
+                  }
+                >
+                  <span id={`public-website-redesign-home-overview-accordion-${item.id}-title`}>
+                    {item.title}
+                  </span>
+                  <svg
+                    id={`public-website-redesign-home-overview-accordion-${item.id}-chevron`}
+                    className={`h-5 w-5 shrink-0 text-wriSage transition-transform duration-300 ease-in-out ${
+                      isOpen ? "rotate-90" : ""
+                    }`}
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                  >
+                    <path d="M7 4l6 6-6 6" />
+                  </svg>
+                </button>
+
+                <div
+                  id={`public-website-redesign-home-overview-accordion-${item.id}-panel`}
+                  role="region"
+                  aria-labelledby={`public-website-redesign-home-overview-accordion-${item.id}-toggle`}
+                  className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${
+                    isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                  }`}
+                >
+                  <div className="min-h-0 overflow-hidden">
+                    <div
+                      id={`public-website-redesign-home-overview-accordion-${item.id}-content`}
+                      className={`border-t border-wriSage px-4 pb-5 pt-4 ${
+                        !isOpen ? "pointer-events-none" : ""
+                      }`}
+                      aria-hidden={!isOpen}
+                    >
+                      <div className="mb-4">
+                        <button
+                          type="button"
+                          id={`public-website-redesign-home-overview-accordion-${item.id}-back`}
+                          disabled={!isOpen}
+                          tabIndex={isOpen ? 0 : -1}
+                          className="inline-flex items-center gap-1.5 font-Poppins text-sm font-medium uppercase tracking-wide text-wriSage transition-colors duration-200 enabled:hover:text-wriForest disabled:opacity-0"
+                          onClick={() => setOpenOverviewId(null)}
+                        >
+                          <span aria-hidden>←</span> Back
+                        </button>
+                      </div>
+                      <div
+                        id={`public-website-redesign-home-overview-accordion-${item.id}-video-wrap`}
+                        className="mx-auto w-full max-w-5xl border border-wriSage bg-black/90"
+                      >
+                        <video
+                          id={`public-website-redesign-home-overview-${item.id}-video`}
+                          ref={(el) => {
+                            overviewVideoRefs.current[item.id] = el;
+                          }}
+                          src={item.src}
+                          muted
+                          loop
+                          playsInline
+                          controls
+                          preload="metadata"
+                          className="h-[min(58vw,540px)] min-h-[320px] w-full object-cover sm:min-h-[380px] md:min-h-[440px]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
     </div>
