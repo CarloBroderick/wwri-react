@@ -48,7 +48,12 @@ function HomePage() {
           </p>
           <div id="public-website-redesign-home-hero-cta" className="mt-10">
             <CTAButton id="public-website-redesign-home-hero-cta-button" to={REDESIGN_ROUTES.exploreIndex}>
-              <span className="text-[clamp(1rem,1.8vw,2rem)]">Explore the Index</span>
+              <span className="grid text-[clamp(1rem,1.8vw,2rem)]">
+                <span className="invisible col-start-1 row-start-1 font-bold" aria-hidden="true">
+                  Explore the Index
+                </span>
+                <span className="col-start-1 row-start-1">Explore the Index</span>
+              </span>
             </CTAButton>
           </div>
         </div>

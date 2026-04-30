@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import linkedinGreenIcon from "../../../../assets/public-website-redesign/images/footer/linkedin-green.png";
 import nceasLogoWhite from "../../../../assets/public-website-redesign/images/logos/nceas-white.png";
 import mooreLogoWhite from "../../../../assets/public-website-redesign/images/logos/moore-white.png";
-import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
+import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.svg";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 
 const NAV_LINKS = [

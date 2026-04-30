@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
+import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.svg";
 import { PRIMARY_NAV, type NavItem } from "../../config/navigation";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 

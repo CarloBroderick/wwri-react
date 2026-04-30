@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { DOMAIN_NAV_LINKS, PUBLIC_ROUTES, TOP_NAV_LINKS } from "../../routes/routeConfig";
 import { PUBLIC_WEBSITE_THEME } from "../../styles/theme";
-import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
+import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.svg";
 
 function Navigation() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
