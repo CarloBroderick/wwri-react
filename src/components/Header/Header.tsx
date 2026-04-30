@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import nceasLogo from "../../assets/Vector.svg";
 import wriLogoFlameOnly from "../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
+import mooreFoundationLogo from "../../assets/public-website-redesign/images/logos/moore-black.png";
 import { isDebugMode } from "../../config/featureFlags";
 import { SelectedRegionLayout } from "../App";
 import { BASEMAP_OPTIONS, BasemapId, LabelSource, MapProjection, PROJECTION_OPTIONS } from "../MapArea/MapArea";
@@ -86,11 +87,11 @@ const Header: React.FC<HeaderProps> = ({
             id="dashboard-header-wri-logo"
             src={wriLogoFlameOnly}
             alt="Wildfire Resilience Index flame icon"
-            className="h-12 w-auto object-contain"
+            className="h-10 w-auto object-contain"
           />
           <span
             id="dashboard-header-wri-wordmark"
-            className="flex h-12 flex-col justify-between font-Poppins py-[4px] text-[14px] font-bold uppercase leading-none tracking-[0.08em] text-black"
+            className="flex h-10 flex-col justify-between py-[4px] font-Poppins text-[14px] font-bold uppercase leading-none tracking-[0.08em] text-black"
           >
             <span
               id="dashboard-header-wri-wordmark-line-wildfire"
@@ -116,7 +117,13 @@ const Header: React.FC<HeaderProps> = ({
           id="dashboard-header-nceas-logo"
           src={nceasLogo}
           alt="NCEAS"
-          className="h-12 w-auto object-contain"
+          className="h-10 w-auto object-contain"
+        />
+        <img
+          id="dashboard-header-moore-foundation-logo"
+          src={mooreFoundationLogo}
+          alt="Gordon and Betty Moore Foundation"
+          className="h-14 w-auto object-contain"
         />
       </Link>
 
