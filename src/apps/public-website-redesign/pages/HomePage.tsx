@@ -1,5 +1,4 @@
 import homeHeroVideo from "../../../assets/public-website-redesign/videos/home-hero.mp4";
-import homeHeroPoster from "../../../assets/public-website-redesign/images/hero/home-hero.jpg";
 import nceasLogoWhite from "../../../assets/public-website-redesign/images/logos/nceas-white.png";
 import mooreLogoWhite from "../../../assets/public-website-redesign/images/logos/moore-white.png";
 import CTAButton from "../components/shared/CTAButton";
@@ -20,7 +19,6 @@ function HomePage() {
         <video
           id="public-website-redesign-home-hero-video"
           src={homeHeroVideo}
-          poster={homeHeroPoster}
           autoPlay
           muted
           loop
