@@ -30,14 +30,15 @@ function DomainDetailPage() {
   }
 
   const isSenseOfPlace = domain.slug === "sense-of-place";
-  const isInfrastructure = domain.slug === "infrastructure";
+  /** Standard domains share Infrastructure layout: top banner + separate Why it matters (no side hero grid). */
+  const useStandardDomainLayout = !isSenseOfPlace;
 
   return (
     <div
       id={`public-website-redesign-domain-${domain.slug}-page`}
       className="pb-16"
     >
-      {isInfrastructure && (
+      {useStandardDomainLayout && (
         <section
           id={`public-website-redesign-domain-${domain.slug}-top-media`}
           className="mx-auto max-w-[1400px] px-6 pt-6 md:pt-8"
@@ -71,16 +72,16 @@ function DomainDetailPage() {
         </section>
       )}
 
-      {/* ===== Why it matters hero row =============================== */}
+      {/* ===== Why it matters (standard domains: banner title above; Sense of Place: grid + inline title) */}
       <section
         id={`public-website-redesign-domain-${domain.slug}-hero`}
         className={
-          isInfrastructure
+          useStandardDomainLayout
             ? "mx-auto max-w-[1400px] px-6 pt-6 md:pt-8"
             : "mx-auto grid max-w-[1200px] grid-cols-1 gap-0 px-0 md:grid-cols-[minmax(260px,420px)_minmax(0,1fr)] md:items-start md:gap-10 md:px-6 md:pt-10"
         }
       >
-        {!isInfrastructure && (
+        {!useStandardDomainLayout && (
           <img
             id={`public-website-redesign-domain-${domain.slug}-hero-photo`}
             src={domain.hero}
@@ -91,13 +92,13 @@ function DomainDetailPage() {
         <div
           id={`public-website-redesign-domain-${domain.slug}-hero-body`}
           className={
-            isInfrastructure
+            useStandardDomainLayout
               ? "max-w-[760px] py-6 md:py-8"
               : "px-6 py-8 md:px-0 md:py-0"
           }
         >
           <div id={`public-website-redesign-domain-${domain.slug}-hero-header`}>
-            {!isInfrastructure && (
+            {!useStandardDomainLayout && (
               <>
                 <h1
                   id={`public-website-redesign-domain-${domain.slug}-title`}
@@ -127,7 +128,7 @@ function DomainDetailPage() {
           <div
             id={`public-website-redesign-domain-${domain.slug}-why-content`}
             className={
-              isInfrastructure
+              useStandardDomainLayout
                 ? "mt-4 flex items-start gap-3 md:mt-5 md:gap-4"
                 : "mt-4 flex items-start gap-4 md:mt-5 md:gap-5"
             }
@@ -141,7 +142,7 @@ function DomainDetailPage() {
             <div
               id={`public-website-redesign-domain-${domain.slug}-why-copy-wrapper`}
               className={
-                isInfrastructure
+                useStandardDomainLayout
                   ? "flex items-start pt-0.5"
                   : "flex min-h-20 items-center md:min-h-24"
               }
@@ -149,7 +150,7 @@ function DomainDetailPage() {
               <p
                 id={`public-website-redesign-domain-${domain.slug}-why-copy`}
                 className={
-                  isInfrastructure
+                  useStandardDomainLayout
                     ? "max-w-prose font-Poppins text-[clamp(15px,1.05vw,17px)] leading-[1.45] text-wriCanopy"
                     : "max-w-prose font-Poppins text-[clamp(17px,1.55vw,21px)] leading-relaxed text-wriCanopy"
                 }
@@ -165,13 +166,11 @@ function DomainDetailPage() {
       {!isSenseOfPlace && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-measures`}
-          className={`mx-auto mt-14 px-6 ${isInfrastructure ? "max-w-[1400px]" : "max-w-[1200px]"}`}
+          className="mx-auto mt-14 max-w-[1400px] px-6"
         >
           <div
             id={`public-website-redesign-domain-${domain.slug}-measures-inner`}
-            className={
-              isInfrastructure ? "max-w-[760px] space-y-14" : "space-y-14"
-            }
+            className="flex max-w-[760px] flex-col gap-2"
           >
             <div
               id={`public-website-redesign-domain-${domain.slug}-measured-heading`}
@@ -188,18 +187,23 @@ function DomainDetailPage() {
                 widthClassName="w-14"
               />
             </div>
-            <MeasureSection
-              id={`public-website-redesign-domain-${domain.slug}-status`}
-              section={domain.status}
-            />
-            <MeasureSection
-              id={`public-website-redesign-domain-${domain.slug}-resistance`}
-              section={domain.resistance}
-            />
-            <MeasureSection
-              id={`public-website-redesign-domain-${domain.slug}-recovery`}
-              section={domain.recovery}
-            />
+            <div
+              id={`public-website-redesign-domain-${domain.slug}-measure-cards`}
+              className="flex flex-col gap-14"
+            >
+              <MeasureSection
+                id={`public-website-redesign-domain-${domain.slug}-status`}
+                section={domain.status}
+              />
+              <MeasureSection
+                id={`public-website-redesign-domain-${domain.slug}-resistance`}
+                section={domain.resistance}
+              />
+              <MeasureSection
+                id={`public-website-redesign-domain-${domain.slug}-recovery`}
+                section={domain.recovery}
+              />
+            </div>
           </div>
         </div>
       )}
@@ -208,7 +212,7 @@ function DomainDetailPage() {
       {isSenseOfPlace && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-iconic-places`}
-          className="mx-auto mt-14 max-w-[1200px] space-y-14 px-6 md:pl-24"
+          className="mx-auto mt-14 flex max-w-[1200px] flex-col gap-14 px-6 md:pl-24"
         >
           <section
             id={`public-website-redesign-domain-${domain.slug}-ip-intro`}
@@ -249,30 +253,35 @@ function DomainDetailPage() {
               </p>
             </div>
           </section>
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-ip-status`}
-            section={domain.status}
-            overline="Iconic Places"
-            measureLabel={
-              <>
-                How it’s
-                <br />
-                measured
-              </>
-            }
-          />
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-ip-resistance`}
-            section={domain.resistance}
-            overline="Iconic Places"
-            photoAspectClassName="aspect-[2/1]"
-          />
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-ip-recovery`}
-            section={domain.recovery}
-            overline="Iconic Places"
-            photoAspectClassName="aspect-[2/1]"
-          />
+          <div
+            id={`public-website-redesign-domain-${domain.slug}-ip-measure-cards`}
+            className="flex flex-col gap-14"
+          >
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-ip-status`}
+              section={domain.status}
+              overline="Iconic Places"
+              measureLabel={
+                <>
+                  How it’s
+                  <br />
+                  measured
+                </>
+              }
+            />
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-ip-resistance`}
+              section={domain.resistance}
+              overline="Iconic Places"
+              photoAspectClassName="aspect-[2/1]"
+            />
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-ip-recovery`}
+              section={domain.recovery}
+              overline="Iconic Places"
+              photoAspectClassName="aspect-[2/1]"
+            />
+          </div>
         </div>
       )}
 
@@ -280,7 +289,7 @@ function DomainDetailPage() {
       {isSenseOfPlace && domain.extra && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-iconic-species`}
-          className="mx-auto mt-20 max-w-[1200px] space-y-14 px-6 md:pl-24"
+          className="mx-auto mt-20 flex max-w-[1200px] flex-col gap-14 px-6 md:pl-24"
         >
           <section
             id={`public-website-redesign-domain-${domain.slug}-is-intro`}
@@ -315,28 +324,33 @@ function DomainDetailPage() {
               <p>{domain.extra.whyItMatters}</p>
             </div>
           </section>
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-is-status`}
-            section={domain.extra.status}
-            overline="Iconic Species"
-            measureLabel={
-              <>
-                How it’s
-                <br />
-                measured
-              </>
-            }
-          />
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-is-resistance`}
-            section={domain.extra.resistance}
-            overline="Iconic Species"
-          />
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-is-recovery`}
-            section={domain.extra.recovery}
-            overline="Iconic Species"
-          />
+          <div
+            id={`public-website-redesign-domain-${domain.slug}-is-measure-cards`}
+            className="flex flex-col gap-14"
+          >
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-is-status`}
+              section={domain.extra.status}
+              overline="Iconic Species"
+              measureLabel={
+                <>
+                  How it’s
+                  <br />
+                  measured
+                </>
+              }
+            />
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-is-resistance`}
+              section={domain.extra.resistance}
+              overline="Iconic Species"
+            />
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-is-recovery`}
+              section={domain.extra.recovery}
+              overline="Iconic Species"
+            />
+          </div>
         </div>
       )}
 
