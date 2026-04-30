@@ -1,4 +1,5 @@
 import { type DomainSlug } from "../../config/domains";
+import { DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME } from "../../layout/domainDetailPage";
 import DomainGrid from "./DomainGrid";
 import SectionHeader from "./SectionHeader";
 
@@ -12,7 +13,7 @@ function ExploreAnotherDomain({ currentSlug }: { currentSlug: DomainSlug }) {
   return (
     <section
       id={`public-website-redesign-explore-another-${currentSlug}`}
-      className="mx-auto mt-20 max-w-[1200px] px-6"
+      className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} mt-20`}
     >
       <SectionHeader
         id="public-website-redesign-explore-another-heading"

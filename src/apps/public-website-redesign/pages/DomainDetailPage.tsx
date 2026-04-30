@@ -3,6 +3,10 @@ import ExploreAnotherDomain from "../components/shared/ExploreAnotherDomain";
 import MeasureSection from "../components/shared/MeasureSection";
 import MossDivider from "../components/shared/MossDivider";
 import {
+  DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME,
+  DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME,
+} from "../layout/domainDetailPage";
+import {
   DOMAINS_BY_SLUG,
   senseOfPlaceIconicPlacesHero,
   type DomainSlug,
@@ -41,11 +45,11 @@ function DomainDetailPage() {
       {useStandardDomainLayout && (
         <section
           id={`public-website-redesign-domain-${domain.slug}-top-media`}
-          className="mx-auto max-w-[1400px] px-6 pt-6 md:pt-8"
+          className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} pt-6 md:pt-8`}
         >
           <div
             id={`public-website-redesign-domain-${domain.slug}-top-media-frame`}
-            className="relative max-w-[760px] overflow-hidden rounded-lg"
+            className={`relative ${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} overflow-hidden rounded-lg`}
           >
             <img
               id={`public-website-redesign-domain-${domain.slug}-top-media-image`}
@@ -77,8 +81,8 @@ function DomainDetailPage() {
         id={`public-website-redesign-domain-${domain.slug}-hero`}
         className={
           useStandardDomainLayout
-            ? "mx-auto max-w-[1400px] px-6 pt-6 md:pt-8"
-            : "mx-auto grid max-w-[1200px] grid-cols-1 gap-0 px-0 md:grid-cols-[minmax(260px,420px)_minmax(0,1fr)] md:items-start md:gap-10 md:px-6 md:pt-10"
+            ? `${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} pt-6 md:pt-8`
+            : "mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-0 px-0 md:grid-cols-[minmax(260px,420px)_minmax(0,1fr)] md:items-start md:gap-10 md:px-6 md:pt-10"
         }
       >
         {!useStandardDomainLayout && (
@@ -93,7 +97,7 @@ function DomainDetailPage() {
           id={`public-website-redesign-domain-${domain.slug}-hero-body`}
           className={
             useStandardDomainLayout
-              ? "max-w-[760px] py-6 md:py-8"
+              ? `${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} py-6 md:py-8`
               : "px-6 py-8 md:px-0 md:py-0"
           }
         >
@@ -166,11 +170,11 @@ function DomainDetailPage() {
       {!isSenseOfPlace && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-measures`}
-          className="mx-auto mt-14 max-w-[1400px] px-6"
+          className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} mt-14`}
         >
           <div
             id={`public-website-redesign-domain-${domain.slug}-measures-inner`}
-            className="flex max-w-[760px] flex-col gap-2"
+            className={`flex ${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} flex-col gap-8`}
           >
             <div
               id={`public-website-redesign-domain-${domain.slug}-measured-heading`}
@@ -212,7 +216,7 @@ function DomainDetailPage() {
       {isSenseOfPlace && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-iconic-places`}
-          className="mx-auto mt-14 flex max-w-[1200px] flex-col gap-14 px-6 md:pl-24"
+          className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} mt-14 flex flex-col gap-14`}
         >
           <section
             id={`public-website-redesign-domain-${domain.slug}-ip-intro`}
@@ -289,7 +293,7 @@ function DomainDetailPage() {
       {isSenseOfPlace && domain.extra && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-iconic-species`}
-          className="mx-auto mt-20 flex max-w-[1200px] flex-col gap-14 px-6 md:pl-24"
+          className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} mt-20 flex flex-col gap-14`}
         >
           <section
             id={`public-website-redesign-domain-${domain.slug}-is-intro`}
