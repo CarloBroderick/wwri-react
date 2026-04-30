@@ -1,4 +1,5 @@
 import connectHeroImage from "../../../assets/public-website-redesign/images/contact/light-in-the-forest-connect-with-us.png";
+import linkedinGreenIcon from "../../../assets/public-website-redesign/images/footer/linkedin-green.png";
 import MossDivider from "../components/shared/MossDivider";
 
 function ContactConnectPage() {
@@ -55,15 +56,24 @@ function ContactConnectPage() {
               wildfire-index@nceas.ucsb.edu
             </a>
 
-            <div id="public-website-redesign-contact-connect-linkedin-icon-wrapper" aria-hidden="true">
-              <ContactLinkedInIcon id="public-website-redesign-contact-connect-linkedin-symbol" />
+            <div
+              id="public-website-redesign-contact-connect-linkedin-icon-wrapper"
+              aria-hidden="true"
+              className="ml-1 flex items-center justify-center"
+            >
+              <img
+                id="public-website-redesign-contact-connect-linkedin-symbol"
+                src={linkedinGreenIcon}
+                alt=""
+                className="h-7 w-auto object-contain"
+              />
             </div>
             <a
               id="public-website-redesign-contact-connect-linkedin-link"
               href="https://linkedin.com/company/the-wildfire-resilience-index"
               target="_blank"
               rel="noreferrer"
-              className="break-all font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
+              className="self-center break-all font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
             >
               linkedin.com/company/the-wildfire-resilience-index
             </a>
@@ -102,28 +112,6 @@ function ContactMailIcon({ id }: IconProps) {
     >
       <path d="M3 6h18v12H3z" />
       <path d="m4 7 8 6 8-6" />
-    </svg>
-  );
-}
-
-function ContactLinkedInIcon({ id }: IconProps) {
-  return (
-    <svg
-      id={id}
-      viewBox="0 0 24 24"
-      className="h-10 w-10 text-[#a3b86c]"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-    >
-      <rect x="3.5" y="3.5" width="17" height="17" rx="2.8" />
-      <circle cx="8.25" cy="8.2" r="1.15" fill="currentColor" stroke="none" />
-      <rect x="7.2" y="10.2" width="2.1" height="6.4" fill="currentColor" stroke="none" />
-      <path
-        d="M11.6 10.2h2v.9c.4-.7 1.2-1.2 2.2-1.2 1.8 0 2.7 1.1 2.7 3.1v3.6h-2.1v-3.2c0-.9-.3-1.6-1.3-1.6s-1.5.7-1.5 1.6v3.2h-2v-6.4Z"
-        fill="currentColor"
-        stroke="none"
-      />
     </svg>
   );
 }
