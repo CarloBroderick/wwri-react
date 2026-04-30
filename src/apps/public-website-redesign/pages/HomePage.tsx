@@ -1,4 +1,4 @@
-import homeHeroVideo from "../../../assets/public-website-redesign/videos/home-hero.mp4";
+import homeHeroVideo from "../../../assets/public-website-redesign/videos/looped-hero.mp4";
 import nceasLogoWhite from "../../../assets/public-website-redesign/images/logos/nceas-white.png";
 import mooreLogoWhite from "../../../assets/public-website-redesign/images/logos/moore-white.png";
 import CTAButton from "../components/shared/CTAButton";
