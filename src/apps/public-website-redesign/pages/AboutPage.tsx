@@ -142,8 +142,10 @@ function AboutPage() {
                 <div
                   id={accordionPanelId}
                   aria-hidden={!isExpanded}
-                  className={`overflow-hidden border-t-[3px] border-wriMoss px-2 py-6 transition-opacity duration-200 ease-in-out md:px-4 ${
-                    isExpanded ? "opacity-100" : "pointer-events-none opacity-0"
+                  className={`overflow-hidden transition-[opacity,padding,border-width] duration-200 ease-in-out ${
+                    isExpanded
+                      ? "border-t-[3px] border-wriMoss px-2 py-6 opacity-100 md:px-4"
+                      : "pointer-events-none border-t-0 px-0 py-0 opacity-0"
                   }`}
                 >
                   <div
