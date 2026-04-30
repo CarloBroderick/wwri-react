@@ -3,7 +3,7 @@ import RedesignLayout from "../components/RedesignLayout";
 import AboutPage from "../pages/AboutPage";
 import ComingSoonPage from "../pages/ComingSoonPage";
 import ContactConnectPage from "../pages/ContactConnectPage";
-import ContactFaqsPage from "../pages/ContactFaqsPage";
+import MethodologyFaqPage from "../pages/MethodologyFaqPage";
 import ContactTeamPage from "../pages/ContactTeamPage";
 import DomainDetailPage from "../pages/DomainDetailPage";
 import DomainsPage from "../pages/DomainsPage";
@@ -43,15 +43,7 @@ function RedesignRoutes() {
               />
             }
           />
-          <Route
-            path="how-to-use"
-            element={
-              <ComingSoonPage
-                id="public-website-redesign-methodology-how-to-use-page"
-                title="How to Use"
-              />
-            }
-          />
+          <Route path="faq" element={<MethodologyFaqPage />} />
         </Route>
 
         <Route path="media">
@@ -82,7 +74,6 @@ function RedesignRoutes() {
           <Route index element={<Navigate to="connect" replace />} />
           <Route path="team" element={<ContactTeamPage />} />
           <Route path="connect" element={<ContactConnectPage />} />
-          <Route path="faqs" element={<ContactFaqsPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

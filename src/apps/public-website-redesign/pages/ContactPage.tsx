@@ -73,23 +73,6 @@ function ContactPage() {
             </div>
           </section>
 
-          {/* Explore FAQs */}
-          <section id="contact-faqs-section" className="mt-16">
-            <h2
-              id="contact-faqs-heading"
-              className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
-            >
-              Explore FAQs
-            </h2>
-            <MossDivider id="contact-faqs-divider" className="my-3" widthClassName="w-16" />
-
-            <p
-              id="contact-faqs-body"
-              className="mt-4 max-w-md font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
-            >
-              This section is currently under development, check back soon!
-            </p>
-          </section>
         </div>
 
         {/* ── Right column: forest image ── */}
