@@ -836,7 +836,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
         </h1>
         <div
           id="flower-chart-right-sidebar-wrapper"
-          className="w-full max-w-[312px]"
+          className="w-full max-w-[260px] mt-2"
         >
           <FlowerChart
             domainScores={domainScores}
