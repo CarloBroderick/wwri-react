@@ -3,6 +3,7 @@ import RedesignLayout from "../components/RedesignLayout";
 import AboutPage from "../pages/AboutPage";
 import ComingSoonPage from "../pages/ComingSoonPage";
 import ContactConnectPage from "../pages/ContactConnectPage";
+import MethodologyPage from "../pages/MethodologyPage";
 import MethodologyFaqPage from "../pages/MethodologyFaqPage";
 import ContactTeamPage from "../pages/ContactTeamPage";
 import DomainDetailPage from "../pages/DomainDetailPage";
@@ -25,24 +26,8 @@ function RedesignRoutes() {
         </Route>
 
         <Route path="methodology">
-          <Route
-            index
-            element={
-              <ComingSoonPage
-                id="public-website-redesign-methodology-page"
-                title="Methodology"
-              />
-            }
-          />
-          <Route
-            path="deep-dive"
-            element={
-              <ComingSoonPage
-                id="public-website-redesign-methodology-deep-dive-page"
-                title="Deep Dive"
-              />
-            }
-          />
+          <Route index element={<MethodologyPage />} />
+          <Route path="deep-dive" element={<MethodologyPage />} />
           <Route path="faq" element={<MethodologyFaqPage />} />
         </Route>
 

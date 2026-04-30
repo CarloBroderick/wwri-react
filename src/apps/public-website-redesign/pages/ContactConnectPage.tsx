@@ -50,10 +50,10 @@ function ContactConnectPage() {
             </div>
             <a
               id="public-website-redesign-contact-connect-email"
-              href="mailto:wildfire-index@nceas.ucsb.edu"
+              href="mailto:wri@nceas.ucsb.edu"
               className="font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
             >
-              wildfire-index@nceas.ucsb.edu
+              wri@nceas.ucsb.edu
             </a>
 
             <div

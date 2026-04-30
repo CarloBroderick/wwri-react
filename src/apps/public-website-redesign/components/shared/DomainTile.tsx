@@ -18,7 +18,7 @@ type Props = {
  *   • next:    renders with a 6px Sage outline per spec ("next page domain icon")
  */
 function DomainTile({ domain, size = "md", muted = false, next = false }: Props) {
-  const sizeClass = size === "sm" ? "w-full max-w-[170px]" : "w-full";
+  const sizeClass = "w-full";
   const img = muted ? (
     <img
       id={`public-website-redesign-domain-tile-${domain.slug}-image-dimmed`}

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import eventImage from "../../../assets/public-website-redesign/images/media/science-pub-event.jpg";
+import sciencePubImage from "../../../assets/public-website-redesign/images/media/science-pub-building-wildfire-resilience.jpg";
+import scienceByThePintImage from "../../../assets/public-website-redesign/images/media/science-pub-event.jpg";
 import MossDivider from "../components/shared/MossDivider";
 import SectionHeader from "../components/shared/SectionHeader";
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
@@ -19,7 +20,7 @@ const PREVIOUS_EVENTS: Event[] = [
     date: "March 11, 2026",
     description:
       "NCEAS Research Associate Cat Fong presented her work on the Wildfire Resilience Index at Draughtsmen Aleworks in Goleta, CA. She gave the audience background on how and why the Index was built and how it can be used. Science by the Pint is a collaboration with the UCSB Undergraduate Research Symposium Committee highlighting cutting-edge UCSB research.",
-    image: eventImage,
+    image: scienceByThePintImage,
   },
   {
     id: "science-pub-building-wildfire-resilience",
@@ -27,7 +28,7 @@ const PREVIOUS_EVENTS: Event[] = [
     date: "December 8, 2025",
     description:
       "NCEAS Research Associate Cat Fong showcased the Wildfire Resilience Index at Dargan’s Pub in Santa Barbara, CA — walking the audience through its data-driven approach and how it helps local leaders plan smarter, empowers communities living with fire, and supports a safer, more resilient future for Santa Barbara County and beyond. The Santa Barbara Museum of Natural History Science Pub series consists of free science talks held on the second Monday of every month.",
-    image: eventImage,
+    image: sciencePubImage,
   },
 ];
 

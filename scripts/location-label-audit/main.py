@@ -4,7 +4,7 @@ Audit selected-region label lengths from live WWRI location endpoints.
 
 Usage:
   python scripts/location-label-audit/main.py
-  python scripts/location-label-audit/main.py --base-url https://major-sculpin.nceas.ucsb.edu/api
+  python scripts/location-label-audit/main.py --base-url https://preview.wildfireindex.org/api
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ from dataclasses import dataclass
 from typing import Dict, Iterable, List, Optional, Tuple
 
 
-API_DEFAULT_BASE_URL = "https://major-sculpin.nceas.ucsb.edu/api"
+API_DEFAULT_BASE_URL = "https://preview.wildfireindex.org/api"
 
 UNIFIED_LEVELS = {
     "tract": {
