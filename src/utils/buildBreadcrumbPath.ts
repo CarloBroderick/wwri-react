@@ -21,7 +21,7 @@ export interface BreadcrumbItem {
  */
 export function buildBreadcrumbPath(metricId: string, domainId: string): BreadcrumbItem[] {
   // Special case: Overall Resilience
-  if (metricId === "wwri_final_score" || domainId === "wwri") {
+  if (metricId === "wwri_final_score" || domainId === "overall") {
     return [{ id: "wwri_final_score", label: "Overall Resilience", isCurrent: true }];
   }
 

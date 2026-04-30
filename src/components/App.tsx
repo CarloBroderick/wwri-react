@@ -100,7 +100,7 @@ function parseSummaryCSV(csvText: string): SummaryData {
 function App() {
   const [selectedMetricIdObject, setSelectedMetricIdObject] =
     useState<SelectedMetricIdObject>({
-      domainId: "wwri",
+      domainId: "overall",
       metricId: "wwri_final_score",
       label: "Overall Resilience",
       description: "Overall wildfire resilience score combining all domains.",
