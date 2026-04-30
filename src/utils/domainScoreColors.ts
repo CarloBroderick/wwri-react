@@ -118,8 +118,8 @@ const WHITE: Rgb = { r: 255, g: 255, b: 255 };
 const NEUTRAL_GRAY: Rgb = { r: 200, g: 200, b: 200 };
 
 // Overall Resilience color scale
-export const OVERALL_RESILIENCE_START_COLOR: Rgb = { r: 249, g: 248, b: 235 }; // #f9f8eb
-export const OVERALL_RESILIENCE_END_COLOR: Rgb = { r: 26, g: 4, b: 8 }; // #1a0408
+export const OVERALL_RESILIENCE_START_COLOR: Rgb = { r: 253, g: 249, b: 196 }; // #fdf9c4
+export const OVERALL_RESILIENCE_END_COLOR: Rgb = { r: 146, g: 28, b: 42 }; // #921c2a
 
 /**
  * Normalizes a score to 0-1 range.

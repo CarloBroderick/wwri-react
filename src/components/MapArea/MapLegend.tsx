@@ -123,7 +123,7 @@ const MapLegend: React.FC<MapLegendProps> = ({
           {normalizedLabel}
         </h2>
       </div>
-      <div id="map-legend-scale-container" className="ml-4 flex justify-center">
+      <div id="map-legend-scale-container" className="ml-6 flex justify-center">
         <div id="map-legend-scale-row" className="flex flex-row gap-1">
           <div
             id="map-legend-gradient"
@@ -139,13 +139,15 @@ const MapLegend: React.FC<MapLegendProps> = ({
           </div>
           <div
             id="map-legend-value-labels"
-            className="flex flex-col justify-between text-xs"
+            className="flex w-6 flex-col justify-between text-left text-xs tabular-nums"
           >
-            <span id="map-legend-max-value" className="mt-[-0.2rem]">
+            <span id="map-legend-max-value" className="mt-[-0.2rem] block w-full">
               {maxValue}
             </span>
-            <span id="map-legend-mid-value">{midValue}</span>
-            <span id="map-legend-min-value" className="mb-[-0.2rem]">
+            <span id="map-legend-mid-value" className="block w-full">
+              {midValue}
+            </span>
+            <span id="map-legend-min-value" className="mb-[-0.2rem] block w-full">
               {minValue}
             </span>
           </div>

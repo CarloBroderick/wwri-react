@@ -164,7 +164,22 @@ export const API_ID_FIELD = "geoid";
  * API: /:country/:geoLevel/:domain/:metric
  */
 export function getMetricUrl(domain: string, metric: string, country = DEFAULT_COUNTRY, geoLevel = DEFAULT_GEO_LEVEL): string {
-    return `${API_BASE_URL}/${country}/${geoLevel}/${domain}/${metric}`;
+    const resolvedDomain = resolveApiDomain(domain, country, geoLevel);
+    return `${API_BASE_URL}/${country}/${geoLevel}/${resolvedDomain}/${metric}`;
+}
+
+/**
+ * Resolves the API domain name for a given country and geo level.
+ * The backend is inconsistent: US counties store the overall resilience
+ * metric under domain "overall", while every other geo level (US and
+ * Canada) stores it under "wwri". The frontend uses "wwri" canonically;
+ * this function patches the one outlier.
+ */
+function resolveApiDomain(domain: string, apiCountry: string, apiGeoLevel: string): string {
+    if (domain === "wwri" && apiCountry === "us" && apiGeoLevel === "county") {
+        return "overall";
+    }
+    return domain;
 }
 
 /**
@@ -172,9 +187,11 @@ export function getMetricUrl(domain: string, metric: string, country = DEFAULT_C
  */
 export function getUnifiedMetricUrls(domain: string, metric: string, unifiedLevel: UnifiedGeoLevel): { us: string; canada: string } {
     const levelConfig = UNIFIED_GEO_LEVELS[unifiedLevel];
+    const usDomain = resolveApiDomain(domain, levelConfig.us.apiCountry, levelConfig.us.apiGeoLevel);
+    const canadaDomain = resolveApiDomain(domain, levelConfig.canada.apiCountry, levelConfig.canada.apiGeoLevel);
     return {
-        us: `${API_BASE_URL}/${levelConfig.us.apiCountry}/${levelConfig.us.apiGeoLevel}/${domain}/${metric}`,
-        canada: `${API_BASE_URL}/${levelConfig.canada.apiCountry}/${levelConfig.canada.apiGeoLevel}/${domain}/${metric}`,
+        us: `${API_BASE_URL}/${levelConfig.us.apiCountry}/${levelConfig.us.apiGeoLevel}/${usDomain}/${metric}`,
+        canada: `${API_BASE_URL}/${levelConfig.canada.apiCountry}/${levelConfig.canada.apiGeoLevel}/${canadaDomain}/${metric}`,
     };
 }
 
