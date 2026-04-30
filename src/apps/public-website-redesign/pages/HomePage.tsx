@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import homeHeroVideo from "../../../assets/public-website-redesign/videos/home-hero.mp4";
 import homeHeroPoster from "../../../assets/public-website-redesign/images/hero/home-hero.jpg";
+import overviewHowToUseIt from "../../../assets/public-website-redesign/videos/overview-3-how-to-use-it.mp4";
+import overviewHowWeBuiltIt from "../../../assets/public-website-redesign/videos/overview-2-how-we-built-it.mp4";
+import overviewInterpretScore from "../../../assets/public-website-redesign/videos/overview-4-interpret-your-score.mp4";
+import overviewWhatIsIt from "../../../assets/public-website-redesign/videos/overview-1-what-is-it.mp4";
 import nceasLogoWhite from "../../../assets/public-website-redesign/images/logos/nceas-white.png";
 import mooreLogoWhite from "../../../assets/public-website-redesign/images/logos/moore-white.png";
-import overviewWhatIsIt from "../../../assets/public-website-redesign/videos/overview-1-what-is-it.mp4";
-import overviewHowWeBuiltIt from "../../../assets/public-website-redesign/videos/overview-2-how-we-built-it.mp4";
-import overviewHowToUseIt from "../../../assets/public-website-redesign/videos/overview-3-how-to-use-it.mp4";
-import overviewInterpretScore from "../../../assets/public-website-redesign/videos/overview-4-interpret-your-score.mp4";
-import MossDivider from "../components/shared/MossDivider";
 import CTAButton from "../components/shared/CTAButton";
+import MossDivider from "../components/shared/MossDivider";
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
 
 const OVERVIEW_ACCORDION_ITEMS = [
@@ -33,7 +33,6 @@ const OVERVIEW_ACCORDION_ITEMS = [
     title: "How do I interpret my score?",
   },
 ] as const;
-
 /**
  * Homepage — Canva spec pages 1–2.
  *   • Hero: full-viewport looping muted video, heading, subtitle, CTA, partner logos
