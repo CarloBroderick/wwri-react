@@ -114,7 +114,7 @@ function DomainsPage() {
         </div>
         <div
           id="public-website-redesign-domains-tiles"
-          className="mx-auto w-full max-w-[260px] md:mx-0 md:ml-auto md:max-w-[280px]"
+          className="mx-auto w-full max-w-[230px] md:mx-0 md:ml-auto md:max-w-[230px]"
         >
           <DomainGrid id="public-website-redesign-domains-overview-tiles" columns={2} />
         </div>
