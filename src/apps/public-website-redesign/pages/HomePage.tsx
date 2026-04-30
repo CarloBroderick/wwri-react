@@ -4,12 +4,9 @@ import nceasLogoWhite from "../../../assets/public-website-redesign/images/logos
 import mooreLogoWhite from "../../../assets/public-website-redesign/images/logos/moore-white.png";
 import CTAButton from "../components/shared/CTAButton";
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
-
 /**
  * Homepage — Canva spec pages 1–2.
  *   • Hero: full-viewport looping muted video, heading, subtitle, CTA, partner logos
- *   • Overview: "Overview" heading with moss underline, 2×2 grid of autoplay-muted
- *     overview videos (What it is, How we built it, How to use it, Interpret your score)
  */
 function HomePage() {
   return (

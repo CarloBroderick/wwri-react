@@ -1,7 +1,7 @@
 import { UnifiedGeoLevel } from "config/api";
 import domainHierarchy from "data/domainHierarchy";
 import { getRegionAbbreviation } from "data/StateNameToAbbrevsMap";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import SelectedMetricIdObject from "types/componentStatetypes";
 import { Domain } from "types/domainTypes";
 import { FlowerChartConfig } from "types/flowerChartConfigTypes";
@@ -119,7 +119,135 @@ interface LayoutProps {
   gradientConfig?: GradientConfig | null;
 }
 
-const TOP_PANEL_FIXED_HEIGHT_CLASS = "h-[126px]";
+const TOP_PANEL_FIXED_HEIGHT_CLASS = "h-[112px]";
+const SELECTED_REGION_LINE1_LINE_HEIGHT_PX = 20;
+const SELECTED_REGION_LINE2_LINE_HEIGHT_PX = 18;
+const SELECTED_REGION_CONTENT_MIN_HEIGHT_PX =
+  SELECTED_REGION_LINE1_LINE_HEIGHT_PX + SELECTED_REGION_LINE2_LINE_HEIGHT_PX;
+const REGION_TEXT_SIZE_STEPS = [
+  {
+    line1Px: 18,
+    line2Px: 16,
+  },
+  {
+    line1Px: 17,
+    line2Px: 15,
+  },
+  {
+    line1Px: 14,
+    line2Px: 14,
+  },
+] as const;
+
+const getCanvasFont = (weight: 400 | 700, sizePx: number, family: string): string =>
+  `${weight} ${sizePx}px "${family}", sans-serif`;
+
+const measureTextWidth = (text: string, font: string): number => {
+  if (typeof document === "undefined") return text.length * 8;
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+  if (!context) return text.length * 8;
+  context.font = font;
+  return context.measureText(text).width;
+};
+
+interface SelectedRegionTextProps {
+  hasSelection: boolean;
+  displayText: { line1: string; line2?: string } | null;
+  headerClassName: string;
+}
+
+const SelectedRegionText: React.FC<SelectedRegionTextProps> = ({
+  hasSelection,
+  displayText,
+  headerClassName,
+}) => {
+  const [containerWidth, setContainerWidth] = useState(220);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useLayoutEffect(() => {
+    if (!containerRef.current) {
+      return;
+    }
+
+    const updateWidth = () => {
+      if (!containerRef.current) return;
+      setContainerWidth(containerRef.current.clientWidth);
+    };
+    updateWidth();
+    const resizeObserver = new ResizeObserver(updateWidth);
+    resizeObserver.observe(containerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  const sizeStep = useMemo(() => {
+    if (!hasSelection || !displayText) return 0;
+    const line1 = displayText.line1 || "";
+    const line2 = displayText.line2 || "";
+    const availableWidth = Math.max(containerWidth - 4, 120);
+
+    for (let step = 0; step < REGION_TEXT_SIZE_STEPS.length; step += 1) {
+      const config = REGION_TEXT_SIZE_STEPS[step];
+      const line1Fits =
+        measureTextWidth(line1, getCanvasFont(700, config.line1Px, "Montserrat")) <= availableWidth;
+      const line2Fits =
+        !line2 || measureTextWidth(line2, getCanvasFont(400, config.line2Px, "Poppins")) <= availableWidth;
+      if (line1Fits && line2Fits) {
+        return step;
+      }
+    }
+
+    return REGION_TEXT_SIZE_STEPS.length - 1;
+  }, [containerWidth, displayText, hasSelection]);
+  const activeSizeConfig = REGION_TEXT_SIZE_STEPS[sizeStep];
+
+  return (
+    <div
+      id="selected-region-panel-inner"
+      ref={containerRef}
+      className="flex min-h-0 flex-1 flex-col justify-center overflow-y-auto pr-1"
+    >
+      <h1 id="selected-region-panel-header" className={headerClassName}>
+        Selected Region
+      </h1>
+      {!hasSelection ? (
+        <p id="selected-region-panel-empty-state" className="mt-1 shrink-0 font-Poppins text-base font-normal text-gray-500">
+          Click on a region to view data
+        </p>
+      ) : (
+        <div
+          id="selected-region-panel-content"
+          className="mt-1 shrink-0"
+          style={{ minHeight: `${SELECTED_REGION_CONTENT_MIN_HEIGHT_PX}px` }}
+        >
+          <p
+            id="selected-region-panel-line1"
+            className="font-Montserrat font-bold leading-tight text-gray-900"
+            style={{
+              fontSize: `${activeSizeConfig.line1Px}px`,
+              lineHeight: `${SELECTED_REGION_LINE1_LINE_HEIGHT_PX}px`,
+            }}
+          >
+            {displayText?.line1}
+          </p>
+          <p
+            id="selected-region-panel-line2"
+            className="mt-[0.15rem] font-Poppins font-normal leading-tight text-gray-600"
+            style={{
+              fontSize: `${activeSizeConfig.line2Px}px`,
+              lineHeight: `${SELECTED_REGION_LINE2_LINE_HEIGHT_PX}px`,
+            }}
+          >
+            {displayText?.line2 || "\u00A0"}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
 
 /**
  * Side-by-Side Layout: Overall and Selected Metric as two circular progress bars
@@ -158,31 +286,19 @@ const SideBySideLayout: React.FC<LayoutProps> = ({
       {/* Left: Selected Region */}
       <div
         id="selected-region-panel"
-        className="flex flex-1 flex-col border-r border-gray-200 px-4 py-3"
+        className="flex min-h-0 flex-1 flex-col border-r border-gray-200 px-4 py-1.5"
       >
-        <h1 id="selected-region-panel-header" className="shrink-0 font-Montserrat text-sm font-bold uppercase tracking-wide text-gray-500">
-          Selected Region
-        </h1>
-        {!hasSelection ? (
-          <p id="selected-region-panel-empty-state" className="mt-1 flex-1 overflow-y-auto font-Poppins text-base font-normal text-gray-500">
-            Click on a region to view data
-          </p>
-        ) : (
-          <div id="selected-region-panel-content" className="mt-1 flex-1 overflow-y-auto pr-1">
-            <p id="selected-region-panel-line1" className="font-Montserrat text-lg font-bold leading-tight text-gray-900">
-              {displayText?.line1}
-            </p>
-            <p id="selected-region-panel-line2" className="mt-[0.15rem] font-Poppins text-base font-normal leading-tight text-gray-600">
-              {displayText?.line2 || "\u00A0"}
-            </p>
-          </div>
-        )}
+        <SelectedRegionText
+          hasSelection={hasSelection}
+          displayText={displayText}
+          headerClassName="shrink-0 font-Montserrat text-sm font-bold uppercase tracking-wide text-gray-500"
+        />
       </div>
 
       {/* Middle: Overall Score */}
       <div
         id="overall-score-panel"
-        className="flex w-[90px] flex-col items-center justify-center border-r border-gray-200 px-2 py-2"
+        className="flex w-[90px] flex-col items-center justify-center border-r border-gray-200 px-2 py-1.5"
       >
         <span className="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500">
           Overall
@@ -197,7 +313,7 @@ const SideBySideLayout: React.FC<LayoutProps> = ({
       {/* Right: Selected Metric Score */}
       <div
         id="selected-metric-panel"
-        className="flex w-[130px] flex-col items-center justify-center px-2 py-2"
+        className="flex w-[130px] flex-col items-center justify-center px-2 py-1.5"
         title={needsTooltip ? metricLabel : undefined}
       >
         <span 
@@ -252,31 +368,19 @@ const StackedBelowLayout: React.FC<LayoutProps> = ({
       {/* Left: Selected Region */}
       <div
         id="selected-region-panel"
-        className="flex flex-1 flex-col px-4 pt-3 pb-2"
+        className="flex min-h-0 flex-1 flex-col px-4 pt-1.5 pb-1"
       >
-        <h1 id="selected-region-panel-header" className="shrink-0 font-Montserrat text-base font-bold uppercase tracking-wide text-gray-500">
-          Selected Region
-        </h1>
-        {!hasSelection ? (
-          <p id="selected-region-panel-empty-state" className="mt-1 flex-1 overflow-y-auto font-Poppins text-base font-normal text-gray-500">
-            Click on a region to view data
-          </p>
-        ) : (
-          <div id="selected-region-panel-content" className="mt-1 flex-1 overflow-y-auto pr-1">
-            <p id="selected-region-panel-line1" className="font-Montserrat text-lg font-bold leading-tight text-gray-900">
-              {displayText?.line1}
-            </p>
-            <p id="selected-region-panel-line2" className="mt-[0.15rem] font-Poppins text-base font-normal leading-tight text-gray-600">
-              {displayText?.line2 || "\u00A0"}
-            </p>
-          </div>
-        )}
+        <SelectedRegionText
+          hasSelection={hasSelection}
+          displayText={displayText}
+          headerClassName="shrink-0 font-Montserrat text-base font-bold uppercase tracking-wide text-gray-500"
+        />
       </div>
 
       {/* Right: Selected Metric Score Widget */}
       <div
         id="selected-metric-panel"
-        className="flex w-[110px] flex-col items-center py-3 px-2"
+        className="flex w-[110px] flex-col items-center px-2 py-1.5"
         title={needsTooltip ? metricLabel : undefined}
       >
         <span
@@ -422,7 +526,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
       {/* ============================================ */}
       <div
         id="indicator-navigation-panel"
-        className="flex min-h-[408px] shrink-0 flex-col overflow-hidden border-b border-gray-200 px-4 pt-3 pb-2"
+        className="flex flex-col overflow-hidden border-b border-gray-200 px-4 pt-3 pb-2"
       >
         <h1
           id="indicator-navigation-header"
@@ -498,7 +602,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
         {/* Domain List - Scrollable */}
         <div
           id="domain-list"
-          className="relative mb-1 ml-[0.3rem] min-h-[413px] flex-1 overflow-y-hidden overflow-x-visible pb-1 pl-[0.2rem] pt-[0.05rem]"
+          className="relative mb-1 ml-[0.3rem] min-h-[412px] flex-1 overflow-y-auto overflow-x-visible pb-1 pl-[0.2rem] pt-[0.05rem]"
         >
           {/* Overall Resilience Score */}
           <div className="flex items-center">
