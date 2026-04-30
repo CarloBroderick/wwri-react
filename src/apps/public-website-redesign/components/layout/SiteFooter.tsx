@@ -1,14 +1,19 @@
 import { Link, useLocation } from "react-router-dom";
-import wriLogoFullWhite from "../../../../assets/public-website-redesign/images/logos/wri-full-white.png";
+import linkedinGreenIcon from "../../../../assets/public-website-redesign/images/footer/linkedin-green.png";
 import nceasLogoWhite from "../../../../assets/public-website-redesign/images/logos/nceas-white.png";
 import mooreLogoWhite from "../../../../assets/public-website-redesign/images/logos/moore-white.png";
+import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 
-/**
- * Footer is not explicit in the PDF visual spec; we mirror the header’s palette
- * and surface the acknowledgements (NCEAS + Gordon & Betty Moore Foundation)
- * referenced in the hero lower-right on page 1 using the provided logo marks.
- */
+const NAV_LINKS = [
+  { id: "about", label: "About", to: REDESIGN_ROUTES.about },
+  { id: "domains", label: "Domains", to: REDESIGN_ROUTES.domains },
+  { id: "methodology", label: "Methodology", to: REDESIGN_ROUTES.methodology },
+  { id: "news", label: "News & Features", to: REDESIGN_ROUTES.news },
+  { id: "outreach", label: "Outreach", to: REDESIGN_ROUTES.outreach },
+  { id: "contact", label: "Contact", to: REDESIGN_ROUTES.contact },
+];
+
 function SiteFooter() {
   const { pathname } = useLocation();
   const isHomePage = pathname === REDESIGN_ROUTES.home;
@@ -18,77 +23,125 @@ function SiteFooter() {
       id="public-website-redesign-site-footer"
       className={`${isHomePage ? "mt-0" : "mt-24"} border-t border-wriMoss/30 bg-wriForest font-Poppins text-wriSmokeFog`}
     >
+      {/* Row 1: brand + contact */}
       <div
-        id="public-website-redesign-footer-inner"
-        className="mx-auto grid max-w-[1280px] gap-10 px-6 py-14 md:grid-cols-[1.2fr_1fr_1fr] md:items-start"
+        id="public-website-redesign-footer-primary"
+        className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5"
       >
-        <div id="public-website-redesign-footer-brand" className="flex items-start gap-4">
+        <Link
+          id="public-website-redesign-footer-home-link"
+          to={REDESIGN_ROUTES.home}
+          className="inline-flex items-center gap-2"
+          aria-label="Wildfire Resilience Index — home"
+        >
           <img
             id="public-website-redesign-footer-logo"
-            src={wriLogoFullWhite}
-            alt="Wildfire Resilience Index"
-            className="h-20 w-auto"
+            src={wriLogoFlameOnly}
+            alt=""
+            aria-hidden="true"
+            className="h-10 w-auto object-contain"
           />
-          <div id="public-website-redesign-footer-brand-text" className="text-sm leading-relaxed">
-            <div className="max-w-xs text-wriSmokeFog/80">
-              Measuring wildfire resilience in communities and landscapes.
-            </div>
-          </div>
-        </div>
-
-        <nav
-          id="public-website-redesign-footer-nav"
-          className="grid grid-cols-2 gap-x-8 gap-y-2 text-sm"
-          aria-label="Footer"
-        >
-          <Link id="public-website-redesign-footer-link-about" to={REDESIGN_ROUTES.about} className="hover:text-white">
-            About
-          </Link>
-          <Link id="public-website-redesign-footer-link-domains" to={REDESIGN_ROUTES.domains} className="hover:text-white">
-            Domains
-          </Link>
-          <Link id="public-website-redesign-footer-link-methodology" to={REDESIGN_ROUTES.methodology} className="hover:text-white">
-            Methodology
-          </Link>
-          <Link id="public-website-redesign-footer-link-news" to={REDESIGN_ROUTES.news} className="hover:text-white">
-            News &amp; Features
-          </Link>
-          <Link id="public-website-redesign-footer-link-outreach" to={REDESIGN_ROUTES.outreach} className="hover:text-white">
-            Outreach
-          </Link>
-          <Link id="public-website-redesign-footer-link-contact" to={REDESIGN_ROUTES.contact} className="hover:text-white">
-            Contact
-          </Link>
-        </nav>
-
-        <div id="public-website-redesign-footer-acknowledgements" className="space-y-3">
-          <div className="font-Montserrat text-xs font-bold uppercase tracking-[0.1em] text-wriSmokeFog/80">
-            Supported by
-          </div>
-          <div
-            id="public-website-redesign-footer-partner-logos"
-            className="flex flex-wrap items-center gap-6"
+          <span
+            id="public-website-redesign-footer-wordmark"
+            className="flex h-10 flex-col justify-between py-px text-[9px] font-bold uppercase leading-none tracking-[0.08em] text-[#DCE8DF]"
           >
+            <span>Wildfire</span>
+            <span>Resilience</span>
+            <span>Index</span>
+          </span>
+        </Link>
+
+        <div
+          id="public-website-redesign-footer-contact"
+          className="flex items-center gap-5"
+        >
+          <a
+            id="public-website-redesign-footer-email"
+            href="mailto:wildfire-index@nceas.ucsb.edu"
+            className="inline-flex items-center gap-2 text-[13px] text-wriMoss transition-colors hover:text-white hover:underline"
+          >
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m2 4 10 8 10-8" />
+            </svg>
+            wildfire-index@nceas.ucsb.edu
+          </a>
+          <a
+            id="public-website-redesign-footer-linkedin"
+            href="https://linkedin.com/company/the-wildfire-resilience-index"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center transition-opacity hover:opacity-80"
+            aria-label="Wildfire Resilience Index on LinkedIn"
+          >
+            <img
+              id="public-website-redesign-footer-linkedin-icon"
+              src={linkedinGreenIcon}
+              alt="LinkedIn"
+              className="h-7 w-auto object-contain"
+            />
+          </a>
+        </div>
+      </div>
+
+      {/* Row 2: nav + copyright + partners */}
+      <div
+        id="public-website-redesign-footer-secondary"
+        className="border-t border-white/10"
+      >
+        <div
+          id="public-website-redesign-footer-secondary-inner"
+          className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-3"
+        >
+          <nav
+            id="public-website-redesign-footer-nav"
+            className="flex flex-wrap gap-x-5 gap-y-1 text-[11px]"
+            aria-label="Footer"
+          >
+            {NAV_LINKS.map((l) => (
+              <Link
+                key={l.id}
+                id={`public-website-redesign-footer-link-${l.id}`}
+                to={l.to}
+                className="text-wriSmokeFog/50 transition-colors hover:text-white"
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div
+            id="public-website-redesign-footer-meta"
+            className="flex items-center gap-4 text-[10px] text-wriSmokeFog/40"
+          >
+            <span id="public-website-redesign-footer-copyright">
+              © {new Date().getFullYear()} Wildfire Resilience Index
+            </span>
+            <span aria-hidden="true">·</span>
+            <span className="font-Montserrat uppercase tracking-wider">
+              Supported by
+            </span>
             <img
               id="public-website-redesign-footer-logo-nceas"
               src={nceasLogoWhite}
               alt="NCEAS"
-              className="h-10 w-auto object-contain"
+              className="h-4 w-auto object-contain opacity-60"
             />
             <img
               id="public-website-redesign-footer-logo-moore"
               src={mooreLogoWhite}
               alt="Gordon and Betty Moore Foundation"
-              className="h-10 w-auto object-contain"
+              className="h-4 w-auto object-contain opacity-60"
             />
           </div>
         </div>
-      </div>
-      <div
-        id="public-website-redesign-footer-copyright"
-        className="border-t border-white/10 px-6 py-4 text-center font-Poppins text-xs text-wriSmokeFog/70"
-      >
-        © {new Date().getFullYear()} Wildfire Resilience Index · Redesign preview
       </div>
     </footer>
   );
