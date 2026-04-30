@@ -2,11 +2,11 @@
  * API Configuration
  * 
  * Controls service URLs for the WWRI Metrics API and tile server.
- * Local development defaults to the deployed major-sculpin services, while
+ * Local development defaults to the deployed preview services, while
  * production defaults to same-origin paths so the app follows its hosted domain.
  */
 
-const DEPLOYED_SERVICE_ORIGIN = "https://major-sculpin.nceas.ucsb.edu";
+const DEPLOYED_SERVICE_ORIGIN = "https://preview.wildfireindex.org";
 
 const DEFAULT_API_BASE_URL = import.meta.env.DEV
   ? `${DEPLOYED_SERVICE_ORIGIN}/api`

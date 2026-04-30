@@ -26,6 +26,16 @@ import MapLegend from "./MapLegend";
 
 // Layer IDs for querying (fill layers are interactive)
 const INTERACTIVE_LAYERS = ["us-fill", "canada-fill"];
+const DEFAULT_OVERLAY_OPACITY = 1;
+const DEFAULT_TRACT_OVERLAY_OPACITY = 0.65;
+const MIN_TRACT_OVERLAY_OPACITY = 0;
+const MAX_TRACT_OVERLAY_OPACITY = 1;
+const TRACT_OVERLAY_OPACITY_STEP = 0.05;
+
+const getOverlayOpacity = (
+  geoLevel: UnifiedGeoLevel,
+  tractOverlayOpacity: number,
+) => (geoLevel === "tract" ? tractOverlayOpacity : DEFAULT_OVERLAY_OPACITY);
 
 // ============================================================================
 // BASEMAP CONFIGURATION
@@ -67,6 +77,14 @@ export const BASEMAP_OPTIONS: Record<string, BasemapOption> = {
     attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     tileSize: 256,
   },
+  "eox-satellite": {
+    id: "eox-satellite",
+    name: "Satellite",
+    tiles: ["https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2020_3857/default/g/{z}/{y}/{x}.jpg"],
+    attribution:
+      '&copy; <a href="https://s2maps.eu/">EOX IT Services GmbH</a> | Contains modified Copernicus Sentinel data (2020)',
+    tileSize: 256,
+  },
 };
 
 export type BasemapId = keyof typeof BASEMAP_OPTIONS;
@@ -89,6 +107,7 @@ export const CARTO_LABEL_TILES: Record<BasemapId, string> = {
   "carto-positron": "https://basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png",
   "carto-voyager": "https://basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png",
   "carto-dark": "https://basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png",
+  "eox-satellite": "https://basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png",
 };
 
 const DEFAULT_LABEL_SOURCE: LabelSource = "custom";
@@ -588,6 +607,57 @@ const ZoomPanDebugPanel: React.FC<{
   );
 };
 
+interface CompactOverlayOpacityStripProps {
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  onChange: (value: number) => void;
+}
+
+const CompactOverlayOpacityStrip: React.FC<CompactOverlayOpacityStripProps> = ({
+  value,
+  min,
+  max,
+  step,
+  onChange,
+}) => {
+  const displayValue = Math.round(value * 100);
+
+  return (
+    <div
+      id="compact-overlay-opacity-strip"
+      className="flex h-10 w-56 items-center gap-2 rounded-md border border-gray-400 bg-white px-2 shadow-md"
+    >
+      <label
+        id="compact-overlay-opacity-label"
+        htmlFor="compact-overlay-opacity-slider"
+        className="shrink-0 text-[11px] font-semibold text-gray-600"
+      >
+        Opacity
+      </label>
+      <input
+        id="compact-overlay-opacity-slider"
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        aria-label="Adjust census tract overlay opacity"
+        aria-valuetext={`${displayValue}% opacity`}
+        onChange={(event) => onChange(Number(event.target.value))}
+        className="h-1 w-full cursor-pointer accent-leftSidebarOverallResilience"
+      />
+      <span
+        id="compact-overlay-opacity-value"
+        className="w-9 shrink-0 text-right text-[11px] font-medium tabular-nums text-gray-600"
+      >
+        {displayValue}%
+      </span>
+    </div>
+  );
+};
+
 interface MapAreaProps {
   selectedGeoId: string;
   selectedMetricIdObject: SelectedMetricIdObject;
@@ -603,6 +673,7 @@ interface MapAreaProps {
   onCenterChange?: (center: [number, number]) => void;
   gradientConfig?: GradientConfig | null;
   selectedBasemap?: BasemapId;
+  onBasemapChange?: (basemapId: BasemapId) => void;
   labelSource?: LabelSource;
   selectedProjection?: MapProjection;
   zoomPanDebugOpen?: boolean;
@@ -624,6 +695,7 @@ const MapArea: React.FC<MapAreaProps> = ({
   onCenterChange,
   gradientConfig,
   selectedBasemap = DEFAULT_BASEMAP,
+  onBasemapChange,
   labelSource = DEFAULT_LABEL_SOURCE,
   selectedProjection = DEFAULT_PROJECTION,
   zoomPanDebugOpen = false,
@@ -636,6 +708,11 @@ const MapArea: React.FC<MapAreaProps> = ({
   const locationDataRef = useRef<Record<string, LocationInfo>>({});
   const [dataLoaded, setDataLoaded] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [tractOverlayOpacity, setTractOverlayOpacity] = useState(
+    DEFAULT_TRACT_OVERLAY_OPACITY,
+  );
+  const tractOverlayOpacityRef = useRef(DEFAULT_TRACT_OVERLAY_OPACITY);
+  const previousNonSatelliteBasemapRef = useRef<BasemapId>("carto-positron");
   const mapRef = useRef<maplibregl.Map | null>(null);
 
   // Track basemap in ref for use in callbacks
@@ -655,6 +732,14 @@ const MapArea: React.FC<MapAreaProps> = ({
   const [zoomPanConfig, setZoomPanConfig] = useState<ZoomPanConfig>(DEFAULT_ZOOM_PAN_CONFIG);
   const zoomPanConfigRef = useRef(zoomPanConfig);
   useEffect(() => { zoomPanConfigRef.current = zoomPanConfig; }, [zoomPanConfig]);
+  useEffect(() => {
+    tractOverlayOpacityRef.current = tractOverlayOpacity;
+  }, [tractOverlayOpacity]);
+  useEffect(() => {
+    if (selectedBasemap !== "eox-satellite") {
+      previousNonSatelliteBasemapRef.current = selectedBasemap;
+    }
+  }, [selectedBasemap]);
   
   // Get configs for current geo level
   const geoLevelConfig = UNIFIED_GEO_LEVELS[selectedGeoLevel];
@@ -668,6 +753,20 @@ const MapArea: React.FC<MapAreaProps> = ({
     usConfigRef.current = usConfig;
     canadaConfigRef.current = canadaConfig;
   }, [usConfig, canadaConfig]);
+
+  const applyOverlayOpacity = useCallback((
+    map: maplibregl.Map,
+    geoLevel: UnifiedGeoLevel,
+    opacity: number,
+  ) => {
+    const overlayOpacity = getOverlayOpacity(geoLevel, opacity);
+
+    INTERACTIVE_LAYERS.forEach((layerId) => {
+      if (map.getLayer(layerId)) {
+        map.setPaintProperty(layerId, "fill-opacity", overlayOpacity);
+      }
+    });
+  }, []);
 
   const startColorRef = useRef(selectedMetricIdObject.colorGradient.startColor);
   const endColorRef = useRef(selectedMetricIdObject.colorGradient.endColor);
@@ -773,6 +872,10 @@ const MapArea: React.FC<MapAreaProps> = ({
    */
   const addGeoLevelLayers = useCallback((map: maplibregl.Map, geoLevel: UnifiedGeoLevel) => {
     const config = UNIFIED_GEO_LEVELS[geoLevel];
+    const overlayOpacity = getOverlayOpacity(
+      geoLevel,
+      tractOverlayOpacityRef.current,
+    );
     
     // Add US tile source
     map.addSource("us-tiles", {
@@ -798,7 +901,7 @@ const MapArea: React.FC<MapAreaProps> = ({
       "source-layer": config.us.sourceLayer,
       paint: {
         "fill-color": ["coalesce", ["feature-state", "color"], "#D3D3D3"],
-        "fill-opacity": 1,
+        "fill-opacity": overlayOpacity,
       },
     });
     
@@ -810,7 +913,7 @@ const MapArea: React.FC<MapAreaProps> = ({
       "source-layer": config.canada.sourceLayer,
       paint: {
         "fill-color": ["coalesce", ["feature-state", "color"], "#D3D3D3"],
-        "fill-opacity": 1,
+        "fill-opacity": overlayOpacity,
       },
     });
     
@@ -1878,6 +1981,13 @@ const MapArea: React.FC<MapAreaProps> = ({
     }
   }, [selectedGeoLevel, mapLoaded, addGeoLevelLayers, removeGeoLevelLayers, repositionBoundaryLayers, repositionLabelsLayer]);
 
+  // Keep polygon transparency aligned with the active geo level and slider value.
+  useEffect(() => {
+    if (mapRef.current && mapLoaded) {
+      applyOverlayOpacity(mapRef.current, selectedGeoLevel, tractOverlayOpacity);
+    }
+  }, [selectedGeoLevel, tractOverlayOpacity, mapLoaded, applyOverlayOpacity]);
+
   // Handle label source changes from props
   useEffect(() => {
     if (mapRef.current && mapLoaded) {
@@ -2139,6 +2249,18 @@ const MapArea: React.FC<MapAreaProps> = ({
     }
   };
 
+  const handleToggleSatelliteBasemap = () => {
+    if (!onBasemapChange) return;
+
+    if (selectedBasemap === "eox-satellite") {
+      onBasemapChange(previousNonSatelliteBasemapRef.current);
+      return;
+    }
+
+    previousNonSatelliteBasemapRef.current = selectedBasemap;
+    onBasemapChange("eox-satellite");
+  };
+
   const selectedDomainKey = (
     selectedMetricIdObject.domainId === "wwri"
       ? "overall_resilience"
@@ -2177,44 +2299,108 @@ const MapArea: React.FC<MapAreaProps> = ({
 
       <div
         id="map-area-controls"
-        className="absolute right-1 top-1 z-10 flex flex-col space-y-1"
+        className="absolute right-1 top-1 z-10 flex items-start gap-1"
       >
-        <button
-          id="zoom-in-button"
-          className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white align-middle text-4xl text-mapIconColor"
-          onClick={handleZoomIn}
-        >
-          <img
-            src={ZoomInIcon}
-            alt="zoom in"
-            className="h-6 w-6"
-            style={{ filter: "grayscale(50%) invert(50%)" }}
+        {selectedGeoLevel === "tract" && (
+          <CompactOverlayOpacityStrip
+            value={tractOverlayOpacity}
+            min={MIN_TRACT_OVERLAY_OPACITY}
+            max={MAX_TRACT_OVERLAY_OPACITY}
+            step={TRACT_OVERLAY_OPACITY_STEP}
+            onChange={setTractOverlayOpacity}
           />
-        </button>
-        <button
-          id="zoom-out-button"
-          className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white align-middle text-4xl text-mapIconColor"
-          onClick={handleZoomOut}
+        )}
+        <div
+          id="map-area-controls-button-stack"
+          className="flex flex-col items-end gap-1"
         >
-          <img
-            src={ZoomOutIcon}
-            alt="zoom out"
-            className="h-6 w-6 fill-mapIconColor stroke-mapIconColor"
-            style={{ filter: "grayscale(50%) invert(50%)" }}
-          />
-        </button>
-        <button
-          id="reset-view-button"
-          className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white"
-          onClick={handleResetView}
-        >
-          <img
-            src={ResetIcon}
-            alt="reset view"
-            className="h-6 w-6 fill-current stroke-mapIconColor"
-            style={{ filter: "grayscale(50%) invert(50%)" }}
-          />
-        </button>
+          <button
+            id="zoom-in-button"
+            type="button"
+            className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white align-middle text-4xl text-mapIconColor"
+            onClick={handleZoomIn}
+          >
+            <img
+              id="zoom-in-button-icon"
+              src={ZoomInIcon}
+              alt="zoom in"
+              className="h-6 w-6"
+              style={{ filter: "grayscale(50%) invert(50%)" }}
+            />
+          </button>
+          <button
+            id="zoom-out-button"
+            className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white align-middle text-4xl text-mapIconColor"
+            onClick={handleZoomOut}
+          >
+            <img
+              id="zoom-out-button-icon"
+              src={ZoomOutIcon}
+              alt="zoom out"
+              className="h-6 w-6 fill-mapIconColor stroke-mapIconColor"
+              style={{ filter: "grayscale(50%) invert(50%)" }}
+            />
+          </button>
+          <button
+            id="reset-view-button"
+            className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white"
+            onClick={handleResetView}
+          >
+            <img
+              id="reset-view-button-icon"
+              src={ResetIcon}
+              alt="reset view"
+              className="h-6 w-6 fill-current stroke-mapIconColor"
+              style={{ filter: "grayscale(50%) invert(50%)" }}
+            />
+          </button>
+          <button
+            id="layers-toggle-basemap-button"
+            type="button"
+            aria-label="Toggle satellite basemap layer"
+            title={
+              selectedBasemap === "eox-satellite"
+                ? "Switch to previous basemap"
+                : "Switch to satellite basemap"
+            }
+            onClick={handleToggleSatelliteBasemap}
+            className={`flex h-10 w-10 items-center justify-center rounded-md border bg-white transition-colors ${
+              selectedBasemap === "eox-satellite"
+                ? "border-leftSidebarOverallResilience text-leftSidebarOverallResilience"
+                : "border-gray-400 text-mapIconColor"
+            }`}
+          >
+            <svg
+              id="layers-toggle-basemap-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              className="h-6 w-6"
+              aria-hidden="true"
+            >
+              <path
+                id="layers-toggle-basemap-icon-top-layer"
+                d="M12 3.8 3.6 8 12 12.2 20.4 8 12 3.8Z"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                id="layers-toggle-basemap-icon-mid-layer"
+                d="M5 12.1 12 15.6 19 12.1"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                id="layers-toggle-basemap-icon-bottom-layer"
+                d="M5 16.2 12 19.7 19 16.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
 
       <MapLegend
