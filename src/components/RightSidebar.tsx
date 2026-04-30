@@ -452,7 +452,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
   const hierarchicalStrings = flattenDomainHierarchy(domainHierarchy);
 
   // Get overall resilience score
-  const overallResilienceScore = regionAllMetrics?.overall?.wwri_final_score ?? null;
+  const overallResilienceScore = regionAllMetrics?.wwri?.wwri_final_score ?? null;
   let overallScoreFormatted: number;
   if (overallResilienceScore && overallResilienceScore < 1) {
     overallScoreFormatted = overallResilienceScore * 100;
@@ -612,7 +612,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                 setActiveButton("wwri_final_score");
                 setSelectedIndicator("Overall Resilience");
                 setSelectedMetricIdObject({
-                  domainId: "overall",
+                  domainId: "wwri",
                   metricId: "wwri_final_score",
                   label: "Overall Resilience",
                   description: "Overall wildfire resilience score combining all domains.",

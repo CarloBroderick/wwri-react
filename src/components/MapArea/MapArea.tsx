@@ -678,7 +678,7 @@ const MapArea: React.FC<MapAreaProps> = ({
     
     // Check if we have a custom gradient for the current domain
     const rawKey = selectedMetricIdObject.domainId;
-    const domainKey = (rawKey === "overall" ? "overall_resilience" : rawKey) as DomainKey;
+    const domainKey = (rawKey === "wwri" ? "overall_resilience" : rawKey) as DomainKey;
     if (gradientConfig?.domains[domainKey]) {
       const customConfig = gradientConfig.domains[domainKey];
       startColorRef.current = customConfig.minColor;
@@ -1531,7 +1531,7 @@ const MapArea: React.FC<MapAreaProps> = ({
       // Check if we have a custom gradient config for normalization
       const config = gradientConfigRef.current;
       const rawKey = selectedMetricIdObjectRef.current.domainId;
-      const domainKey = (rawKey === "overall" ? "overall_resilience" : rawKey) as DomainKey;
+      const domainKey = (rawKey === "wwri" ? "overall_resilience" : rawKey) as DomainKey;
       
       if (config?.domains[domainKey]) {
         const customConfig = config.domains[domainKey];
