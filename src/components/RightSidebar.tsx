@@ -119,6 +119,8 @@ interface LayoutProps {
   gradientConfig?: GradientConfig | null;
 }
 
+const TOP_PANEL_FIXED_HEIGHT_CLASS = "h-[126px]";
+
 /**
  * Side-by-Side Layout: Overall and Selected Metric as two circular progress bars
  */
@@ -151,30 +153,28 @@ const SideBySideLayout: React.FC<LayoutProps> = ({
   return (
     <div
       id="top-panel"
-      className="flex min-h-[100px] w-full items-stretch border-b border-gray-200 bg-subheaderBackground"
+      className={`flex w-full items-stretch border-b border-gray-200 bg-subheaderBackground ${TOP_PANEL_FIXED_HEIGHT_CLASS}`}
     >
       {/* Left: Selected Region */}
       <div
         id="selected-region-panel"
-        className="flex flex-1 flex-col justify-center border-r border-gray-200 px-4 py-3"
+        className="flex flex-1 flex-col border-r border-gray-200 px-4 py-3"
       >
-        <h1 className="font-Montserrat text-sm font-bold uppercase tracking-wide text-gray-500">
+        <h1 id="selected-region-panel-header" className="shrink-0 font-Montserrat text-sm font-bold uppercase tracking-wide text-gray-500">
           Selected Region
         </h1>
         {!hasSelection ? (
-          <p className="mt-1 font-Poppins text-base font-normal text-gray-500">
+          <p id="selected-region-panel-empty-state" className="mt-1 flex-1 overflow-y-auto font-Poppins text-base font-normal text-gray-500">
             Click on a region to view data
           </p>
         ) : (
-          <div className="mt-1">
-            <p className="font-Montserrat text-lg font-bold leading-tight text-gray-900">
+          <div id="selected-region-panel-content" className="mt-1 flex-1 overflow-y-auto pr-1">
+            <p id="selected-region-panel-line1" className="font-Montserrat text-lg font-bold leading-tight text-gray-900">
               {displayText?.line1}
             </p>
-            {displayText?.line2 && (
-              <p className="font-Poppins text-base font-normal text-gray-600">
-                {displayText.line2}
-              </p>
-            )}
+            <p id="selected-region-panel-line2" className="mt-[0.15rem] font-Poppins text-base font-normal leading-tight text-gray-600">
+              {displayText?.line2 || "\u00A0"}
+            </p>
           </div>
         )}
       </div>
@@ -247,30 +247,28 @@ const StackedBelowLayout: React.FC<LayoutProps> = ({
   return (
     <div
       id="top-panel"
-      className="flex min-h-[100px] w-full items-stretch border-b border-gray-200 bg-subheaderBackground"
+      className={`flex w-full items-stretch border-b border-gray-200 bg-subheaderBackground ${TOP_PANEL_FIXED_HEIGHT_CLASS}`}
     >
       {/* Left: Selected Region */}
       <div
         id="selected-region-panel"
-        className="flex flex-1 flex-col justify-center px-4 pt-3 pb-2"
+        className="flex flex-1 flex-col px-4 pt-3 pb-2"
       >
-        <h1 className="font-Montserrat text-base font-bold uppercase tracking-wide text-gray-500">
+        <h1 id="selected-region-panel-header" className="shrink-0 font-Montserrat text-base font-bold uppercase tracking-wide text-gray-500">
           Selected Region
         </h1>
         {!hasSelection ? (
-          <p className="mt-1 font-Poppins text-base font-normal text-gray-500">
+          <p id="selected-region-panel-empty-state" className="mt-1 flex-1 overflow-y-auto font-Poppins text-base font-normal text-gray-500">
             Click on a region to view data
           </p>
         ) : (
-          <div className="mt-1">
-            <p className="font-Montserrat text-xl font-bold leading-tight text-gray-900">
+          <div id="selected-region-panel-content" className="mt-1 flex-1 overflow-y-auto pr-1">
+            <p id="selected-region-panel-line1" className="font-Montserrat text-lg font-bold leading-tight text-gray-900">
               {displayText?.line1}
             </p>
-            {displayText?.line2 && (
-              <p className="mt-[0.15rem] font-Poppins text-base font-normal text-gray-600">
-                {displayText.line2}
-              </p>
-            )}
+            <p id="selected-region-panel-line2" className="mt-[0.15rem] font-Poppins text-base font-normal leading-tight text-gray-600">
+              {displayText?.line2 || "\u00A0"}
+            </p>
           </div>
         )}
       </div>
@@ -424,7 +422,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
       {/* ============================================ */}
       <div
         id="indicator-navigation-panel"
-        className="flex min-h-0 flex-col overflow-hidden border-b border-gray-200 px-4 pt-3 pb-2"
+        className="flex min-h-[408px] shrink-0 flex-col overflow-hidden border-b border-gray-200 px-4 pt-3 pb-2"
       >
         <h1
           id="indicator-navigation-header"
@@ -498,7 +496,10 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
         </div>
 
         {/* Domain List - Scrollable */}
-        <div id="domain-list" className="relative mb-1 ml-[0.3rem] max-h-[42vh] overflow-y-auto overflow-x-visible pb-1 pl-[0.2rem] pt-[0.05rem]">
+        <div
+          id="domain-list"
+          className="relative mb-1 ml-[0.3rem] min-h-[413px] flex-1 overflow-y-hidden overflow-x-visible pb-1 pl-[0.2rem] pt-[0.05rem]"
+        >
           {/* Overall Resilience Score */}
           <div className="flex items-center">
             <button
