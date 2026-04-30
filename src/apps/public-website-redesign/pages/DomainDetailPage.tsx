@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import ExploreAnotherDomain from "../components/shared/ExploreAnotherDomain";
 import MeasureSection from "../components/shared/MeasureSection";
@@ -28,6 +29,7 @@ const mainSectionLabelClassName =
 function DomainDetailPage() {
   const { slug } = useParams<{ slug: DomainSlug }>();
   const domain = slug ? DOMAINS_BY_SLUG[slug as DomainSlug] : undefined;
+  const [loadedTopVideoSrc, setLoadedTopVideoSrc] = useState("");
 
   if (!domain) {
     return <Navigate to={REDESIGN_ROUTES.domains} replace />;
@@ -36,6 +38,7 @@ function DomainDetailPage() {
   const isSenseOfPlace = domain.slug === "sense-of-place";
   /** Standard domains share Infrastructure layout: top banner + separate Why it matters (no side hero grid). */
   const useStandardDomainLayout = !isSenseOfPlace;
+  const isTopVideoReady = Boolean(domain.heroVideo) && loadedTopVideoSrc === domain.heroVideo;
 
   return (
     <div
@@ -59,26 +62,58 @@ function DomainDetailPage() {
             </h1>
             <div
               id={`public-website-redesign-domain-${domain.slug}-top-media-frame`}
-              className="mt-4 overflow-hidden rounded-lg"
+              className="relative mt-4 aspect-video overflow-hidden rounded-lg bg-wriCanopy/10"
             >
               {domain.heroVideo ? (
-                <video
-                  id={`public-website-redesign-domain-${domain.slug}-top-media-video`}
-                  src={domain.heroVideo}
-                  poster={domain.hero}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  aria-label={`${domain.label} domain overview video`}
-                  className="h-auto w-full"
-                />
+                <>
+                  {!isTopVideoReady && (
+                    <div
+                      id={`public-website-redesign-domain-${domain.slug}-top-media-loading-state`}
+                      className="absolute inset-0 flex items-center justify-center bg-wriCanopy/10"
+                      aria-live="polite"
+                    >
+                      <div
+                        id={`public-website-redesign-domain-${domain.slug}-top-media-loading-indicator`}
+                        className="flex items-center gap-3 rounded-md bg-white/85 px-4 py-2 text-sm font-medium text-wriForest shadow-sm"
+                      >
+                        <span
+                          id={`public-website-redesign-domain-${domain.slug}-top-media-loading-spinner`}
+                          className="h-4 w-4 animate-spin rounded-full border-2 border-wriSage border-t-transparent"
+                          aria-hidden
+                        />
+                        <span id={`public-website-redesign-domain-${domain.slug}-top-media-loading-label`}>
+                          Loading video...
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <video
+                    key={`public-website-redesign-domain-${domain.slug}-top-media-video`}
+                    id={`public-website-redesign-domain-${domain.slug}-top-media-video`}
+                    src={domain.heroVideo}
+                    poster={domain.hero}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    onCanPlay={() => {
+                      if (domain.heroVideo) {
+                        setLoadedTopVideoSrc(domain.heroVideo);
+                      }
+                    }}
+                    aria-label={`${domain.label} domain overview video`}
+                    className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-200 ${
+                      isTopVideoReady ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                </>
               ) : (
                 <img
                   id={`public-website-redesign-domain-${domain.slug}-top-media-image`}
                   src={domain.hero}
                   alt={`${domain.label} top media`}
-                  className="h-auto w-full"
+                  className="absolute inset-0 h-full w-full object-cover"
                 />
               )}
             </div>
