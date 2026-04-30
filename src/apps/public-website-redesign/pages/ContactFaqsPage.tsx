@@ -9,10 +9,20 @@ import SectionHeader from "../components/shared/SectionHeader";
 function ContactFaqsPage() {
   return (
     <div id="public-website-redesign-contact-faqs-page" className="mx-auto max-w-[1200px] px-6 py-16">
-      <SectionHeader id="public-website-redesign-contact-faqs-heading" eyebrow="FAQs" />
+      <SectionHeader
+        id="public-website-redesign-contact-faqs-heading"
+        eyebrow="Contact"
+        title="Explore the FAQs"
+      />
+      <p
+        id="public-website-redesign-contact-faqs-intro"
+        className="mt-6 max-w-3xl font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
+      >
+        Find quick answers about the Wildfire Resilience Index, data, and how to use the platform.
+      </p>
       <div
         id="public-website-redesign-contact-faqs-image-wrapper"
-        className="mt-10 flex w-full justify-center"
+        className="mt-10 flex w-full justify-start"
       >
         <img
           id="public-website-redesign-contact-faqs-image"

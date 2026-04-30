@@ -38,7 +38,7 @@ export const PRIMARY_NAV: NavItem[] = [
     children: [
       { label: "Meet the Team", to: REDESIGN_ROUTES.contactTeam },
       { label: "Connect with Us", to: REDESIGN_ROUTES.contactConnect },
-      { label: "FAQs", to: REDESIGN_ROUTES.contactFaqs },
+      { label: "Explore the FAQs", to: REDESIGN_ROUTES.contactFaqs },
     ],
   },
 ];
