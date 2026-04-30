@@ -1,4 +1,4 @@
-import SectionHeader from "../components/shared/SectionHeader";
+import MossDivider from "../components/shared/MossDivider";
 
 function ContactConnectPage() {
   return (
@@ -6,11 +6,19 @@ function ContactConnectPage() {
       id="public-website-redesign-contact-connect-page"
       className="mx-auto max-w-[1100px] px-6 py-16"
     >
-      <SectionHeader
-        id="public-website-redesign-contact-connect-heading"
-        eyebrow="Contact"
-        title="Connect with Us"
-      />
+      <header id="public-website-redesign-contact-connect-heading">
+        <h2
+          id="public-website-redesign-contact-connect-heading-title"
+          className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
+        >
+          Connect with Us
+        </h2>
+        <MossDivider
+          id="public-website-redesign-contact-connect-heading-divider"
+          className="my-3"
+          widthClassName="w-16"
+        />
+      </header>
 
       <div
         id="public-website-redesign-contact-connect-card"
