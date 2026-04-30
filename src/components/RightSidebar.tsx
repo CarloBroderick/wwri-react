@@ -11,15 +11,15 @@ import DownArrow from "../assets/DownArrow.svg";
 import RightSideArrow from "../assets/RightSideArrow.svg";
 import SearchIcon from "../assets/SearchIcon.svg";
 import {
-    DomainScores,
-    getDomainNavigationColor,
-    getDomainScoreColor,
-    getOverallNavigationColor,
-    OVERALL_RESILIENCE_END_COLOR,
-    OVERALL_RESILIENCE_START_COLOR,
+  DomainScores,
+  getDomainNavigationColor,
+  getDomainScoreColor,
+  getOverallNavigationColor,
+  OVERALL_RESILIENCE_END_COLOR,
+  OVERALL_RESILIENCE_START_COLOR,
 } from "../utils/domainScoreColors";
 import flattenDomainHierarchy, {
-    IndicatorObject,
+  IndicatorObject,
 } from "../utils/flattenDomainHierarchyForSearch";
 import { Country, RegionAllMetrics, SelectedRegionLayout } from "./App";
 import CircularProgressBar from "./LeftSidebar/CircularProgressBar";
@@ -167,7 +167,7 @@ const SideBySideLayout: React.FC<LayoutProps> = ({
           </p>
         ) : (
           <div className="mt-1">
-            <p className="font-Montserrat text-xl font-bold leading-tight text-gray-900">
+            <p className="font-Montserrat text-lg font-bold leading-tight text-gray-900">
               {displayText?.line1}
             </p>
             {displayText?.line2 && (
@@ -724,14 +724,14 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
       {/* ============================================ */}
       <div
         id="domain-scores-panel"
-        className="flex flex-col items-center overflow-hidden px-4 pt-3 pb-2"
+        className="flex flex-col items-start overflow-hidden px-4 pt-3 pb-2"
       >
         <h1 className="mb-1 w-full font-Montserrat text-base font-bold uppercase tracking-wide text-gray-500">
           Individual Domain Scores
         </h1>
         <div
           id="flower-chart-right-sidebar-wrapper"
-          className="mx-auto w-full max-w-[280px]"
+          className="w-full max-w-[312px]"
         >
           <FlowerChart
             domainScores={domainScores}
@@ -739,6 +739,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
             gradientConfig={gradientConfig}
             chartConfig={flowerChartConfig}
             hasSelectedRegion={hasSelection}
+            alignment="left"
           />
         </div>
       </div>
