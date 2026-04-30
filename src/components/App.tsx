@@ -173,6 +173,7 @@ function App() {
 
   // Dev tools: Flower chart configuration widget
   const [flowerChartConfigOpen, setFlowerChartConfigOpen] = useState(false);
+  const [zoomPanConfigOpen, setZoomPanConfigOpen] = useState(false);
   const [flowerChartConfig, setFlowerChartConfig] = useState<FlowerChartConfig>(() => {
     const saved = localStorage.getItem(FLOWER_CHART_CONFIG_STORAGE_KEY);
     if (saved) {
@@ -375,6 +376,8 @@ function App() {
         onToggleGradientConfig={() => setGradientConfigOpen((prev) => !prev)}
         flowerChartConfigOpen={flowerChartConfigOpen}
         onToggleFlowerChartConfig={() => setFlowerChartConfigOpen((prev) => !prev)}
+        zoomPanConfigOpen={zoomPanConfigOpen}
+        onToggleZoomPanConfig={() => setZoomPanConfigOpen((prev) => !prev)}
         selectedBasemap={selectedBasemap}
         onBasemapChange={setSelectedBasemap}
         labelSource={labelSource}
@@ -440,6 +443,8 @@ function App() {
             selectedBasemap={selectedBasemap}
             labelSource={labelSource}
             selectedProjection={selectedProjection}
+            zoomPanDebugOpen={zoomPanConfigOpen}
+            onCloseZoomPanDebug={() => setZoomPanConfigOpen(false)}
           />
         </div>
         <RightSidebar

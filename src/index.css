@@ -1,6 +1,4 @@
-.maplibregl-ctrl {
-  top: auto !important;
-  bottom: 0rem !important;
-  right: 0rem !important;
-  margin-right: 4px !important;
+.maplibregl-ctrl.maplibregl-ctrl-attrib {
+  margin-left: 4px !important;
+  margin-bottom: 4px !important;
 }

@@ -459,8 +459,8 @@ const Slider: React.FC<{
 const ZoomPanDebugPanel: React.FC<{
   config: ZoomPanConfig;
   onChange: React.Dispatch<React.SetStateAction<ZoomPanConfig>>;
-}> = ({ config, onChange }) => {
-  const [open, setOpen] = useState(false);
+  onClose: () => void;
+}> = ({ config, onChange, onClose }) => {
 
   const setMaxZoom = (level: UnifiedGeoLevel, v: number) =>
     onChange((prev) => ({ ...prev, maxZoom: { ...prev.maxZoom, [level]: v } }));
@@ -473,25 +473,12 @@ const ZoomPanDebugPanel: React.FC<{
 
   const handleReset = () => onChange(DEFAULT_ZOOM_PAN_CONFIG);
 
-  if (!open) {
-    return (
-      <button
-        id="zoom-pan-debug-toggle"
-        onClick={() => setOpen(true)}
-        className="absolute bottom-12 left-3 z-20 rounded-md border border-amber-300 bg-amber-50 px-2 py-1 text-[10px] font-medium text-amber-700 shadow-sm hover:bg-amber-100"
-        title="Zoom/Pan Tuning"
-      >
-        🎚️ Zoom/Pan
-      </button>
-    );
-  }
-
   const GEO_LEVELS: UnifiedGeoLevel[] = ["state", "county", "tract"];
 
   return (
     <div
       id="zoom-pan-debug-panel"
-      className="absolute bottom-12 left-3 z-20 w-72 rounded-lg border border-amber-300 bg-white/95 shadow-lg backdrop-blur-sm"
+      className="absolute right-14 top-12 z-20 w-72 rounded-lg border border-amber-300 bg-white/95 shadow-lg backdrop-blur-sm"
     >
       {/* Header */}
       <div className="flex items-center justify-between border-b border-amber-200 px-3 py-1.5">
@@ -507,7 +494,7 @@ const ZoomPanDebugPanel: React.FC<{
           </button>
           <button
             id="zoom-pan-debug-close"
-            onClick={() => setOpen(false)}
+            onClick={onClose}
             className="rounded px-1.5 py-0.5 text-[10px] text-gray-500 hover:bg-gray-100"
           >
             ✕
@@ -615,6 +602,8 @@ interface MapAreaProps {
   selectedBasemap?: BasemapId;
   labelSource?: LabelSource;
   selectedProjection?: MapProjection;
+  zoomPanDebugOpen?: boolean;
+  onCloseZoomPanDebug?: () => void;
 }
 
 const MapArea: React.FC<MapAreaProps> = ({
@@ -634,6 +623,8 @@ const MapArea: React.FC<MapAreaProps> = ({
   selectedBasemap = DEFAULT_BASEMAP,
   labelSource = DEFAULT_LABEL_SOURCE,
   selectedProjection = DEFAULT_PROJECTION,
+  zoomPanDebugOpen = false,
+  onCloseZoomPanDebug,
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const [geoMetrics, setGeoMetrics] = useState<Record<string, number>>({});
@@ -1619,6 +1610,7 @@ const MapArea: React.FC<MapAreaProps> = ({
       const map = new maplibregl.Map({
         container: mapContainerRef.current,
         style: getBaseMapStyle(selectedBasemapRef.current),
+        attributionControl: false,
         // Center on west coast study region (12 US states + BC + Yukon)
         // Longitude: -143.47°W
         // Latitude: 52.53°N
@@ -1627,6 +1619,10 @@ const MapArea: React.FC<MapAreaProps> = ({
         zoom: 2.9,
       });
       mapRef.current = map;
+
+      // Keep compact attribution in the map's bottom-left corner so the
+      // legend can occupy the bottom-right side without overlap.
+      map.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-left");
 
       map.getCanvas().style.cursor = "pointer";
 
@@ -2197,8 +2193,12 @@ const MapArea: React.FC<MapAreaProps> = ({
       />
 
       {/* Debug overlay: Zoom/Pan tuning (only in DEBUG mode) */}
-      {isDebugMode() && (
-        <ZoomPanDebugPanel config={zoomPanConfig} onChange={setZoomPanConfig} />
+      {isDebugMode() && zoomPanDebugOpen && (
+        <ZoomPanDebugPanel
+          config={zoomPanConfig}
+          onChange={setZoomPanConfig}
+          onClose={onCloseZoomPanDebug ?? (() => {})}
+        />
       )}
 
       <div
