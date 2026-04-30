@@ -25,6 +25,8 @@ interface HeaderProps {
   onToggleGradientConfig?: () => void;
   flowerChartConfigOpen?: boolean;
   onToggleFlowerChartConfig?: () => void;
+  zoomPanConfigOpen?: boolean;
+  onToggleZoomPanConfig?: () => void;
   selectedBasemap?: BasemapId;
   onBasemapChange?: (basemap: BasemapId) => void;
   labelSource?: LabelSource;
@@ -42,6 +44,8 @@ const Header: React.FC<HeaderProps> = ({
   onToggleGradientConfig,
   flowerChartConfigOpen = false,
   onToggleFlowerChartConfig,
+  zoomPanConfigOpen = false,
+  onToggleZoomPanConfig,
   selectedBasemap = "carto-positron",
   onBasemapChange,
   labelSource = "custom",
@@ -123,7 +127,7 @@ const Header: React.FC<HeaderProps> = ({
             id="debug-tools-button"
             onClick={() => setDropdownOpen(!dropdownOpen)}
             className={`flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
-              dropdownOpen || labelConfigOpen || gradientConfigOpen || flowerChartConfigOpen
+              dropdownOpen || labelConfigOpen || gradientConfigOpen || flowerChartConfigOpen || zoomPanConfigOpen
                 ? "border-amber-400 bg-amber-50 text-amber-700"
                 : "border-gray-300 bg-white text-gray-600 hover:bg-gray-50"
             }`}
@@ -221,6 +225,30 @@ const Header: React.FC<HeaderProps> = ({
                   }`}
                 >
                   {flowerChartConfigOpen ? "ON" : "OFF"}
+                </span>
+              </button>
+
+              {/* Zoom/Pan Config toggle */}
+              <button
+                id="toggle-zoom-pan-config"
+                onClick={() => {
+                  onToggleZoomPanConfig?.();
+                  setDropdownOpen(false);
+                }}
+                className="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-gray-50"
+              >
+                <div className="flex items-center gap-2">
+                  <span>🎚️</span>
+                  <span>Zoom/Pan Tuning</span>
+                </div>
+                <span
+                  className={`rounded px-1.5 py-0.5 text-[10px] font-medium ${
+                    zoomPanConfigOpen
+                      ? "bg-green-100 text-green-700"
+                      : "bg-gray-100 text-gray-500"
+                  }`}
+                >
+                  {zoomPanConfigOpen ? "ON" : "OFF"}
                 </span>
               </button>
 
