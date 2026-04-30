@@ -48,29 +48,39 @@ function DomainDetailPage() {
           className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} pt-6 md:pt-8`}
         >
           <div
-            id={`public-website-redesign-domain-${domain.slug}-top-media-frame`}
-            className={`relative ${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} overflow-hidden rounded-lg`}
+            id={`public-website-redesign-domain-${domain.slug}-top-media-content`}
+            className={DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME}
           >
-            <img
-              id={`public-website-redesign-domain-${domain.slug}-top-media-image`}
-              src={domain.hero}
-              alt={`${domain.label} top media`}
-              className="h-[140px] w-full object-cover md:h-[180px]"
-            />
-            <div
-              id={`public-website-redesign-domain-${domain.slug}-top-media-scrim`}
-              className="absolute inset-0 bg-black/20"
-            />
-            <div
-              id={`public-website-redesign-domain-${domain.slug}-top-media-title-wrapper`}
-              className="absolute inset-x-6 top-1/2 -translate-y-1/2 md:inset-x-12"
+            <h1
+              id={`public-website-redesign-domain-${domain.slug}-top-media-title`}
+              className="text-left font-Poppins text-[clamp(2.25rem,5vw,4rem)] font-semibold leading-none text-wriForest"
             >
-              <h2
-                id={`public-website-redesign-domain-${domain.slug}-top-media-title`}
-                className="inline-block rounded-md bg-white/70 px-5 py-2 font-Poppins text-[clamp(2rem,5vw,4rem)] font-semibold leading-none text-wriForest backdrop-blur-[1px]"
-              >
-                {domain.label}
-              </h2>
+              {domain.label}
+            </h1>
+            <div
+              id={`public-website-redesign-domain-${domain.slug}-top-media-frame`}
+              className="mt-4 overflow-hidden rounded-lg"
+            >
+              {domain.heroVideo ? (
+                <video
+                  id={`public-website-redesign-domain-${domain.slug}-top-media-video`}
+                  src={domain.heroVideo}
+                  poster={domain.hero}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  aria-label={`${domain.label} domain overview video`}
+                  className="h-auto w-full"
+                />
+              ) : (
+                <img
+                  id={`public-website-redesign-domain-${domain.slug}-top-media-image`}
+                  src={domain.hero}
+                  alt={`${domain.label} top media`}
+                  className="h-auto w-full"
+                />
+              )}
             </div>
           </div>
         </section>
@@ -155,8 +165,8 @@ function DomainDetailPage() {
                 id={`public-website-redesign-domain-${domain.slug}-why-copy`}
                 className={
                   useStandardDomainLayout
-                    ? "max-w-prose font-Poppins text-[clamp(15px,1.05vw,17px)] leading-[1.45] text-wriCanopy"
-                    : "max-w-prose font-Poppins text-[clamp(17px,1.55vw,21px)] leading-relaxed text-wriCanopy"
+                    ? "max-w-prose font-Poppins text-[19px] leading-[1.45] text-wriCanopy"
+                    : "max-w-prose font-Poppins text-[19px] leading-[1.45] text-wriCanopy"
                 }
               >
                 {renderBoldText(domain.whyItMatters)}
