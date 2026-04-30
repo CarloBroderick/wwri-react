@@ -72,7 +72,6 @@ function HomePage() {
           />
         </div>
       </section>
-
     </div>
   );
 }
