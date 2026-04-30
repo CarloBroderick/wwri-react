@@ -126,7 +126,11 @@ function DomainDetailPage() {
           </div>
           <div
             id={`public-website-redesign-domain-${domain.slug}-why-content`}
-            className="mt-4 flex items-start gap-4 md:mt-5 md:gap-5"
+            className={
+              isInfrastructure
+                ? "mt-4 flex items-start gap-3 md:mt-5 md:gap-4"
+                : "mt-4 flex items-start gap-4 md:mt-5 md:gap-5"
+            }
           >
             <img
               id={`public-website-redesign-domain-${domain.slug}-why-icon`}
@@ -136,11 +140,19 @@ function DomainDetailPage() {
             />
             <div
               id={`public-website-redesign-domain-${domain.slug}-why-copy-wrapper`}
-              className="flex min-h-20 items-center md:min-h-24"
+              className={
+                isInfrastructure
+                  ? "flex items-start pt-0.5"
+                  : "flex min-h-20 items-center md:min-h-24"
+              }
             >
               <p
                 id={`public-website-redesign-domain-${domain.slug}-why-copy`}
-                className="max-w-prose font-Poppins text-[clamp(17px,1.55vw,21px)] leading-relaxed text-wriCanopy"
+                className={
+                  isInfrastructure
+                    ? "max-w-prose font-Poppins text-[clamp(15px,1.05vw,17px)] leading-[1.45] text-wriCanopy"
+                    : "max-w-prose font-Poppins text-[clamp(17px,1.55vw,21px)] leading-relaxed text-wriCanopy"
+                }
               >
                 {renderBoldText(domain.whyItMatters)}
               </p>

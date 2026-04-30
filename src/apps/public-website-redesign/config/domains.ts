@@ -131,10 +131,9 @@ export const DOMAINS: Domain[] = [
     whyItMatters:
       "**Infrastructure** forms the foundation of communities—shaping where we live, work, and interact. Buildings and other structures provide shelter, safety, and access to essential resources.",
     status: {
-      title: "Status N/A",
+      title: "Status",
       description:
-        "This **domain** does not assess status, as there is no single “ideal” amount or distribution of infrastructure. Instead, it evaluates where structures are.",
-      statusLabel: "N/A",
+        "This domain does **not** assess status, as there is no single “ideal” amount or distribution of infrastructure. Instead, it evaluates where structures are.",
       photo: infrastructureHim1,
     },
     resistance: {
@@ -169,10 +168,9 @@ export const DOMAINS: Domain[] = [
     whyItMatters:
       "**Communities** are shaped by social, cultural, and geographic connections that influence how people prepare for, respond to, and recover from wildfire.",
     status: {
-      title: "Status N/A",
+      title: "Status",
       description:
         "This **domain** does not assess status, and instead focuses on where people and communities are located.",
-      statusLabel: "N/A",
       photo: communitiesHim1,
     },
     resistance: {
@@ -245,10 +243,9 @@ export const DOMAINS: Domain[] = [
     whyItMatters:
       "**Sense of Place** encompasses the cultural, spiritual, and aesthetic connections people have to landscapes. These connections can be shaped by the presence of distinctive species or the character of the landscape itself. Wildfire can reshape both landscapes and the meanings people attach to them. Therefore this domain considers iconic places and iconic species that hold special significance to people.",
     status: {
-      title: "Status N/A",
+      title: "Status",
       description:
         "This **domain** does not assess status, as there is no single way to define an “ideal” special place. Instead, they are evaluated by their physical presence.",
-      statusLabel: "N/A",
       photo: sopIpHim1,
     },
     resistance: {
@@ -432,10 +429,9 @@ export const DOMAINS: Domain[] = [
       },
     },
     recovery: {
-      title: "Recovery N/A",
+      title: "Recovery",
       description:
         "Not included due to limited data on post-wildfire recovery processes.",
-      statusLabel: "N/A",
       photo: waterHim3,
     },
   },
@@ -469,10 +465,9 @@ export const DOMAINS: Domain[] = [
       },
     },
     recovery: {
-      title: "Recovery N/A",
+      title: "Recovery",
       description:
         "Not included due to limited data linking recovery to long-term health outcomes.",
-      statusLabel: "N/A",
       photo: airHim3,
     },
   },
