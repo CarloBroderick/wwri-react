@@ -16,11 +16,11 @@ function RedesignLayout() {
   return (
     <div
       id="public-website-redesign-layout"
-      className="min-h-screen bg-wriSmokeFog font-Poppins text-wriCanopy"
+      className="flex min-h-screen flex-col bg-wriSmokeFog font-Poppins text-wriCanopy"
     >
       <ScrollToTop />
       <SiteHeader />
-      <main id="public-website-redesign-main">
+      <main id="public-website-redesign-main" className="flex-1">
         <Outlet />
       </main>
       <SiteFooter />
