@@ -2008,11 +2008,33 @@ const MapArea: React.FC<MapAreaProps> = ({
             ? getRegionAbbreviation(location.region)
             : "";
 
-          const color: string = getColor(
-            startColorRef.current,
-            endColorRef.current,
-            metric,
-          );
+          // Prefer the already-applied feature-state color so tooltip swatch always
+          // matches the polygon fill exactly (including custom range normalization).
+          const featureRef = feature.id !== undefined
+            ? {
+                source: isCanada ? "canada-tiles" : "us-tiles",
+                sourceLayer: config.sourceLayer,
+                id: feature.id,
+              }
+            : null;
+          const featureState = featureRef ? map.getFeatureState(featureRef) : null;
+          const fallbackColor = (() => {
+            if (metric === undefined) return "#D3D3D3";
+            const config = gradientConfigRef.current;
+            const rawKey = selectedMetricIdObjectRef.current.domainId;
+            const domainKey = (rawKey === "wwri" ? "overall_resilience" : rawKey) as DomainKey;
+            if (config?.domains[domainKey]) {
+              const customConfig = config.domains[domainKey];
+              const normalizedMetric = normalizeScoreWithRange(
+                metric,
+                customConfig.minValue,
+                customConfig.maxValue,
+              );
+              return getColor(customConfig.minColor, customConfig.maxColor, normalizedMetric);
+            }
+            return getColor(startColorRef.current, endColorRef.current, metric);
+          })();
+          const color: string = featureState?.color ?? fallbackColor;
 
           // Show geographic level type in tooltip (e.g., "Census Tract" or "Census Subdivision")
           const geoLevelDisplay = config.displayName;
@@ -2114,6 +2136,14 @@ const MapArea: React.FC<MapAreaProps> = ({
     }
   };
 
+  const selectedDomainKey = (
+    selectedMetricIdObject.domainId === "wwri"
+      ? "overall_resilience"
+      : selectedMetricIdObject.domainId
+  ) as DomainKey;
+  const legendMinValue = gradientConfig?.domains[selectedDomainKey]?.minValue ?? 0;
+  const legendMaxValue = gradientConfig?.domains[selectedDomainKey]?.maxValue ?? 100;
+
   return (
     <div id="map-area" className="relative h-full w-full">
       {/* Geographic Level Selector - positioned at top-left over the map */}
@@ -2188,8 +2218,8 @@ const MapArea: React.FC<MapAreaProps> = ({
         startColor={startColorRef.current}
         endColor={endColorRef.current}
         label={selectedMetricIdObject.label}
-        minValue={0}
-        maxValue={100}
+        minValue={legendMinValue}
+        maxValue={legendMaxValue}
       />
 
       {/* Debug overlay: Zoom/Pan tuning (only in DEBUG mode) */}

@@ -69,9 +69,9 @@ const WHITE: Rgb = { r: 255, g: 255, b: 255 };
 
 /**
  * Default gradient configuration.
- * - All domains use 55-90 range (per meeting notes)
+ * - All domains use 0-100 range
  * - Min color is white, max color is brand color
- * - Overall Resilience uses the original off-white → near-black gradient
+ * - Overall Resilience uses a tighter 65-85 range and pale yellow → deep red gradient
  */
 export const DEFAULT_GRADIENT_CONFIG: GradientConfig = {
   configName: "default",
@@ -80,74 +80,74 @@ export const DEFAULT_GRADIENT_CONFIG: GradientConfig = {
     infrastructure: {
       displayName: "Infrastructure",
       apiKey: "infrastructure",
-      minValue: 55,
+      minValue: 0,
       minColor: { ...WHITE },
-      maxValue: 90,
+      maxValue: 100,
       maxColor: { r: 171, g: 16, b: 78 }, // #ab104e
     },
     communities: {
       displayName: "Communities",
       apiKey: "communities",
-      minValue: 55,
+      minValue: 0,
       minColor: { ...WHITE },
-      maxValue: 90,
+      maxValue: 100,
       maxColor: { r: 225, g: 107, b: 93 }, // #e16b5d
     },
     livelihoods: {
       displayName: "Livelihoods",
       apiKey: "livelihoods",
-      minValue: 55,
+      minValue: 0,
       minColor: { ...WHITE },
-      maxValue: 90,
+      maxValue: 100,
       maxColor: { r: 249, g: 178, b: 103 }, // #f9b267
     },
     sense_of_place: {
       displayName: "Sense of Place",
       apiKey: "sense_of_place",
-      minValue: 55,
+      minValue: 0,
       minColor: { ...WHITE },
-      maxValue: 90,
+      maxValue: 100,
       maxColor: { r: 125, g: 200, b: 165 }, // #7dc8a5
     },
     biodiversity: {
       displayName: "Species",
       apiKey: "biodiversity",
-      minValue: 55,
+      minValue: 0,
       minColor: { ...WHITE },
-      maxValue: 90,
+      maxValue: 100,
       maxColor: { r: 109, g: 169, b: 147 }, // #6da993
     },
     natural_habitats: {
       displayName: "Habitats",
       apiKey: "natural_habitats",
-      minValue: 55,
+      minValue: 0,
       minColor: { ...WHITE },
-      maxValue: 90,
+      maxValue: 100,
       maxColor: { r: 54, g: 114, b: 111 }, // #36726f
     },
     water: {
       displayName: "Water",
       apiKey: "water",
-      minValue: 55,
+      minValue: 0,
       minColor: { ...WHITE },
-      maxValue: 90,
+      maxValue: 100,
       maxColor: { r: 65, g: 110, b: 146 }, // #416e92
     },
     air_quality: {
       displayName: "Air Quality",
       apiKey: "air_quality",
-      minValue: 55,
+      minValue: 0,
       minColor: { ...WHITE },
-      maxValue: 90,
+      maxValue: 100,
       maxColor: { r: 70, g: 69, b: 85 }, // #464555
     },
     overall_resilience: {
       displayName: "Overall Resilience",
       apiKey: "overall_resilience",
-      minValue: 55,
-      minColor: { r: 249, g: 248, b: 235 }, // #f9f8eb
-      maxValue: 90,
-      maxColor: { r: 26, g: 4, b: 8 }, // #1a0408
+      minValue: 65,
+      minColor: { r: 253, g: 249, b: 196 }, // #fdf9c4
+      maxValue: 85,
+      maxColor: { r: 146, g: 28, b: 42 }, // #921c2a
     },
   },
 };

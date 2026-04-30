@@ -13,6 +13,7 @@ import SearchIcon from "../assets/SearchIcon.svg";
 import {
   DomainScores,
   getDomainNavigationColor,
+  getOverallScoreColor,
   getDomainScoreColor,
   getOverallNavigationColor,
   OVERALL_RESILIENCE_END_COLOR,
@@ -97,14 +98,6 @@ function buildRegionDisplayText(
     default:
       return { line1: geoId };
   }
-}
-
-/**
- * Truncates text with ellipsis if it exceeds maxLength
- */
-function truncateText(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength - 1) + "…";
 }
 
 /**
@@ -273,10 +266,9 @@ const SideBySideLayout: React.FC<LayoutProps> = ({
     ? rgbToHex(selectedMetricIdObject.colorGradient.endColor)
     : undefined;
 
-  // Truncate label for display (max ~18 chars to fit in wider column)
+  const overallFullSaturationColor = getOverallNavigationColor(gradientConfig);
+
   const metricLabel = selectedMetricIdObject?.label || "Selected Metric";
-  const truncatedLabel = truncateText(metricLabel, 18);
-  const needsTooltip = metricLabel.length > 18;
 
   return (
     <div
@@ -307,6 +299,7 @@ const SideBySideLayout: React.FC<LayoutProps> = ({
           percentage={overallScoreFormatted}
           gradientConfig={gradientConfig}
           size="xsmall"
+          overrideColor={overallFullSaturationColor}
         />
       </div>
 
@@ -314,13 +307,11 @@ const SideBySideLayout: React.FC<LayoutProps> = ({
       <div
         id="selected-metric-panel"
         className="flex w-[130px] flex-col items-center justify-center px-2 py-1.5"
-        title={needsTooltip ? metricLabel : undefined}
       >
         <span 
-          className="mb-1 max-w-[120px] truncate text-center text-xs font-semibold uppercase tracking-wide text-gray-500"
-          title={needsTooltip ? metricLabel : undefined}
+          className="mb-1 max-w-[120px] whitespace-normal break-words text-center text-xs font-semibold uppercase leading-tight tracking-wide text-gray-500"
         >
-          {truncatedLabel}
+          {metricLabel}
         </span>
         <CircularProgressBar
           percentage={hasSelection ? metricValueFormatted : 0}
@@ -358,7 +349,6 @@ const StackedBelowLayout: React.FC<LayoutProps> = ({
     : undefined;
 
   const metricLabel = selectedMetricIdObject?.label || "Selected Metric";
-  const needsTooltip = metricLabel.length > 24;
 
   return (
     <div
@@ -381,11 +371,9 @@ const StackedBelowLayout: React.FC<LayoutProps> = ({
       <div
         id="selected-metric-panel"
         className="flex w-[110px] flex-col items-center px-2 py-1.5"
-        title={needsTooltip ? metricLabel : undefined}
       >
         <span
-          className="mb-1 flex h-[20px] max-w-[100px] items-center justify-center overflow-hidden text-center text-[10px] leading-tight font-semibold uppercase tracking-wide text-gray-500"
-          title={needsTooltip ? metricLabel : undefined}
+          className="mb-1 max-w-[100px] whitespace-normal break-words text-center text-[10px] leading-tight font-semibold uppercase tracking-wide text-gray-500"
         >
           {metricLabel}
         </span>
@@ -628,7 +616,9 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                   : "border-metricSelectorBoxesBorderDefault"
               }`}
               style={{
-                backgroundColor: getOverallNavigationColor(gradientConfig),
+                backgroundColor: overallResilienceScore !== null
+                  ? getOverallScoreColor(overallResilienceScore, gradientConfig)
+                  : getOverallNavigationColor(gradientConfig),
               }}
             />
             <span className="font-bold">Overall Resilience</span>
