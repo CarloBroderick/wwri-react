@@ -1,7 +1,12 @@
+import { useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import ExploreAnotherDomain from "../components/shared/ExploreAnotherDomain";
 import MeasureSection from "../components/shared/MeasureSection";
 import MossDivider from "../components/shared/MossDivider";
+import {
+  DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME,
+  DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME,
+} from "../layout/domainDetailPage";
 import {
   DOMAINS_BY_SLUG,
   senseOfPlaceIconicPlacesHero,
@@ -24,63 +29,108 @@ const mainSectionLabelClassName =
 function DomainDetailPage() {
   const { slug } = useParams<{ slug: DomainSlug }>();
   const domain = slug ? DOMAINS_BY_SLUG[slug as DomainSlug] : undefined;
+  const [loadedTopVideoSrc, setLoadedTopVideoSrc] = useState("");
 
   if (!domain) {
     return <Navigate to={REDESIGN_ROUTES.domains} replace />;
   }
 
   const isSenseOfPlace = domain.slug === "sense-of-place";
-  const isInfrastructure = domain.slug === "infrastructure";
+  /** Standard domains share Infrastructure layout: top banner + separate Why it matters (no side hero grid). */
+  const useStandardDomainLayout = !isSenseOfPlace;
+  const isTopVideoReady = Boolean(domain.heroVideo) && loadedTopVideoSrc === domain.heroVideo;
 
   return (
     <div
       id={`public-website-redesign-domain-${domain.slug}-page`}
       className="pb-16"
     >
-      {isInfrastructure && (
+      {useStandardDomainLayout && (
         <section
           id={`public-website-redesign-domain-${domain.slug}-top-media`}
-          className="mx-auto max-w-[1400px] px-6 pt-6 md:pt-8"
+          className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} pt-6 md:pt-8`}
         >
           <div
-            id={`public-website-redesign-domain-${domain.slug}-top-media-frame`}
-            className="relative max-w-[760px] overflow-hidden rounded-lg"
+            id={`public-website-redesign-domain-${domain.slug}-top-media-content`}
+            className={DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME}
           >
-            <img
-              id={`public-website-redesign-domain-${domain.slug}-top-media-image`}
-              src={domain.hero}
-              alt={`${domain.label} top media`}
-              className="h-[140px] w-full object-cover md:h-[180px]"
-            />
-            <div
-              id={`public-website-redesign-domain-${domain.slug}-top-media-scrim`}
-              className="absolute inset-0 bg-black/20"
-            />
-            <div
-              id={`public-website-redesign-domain-${domain.slug}-top-media-title-wrapper`}
-              className="absolute inset-x-6 top-1/2 -translate-y-1/2 md:inset-x-12"
+            <h1
+              id={`public-website-redesign-domain-${domain.slug}-top-media-title`}
+              className="text-left font-Poppins text-[clamp(2.25rem,5vw,4rem)] font-semibold leading-none text-wriForest"
             >
-              <h2
-                id={`public-website-redesign-domain-${domain.slug}-top-media-title`}
-                className="inline-block rounded-md bg-white/70 px-5 py-2 font-Poppins text-[clamp(2rem,5vw,4rem)] font-semibold leading-none text-wriForest backdrop-blur-[1px]"
-              >
-                {domain.label}
-              </h2>
+              {domain.label}
+            </h1>
+            <div
+              id={`public-website-redesign-domain-${domain.slug}-top-media-frame`}
+              className="relative mt-4 aspect-video overflow-hidden rounded-lg bg-wriCanopy/10"
+            >
+              {domain.heroVideo ? (
+                <>
+                  {!isTopVideoReady && (
+                    <div
+                      id={`public-website-redesign-domain-${domain.slug}-top-media-loading-state`}
+                      className="absolute inset-0 flex items-center justify-center bg-wriCanopy/10"
+                      aria-live="polite"
+                    >
+                      <div
+                        id={`public-website-redesign-domain-${domain.slug}-top-media-loading-indicator`}
+                        className="flex items-center gap-3 rounded-md bg-white/85 px-4 py-2 text-sm font-medium text-wriForest shadow-sm"
+                      >
+                        <span
+                          id={`public-website-redesign-domain-${domain.slug}-top-media-loading-spinner`}
+                          className="h-4 w-4 animate-spin rounded-full border-2 border-wriSage border-t-transparent"
+                          aria-hidden
+                        />
+                        <span id={`public-website-redesign-domain-${domain.slug}-top-media-loading-label`}>
+                          Loading video...
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <video
+                    key={`public-website-redesign-domain-${domain.slug}-top-media-video`}
+                    id={`public-website-redesign-domain-${domain.slug}-top-media-video`}
+                    src={domain.heroVideo}
+                    poster={domain.hero}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    onCanPlay={() => {
+                      if (domain.heroVideo) {
+                        setLoadedTopVideoSrc(domain.heroVideo);
+                      }
+                    }}
+                    aria-label={`${domain.label} domain overview video`}
+                    className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-200 ${
+                      isTopVideoReady ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                </>
+              ) : (
+                <img
+                  id={`public-website-redesign-domain-${domain.slug}-top-media-image`}
+                  src={domain.hero}
+                  alt={`${domain.label} top media`}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              )}
             </div>
           </div>
         </section>
       )}
 
-      {/* ===== Why it matters hero row =============================== */}
+      {/* ===== Why it matters (standard domains: banner title above; Sense of Place: grid + inline title) */}
       <section
         id={`public-website-redesign-domain-${domain.slug}-hero`}
         className={
-          isInfrastructure
-            ? "mx-auto max-w-[1400px] px-6 pt-6 md:pt-8"
-            : "mx-auto grid max-w-[1200px] grid-cols-1 gap-0 px-0 md:grid-cols-[minmax(260px,420px)_minmax(0,1fr)] md:items-start md:gap-10 md:px-6 md:pt-10"
+          useStandardDomainLayout
+            ? `${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} pt-6 md:pt-8`
+            : "mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-0 px-0 md:grid-cols-[minmax(260px,420px)_minmax(0,1fr)] md:items-start md:gap-10 md:px-6 md:pt-10"
         }
       >
-        {!isInfrastructure && (
+        {!useStandardDomainLayout && (
           <img
             id={`public-website-redesign-domain-${domain.slug}-hero-photo`}
             src={domain.hero}
@@ -91,13 +141,13 @@ function DomainDetailPage() {
         <div
           id={`public-website-redesign-domain-${domain.slug}-hero-body`}
           className={
-            isInfrastructure
-              ? "max-w-[760px] py-6 md:py-8"
+            useStandardDomainLayout
+              ? `${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} py-6 md:py-8`
               : "px-6 py-8 md:px-0 md:py-0"
           }
         >
           <div id={`public-website-redesign-domain-${domain.slug}-hero-header`}>
-            {!isInfrastructure && (
+            {!useStandardDomainLayout && (
               <>
                 <h1
                   id={`public-website-redesign-domain-${domain.slug}-title`}
@@ -126,7 +176,11 @@ function DomainDetailPage() {
           </div>
           <div
             id={`public-website-redesign-domain-${domain.slug}-why-content`}
-            className="mt-4 flex items-start gap-4 md:mt-5 md:gap-5"
+            className={
+              useStandardDomainLayout
+                ? "mt-4 flex items-start gap-3 md:mt-5 md:gap-4"
+                : "mt-4 flex items-start gap-4 md:mt-5 md:gap-5"
+            }
           >
             <img
               id={`public-website-redesign-domain-${domain.slug}-why-icon`}
@@ -136,11 +190,19 @@ function DomainDetailPage() {
             />
             <div
               id={`public-website-redesign-domain-${domain.slug}-why-copy-wrapper`}
-              className="flex min-h-20 items-center md:min-h-24"
+              className={
+                useStandardDomainLayout
+                  ? "flex items-start pt-0.5"
+                  : "flex min-h-20 items-center md:min-h-24"
+              }
             >
               <p
                 id={`public-website-redesign-domain-${domain.slug}-why-copy`}
-                className="max-w-prose font-Poppins text-[clamp(17px,1.55vw,21px)] leading-relaxed text-wriCanopy"
+                className={
+                  useStandardDomainLayout
+                    ? "max-w-prose font-Poppins text-[19px] leading-[1.45] text-wriCanopy"
+                    : "max-w-prose font-Poppins text-[19px] leading-[1.45] text-wriCanopy"
+                }
               >
                 {renderBoldText(domain.whyItMatters)}
               </p>
@@ -153,13 +215,11 @@ function DomainDetailPage() {
       {!isSenseOfPlace && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-measures`}
-          className={`mx-auto mt-14 px-6 ${isInfrastructure ? "max-w-[1400px]" : "max-w-[1200px]"}`}
+          className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} mt-14`}
         >
           <div
             id={`public-website-redesign-domain-${domain.slug}-measures-inner`}
-            className={
-              isInfrastructure ? "max-w-[760px] space-y-14" : "space-y-14"
-            }
+            className={`flex ${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} flex-col gap-8`}
           >
             <div
               id={`public-website-redesign-domain-${domain.slug}-measured-heading`}
@@ -176,18 +236,23 @@ function DomainDetailPage() {
                 widthClassName="w-14"
               />
             </div>
-            <MeasureSection
-              id={`public-website-redesign-domain-${domain.slug}-status`}
-              section={domain.status}
-            />
-            <MeasureSection
-              id={`public-website-redesign-domain-${domain.slug}-resistance`}
-              section={domain.resistance}
-            />
-            <MeasureSection
-              id={`public-website-redesign-domain-${domain.slug}-recovery`}
-              section={domain.recovery}
-            />
+            <div
+              id={`public-website-redesign-domain-${domain.slug}-measure-cards`}
+              className="flex flex-col gap-14"
+            >
+              <MeasureSection
+                id={`public-website-redesign-domain-${domain.slug}-status`}
+                section={domain.status}
+              />
+              <MeasureSection
+                id={`public-website-redesign-domain-${domain.slug}-resistance`}
+                section={domain.resistance}
+              />
+              <MeasureSection
+                id={`public-website-redesign-domain-${domain.slug}-recovery`}
+                section={domain.recovery}
+              />
+            </div>
           </div>
         </div>
       )}
@@ -196,7 +261,7 @@ function DomainDetailPage() {
       {isSenseOfPlace && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-iconic-places`}
-          className="mx-auto mt-14 max-w-[1200px] space-y-14 px-6 md:pl-24"
+          className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} mt-14 flex flex-col gap-14`}
         >
           <section
             id={`public-website-redesign-domain-${domain.slug}-ip-intro`}
@@ -237,30 +302,35 @@ function DomainDetailPage() {
               </p>
             </div>
           </section>
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-ip-status`}
-            section={domain.status}
-            overline="Iconic Places"
-            measureLabel={
-              <>
-                How it’s
-                <br />
-                measured
-              </>
-            }
-          />
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-ip-resistance`}
-            section={domain.resistance}
-            overline="Iconic Places"
-            photoAspectClassName="aspect-[2/1]"
-          />
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-ip-recovery`}
-            section={domain.recovery}
-            overline="Iconic Places"
-            photoAspectClassName="aspect-[2/1]"
-          />
+          <div
+            id={`public-website-redesign-domain-${domain.slug}-ip-measure-cards`}
+            className="flex flex-col gap-14"
+          >
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-ip-status`}
+              section={domain.status}
+              overline="Iconic Places"
+              measureLabel={
+                <>
+                  How it’s
+                  <br />
+                  measured
+                </>
+              }
+            />
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-ip-resistance`}
+              section={domain.resistance}
+              overline="Iconic Places"
+              photoAspectClassName="aspect-[2/1]"
+            />
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-ip-recovery`}
+              section={domain.recovery}
+              overline="Iconic Places"
+              photoAspectClassName="aspect-[2/1]"
+            />
+          </div>
         </div>
       )}
 
@@ -268,7 +338,7 @@ function DomainDetailPage() {
       {isSenseOfPlace && domain.extra && (
         <div
           id={`public-website-redesign-domain-${domain.slug}-iconic-species`}
-          className="mx-auto mt-20 max-w-[1200px] space-y-14 px-6 md:pl-24"
+          className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} mt-20 flex flex-col gap-14`}
         >
           <section
             id={`public-website-redesign-domain-${domain.slug}-is-intro`}
@@ -303,28 +373,33 @@ function DomainDetailPage() {
               <p>{domain.extra.whyItMatters}</p>
             </div>
           </section>
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-is-status`}
-            section={domain.extra.status}
-            overline="Iconic Species"
-            measureLabel={
-              <>
-                How it’s
-                <br />
-                measured
-              </>
-            }
-          />
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-is-resistance`}
-            section={domain.extra.resistance}
-            overline="Iconic Species"
-          />
-          <MeasureSection
-            id={`public-website-redesign-domain-${domain.slug}-is-recovery`}
-            section={domain.extra.recovery}
-            overline="Iconic Species"
-          />
+          <div
+            id={`public-website-redesign-domain-${domain.slug}-is-measure-cards`}
+            className="flex flex-col gap-14"
+          >
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-is-status`}
+              section={domain.extra.status}
+              overline="Iconic Species"
+              measureLabel={
+                <>
+                  How it’s
+                  <br />
+                  measured
+                </>
+              }
+            />
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-is-resistance`}
+              section={domain.extra.resistance}
+              overline="Iconic Species"
+            />
+            <MeasureSection
+              id={`public-website-redesign-domain-${domain.slug}-is-recovery`}
+              section={domain.extra.recovery}
+              overline="Iconic Species"
+            />
+          </div>
         </div>
       )}
 

@@ -9,6 +9,14 @@ import speciesHero from "../../../assets/public-website-redesign/images/domains/
 import habitatsHero from "../../../assets/public-website-redesign/images/domains/habitats/wim.png";
 import waterHero from "../../../assets/public-website-redesign/images/domains/water/wim.png";
 import airHero from "../../../assets/public-website-redesign/images/domains/air/wim.png";
+import infrastructureHeroVideo from "../../../assets/public-website-redesign/videos/infrastructure.mp4";
+import communitiesHeroVideo from "../../../assets/public-website-redesign/videos/communities.mp4";
+import livelihoodsHeroVideo from "../../../assets/public-website-redesign/videos/livelihoods.mp4";
+import senseOfPlaceHeroVideo from "../../../assets/public-website-redesign/videos/sense-of-place.mp4";
+import speciesHeroVideo from "../../../assets/public-website-redesign/videos/species.mp4";
+import habitatsHeroVideo from "../../../assets/public-website-redesign/videos/habitats.mp4";
+import waterHeroVideo from "../../../assets/public-website-redesign/videos/water.mp4";
+import airHeroVideo from "../../../assets/public-website-redesign/videos/air.mp4";
 
 // --- HIM ("horizontal image matters") photos for each measured row --------
 import infrastructureHim1 from "../../../assets/public-website-redesign/images/domains/infrastructure/him/him-1.png";
@@ -98,6 +106,8 @@ export type Domain = {
   /** Brand color pulled from the Canva palette — retained for accents/divider fallbacks. */
   color: string;
   hero: string;
+  /** Optional domain-level hero video (used on the top media section). */
+  heroVideo?: string;
   /** Full-color square PNG used in nav/tile grids. */
   tile: string;
   /** Dimmed (grey/washed) square PNG used for the current-domain slot on detail pages. */
@@ -125,16 +135,16 @@ export const DOMAINS: Domain[] = [
     label: "Infrastructure",
     color: "#b0335a",
     hero: infrastructureHero,
+    heroVideo: infrastructureHeroVideo,
     tile: infrastructureTile,
     tileDim: infrastructureTileDim,
     iconNoText: infrastructureIconNoText,
     whyItMatters:
       "**Infrastructure** forms the foundation of communities—shaping where we live, work, and interact. Buildings and other structures provide shelter, safety, and access to essential resources.",
     status: {
-      title: "Status N/A",
+      title: "Status",
       description:
-        "This **domain** does not assess status, as there is no single “ideal” amount or distribution of infrastructure. Instead, it evaluates where structures are.",
-      statusLabel: "N/A",
+        "This domain does **not** assess status, as there is no single “ideal” amount or distribution of infrastructure. Instead, it evaluates where structures are.",
       photo: infrastructureHim1,
     },
     resistance: {
@@ -163,16 +173,16 @@ export const DOMAINS: Domain[] = [
     label: "Communities",
     color: "#e47a68",
     hero: communitiesHero,
+    heroVideo: communitiesHeroVideo,
     tile: communitiesTile,
     tileDim: communitiesTileDim,
     iconNoText: communitiesIconNoText,
     whyItMatters:
       "**Communities** are shaped by social, cultural, and geographic connections that influence how people prepare for, respond to, and recover from wildfire.",
     status: {
-      title: "Status N/A",
+      title: "Status",
       description:
         "This **domain** does not assess status, and instead focuses on where people and communities are located.",
-      statusLabel: "N/A",
       photo: communitiesHim1,
     },
     resistance: {
@@ -201,6 +211,7 @@ export const DOMAINS: Domain[] = [
     label: "Livelihoods",
     color: "#f0a85d",
     hero: livelihoodsHero,
+    heroVideo: livelihoodsHeroVideo,
     tile: livelihoodsTile,
     tileDim: livelihoodsTileDim,
     iconNoText: livelihoodsIconNoText,
@@ -239,16 +250,16 @@ export const DOMAINS: Domain[] = [
     label: "Sense of Place",
     color: "#8cd2b2",
     hero: senseOfPlaceHero,
+    heroVideo: senseOfPlaceHeroVideo,
     tile: senseOfPlaceTile,
     tileDim: senseOfPlaceTileDim,
     iconNoText: senseOfPlaceIconNoText,
     whyItMatters:
       "**Sense of Place** encompasses the cultural, spiritual, and aesthetic connections people have to landscapes. These connections can be shaped by the presence of distinctive species or the character of the landscape itself. Wildfire can reshape both landscapes and the meanings people attach to them. Therefore this domain considers iconic places and iconic species that hold special significance to people.",
     status: {
-      title: "Status N/A",
+      title: "Status",
       description:
         "This **domain** does not assess status, as there is no single way to define an “ideal” special place. Instead, they are evaluated by their physical presence.",
-      statusLabel: "N/A",
       photo: sopIpHim1,
     },
     resistance: {
@@ -326,6 +337,7 @@ export const DOMAINS: Domain[] = [
     label: "Species",
     color: "#58b6a5",
     hero: speciesHero,
+    heroVideo: speciesHeroVideo,
     tile: speciesTile,
     tileDim: speciesTileDim,
     iconNoText: speciesIconNoText,
@@ -366,6 +378,7 @@ export const DOMAINS: Domain[] = [
     label: "Habitats",
     color: "#2c7a6f",
     hero: habitatsHero,
+    heroVideo: habitatsHeroVideo,
     tile: habitatsTile,
     tileDim: habitatsTileDim,
     iconNoText: habitatsIconNoText,
@@ -405,6 +418,7 @@ export const DOMAINS: Domain[] = [
     label: "Water",
     color: "#1f3c63",
     hero: waterHero,
+    heroVideo: waterHeroVideo,
     tile: waterTile,
     tileDim: waterTileDim,
     iconNoText: waterIconNoText,
@@ -432,10 +446,9 @@ export const DOMAINS: Domain[] = [
       },
     },
     recovery: {
-      title: "Recovery N/A",
+      title: "Recovery",
       description:
         "Not included due to limited data on post-wildfire recovery processes.",
-      statusLabel: "N/A",
       photo: waterHim3,
     },
   },
@@ -444,6 +457,7 @@ export const DOMAINS: Domain[] = [
     label: "Air",
     color: "#2a1f3d",
     hero: airHero,
+    heroVideo: airHeroVideo,
     tile: airTile,
     tileDim: airTileDim,
     iconNoText: airIconNoText,
@@ -469,10 +483,9 @@ export const DOMAINS: Domain[] = [
       },
     },
     recovery: {
-      title: "Recovery N/A",
+      title: "Recovery",
       description:
         "Not included due to limited data linking recovery to long-term health outcomes.",
-      statusLabel: "N/A",
       photo: airHim3,
     },
   },
