@@ -74,58 +74,79 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <div className="flex h-[60px] min-w-[580px] items-center justify-between text-nowrap bg-headerBackgroundWhite">
-      {/* Left side: Logo and title */}
-      <Link
-        id="dashboard-header-main-site-link"
-        to="/"
-        aria-label="Return to the Wildfire Resilience Index home page"
-        title="Return to main site"
-        className="ml-[20px] inline-flex items-center gap-3 rounded-sm focus:outline-none focus:ring-2 focus:ring-wriForest focus:ring-offset-2"
+      {/* Left side: Logo and title — WRI is its own link so focus/hover styles apply only there */}
+      <div
+        id="dashboard-header-left-brand-group"
+        className="ml-[20px] inline-flex items-center gap-3"
       >
-        <span id="dashboard-header-wri-brand-lockup" className="inline-flex items-center gap-2">
-          <img
-            id="dashboard-header-wri-logo"
-            src={wriLogoFlameOnly}
-            alt="Wildfire Resilience Index flame icon"
-            className="h-10 w-auto object-contain"
-          />
-          <span
-            id="dashboard-header-wri-wordmark"
-            className="flex h-10 flex-col justify-between py-[4px] font-Poppins text-[14px] font-bold uppercase leading-none tracking-[0.08em] text-black"
-          >
+        <Link
+          id="dashboard-header-main-site-link"
+          to="/"
+          aria-label="Return to the Wildfire Resilience Index home page"
+          title="Return to main site"
+          className="inline-flex items-center rounded-md px-1.5 py-0.5 outline-none ring-0 transition-colors hover:bg-neutral-100/90 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+        >
+          <span id="dashboard-header-wri-brand-lockup" className="inline-flex items-center gap-2">
+            <img
+              id="dashboard-header-wri-logo"
+              src={wriLogoFlameOnly}
+              alt="Wildfire Resilience Index flame icon"
+              className="h-10 w-auto object-contain"
+            />
             <span
-              id="dashboard-header-wri-wordmark-line-wildfire"
-              className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+              id="dashboard-header-wri-wordmark"
+              className="flex h-10 flex-col justify-between py-[4px] font-Poppins text-[14px] font-bold uppercase leading-none tracking-[0.08em] text-black"
             >
-              Wildfire
-            </span>
-            <span
-              id="dashboard-header-wri-wordmark-line-resilience"
-              className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
-            >
-              Resilience
-            </span>
-            <span
-              id="dashboard-header-wri-wordmark-line-index"
-              className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
-            >
-              Index
+              <span
+                id="dashboard-header-wri-wordmark-line-wildfire"
+                className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+              >
+                Wildfire
+              </span>
+              <span
+                id="dashboard-header-wri-wordmark-line-resilience"
+                className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+              >
+                Resilience
+              </span>
+              <span
+                id="dashboard-header-wri-wordmark-line-index"
+                className="block leading-[0.86] [leading-trim:both] [text-edge:cap_alphabetic] [text-box-trim:trim-both] [text-box-edge:cap_alphabetic]"
+              >
+                Index
+              </span>
             </span>
           </span>
-        </span>
-        <img
-          id="dashboard-header-nceas-logo"
-          src={nceasLogo}
-          alt="NCEAS"
-          className="h-10 w-auto object-contain"
-        />
-        <img
-          id="dashboard-header-moore-foundation-logo"
-          src={mooreFoundationLogo}
-          alt="Gordon and Betty Moore Foundation"
-          className="h-14 w-auto object-contain"
-        />
-      </Link>
+        </Link>
+        <Link
+          id="dashboard-header-nceas-link"
+          to="/"
+          aria-label="NCEAS — return to the Wildfire Resilience Index home page"
+          title="Return to main site"
+          className="inline-flex shrink-0 rounded-sm focus:outline-none focus:ring-2 focus:ring-wriForest focus:ring-offset-2"
+        >
+          <img
+            id="dashboard-header-nceas-logo"
+            src={nceasLogo}
+            alt="NCEAS"
+            className="h-10 w-auto object-contain"
+          />
+        </Link>
+        <Link
+          id="dashboard-header-moore-foundation-link"
+          to="/"
+          aria-label="Gordon and Betty Moore Foundation — return to the Wildfire Resilience Index home page"
+          title="Return to main site"
+          className="inline-flex shrink-0 rounded-sm focus:outline-none focus:ring-2 focus:ring-wriForest focus:ring-offset-2"
+        >
+          <img
+            id="dashboard-header-moore-foundation-logo"
+            src={mooreFoundationLogo}
+            alt="Gordon and Betty Moore Foundation"
+            className="h-14 w-auto object-contain"
+          />
+        </Link>
+      </div>
 
       {/* Right side: Debug tools dropdown (only in DEBUG mode) */}
       {showDebugTools && (
