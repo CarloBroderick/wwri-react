@@ -4,7 +4,6 @@ import AboutPage from "../pages/AboutPage";
 import ComingSoonPage from "../pages/ComingSoonPage";
 import ContactConnectPage from "../pages/ContactConnectPage";
 import ContactFaqsPage from "../pages/ContactFaqsPage";
-import ContactPage from "../pages/ContactPage";
 import ContactTeamPage from "../pages/ContactTeamPage";
 import DomainDetailPage from "../pages/DomainDetailPage";
 import DomainsPage from "../pages/DomainsPage";
@@ -80,7 +79,7 @@ function RedesignRoutes() {
         </Route>
 
         <Route path="contact">
-          <Route index element={<ContactPage />} />
+          <Route index element={<Navigate to="connect" replace />} />
           <Route path="team" element={<ContactTeamPage />} />
           <Route path="connect" element={<ContactConnectPage />} />
           <Route path="faqs" element={<ContactFaqsPage />} />

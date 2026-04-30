@@ -1,7 +1,4 @@
-import connectEmailSymbol from "../../../assets/public-website-redesign/images/contact/connect-with-us-email-symbol.png";
-import connectLinkedInLogo from "../../../assets/public-website-redesign/images/contact/connect-with-us-linkedin.png";
 import connectHeroImage from "../../../assets/public-website-redesign/images/contact/light-in-the-forest-connect-with-us.png";
-import wriLogoGreen from "../../../assets/public-website-redesign/images/contact/wri-logo-green.png";
 import MossDivider from "../components/shared/MossDivider";
 
 function ContactConnectPage() {
@@ -26,20 +23,8 @@ function ContactConnectPage() {
 
       <div
         id="public-website-redesign-contact-connect-layout"
-        className="mt-12 grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-start"
+        className="mt-12 grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-start"
       >
-        <div
-          id="public-website-redesign-contact-connect-image-wrapper"
-          className="flex justify-start"
-        >
-          <img
-            id="public-website-redesign-contact-connect-image"
-            src={connectHeroImage}
-            alt="Light in the forest representing the Contact section"
-            className="w-full max-w-[640px] rounded-sm object-cover"
-          />
-        </div>
-
         <div
           id="public-website-redesign-contact-connect-card"
           className="rounded-sm border border-wriForest/15 bg-wriSmokeFog px-6 py-8 sm:px-8"
@@ -49,63 +34,97 @@ function ContactConnectPage() {
             className="font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
           >
             Interested in working with the index or have questions about the project?
+            <br />
+            Send us an email!
+            <br />
+            Follow us on LinkedIn.
           </p>
 
           <div
-            id="public-website-redesign-contact-connect-email-row"
-            className="mt-8 flex items-center gap-3"
+            id="public-website-redesign-contact-connect-links-grid"
+            className="mt-8 grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-5"
           >
-            <img
-              id="public-website-redesign-contact-connect-email-symbol"
-              src={connectEmailSymbol}
-              alt=""
-              aria-hidden="true"
-              className="h-7 w-7 object-contain"
-            />
+            <div id="public-website-redesign-contact-connect-email-icon-wrapper" aria-hidden="true">
+              <ContactMailIcon id="public-website-redesign-contact-connect-email-symbol" />
+            </div>
             <a
               id="public-website-redesign-contact-connect-email"
               href="mailto:wildfire-index@nceas.ucsb.edu"
-              className="font-Poppins text-[17px] font-bold text-[#a3b86c] hover:underline"
+              className="font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
             >
               wildfire-index@nceas.ucsb.edu
             </a>
-          </div>
 
-          <div
-            id="public-website-redesign-contact-connect-linkedin-callout"
-            className="mt-10 rounded-sm border border-wriMoss/40 bg-white/80 p-4"
-          >
-            <div
-              id="public-website-redesign-contact-connect-linkedin-logos"
-              className="flex items-center gap-3"
-            >
-              <img
-                id="public-website-redesign-contact-connect-linkedin-logo"
-                src={connectLinkedInLogo}
-                alt="LinkedIn"
-                className="h-8 w-auto object-contain"
-              />
-              <img
-                id="public-website-redesign-contact-connect-linkedin-wri-logo"
-                src={wriLogoGreen}
-                alt="WRI logo"
-                className="h-8 w-auto object-contain"
-              />
+            <div id="public-website-redesign-contact-connect-linkedin-icon-wrapper" aria-hidden="true">
+              <ContactLinkedInIcon id="public-website-redesign-contact-connect-linkedin-symbol" />
             </div>
-
             <a
               id="public-website-redesign-contact-connect-linkedin-link"
               href="https://linkedin.com/company/the-wildfire-resilience-index"
               target="_blank"
               rel="noreferrer"
-              className="mt-4 inline-block break-all font-Poppins text-sm font-semibold text-wriForest hover:underline"
+              className="break-all font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
             >
               linkedin.com/company/the-wildfire-resilience-index
             </a>
           </div>
         </div>
+
+        <div
+          id="public-website-redesign-contact-connect-image-wrapper"
+          className="flex justify-start md:justify-end"
+        >
+          <img
+            id="public-website-redesign-contact-connect-image"
+            src={connectHeroImage}
+            alt="Light in the forest representing the Contact section"
+            className="w-full max-w-[640px] rounded-sm object-cover"
+          />
+        </div>
       </div>
     </div>
+  );
+}
+
+type IconProps = { id: string };
+
+function ContactMailIcon({ id }: IconProps) {
+  return (
+    <svg
+      id={id}
+      viewBox="0 0 24 24"
+      className="h-10 w-10 text-[#a3b86c]"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3 6h18v12H3z" />
+      <path d="m4 7 8 6 8-6" />
+    </svg>
+  );
+}
+
+function ContactLinkedInIcon({ id }: IconProps) {
+  return (
+    <svg
+      id={id}
+      viewBox="0 0 24 24"
+      className="h-10 w-10 text-[#a3b86c]"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+    >
+      <rect x="3.5" y="3.5" width="17" height="17" rx="2.8" />
+      <circle cx="8.25" cy="8.2" r="1.15" fill="currentColor" stroke="none" />
+      <rect x="7.2" y="10.2" width="2.1" height="6.4" fill="currentColor" stroke="none" />
+      <path
+        d="M11.6 10.2h2v.9c.4-.7 1.2-1.2 2.2-1.2 1.8 0 2.7 1.1 2.7 3.1v3.6h-2.1v-3.2c0-.9-.3-1.6-1.3-1.6s-1.5.7-1.5 1.6v3.2h-2v-6.4Z"
+        fill="currentColor"
+        stroke="none"
+      />
+    </svg>
   );
 }
 

@@ -1,47 +1,106 @@
-import { Link } from "react-router-dom";
-import SectionHeader from "../components/shared/SectionHeader";
-import { REDESIGN_ROUTES } from "../routes/routeConfig";
+import connectEmailSymbol from "../../../assets/public-website-redesign/images/contact/connect-with-us-email-symbol.png";
+import connectLinkedInLogo from "../../../assets/public-website-redesign/images/contact/connect-with-us-linkedin.png";
+import connectHeroImage from "../../../assets/public-website-redesign/images/contact/light-in-the-forest-connect-with-us.png";
+import MossDivider from "../components/shared/MossDivider";
 
-const LINKS = [
-  {
-    id: "meet-the-team",
-    label: "Meet the Team",
-    to: REDESIGN_ROUTES.contactTeam,
-    copy: "The researchers, designers, and engineers behind the index.",
-  },
-  {
-    id: "connect-with-us",
-    label: "Connect with Us",
-    to: REDESIGN_ROUTES.contactConnect,
-    copy: "Reach out with questions, feedback, or partnership inquiries.",
-  },
-  {
-    id: "faqs",
-    label: "Explore the FAQs",
-    to: REDESIGN_ROUTES.contactFaqs,
-    copy: "Answers to the most common questions about the WRI.",
-  },
-];
-
-/** Contact hub (change-requests doc "Contact" section). */
 function ContactPage() {
   return (
-    <div id="public-website-redesign-contact-page" className="mx-auto max-w-[1100px] px-6 py-16">
-      <SectionHeader id="public-website-redesign-contact-heading" eyebrow="Contact" />
-      <div id="public-website-redesign-contact-links" className="mt-10 grid gap-4 sm:grid-cols-3">
-        {LINKS.map((l) => (
-          <Link
-            key={l.id}
-            id={`public-website-redesign-contact-link-${l.id}`}
-            to={l.to}
-            className="group flex flex-col justify-between rounded-sm border-[3px] border-wriForest/30 bg-wriSmokeFog p-6 transition-colors hover:border-wriForest"
-          >
-            <div className="font-Montserrat text-xl font-bold text-wriForest group-hover:text-wriSage">
-              {l.label}
+    <div
+      id="contact-page"
+      className="mx-auto max-w-[1200px] px-6 py-16"
+    >
+      <div
+        id="contact-page-layout"
+        className="grid gap-12 md:grid-cols-[1fr_1fr] md:items-start"
+      >
+        {/* ── Left column: content ── */}
+        <div id="contact-page-content">
+          {/* Connect with Us */}
+          <section id="contact-connect-section">
+            <h2
+              id="contact-connect-heading"
+              className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
+            >
+              Connect with Us
+            </h2>
+            <MossDivider id="contact-connect-divider" className="my-3" widthClassName="w-16" />
+
+            <p
+              id="contact-connect-body"
+              className="mt-4 max-w-md font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
+            >
+              Interested in working with the index or have questions about the
+              project? Send us an email!
+            </p>
+
+            {/* Contact links list */}
+            <div id="contact-connect-links" className="mt-8 flex flex-col gap-5">
+              <a
+                id="contact-connect-email"
+                href="mailto:wildfire-index@nceas.ucsb.edu"
+                className="flex items-center gap-4"
+              >
+                <img
+                  id="contact-connect-email-icon"
+                  src={connectEmailSymbol}
+                  alt=""
+                  aria-hidden="true"
+                  className="h-10 w-10 object-contain"
+                />
+                <span className="font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-wriMoss hover:underline">
+                  wildfire-index@nceas.ucsb.edu
+                </span>
+              </a>
+
+              <a
+                id="contact-connect-linkedin"
+                href="https://linkedin.com/company/the-wildfire-resilience-index"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-4"
+              >
+                <img
+                  id="contact-connect-linkedin-icon"
+                  src={connectLinkedInLogo}
+                  alt=""
+                  aria-hidden="true"
+                  className="h-10 w-10 object-contain"
+                />
+                <span className="font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-wriMoss hover:underline">
+                  linkedin.com/company/the-wildfire-resilience-index
+                </span>
+              </a>
             </div>
-            <div className="mt-2 font-Poppins text-sm text-wriCanopy/80">{l.copy}</div>
-          </Link>
-        ))}
+          </section>
+
+          {/* Explore FAQs */}
+          <section id="contact-faqs-section" className="mt-16">
+            <h2
+              id="contact-faqs-heading"
+              className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
+            >
+              Explore FAQs
+            </h2>
+            <MossDivider id="contact-faqs-divider" className="my-3" widthClassName="w-16" />
+
+            <p
+              id="contact-faqs-body"
+              className="mt-4 max-w-md font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
+            >
+              This section is currently under development, check back soon!
+            </p>
+          </section>
+        </div>
+
+        {/* ── Right column: forest image ── */}
+        <div id="contact-page-image-wrapper" className="hidden md:block">
+          <img
+            id="contact-page-hero-image"
+            src={connectHeroImage}
+            alt="Sunlight filtering through a forest canopy"
+            className="h-full max-h-[700px] w-full rounded-sm object-cover"
+          />
+        </div>
       </div>
     </div>
   );

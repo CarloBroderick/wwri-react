@@ -34,10 +34,10 @@ export const PRIMARY_NAV: NavItem[] = [
   },
   {
     label: "Contact",
-    to: REDESIGN_ROUTES.contact,
+    to: REDESIGN_ROUTES.contactConnect,
     children: [
-      { label: "Meet the Team", to: REDESIGN_ROUTES.contactTeam },
       { label: "Connect with Us", to: REDESIGN_ROUTES.contactConnect },
+      { label: "Meet the Team", to: REDESIGN_ROUTES.contactTeam },
       { label: "Explore the FAQs", to: REDESIGN_ROUTES.contactFaqs },
     ],
   },
