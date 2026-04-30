@@ -49,7 +49,6 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
     }
   };
 
-  // Get the overall resilience score from regionAllMetrics.wwri.wwri_final_score
   const overallResilienceScore = regionAllMetrics?.wwri?.wwri_final_score ?? null;
 
   return (
