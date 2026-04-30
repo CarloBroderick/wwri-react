@@ -90,17 +90,17 @@ const PAST_CONTRIBUTORS: TeamMember[] = [
 ];
 
 const WORKING_GROUP = [
-  { name: "Ilkay Altintas", affiliation: "UC San Diego" },
-  { name: "Oliver Brandes", affiliation: "University of Victoria" },
-  { name: "Joan Dudney", affiliation: "UC Santa Barbara" },
-  { name: "Winslow Hansen", affiliation: "Cary Institute of Ecosystem Studies" },
-  { name: "Shefali Juneja Lakhina", affiliation: "Wonder Labs" },
-  { name: "Miranda Mockrin", affiliation: "US Forest Service" },
-  { name: "Max Moritz", affiliation: "UC Santa Barbara" },
-  { name: "Connor Nolan", affiliation: "Stanford University" },
-  { name: "Malcolm North", affiliation: "US Forest Service" },
-  { name: "Marek Smith", affiliation: "The Nature Conservancy" },
-  { name: "Claire Tortorelli", affiliation: "UC Davis" },
+  { name: "Ilkay Altintas", affiliation: "UC San Diego", url: "https://words.sdsc.edu/ilkay/" },
+  { name: "Oliver Brandes", affiliation: "University of Victoria", url: "https://www.uvic.ca/research/centres/globalstudies/people/staff/brandesoliver.php" },
+  { name: "Joan Dudney", affiliation: "UC Santa Barbara", url: "https://bren.ucsb.edu/people/joan-dudney" },
+  { name: "Winslow Hansen", affiliation: "Cary Institute of Ecosystem Studies", url: "https://www.caryinstitute.org/science/our-scientists/dr-winslow-d-hansen" },
+  { name: "Shefali Juneja Lakhina", affiliation: "Wonder Labs", url: "https://www.wonder-labs.org/founders.html" },
+  { name: "Miranda Mockrin", affiliation: "US Forest Service", url: "https://research.fs.usda.gov/about/people/mhmockrin" },
+  { name: "Max Moritz", affiliation: "UC Santa Barbara", url: "https://bren.ucsb.edu/people/max-moritz" },
+  { name: "Connor Nolan", affiliation: "Stanford University", url: "https://profiles.stanford.edu/connor-nolan" },
+  { name: "Malcolm North", affiliation: "US Forest Service", url: "https://research.fs.usda.gov/about/people/mnorth" },
+  { name: "Marek Smith", affiliation: "The Nature Conservancy", url: "https://www.nature.org/en-us/about-us/who-we-are/our-people/marek-smith/" },
+  { name: "Claire Tortorelli", affiliation: "UC Davis", url: "https://cmtortorelli.github.io/Claire-Tortorelli-website/" },
 ];
 
 type TeamCardProps = {
@@ -150,19 +150,19 @@ type ContributorSectionProps = {
   onSelect: (member: TeamMember) => void;
 };
 
-/** Centered section title + responsive grid of TeamCards. */
+/** Left-aligned section title + responsive grid of TeamCards. */
 function ContributorSection({ id, title, members, onSelect }: ContributorSectionProps) {
   return (
     <section id={id} className="mt-16">
       <h3
         id={`${id}-title`}
-        className="text-center font-Montserrat text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold text-wriSage"
+        className="font-Montserrat text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold text-wriSage"
       >
         {title}
       </h3>
       <ul
         id={`${id}-grid`}
-        className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-10"
+        className="mt-10 flex flex-wrap justify-start gap-x-6 gap-y-10"
       >
         {members.map((m) => (
           <li
@@ -304,7 +304,7 @@ function ContactTeamPage() {
       {/* Funder / host logos */}
       <div
         id="public-website-redesign-contact-team-logo-banner"
-        className="mt-10 flex flex-col items-center justify-center gap-8 sm:flex-row sm:gap-16"
+        className="mt-10 flex flex-col items-start justify-start gap-8 sm:flex-row sm:items-start sm:gap-16"
       >
         <img
           id="public-website-redesign-contact-team-logo-nceas"
@@ -322,7 +322,7 @@ function ContactTeamPage() {
 
       <p
         id="public-website-redesign-contact-team-intro"
-        className="mx-auto mt-10 max-w-3xl text-center font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
+        className="mt-10 max-w-3xl font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
       >
         The Wildfire Resilience Index is hosted at the{" "}
         <strong>National Center for Ecological Analysis and Synthesis (NCEAS)</strong> and is
@@ -368,10 +368,34 @@ function ContactTeamPage() {
             <li
               key={expert.name}
               id={`public-website-redesign-contact-team-working-group-${expert.name.toLowerCase().replace(/[\s,]+/g, "-")}`}
-              className="rounded-sm border border-wriForest/15 bg-wriSmokeFog px-5 py-4"
             >
-              <p className="font-Montserrat text-sm font-bold text-wriForest">{expert.name}</p>
-              <p className="mt-0.5 font-Poppins text-xs text-wriCanopy/70">{expert.affiliation}</p>
+              <a
+                href={expert.url}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex items-center gap-3 rounded-sm border border-wriForest/15 bg-wriSmokeFog px-5 py-4 transition-colors hover:border-wriMoss/40 hover:bg-wriMoss/5"
+              >
+                <div className="text-left">
+                  <p className="font-Montserrat text-sm font-bold text-wriForest group-hover:text-wriMoss">
+                    {expert.name}
+                  </p>
+                  <p className="mt-0.5 font-Poppins text-xs text-wriCanopy/70">
+                    {expert.affiliation}
+                  </p>
+                </div>
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="ml-auto h-4 w-4 shrink-0 text-wriMoss/60 transition-transform group-hover:translate-x-0.5"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.22 14.78a.75.75 0 010-1.06l7.22-7.22H8.75a.75.75 0 010-1.5h5.5a.75.75 0 01.75.75v5.5a.75.75 0 01-1.5 0V7.06l-7.22 7.22a.75.75 0 01-1.06 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </a>
             </li>
           ))}
         </ul>
