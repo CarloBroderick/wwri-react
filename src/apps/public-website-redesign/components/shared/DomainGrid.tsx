@@ -19,17 +19,14 @@ function DomainGrid({
   columns = 4,
   id = "public-website-redesign-domain-grid",
 }: Props) {
-  const colClass = columns === 2 ? "grid-cols-2" : "grid-cols-2 md:grid-cols-4";
+  const colClass =
+    columns === 2
+      ? "grid-cols-2"
+      : size === "sm"
+        ? "grid-cols-2 md:[grid-template-columns:repeat(4,minmax(0,1fr))]"
+        : "grid-cols-2 md:grid-cols-4";
   const spacingClass = size === "sm" ? "gap-4 md:gap-6" : "gap-3 md:gap-4";
-  /**
-   * Detail-page grid:
-   * - pin tiles to the column start so headings and grid share a left edge
-   * - use fixed desktop columns for small tiles so widescreen layouts do not over-stretch spacing
-   */
-  const layoutClass =
-    size === "sm"
-      ? "justify-items-start md:[grid-template-columns:repeat(4,minmax(0,170px))]"
-      : "";
+  const layoutClass = size === "sm" ? "items-stretch" : "";
   return (
     <div id={id} className={`grid ${colClass} ${spacingClass} ${layoutClass}`}>
       {DOMAINS.map((d) => (

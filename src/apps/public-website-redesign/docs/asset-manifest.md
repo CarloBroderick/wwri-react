@@ -17,7 +17,8 @@ Source PDF: `/Users/wthompson/Downloads/Updated WRI Website.pdf`.
 | `src/assets/public-website-redesign/images/domains/habitats-hero.jpg` | Cropped from PDF page 14 | `config/domains.ts` → `DomainDetailPage.tsx` | Habitats domain hero photo | |
 | `src/assets/public-website-redesign/images/domains/water-hero.jpg` | Cropped from PDF page 15 | `config/domains.ts` → `DomainDetailPage.tsx` | Water domain hero photo | |
 | `src/assets/public-website-redesign/images/domains/air-hero.jpg` | Cropped from PDF page 16 | `config/domains.ts` → `DomainDetailPage.tsx` | Air domain hero photo | |
-| `src/assets/public-website-redesign/images/media/science-pub-event.jpg` | PDF raw image `img-106` | `pages/OutreachPage.tsx`, `pages/NewsFeaturesPage.tsx` | Outreach event photo; second news article placeholder | |
+| `src/assets/public-website-redesign/images/media/science-pub-event.jpg` | Source asset `Science by the Pint_Previous Events_Index Education.jpeg` | `pages/OutreachPage.tsx` | Science by the Pint previous event photo | |
+| `src/assets/public-website-redesign/images/media/science-pub-building-wildfire-resilience.jpg` | Converted from source asset `Science Pub_Previous Events_Index Education.HEIC` | `pages/OutreachPage.tsx` | Science Pub: Building Wildfire Resilience previous event photo | Converted from HEIC to JPEG with `sips`. |
 | `src/assets/public-website-redesign/icons/logo.svg` | Hand-built hex + flame SVG | `components/layout/SiteHeader.tsx`, `components/layout/SiteFooter.tsx` | Brand mark | Stylized match to the PDF hex-with-flame logo. |
 | `src/assets/public-website-redesign/icons/domain-infrastructure.svg` | Hand-built outline icon | `DomainTile`, `MeasureSection` chip | Infrastructure iconography | |
 | `src/assets/public-website-redesign/icons/domain-communities.svg` | Hand-built outline icon | `DomainTile`, `MeasureSection` chip | Communities iconography | |
