@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import wriLogoFullWhite from "../../../../assets/public-website-redesign/images/logos/wri-full-white.png";
 import nceasLogoWhite from "../../../../assets/public-website-redesign/images/logos/nceas-white.png";
 import mooreLogoWhite from "../../../../assets/public-website-redesign/images/logos/moore-white.png";
@@ -10,10 +10,13 @@ import { REDESIGN_ROUTES } from "../../routes/routeConfig";
  * referenced in the hero lower-right on page 1 using the provided logo marks.
  */
 function SiteFooter() {
+  const { pathname } = useLocation();
+  const isHomePage = pathname === REDESIGN_ROUTES.home;
+
   return (
     <footer
       id="public-website-redesign-site-footer"
-      className="mt-24 border-t border-wriMoss/30 bg-wriForest font-Poppins text-wriSmokeFog"
+      className={`${isHomePage ? "mt-0" : "mt-24"} border-t border-wriMoss/30 bg-wriForest font-Poppins text-wriSmokeFog`}
     >
       <div
         id="public-website-redesign-footer-inner"

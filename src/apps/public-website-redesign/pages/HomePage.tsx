@@ -118,7 +118,6 @@ function HomePage() {
           />
         </div>
       </section>
-
       {/* ===== Overview accordions ===== */}
       <section
         id="public-website-redesign-home-overview"
