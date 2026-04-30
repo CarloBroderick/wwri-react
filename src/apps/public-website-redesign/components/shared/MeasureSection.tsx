@@ -38,14 +38,14 @@ function MeasureSection({
   return (
     <section
       id={id}
-      className="grid grid-cols-1 gap-6 md:grid-cols-[minmax(180px,320px)_minmax(0,1fr)] md:items-start md:gap-10"
+      className="grid grid-cols-1 gap-6 md:grid-cols-[minmax(220px,360px)_minmax(0,1fr)] md:items-start md:gap-12"
     >
       {effectivePhoto ? (
         <img
           id={`${id}-photo`}
           src={effectivePhoto}
           alt=""
-          className={`${photoAspectClassName} mx-auto w-full max-w-[320px] rounded-sm object-cover md:mx-0`}
+          className={`${photoAspectClassName} mx-auto w-full max-w-[360px] rounded-sm object-cover md:mx-0`}
         />
       ) : (
         <div aria-hidden />
