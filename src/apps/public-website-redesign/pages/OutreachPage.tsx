@@ -1,6 +1,7 @@
 import sciencePubImage from "../../../assets/public-website-redesign/images/media/science-pub-building-wildfire-resilience.jpg";
 import scienceByThePintImage from "../../../assets/public-website-redesign/images/media/science-pub-event.jpg";
 import wriFlameImage from "../../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
+import wildfireCommonsLogoImage from "../../../../data/incoming/wri-drive-2026-04-23/Media/Wildfire Commons Logo, Upcoming Events_Index Education.png";
 import MossDivider from "../components/shared/MossDivider";
 import SectionHeader from "../components/shared/SectionHeader";
 
@@ -86,21 +87,14 @@ function EventLogo({ event }: { event: UpcomingEvent }) {
     return (
       <div
         id={`public-website-redesign-outreach-upcoming-${event.id}-commons-logo`}
-        className="flex aspect-square w-full max-w-[220px] flex-col items-center justify-center rounded-sm border-[3px] border-wriMoss/40 bg-white p-5 text-center shadow-sm"
-        aria-label="Wildfire Commons logo placeholder"
+        className="flex aspect-square w-full max-w-[220px] items-center justify-center"
       >
         <img
-          id={`public-website-redesign-outreach-upcoming-${event.id}-commons-logo-flame`}
-          src={wriFlameImage}
-          alt=""
-          className="h-24 w-24 object-contain"
+          id={`public-website-redesign-outreach-upcoming-${event.id}-commons-logo-image`}
+          src={wildfireCommonsLogoImage}
+          alt="Wildfire Commons"
+          className="h-full w-full object-contain"
         />
-        <span
-          id={`public-website-redesign-outreach-upcoming-${event.id}-commons-logo-text`}
-          className="mt-3 font-Montserrat text-xl font-bold uppercase leading-tight text-wriForest"
-        >
-          Wildfire Commons
-        </span>
       </div>
     );
   }
