@@ -52,11 +52,9 @@ function NewsFeaturesPage() {
       <SectionHeader
         id="public-website-redesign-news-heading"
         eyebrow={
-          <>
-            News &amp;
-            <br />
-            Features
-          </>
+          <span id="public-website-redesign-news-heading-label" className="whitespace-nowrap font-bold">
+            News &amp; Features
+          </span>
         }
       />
       <div
