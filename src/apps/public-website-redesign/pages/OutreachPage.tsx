@@ -35,7 +35,7 @@ const PREVIOUS_EVENTS: Event[] = [
 /** Outreach (PDF page 19) — upcoming + previous events list. */
 function OutreachPage() {
   return (
-    <div id="public-website-redesign-outreach-page" className="mx-auto max-w-[1200px] px-6 py-16">
+    <div id="public-website-redesign-outreach-page" className="mx-auto max-w-[1400px] px-6 py-16">
       <SectionHeader id="public-website-redesign-outreach-heading" eyebrow="Outreach" />
       <p
         id="public-website-redesign-outreach-blurb"

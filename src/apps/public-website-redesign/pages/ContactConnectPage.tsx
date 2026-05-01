@@ -6,7 +6,7 @@ function ContactConnectPage() {
   return (
     <div
       id="public-website-redesign-contact-connect-page"
-      className="mx-auto max-w-[1200px] px-6 py-16"
+      className="mx-auto max-w-[1400px] px-6 py-16"
     >
       <header id="public-website-redesign-contact-connect-heading">
         <h2

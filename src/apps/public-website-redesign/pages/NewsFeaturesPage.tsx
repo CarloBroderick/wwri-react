@@ -48,7 +48,7 @@ const ARTICLES: Article[] = [
  */
 function NewsFeaturesPage() {
   return (
-    <div id="public-website-redesign-news-page" className="mx-auto max-w-[1200px] px-6 py-16">
+    <div id="public-website-redesign-news-page" className="mx-auto max-w-[1400px] px-6 py-16">
       <SectionHeader
         id="public-website-redesign-news-heading"
         eyebrow={

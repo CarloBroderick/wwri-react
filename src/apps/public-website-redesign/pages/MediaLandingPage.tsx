@@ -31,7 +31,7 @@ function MediaLandingPage() {
   ];
 
   return (
-    <div id="public-website-redesign-media-landing" className="mx-auto max-w-[1100px] px-6 py-16">
+    <div id="public-website-redesign-media-landing" className="mx-auto max-w-[1400px] px-6 py-16">
       <SectionHeader id="public-website-redesign-media-heading" eyebrow="Media" />
       <div id="public-website-redesign-media-links" className="mt-10 grid gap-4 sm:grid-cols-2">
         {links.map((l) => (
