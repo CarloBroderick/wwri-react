@@ -11,7 +11,7 @@ function ContactConnectPage() {
       <header id="public-website-redesign-contact-connect-heading">
         <h2
           id="public-website-redesign-contact-connect-heading-title"
-          className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
+          className="font-Poppins text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriForest"
         >
           Connect with Us
         </h2>
@@ -24,26 +24,29 @@ function ContactConnectPage() {
 
       <div
         id="public-website-redesign-contact-connect-layout"
-        className="mt-12 grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-start"
+        className="mt-12 grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-center"
       >
         <div
           id="public-website-redesign-contact-connect-card"
-          className="rounded-sm border border-wriForest/15 bg-wriSmokeFog px-6 py-8 sm:px-8"
+          className="rounded-sm border border-wriForest/15 bg-wriSmokeFog px-6 py-8 sm:px-8 md:self-center"
         >
           <p
             id="public-website-redesign-contact-connect-prompt"
             className="font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
           >
             Interested in working with the index or have questions about the project?
-            <br />
-            Send us an email!
-            <br />
-            Follow us on LinkedIn.
+          </p>
+
+          <p
+            id="public-website-redesign-contact-connect-email-label"
+            className="mt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
+          >
+            Send us an email:
           </p>
 
           <div
-            id="public-website-redesign-contact-connect-links-grid"
-            className="mt-8 grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-5"
+            id="public-website-redesign-contact-connect-email-grid"
+            className="mt-4 grid grid-cols-[auto_1fr] items-center gap-x-4"
           >
             <div id="public-website-redesign-contact-connect-email-icon-wrapper" aria-hidden="true">
               <ContactMailIcon id="public-website-redesign-contact-connect-email-symbol" />
@@ -55,7 +58,19 @@ function ContactConnectPage() {
             >
               wri@nceas.ucsb.edu
             </a>
+          </div>
 
+          <p
+            id="public-website-redesign-contact-connect-linkedin-label"
+            className="mt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
+          >
+            Follow us on LinkedIn:
+          </p>
+
+          <div
+            id="public-website-redesign-contact-connect-linkedin-grid"
+            className="mt-4 grid grid-cols-[auto_1fr] items-center gap-x-4"
+          >
             <div
               id="public-website-redesign-contact-connect-linkedin-icon-wrapper"
               aria-hidden="true"
@@ -70,12 +85,12 @@ function ContactConnectPage() {
             </div>
             <a
               id="public-website-redesign-contact-connect-linkedin-link"
-              href="https://linkedin.com/company/the-wildfire-resilience-index"
+              href="https://www.linkedin.com/company/the-wildfire-resilience-index/"
               target="_blank"
               rel="noreferrer"
-              className="self-center break-all font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
+              className="self-center font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
             >
-              linkedin.com/company/the-wildfire-resilience-index
+              Wildfire Resilience Index
             </a>
           </div>
         </div>
@@ -88,7 +103,7 @@ function ContactConnectPage() {
             id="public-website-redesign-contact-connect-image"
             src={connectHeroImage}
             alt="Light in the forest representing the Contact section"
-            className="w-full max-w-[640px] rounded-sm object-cover"
+            className="w-full max-w-[580px] rounded-sm object-cover"
           />
         </div>
       </div>
