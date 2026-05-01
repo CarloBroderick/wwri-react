@@ -23,11 +23,6 @@ function MediaLandingPage() {
       to: REDESIGN_ROUTES.publications,
       copy: "Peer-reviewed papers and technical reports.",
     },
-    {
-      label: "Resources",
-      to: REDESIGN_ROUTES.resources,
-      copy: "Recordings, datasets, and teaching materials.",
-    },
   ];
 
   return (

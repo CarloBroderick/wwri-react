@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import mooreLogo from "../../../assets/public-website-redesign/images/logos/moore-color.png";
-import nceasLogo from "../../../assets/public-website-redesign/images/logos/nceas-color.png";
 import benHalpernPhoto from "../../../assets/public-website-redesign/images/team/ben-halpern.jpg";
 import carloBroderickPhoto from "../../../assets/public-website-redesign/images/team/carlo-broderick.jpg";
 import catFongPhoto from "../../../assets/public-website-redesign/images/team/cat-fong.png";
@@ -55,6 +53,7 @@ const CURRENT_CONTRIBUTORS: TeamMember[] = [
     name: "Will Overbye-Thompson",
     role: "Website Developer",
     photo: willOverbyeThompsonPhoto,
+    bio: "Will Overbye-Thompson is the website developer for the Wildfire Resilience Index. He enjoys building websites that make complex information easier to understand and use, especially for data-rich projects like the WRI. Overbye-Thompson earned a BA in Economics and Statistics from the University of California, Santa Barbara.",
   },
 ];
 
@@ -94,11 +93,11 @@ const WORKING_GROUP = [
   { name: "Oliver Brandes", affiliation: "University of Victoria", url: "https://www.uvic.ca/research/centres/globalstudies/people/staff/brandesoliver.php" },
   { name: "Joan Dudney", affiliation: "UC Santa Barbara", url: "https://bren.ucsb.edu/people/joan-dudney" },
   { name: "Winslow Hansen", affiliation: "Cary Institute of Ecosystem Studies", url: "https://www.caryinstitute.org/science/our-scientists/dr-winslow-d-hansen" },
-  { name: "Shefali Juneja Lakhina", affiliation: "Wonder Labs", url: "https://www.wonder-labs.org/founders.html" },
-  { name: "Miranda Mockrin", affiliation: "US Forest Service", url: "https://research.fs.usda.gov/about/people/mhmockrin" },
+  { name: "Shefali Juneja Lakhina", affiliation: "Wonder Labs", url: "https://wonder-labs.org/about" },
+  { name: "Miranda Mockrin", affiliation: "US Forest Service", url: "https://research.fs.usda.gov/about/people/miranda.h.mockrin" },
   { name: "Max Moritz", affiliation: "UC Santa Barbara", url: "https://bren.ucsb.edu/people/max-moritz" },
   { name: "Connor Nolan", affiliation: "Stanford University", url: "https://profiles.stanford.edu/connor-nolan" },
-  { name: "Malcolm North", affiliation: "US Forest Service", url: "https://research.fs.usda.gov/about/people/mnorth" },
+  { name: "Malcolm North", affiliation: "US Forest Service", url: "https://research.fs.usda.gov/about/people/malcolm.p.north" },
   { name: "Marek Smith", affiliation: "The Nature Conservancy", url: "https://www.nature.org/en-us/about-us/who-we-are/our-people/marek-smith/" },
   { name: "Claire Tortorelli", affiliation: "UC Davis", url: "https://cmtortorelli.github.io/Claire-Tortorelli-website/" },
 ];
@@ -156,7 +155,7 @@ function ContributorSection({ id, title, members, onSelect }: ContributorSection
     <section id={id} className="mt-16">
       <h3
         id={`${id}-title`}
-        className="font-Montserrat text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold text-wriSage"
+        className="font-Montserrat text-[clamp(1.75rem,3.5vw,2.5rem)] font-normal text-wriSage"
       >
         {title}
       </h3>
@@ -289,7 +288,7 @@ function BioModal({ member, onClose }: BioModalProps) {
   );
 }
 
-/** Meet the Team — Canva spec: logo banner + card grids + click-to-open bio modal. */
+/** Meet the Team — Canva spec: card grids + click-to-open bio modal. */
 function ContactTeamPage() {
   const [openMember, setOpenMember] = useState<TeamMember | null>(null);
 
@@ -297,38 +296,16 @@ function ContactTeamPage() {
     <div id="public-website-redesign-contact-team-page" className="mx-auto max-w-[1400px] px-6 py-16">
       <SectionHeader
         id="public-website-redesign-contact-team-heading"
-        eyebrow="Contact"
+        eyebrow={<span className="font-bold">Contact</span>}
         title="Meet the Team"
+        titleClassName="font-normal"
       />
-
-      {/* Funder / host logos */}
-      <div
-        id="public-website-redesign-contact-team-logo-banner"
-        className="mt-10 flex flex-col items-start justify-start gap-8 sm:flex-row sm:items-start sm:gap-16"
-      >
-        <img
-          id="public-website-redesign-contact-team-logo-nceas"
-          src={nceasLogo}
-          alt="National Center for Ecological Analysis and Synthesis"
-          className="h-16 w-auto object-contain md:h-20"
-        />
-        <img
-          id="public-website-redesign-contact-team-logo-moore"
-          src={mooreLogo}
-          alt="Gordon and Betty Moore Foundation"
-          className="h-16 w-auto object-contain md:h-20"
-        />
-      </div>
 
       <p
         id="public-website-redesign-contact-team-intro"
-        className="mt-10 max-w-3xl font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
+        className="mt-8 max-w-3xl font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
       >
-        The Wildfire Resilience Index is hosted at the{" "}
-        <strong>National Center for Ecological Analysis and Synthesis (NCEAS)</strong> and is
-        funded by the <strong>Gordon and Betty Moore Foundation</strong> as part of the Wildfire
-        Resilience Initiative. Learn about the team members that have made the index possible
-        below.
+        Learn about the team members that have made the index possible below.
       </p>
 
       <ContributorSection
@@ -352,6 +329,7 @@ function ContactTeamPage() {
         <SectionHeader
           id="public-website-redesign-contact-team-working-group-heading"
           title="The WRI Working Group"
+          titleClassName="font-normal"
         />
         <p
           id="public-website-redesign-contact-team-working-group-intro"

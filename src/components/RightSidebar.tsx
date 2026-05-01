@@ -312,7 +312,7 @@ const SideBySideLayout: React.FC<LayoutProps> = ({
   return (
     <div
       id="top-panel"
-      className={`flex w-full items-stretch border-b border-gray-200 bg-subheaderBackground ${TOP_PANEL_FIXED_HEIGHT_CLASS}`}
+      className={`flex w-full shrink-0 items-stretch border-b border-gray-200 bg-subheaderBackground ${TOP_PANEL_FIXED_HEIGHT_CLASS}`}
     >
       {/* Left: Selected Region */}
       <div
@@ -413,7 +413,7 @@ const StackedBelowLayout: React.FC<LayoutProps> = ({
   return (
     <div
       id="top-panel"
-      className={`flex w-full items-stretch border-b border-gray-200 bg-subheaderBackground ${TOP_PANEL_FIXED_HEIGHT_CLASS}`}
+      className={`flex w-full shrink-0 items-stretch border-b border-gray-200 bg-subheaderBackground ${TOP_PANEL_FIXED_HEIGHT_CLASS}`}
     >
       {/* Left: Selected Region */}
       <div
@@ -575,14 +575,14 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
   return (
     <div
       id="right-sidebar"
-      className="flex h-[calc(100vh-60px)] min-w-[470px] max-w-[470px] flex-col overflow-hidden border-l-[1px] border-t-[1px] border-solid border-rightSidebarBorder"
+      className="auto-hide-overlay-scrollbar flex h-[calc(100vh-60px)] min-w-[470px] max-w-[470px] flex-col overflow-y-auto overflow-x-hidden border-l-[1px] border-t-[1px] border-solid border-rightSidebarBorder"
     >
       {/* ============================================ */}
-      {/* INDICATOR NAVIGATION (scrollable)           */}
+      {/* INDICATOR NAVIGATION                         */}
       {/* ============================================ */}
       <div
         id="indicator-navigation-panel"
-        className="flex flex-col overflow-hidden border-b border-gray-200 px-4 pt-3 pb-2"
+        className="flex shrink-0 flex-col border-b border-gray-200 px-4 pb-2 pt-3"
       >
         <h1
           id="indicator-navigation-header"
@@ -655,10 +655,10 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
           )}
         </div>
 
-        {/* Domain List - Scrollable */}
+        {/* Domain List */}
         <div
           id="domain-list"
-          className="relative mb-1 ml-[0.3rem] min-h-[412px] flex-1 overflow-y-auto overflow-x-visible pb-1 pl-[0.2rem] pt-[0.05rem]"
+          className="relative mb-1 ml-[0.3rem] min-h-[412px] shrink-0 overflow-visible pb-1 pl-[0.2rem] pt-[0.05rem]"
         >
           {/* Overall Resilience Score */}
           <div className="flex items-center">
@@ -887,7 +887,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
       {/* ============================================ */}
       <div
         id="domain-scores-panel"
-        className="flex flex-col items-start overflow-hidden px-4 pt-3 pb-2"
+        className="flex shrink-0 flex-col items-start overflow-visible px-4 pb-2 pt-3"
       >
         <h1 className="mb-1 w-full font-Montserrat text-base font-bold uppercase tracking-wide text-gray-500">
           Individual Domain Scores

@@ -4,7 +4,7 @@ type Props = { title: string; id: string; body?: string };
 
 /**
  * Generic placeholder used for pages listed in the nav but not visually specified
- * in the source PDF (Methodology, Contact, Publications, Resources).
+ * in the source PDF (Methodology, Contact, Publications).
  */
 function ComingSoonPage({ title, id, body }: Props) {
   return (

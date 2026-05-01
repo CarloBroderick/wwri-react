@@ -35,10 +35,13 @@ function MeasureSection({
   photoAspectClassName = "aspect-square",
 }: Props) {
   const effectivePhoto = photo ?? section.photo;
+  const examples = section.examples ?? (section.example ? [section.example] : []);
+  const hasMultipleExamples = examples.length > 1;
+
   return (
     <section
       id={id}
-      className="grid grid-cols-1 gap-6 md:grid-cols-[minmax(220px,360px)_minmax(0,1fr)] md:items-start md:gap-12"
+      className="grid grid-cols-1 gap-6 md:grid-cols-[minmax(220px,360px)_minmax(0,1fr)] md:items-stretch md:gap-12"
     >
       {effectivePhoto ? (
         <img
@@ -50,7 +53,7 @@ function MeasureSection({
       ) : (
         <div aria-hidden />
       )}
-      <div id={`${id}-body`}>
+      <div id={`${id}-body`} className="md:flex md:h-full md:flex-col">
         <div id={`${id}-header-row`} className="flex items-start gap-4">
           <div id={`${id}-header-text`} className="flex-1">
             <h3 id={`${id}-title`} className={measureTitleClassName}>
@@ -69,30 +72,53 @@ function MeasureSection({
         >
           {renderBoldText(section.description)}
         </p>
-        {(section.example || section.examples) && (
-          <div id={`${id}-example`} className="mt-6">
-            <div className="mb-3 font-Montserrat text-xl font-bold text-wriSage">
+        {examples.length > 0 && (
+          <div
+            id={`${id}-example`}
+            className={`mt-4 ${hasMultipleExamples ? "md:flex md:flex-1 md:flex-col" : ""}`}
+          >
+            <div
+              id={`${id}-example-label`}
+              className="mb-2 font-Montserrat text-xl font-bold text-wriSage"
+            >
               Example Dataset
             </div>
-            <div id={`${id}-example-cards`} className="flex flex-wrap gap-5">
-              {(
-                section.examples ?? (section.example ? [section.example] : [])
-              ).map((ex, i) => (
+            <div
+              id={`${id}-example-cards`}
+              className={`flex flex-wrap items-stretch gap-5 ${
+                hasMultipleExamples ? "md:flex-1" : ""
+              }`}
+            >
+              {examples.map((ex, i) => (
                 <div
                   key={`${ex.label}-${i}`}
                   id={`${id}-example-card-${i}`}
-                  className="flex w-full max-w-[320px] flex-col items-stretch"
+                  className={`flex w-full max-w-[320px] flex-col items-stretch ${
+                    hasMultipleExamples ? "md:h-full" : ""
+                  }`}
                 >
                   {ex.heading && (
-                    <div className="mb-2 text-center font-Poppins text-sm font-semibold uppercase tracking-[0.08em] text-wriForest/80">
+                    <div
+                      id={`${id}-example-card-${i}-heading`}
+                      className="mb-1.5 text-center font-Poppins text-sm font-semibold uppercase tracking-[0.08em] text-wriForest/80"
+                    >
                       {ex.heading}
                     </div>
                   )}
-                  <div className="rounded-sm border-[4px] border-wriForest px-6 py-5 text-center">
-                    <div className="font-Poppins text-[clamp(20px,2.2vw,28px)] font-normal leading-tight text-wriForest">
+                  <div
+                    id={`${id}-example-card-${i}-box`}
+                    className="flex min-h-[140px] flex-1 flex-col justify-center rounded-sm border-[4px] border-wriForest px-6 py-3 text-center"
+                  >
+                    <div
+                      id={`${id}-example-card-${i}-label`}
+                      className="font-Poppins text-[clamp(20px,2.2vw,28px)] font-normal leading-tight text-wriForest"
+                    >
                       {ex.label}
                     </div>
-                    <div className="mt-2 font-Poppins text-[clamp(15px,1.5vw,19px)] italic leading-snug text-wriCanopy">
+                    <div
+                      id={`${id}-example-card-${i}-detail`}
+                      className="mt-1.5 font-Poppins text-[clamp(15px,1.5vw,19px)] italic leading-snug text-wriCanopy"
+                    >
                       {ex.detail}
                     </div>
                   </div>

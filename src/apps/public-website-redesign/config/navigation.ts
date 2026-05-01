@@ -24,12 +24,11 @@ export const PRIMARY_NAV: NavItem[] = [
   },
   {
     label: "Media",
-    to: REDESIGN_ROUTES.news,
+    to: REDESIGN_ROUTES.media,
     children: [
       { label: "News & Features", to: REDESIGN_ROUTES.news },
       { label: "Outreach", to: REDESIGN_ROUTES.outreach },
       { label: "Publications", to: REDESIGN_ROUTES.publications },
-      { label: "Resources", to: REDESIGN_ROUTES.resources },
     ],
   },
   {

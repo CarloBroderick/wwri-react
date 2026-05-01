@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import RedesignLayout from "../components/RedesignLayout";
 import AboutPage from "../pages/AboutPage";
-import ComingSoonPage from "../pages/ComingSoonPage";
 import ContactConnectPage from "../pages/ContactConnectPage";
 import MethodologyPage from "../pages/MethodologyPage";
 import MethodologyFaqPage from "../pages/MethodologyFaqPage";
@@ -12,6 +11,7 @@ import HomePage from "../pages/HomePage";
 import MediaLandingPage from "../pages/MediaLandingPage";
 import NewsFeaturesPage from "../pages/NewsFeaturesPage";
 import OutreachPage from "../pages/OutreachPage";
+import PublicationsPage from "../pages/PublicationsPage";
 
 function RedesignRoutes() {
   return (
@@ -35,24 +35,7 @@ function RedesignRoutes() {
           <Route index element={<MediaLandingPage />} />
           <Route path="news" element={<NewsFeaturesPage />} />
           <Route path="outreach" element={<OutreachPage />} />
-          <Route
-            path="publications"
-            element={
-              <ComingSoonPage
-                id="public-website-redesign-publications-page"
-                title="Publications"
-              />
-            }
-          />
-          <Route
-            path="resources"
-            element={
-              <ComingSoonPage
-                id="public-website-redesign-resources-page"
-                title="Resources"
-              />
-            }
-          />
+          <Route path="publications" element={<PublicationsPage />} />
         </Route>
 
         <Route path="contact">
