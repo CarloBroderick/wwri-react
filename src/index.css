@@ -2,3 +2,34 @@
   margin-left: 4px !important;
   margin-bottom: 4px !important;
 }
+
+.auto-hide-overlay-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.auto-hide-overlay-scrollbar:hover,
+.auto-hide-overlay-scrollbar:focus-within {
+  scrollbar-color: rgba(107, 107, 107, 0.45) transparent;
+}
+
+.auto-hide-overlay-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.auto-hide-overlay-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.auto-hide-overlay-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background-clip: content-box;
+}
+
+.auto-hide-overlay-scrollbar:hover::-webkit-scrollbar-thumb,
+.auto-hide-overlay-scrollbar:focus-within::-webkit-scrollbar-thumb {
+  background-color: rgba(107, 107, 107, 0.45);
+}
