@@ -53,6 +53,7 @@ const CURRENT_CONTRIBUTORS: TeamMember[] = [
     name: "Will Overbye-Thompson",
     role: "Website Developer",
     photo: willOverbyeThompsonPhoto,
+    bio: "Will Overbye-Thompson is the website developer for the Wildfire Resilience Index. He enjoys building websites that make complex information easier to understand and use, especially for data-rich projects like the WRI. Overbye-Thompson earned a BA in Economics and Statistics from the University of California, Santa Barbara.",
   },
 ];
 
