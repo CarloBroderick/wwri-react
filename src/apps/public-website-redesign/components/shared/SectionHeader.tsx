@@ -10,6 +10,7 @@ type Props = {
   /** Show the short Moss underline between eyebrow and title (Canva default). */
   divider?: boolean;
   className?: string;
+  titleClassName?: string;
 };
 
 /**
@@ -25,7 +26,14 @@ type Props = {
  *     Used for pages like "News & Features", "Outreach", "Explore Another
  *     Domain", and "How it's measured" where the spec calls for one header.
  */
-function SectionHeader({ id, eyebrow, title, divider = true, className = "" }: Props) {
+function SectionHeader({
+  id,
+  eyebrow,
+  title,
+  divider = true,
+  className = "",
+  titleClassName = "font-bold",
+}: Props) {
   return (
     <header id={id} className={className}>
       {eyebrow && (
@@ -46,7 +54,7 @@ function SectionHeader({ id, eyebrow, title, divider = true, className = "" }: P
       {title && (
         <h2
           id={id ? `${id}-title` : undefined}
-          className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriSage"
+          className={`font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] leading-tight text-wriSage ${titleClassName}`}
         >
           {title}
         </h2>

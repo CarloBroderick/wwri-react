@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import mooreLogo from "../../../assets/public-website-redesign/images/logos/moore-color.png";
-import nceasLogo from "../../../assets/public-website-redesign/images/logos/nceas-color.png";
 import benHalpernPhoto from "../../../assets/public-website-redesign/images/team/ben-halpern.jpg";
 import carloBroderickPhoto from "../../../assets/public-website-redesign/images/team/carlo-broderick.jpg";
 import catFongPhoto from "../../../assets/public-website-redesign/images/team/cat-fong.png";
@@ -156,7 +154,7 @@ function ContributorSection({ id, title, members, onSelect }: ContributorSection
     <section id={id} className="mt-16">
       <h3
         id={`${id}-title`}
-        className="font-Montserrat text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold text-wriSage"
+        className="font-Montserrat text-[clamp(1.75rem,3.5vw,2.5rem)] font-normal text-wriSage"
       >
         {title}
       </h3>
@@ -295,40 +293,31 @@ function ContactTeamPage() {
 
   return (
     <div id="public-website-redesign-contact-team-page" className="mx-auto max-w-[1400px] px-6 py-16">
-      <SectionHeader
-        id="public-website-redesign-contact-team-heading"
-        eyebrow="Contact"
-        title="Meet the Team"
-      />
-
-      {/* Funder / host logos */}
-      <div
-        id="public-website-redesign-contact-team-logo-banner"
-        className="mt-10 flex flex-col items-start justify-start gap-8 sm:flex-row sm:items-start sm:gap-16"
-      >
-        <img
-          id="public-website-redesign-contact-team-logo-nceas"
-          src={nceasLogo}
-          alt="National Center for Ecological Analysis and Synthesis"
-          className="h-16 w-auto object-contain md:h-20"
+      <header id="public-website-redesign-contact-team-heading">
+        <div
+          id="public-website-redesign-contact-team-heading-eyebrow"
+          className="font-Poppins text-[clamp(2.25rem,4.5vw,2.75rem)] font-bold leading-tight text-wriForest"
+        >
+          Contact
+        </div>
+        <MossDivider
+          id="public-website-redesign-contact-team-heading-divider"
+          className="my-3"
+          widthClassName="w-16"
         />
-        <img
-          id="public-website-redesign-contact-team-logo-moore"
-          src={mooreLogo}
-          alt="Gordon and Betty Moore Foundation"
-          className="h-16 w-auto object-contain md:h-20"
-        />
-      </div>
+        <h2
+          id="public-website-redesign-contact-team-heading-title"
+          className="font-Montserrat text-[clamp(1.75rem,4vw,2.5rem)] font-normal leading-tight text-wriSage"
+        >
+          Meet the Team
+        </h2>
+      </header>
 
       <p
         id="public-website-redesign-contact-team-intro"
-        className="mt-10 max-w-3xl font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
+        className="mt-8 max-w-3xl font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
       >
-        The Wildfire Resilience Index is hosted at the{" "}
-        <strong>National Center for Ecological Analysis and Synthesis (NCEAS)</strong> and is
-        funded by the <strong>Gordon and Betty Moore Foundation</strong> as part of the Wildfire
-        Resilience Initiative. Learn about the team members that have made the index possible
-        below.
+        Learn about the team members that have made the index possible below.
       </p>
 
       <ContributorSection
@@ -352,6 +341,7 @@ function ContactTeamPage() {
         <SectionHeader
           id="public-website-redesign-contact-team-working-group-heading"
           title="The WRI Working Group"
+          titleClassName="font-normal"
         />
         <p
           id="public-website-redesign-contact-team-working-group-intro"

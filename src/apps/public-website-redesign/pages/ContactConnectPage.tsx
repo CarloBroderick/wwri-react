@@ -8,90 +8,95 @@ function ContactConnectPage() {
       id="public-website-redesign-contact-connect-page"
       className="mx-auto max-w-[1400px] px-6 py-16"
     >
-      <header id="public-website-redesign-contact-connect-heading">
-        <h2
-          id="public-website-redesign-contact-connect-heading-title"
-          className="font-Poppins text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriForest"
-        >
-          Connect with Us
-        </h2>
-        <MossDivider
-          id="public-website-redesign-contact-connect-heading-divider"
-          className="my-3"
-          widthClassName="w-16"
-        />
-      </header>
-
       <div
         id="public-website-redesign-contact-connect-layout"
-        className="mt-12 grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-center"
+        className="grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-center"
       >
         <div
-          id="public-website-redesign-contact-connect-card"
-          className="rounded-sm border border-wriForest/15 bg-wriSmokeFog px-6 py-8 sm:px-8 md:self-center"
+          id="public-website-redesign-contact-connect-content"
+          className="w-full max-w-[460px] md:justify-self-center"
         >
-          <p
-            id="public-website-redesign-contact-connect-prompt"
-            className="font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
-          >
-            Interested in working with the index or have questions about the project?
-          </p>
-
-          <p
-            id="public-website-redesign-contact-connect-email-label"
-            className="mt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
-          >
-            Send us an email:
-          </p>
-
-          <div
-            id="public-website-redesign-contact-connect-email-grid"
-            className="mt-4 grid grid-cols-[auto_1fr] items-center gap-x-4"
-          >
-            <div id="public-website-redesign-contact-connect-email-icon-wrapper" aria-hidden="true">
-              <ContactMailIcon id="public-website-redesign-contact-connect-email-symbol" />
-            </div>
-            <a
-              id="public-website-redesign-contact-connect-email"
-              href="mailto:wri@nceas.ucsb.edu"
-              className="font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
+          <header id="public-website-redesign-contact-connect-heading">
+            <h2
+              id="public-website-redesign-contact-connect-heading-title"
+              className="font-Poppins text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriForest"
             >
-              wri@nceas.ucsb.edu
-            </a>
-          </div>
-
-          <p
-            id="public-website-redesign-contact-connect-linkedin-label"
-            className="mt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
-          >
-            Follow us on LinkedIn:
-          </p>
+              Connect with Us
+            </h2>
+            <MossDivider
+              id="public-website-redesign-contact-connect-heading-divider"
+              className="my-3"
+              widthClassName="w-16"
+            />
+          </header>
 
           <div
-            id="public-website-redesign-contact-connect-linkedin-grid"
-            className="mt-4 grid grid-cols-[auto_1fr] items-center gap-x-4"
+            id="public-website-redesign-contact-connect-card"
+            className="mt-8 rounded-sm border border-wriForest/15 bg-wriSmokeFog px-6 py-8 sm:px-8"
           >
+            <p
+              id="public-website-redesign-contact-connect-prompt"
+              className="font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
+            >
+              Interested in working with the index or have questions about the project?
+            </p>
+
+            <p
+              id="public-website-redesign-contact-connect-email-label"
+              className="mt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
+            >
+              Send us an email:
+            </p>
+
             <div
-              id="public-website-redesign-contact-connect-linkedin-icon-wrapper"
-              aria-hidden="true"
-              className="ml-1 flex items-center justify-center"
+              id="public-website-redesign-contact-connect-email-grid"
+              className="mt-4 grid grid-cols-[auto_1fr] items-center gap-x-4"
             >
-              <img
-                id="public-website-redesign-contact-connect-linkedin-symbol"
-                src={linkedinGreenIcon}
-                alt=""
-                className="h-7 w-auto object-contain"
-              />
+              <div id="public-website-redesign-contact-connect-email-icon-wrapper" aria-hidden="true">
+                <ContactMailIcon id="public-website-redesign-contact-connect-email-symbol" />
+              </div>
+              <a
+                id="public-website-redesign-contact-connect-email"
+                href="mailto:wri@nceas.ucsb.edu"
+                className="font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
+              >
+                wri@nceas.ucsb.edu
+              </a>
             </div>
-            <a
-              id="public-website-redesign-contact-connect-linkedin-link"
-              href="https://www.linkedin.com/company/the-wildfire-resilience-index/"
-              target="_blank"
-              rel="noreferrer"
-              className="self-center font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
+
+            <p
+              id="public-website-redesign-contact-connect-linkedin-label"
+              className="mt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
             >
-              Wildfire Resilience Index
-            </a>
+              Follow us on LinkedIn:
+            </p>
+
+            <div
+              id="public-website-redesign-contact-connect-linkedin-grid"
+              className="mt-4 grid grid-cols-[auto_1fr] items-center gap-x-4"
+            >
+              <div
+                id="public-website-redesign-contact-connect-linkedin-icon-wrapper"
+                aria-hidden="true"
+                className="ml-1 flex items-center justify-center"
+              >
+                <img
+                  id="public-website-redesign-contact-connect-linkedin-symbol"
+                  src={linkedinGreenIcon}
+                  alt=""
+                  className="h-7 w-auto object-contain"
+                />
+              </div>
+              <a
+                id="public-website-redesign-contact-connect-linkedin-link"
+                href="https://www.linkedin.com/company/the-wildfire-resilience-index/"
+                target="_blank"
+                rel="noreferrer"
+                className="self-center font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
+              >
+                Wildfire Resilience Index
+              </a>
+            </div>
           </div>
         </div>
 
