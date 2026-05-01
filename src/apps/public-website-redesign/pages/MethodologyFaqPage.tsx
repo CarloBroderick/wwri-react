@@ -466,7 +466,7 @@ function MethodologyFaqPage() {
     });
 
   return (
-    <div id="public-website-redesign-methodology-faq-page" className="mx-auto max-w-[1200px] px-6 py-16">
+    <div id="public-website-redesign-methodology-faq-page" className="mx-auto max-w-[1400px] px-6 py-16">
       <SectionHeader
         id="public-website-redesign-methodology-faq-heading"
         eyebrow="Methodology"

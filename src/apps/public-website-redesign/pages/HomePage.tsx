@@ -32,7 +32,7 @@ function HomePage() {
         />
         <div
           id="public-website-redesign-home-hero-content"
-          className="relative z-10 mx-auto flex h-full max-w-[1280px] flex-col items-center justify-center px-6 text-center text-wriSmokeFog"
+          className="relative z-10 mx-auto flex h-full max-w-[1400px] flex-col items-center justify-center px-6 text-center text-wriSmokeFog"
         >
           <h1
             id="public-website-redesign-home-hero-title"

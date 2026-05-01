@@ -155,7 +155,7 @@ function AboutPage() {
   };
 
   return (
-    <div id="public-website-redesign-about-page" className="mx-auto max-w-[1200px] px-6 py-16">
+    <div id="public-website-redesign-about-page" className="mx-auto max-w-[1400px] px-6 py-16">
       <section id="public-website-redesign-about-getting-started-section">
         <h1
           id="public-website-redesign-about-getting-started-title"

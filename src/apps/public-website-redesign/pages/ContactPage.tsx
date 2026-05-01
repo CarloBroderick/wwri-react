@@ -7,7 +7,7 @@ function ContactPage() {
   return (
     <div
       id="contact-page"
-      className="mx-auto max-w-[1200px] px-6 py-16"
+      className="mx-auto max-w-[1400px] px-6 py-16"
     >
       <div
         id="contact-page-layout"

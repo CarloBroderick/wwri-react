@@ -15,7 +15,7 @@ import { REDESIGN_ROUTES } from "../routes/routeConfig";
  */
 function DomainsPage() {
   return (
-    <div id="public-website-redesign-domains-page" className="mx-auto max-w-[1200px] px-6 py-16">
+    <div id="public-website-redesign-domains-page" className="mx-auto max-w-[1400px] px-6 py-16">
       <section
         id="public-website-redesign-domains-intro-1"
         className="grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-stretch"
