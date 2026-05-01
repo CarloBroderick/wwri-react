@@ -17,13 +17,7 @@ function ExploreAnotherDomain({ currentSlug }: { currentSlug: DomainSlug }) {
     >
       <SectionHeader
         id="public-website-redesign-explore-another-heading"
-        eyebrow={
-          <>
-            Explore Another
-            <br />
-            Domain
-          </>
-        }
+        eyebrow="Explore Another Domain"
       />
       <div className="mt-8">
         <DomainGrid mutedSlug={currentSlug} nextSlug={currentSlug} size="sm" />
