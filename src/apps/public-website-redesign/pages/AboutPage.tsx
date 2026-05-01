@@ -370,15 +370,9 @@ function AboutPage() {
       <section id="public-website-redesign-about-copy-and-images-section" className="mt-20 space-y-14">
         <article id="public-website-redesign-about-intro-heading-block">
           <div id="public-website-redesign-about-intro-heading-divider" className="h-[4px] w-20 rounded-full bg-wriMoss" />
-          <h2
-            id="public-website-redesign-about-intro-heading-title"
-            className="mt-6 font-Poppins text-[clamp(2.25rem,4.3vw,2.75rem)] font-semibold leading-tight text-wriForest"
-          >
-            About
-          </h2>
           <h3
             id="public-website-redesign-about-intro-heading-subtitle"
-            className="mt-2 font-Montserrat text-[clamp(1.75rem,3.7vw,2.5625rem)] font-medium leading-tight text-wriSage"
+            className="mt-6 font-Montserrat text-[clamp(1.75rem,3.7vw,2.5625rem)] font-medium leading-tight text-wriSage"
           >
             A Data-Driven View of Wildfire Resilience
           </h3>
