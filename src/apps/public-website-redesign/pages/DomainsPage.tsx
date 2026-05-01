@@ -2,12 +2,11 @@ import { Link } from "react-router-dom";
 import pineRegrowthDomainsImage from "../../../assets/public-website-redesign/images/domains-landing/pine-regrowth-domains.jpg";
 import DomainGrid from "../components/shared/DomainGrid";
 import MossDivider from "../components/shared/MossDivider";
-import SectionHeader from "../components/shared/SectionHeader";
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
 
 /**
  * Domains overview — Canva spec pages 4–8.
- *   • Section 1: "Domains / What are the Index Domains?" + intro copy, with the
+ *   • Section 1: "What are the Index Domains?" + intro copy, with the
  *     pine regrowth image on the right.
  *   • Section 2: continued copy + clickable 2×4 grid of the Canva Domain Squares
  *     (rendered by DomainGrid — those PNGs are the "Domain Squares Stacked"
@@ -21,17 +20,19 @@ function DomainsPage() {
         className="grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-stretch"
       >
         <div id="public-website-redesign-domains-intro-text">
-          <SectionHeader
-            id="public-website-redesign-domains-intro-heading"
-            eyebrow="Domains"
-            title={
-              <>
-                What are the
-                <br />
-                Index Domains?
-              </>
-            }
-          />
+          <header id="public-website-redesign-domains-intro-heading">
+            <h2
+              id="public-website-redesign-domains-intro-heading-title"
+              className="font-Poppins text-[clamp(2.25rem,4.5vw,2.75rem)] font-bold leading-tight text-wriForest"
+            >
+              What are the Index Domains?
+            </h2>
+            <MossDivider
+              id="public-website-redesign-domains-intro-heading-divider"
+              className="my-3"
+              widthClassName="w-16"
+            />
+          </header>
           <div
             id="public-website-redesign-domains-intro-body"
             className="mt-6 space-y-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
@@ -41,10 +42,6 @@ function DomainsPage() {
               <strong>domains</strong>—that capture how communities and landscapes respond to
               wildfire: <strong>Infrastructure, Communities, Livelihoods, Sense of Place,
               Species, Habitats, Water,</strong> and <strong>Air.</strong>
-            </p>
-            <p>
-              The index combines data from these <strong>domains</strong> into a single composite
-              score for each area (see example).
             </p>
           </div>
         </div>
