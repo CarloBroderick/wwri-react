@@ -255,7 +255,7 @@ export const DOMAINS: Domain[] = [
     tileDim: senseOfPlaceTileDim,
     iconNoText: senseOfPlaceIconNoText,
     whyItMatters:
-      "**Sense of Place** encompasses the cultural, spiritual, and aesthetic connections people have to landscapes. These connections can be shaped by the presence of distinctive species or the character of the landscape itself. Wildfire can reshape both landscapes and the meanings people attach to them. Therefore this domain considers iconic places and iconic species that hold special significance to people.",
+      "**Sense of Place** encompasses the cultural, spiritual, and aesthetic connections people have to landscapes. These connections can be shaped by the presence of distinctive species or the character of the landscape itself. Wildfire can reshape both landscapes and the meanings people attach to them. Therefore this domain considers **iconic places** and **iconic species** that hold special significance to people.",
     status: {
       title: "Status",
       description:
