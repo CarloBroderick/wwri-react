@@ -469,8 +469,7 @@ function MethodologyFaqPage() {
     <div id="public-website-redesign-methodology-faq-page" className="mx-auto max-w-[1400px] px-6 py-16">
       <SectionHeader
         id="public-website-redesign-methodology-faq-heading"
-        eyebrow="Methodology"
-        title="Frequently Asked Questions"
+        eyebrow={<span className="font-bold">Frequently Asked Questions</span>}
       />
       <p
         id="public-website-redesign-methodology-faq-intro"
@@ -487,7 +486,7 @@ function MethodologyFaqPage() {
         >
           <h3
             id={`public-website-redesign-faq-section-heading-${section.id}`}
-            className="font-Montserrat text-[clamp(1.35rem,2.8vw,1.75rem)] font-bold text-wriSage"
+            className="font-Montserrat text-[clamp(1.35rem,2.8vw,1.75rem)] font-normal text-wriSage"
           >
             {section.heading}
           </h3>
