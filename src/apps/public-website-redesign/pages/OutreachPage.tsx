@@ -26,7 +26,7 @@ type UpcomingEvent = {
 };
 
 const INDEX_WEBINAR_DESCRIPTION =
-  "Get your questions about the Wildfire Resilience Index answered! In this informational webinar, the index team will introduce you to the index, show you how to use it, and help you how to interpret your score. There will be time for Q & A afterwards.";
+  "Get your questions about the Wildfire Resilience Index answered! In this informational webinar, the index team will introduce you to the index, show you how to use it, and help you understand how to interpret your score. There will be time for Q & A afterwards.";
 
 const UPCOMING_EVENTS: UpcomingEvent[] = [
   {
@@ -57,7 +57,7 @@ const UPCOMING_EVENTS: UpcomingEvent[] = [
     date: "Tuesday, May 19 2026",
     time: "12:00 - 1:00 PM PDT",
     description:
-      "As wildfires grow more frequent, severe, and costly across North America, the need for clear, data-driven tools to guide land management and policy decisions has never been greater. The Wildfire Resilience Index (WRI) - launching in 2026 - will be the first open-access, holistic tool designed to measure wildfire resilience. In this webinar, the WRI team will share their most recent findings and provide an overview for how data experts and modelers could incorporate their findings.",
+      "As wildfires grow more frequent, severe, and costly across North America, the need for clear, data-driven tools to guide land management and policy decisions has never been greater. The Wildfire Resilience Index (WRI) - launching in 2026 - will be the open-access, holistic tool designed to measure wildfire resilience. In this webinar, the WRI team will share their most recent findings and provide an overview for how data experts and modelers could incorporate their findings.",
     registrationUrl: "https://ucsd.zoom.us/meeting/register/kL0lRwzJTyCpanCasgBDKQ#/",
     logoVariant: "commons",
   },

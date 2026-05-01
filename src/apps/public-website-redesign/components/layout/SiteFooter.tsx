@@ -3,16 +3,11 @@ import linkedinGreenIcon from "../../../../assets/public-website-redesign/images
 import nceasLogoWhite from "../../../../assets/public-website-redesign/images/logos/nceas-white.png";
 import mooreLogoWhite from "../../../../assets/public-website-redesign/images/logos/moore-white.png";
 import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.svg";
+import { PRIMARY_NAV } from "../../config/navigation";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 
-const NAV_LINKS = [
-  { id: "about", label: "About", to: REDESIGN_ROUTES.about },
-  { id: "domains", label: "Domains", to: REDESIGN_ROUTES.domains },
-  { id: "methodology", label: "Methodology", to: REDESIGN_ROUTES.methodology },
-  { id: "news", label: "News & Features", to: REDESIGN_ROUTES.news },
-  { id: "outreach", label: "Outreach", to: REDESIGN_ROUTES.outreach },
-  { id: "contact", label: "Contact", to: REDESIGN_ROUTES.contact },
-];
+const getFooterLinkId = (label: string) =>
+  `public-website-redesign-footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 
 function SiteFooter() {
   const { pathname } = useLocation();
@@ -105,10 +100,10 @@ function SiteFooter() {
             className="flex flex-wrap gap-x-5 gap-y-1 text-[11px]"
             aria-label="Footer"
           >
-            {NAV_LINKS.map((l) => (
+            {PRIMARY_NAV.map((l) => (
               <Link
-                key={l.id}
-                id={`public-website-redesign-footer-link-${l.id}`}
+                key={l.label}
+                id={getFooterLinkId(l.label)}
                 to={l.to}
                 className="text-wriSmokeFog/50 transition-colors hover:text-white"
               >
