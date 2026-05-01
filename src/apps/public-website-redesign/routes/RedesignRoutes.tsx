@@ -44,15 +44,6 @@ function RedesignRoutes() {
               />
             }
           />
-          <Route
-            path="resources"
-            element={
-              <ComingSoonPage
-                id="public-website-redesign-resources-page"
-                title="Resources"
-              />
-            }
-          />
         </Route>
 
         <Route path="contact">
