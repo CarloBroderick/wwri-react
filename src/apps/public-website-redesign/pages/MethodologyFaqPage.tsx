@@ -242,8 +242,16 @@ const FAQ_SECTIONS: FaqSection[] = [
           <p>
             Yes! The underlying pixel-level data, domain scores, aggregated geographies, full methods
             documentation, and all code are freely available for download on KNB. For code
-            specifically, please visit our GitHub repo (TBD). There are no paywalls, no registration
-            requirements, and no restrictions on use.
+            specifically, please visit our{" "}
+            <a
+              href="https://github.com/WRI-Science/wri-public"
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-wriMoss hover:underline"
+            >
+              GitHub repo
+            </a>
+            . There are no paywalls, no registration requirements, and no restrictions on use.
           </p>
         ),
       },
