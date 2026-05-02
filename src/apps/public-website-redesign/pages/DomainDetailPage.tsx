@@ -26,7 +26,7 @@ const subdomainTitleClassName =
 
 /**
  * Single-domain detail page — Canva spec pages 9–16 / change-requests doc.
- *   1. Domain title + hero video/image banner
+ *   1. Domain title + hero video/image banner with user-controlled playback
  *   2. Why it matters (icon + copy)
  *   3. How it's measured heading
  *   4. Status / Resistance / Recovery rows (HIM photos on far left)
@@ -98,9 +98,7 @@ function DomainDetailPage() {
                   id={`public-website-redesign-domain-${domain.slug}-top-media-video`}
                   src={domain.heroVideo}
                   poster={domain.hero}
-                  autoPlay
-                  muted
-                  loop
+                  controls
                   playsInline
                   preload="metadata"
                   onCanPlay={() => {
@@ -112,7 +110,9 @@ function DomainDetailPage() {
                   className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-200 ${
                     isTopVideoReady ? "opacity-100" : "opacity-0"
                   }`}
-                />
+                >
+                  Your browser does not support the video tag.
+                </video>
               </>
             ) : (
               <img
