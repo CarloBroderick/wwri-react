@@ -386,15 +386,16 @@ export const DOMAINS: Domain[] = [
     tileDim: habitatsTileDim,
     iconNoText: habitatsIconNoText,
     whyItMatters:
-      "**Habitats** such as forests, grasslands, and shrublands support landscapes and communities. Their condition influences how wildfire behaves and how ecosystems recover.",
+      "**Habitats** such as forests, grasslands, and shrublands support landscapes and communities. Habitat influences how wildfire behaves and how ecosystems recover.",
     status: {
       title: "Status",
       description:
-        "Represents current habitat condition compared to a historical baseline.",
+        "Represents current habitat extent compared to a historical baseline.",
       photo: habitatsHim1,
       example: {
         label: "Protection Status",
-        detail: "Protections impact how habitats are maintained",
+        detail:
+          "Protection determines how well we are preserving habitats for future generations.",
       },
     },
     resistance: {
@@ -412,7 +413,7 @@ export const DOMAINS: Domain[] = [
       photo: habitatsHim3,
       example: {
         label: "Rainfall",
-        detail: "Frequent precipitation supports plant regrowth",
+        detail: "Precipitation supports plant regrowth",
       },
     },
   },
