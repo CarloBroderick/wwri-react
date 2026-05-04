@@ -6,6 +6,7 @@ import erikaEggPhoto from "../../../assets/public-website-redesign/images/team/e
 import izzySofioPhoto from "../../../assets/public-website-redesign/images/team/izzy-sofio.jpg";
 import joeDecesaroPhoto from "../../../assets/public-website-redesign/images/team/joe-decesaro.png";
 import monaFarnisaPhoto from "../../../assets/public-website-redesign/images/team/mona-farnisa.png";
+import rachelKingPhoto from "../../../assets/public-website-redesign/images/team/rachel-king.png";
 import tessaCafritzPhoto from "../../../assets/public-website-redesign/images/team/tessa-cafritz.jpg";
 import willOverbyeThompsonPhoto from "../../../assets/public-website-redesign/images/team/will-overbye-thompson.jpeg";
 import MossDivider from "../components/shared/MossDivider";
@@ -85,6 +86,13 @@ const PAST_CONTRIBUTORS: TeamMember[] = [
     role: "Policy Analyst & Communications Lead",
     photo: izzySofioPhoto,
     bio: "Izzy Sofio was a policy analyst and communications lead for the WRI project. Sofio holds a BA in Environmental Studies from the University of Colorado Boulder and completed a Master's in Environmental Science and Management at UC Santa Barbara's Bren School.",
+  },
+  {
+    id: "rachel-king",
+    name: "Rachel King",
+    role: "Data Analyst",
+    photo: rachelKingPhoto,
+    bio: "Rachel served as a data analyst on the Wildfire Resilience Index project, with a concentration on the Species and Habitat domains. She completed a Ph.D. in Ecology, Evolution and Behavior at the University of Minnesota-Twin Cities and a B.A. in Biology at Scripps College.",
   },
 ];
 
