@@ -72,16 +72,16 @@ const ABOUT_CONTENT_ROWS: ReadonlyArray<{
     imagePosition: "left",
     paragraphs: [
       <>
-        Because wildfire resilience spans ecological, social, and infrastructural factors, it can be difficult
-        to measure and compare. The index addresses this challenge by combining many types of data into a
-        single, easy-to-understand measure. Grounded in the latest research, it integrates spatial data and
-        expert knowledge to assess <strong>resilience</strong> across different locations.
+        Because wildfire <strong>resilience</strong> spans ecological, social, and infrastructural factors, it
+        can be difficult to measure and compare. The index addresses this challenge by combining many types of
+        data into a single, easy-to-understand measure. Grounded in the latest research, it integrates spatial
+        data and expert knowledge to assess <strong>resilience</strong> across different locations.
       </>,
       <>
         The index brings together multiple indicators-organized into eight key topic areas called{" "}
         <strong>domains</strong>-to create a composite score. This approach allows diverse information to be
-        translated into a shared framework, helping everyone talk about wildfire resilience in a consistent and
-        meaningful way.
+        translated into a shared framework, helping everyone talk about wildfire <strong>resilience</strong> in
+        a consistent and meaningful way.
       </>,
     ],
   },
@@ -100,8 +100,8 @@ const ABOUT_CONTENT_ROWS: ReadonlyArray<{
       </>,
       <>
         Rather than prescribing one solution, the index offers flexible insights that communities can adapt to
-        their unique needs. It highlights where resilience can be strengthened-whether through vegetation
-        management, infrastructure planning, community preparedness, or other targeted actions.
+        their unique needs. It highlights where <strong>resilience</strong> can be strengthened-whether through
+        vegetation management, infrastructure planning, community preparedness, or other targeted actions.
       </>,
     ],
   },
