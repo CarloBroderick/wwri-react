@@ -27,7 +27,8 @@ import MapLegend from "./MapLegend";
 // Layer IDs for querying (fill layers are interactive)
 const INTERACTIVE_LAYERS = ["us-fill", "canada-fill"];
 const DEFAULT_OVERLAY_OPACITY = 1;
-const DEFAULT_TRACT_OVERLAY_OPACITY = 0.65;
+const DEFAULT_TRACT_OVERLAY_OPACITY = 1;
+const SATELLITE_TRACT_OVERLAY_OPACITY = 0.8;
 const MIN_TRACT_OVERLAY_OPACITY = 0;
 const MAX_TRACT_OVERLAY_OPACITY = 1;
 const TRACT_OVERLAY_OPACITY_STEP = 0.05;
@@ -90,6 +91,18 @@ export const BASEMAP_OPTIONS: Record<string, BasemapOption> = {
 export type BasemapId = keyof typeof BASEMAP_OPTIONS;
 
 const DEFAULT_BASEMAP: BasemapId = "carto-positron";
+const DEFAULT_BASEMAP_OPACITY = 1;
+const SATELLITE_BASEMAP_OPACITY = 0.8;
+
+const getBasemapOpacity = (basemapId: BasemapId) =>
+  basemapId === "eox-satellite"
+    ? SATELLITE_BASEMAP_OPACITY
+    : DEFAULT_BASEMAP_OPACITY;
+
+const getDefaultTractOverlayOpacity = (basemapId: BasemapId) =>
+  basemapId === "eox-satellite"
+    ? SATELLITE_TRACT_OVERLAY_OPACITY
+    : DEFAULT_TRACT_OVERLAY_OPACITY;
 
 // ============================================================================
 // LABEL SOURCE CONFIGURATION
@@ -212,6 +225,9 @@ const getBaseMapStyle = (basemapId: BasemapId = DEFAULT_BASEMAP): StyleSpecifica
         id: "basemap-layer",
         type: "raster",
         source: "basemap",
+        paint: {
+          "raster-opacity": getBasemapOpacity(basemapId),
+        },
       },
     ],
   };
@@ -708,10 +724,12 @@ const MapArea: React.FC<MapAreaProps> = ({
   const locationDataRef = useRef<Record<string, LocationInfo>>({});
   const [dataLoaded, setDataLoaded] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
-  const [tractOverlayOpacity, setTractOverlayOpacity] = useState(
-    DEFAULT_TRACT_OVERLAY_OPACITY,
+  const [tractOverlayOpacity, setTractOverlayOpacity] = useState(() =>
+    getDefaultTractOverlayOpacity(selectedBasemap),
   );
-  const tractOverlayOpacityRef = useRef(DEFAULT_TRACT_OVERLAY_OPACITY);
+  const tractOverlayOpacityRef = useRef(
+    getDefaultTractOverlayOpacity(selectedBasemap),
+  );
   const previousNonSatelliteBasemapRef = useRef<BasemapId>("carto-positron");
   const mapRef = useRef<maplibregl.Map | null>(null);
 
@@ -736,6 +754,8 @@ const MapArea: React.FC<MapAreaProps> = ({
     tractOverlayOpacityRef.current = tractOverlayOpacity;
   }, [tractOverlayOpacity]);
   useEffect(() => {
+    setTractOverlayOpacity(getDefaultTractOverlayOpacity(selectedBasemap));
+
     if (selectedBasemap !== "eox-satellite") {
       previousNonSatelliteBasemapRef.current = selectedBasemap;
     }
@@ -807,6 +827,16 @@ const MapArea: React.FC<MapAreaProps> = ({
         // remove and re-add the source with the new tiles
         const style = map.getStyle();
         if (style) {
+          const basemapLayer = style.layers.find(
+            (layer) => layer.id === "basemap-layer",
+          );
+          if (basemapLayer) {
+            basemapLayer.paint = {
+              ...basemapLayer.paint,
+              "raster-opacity": getBasemapOpacity(selectedBasemap),
+            };
+          }
+
           // Update the source configuration
           style.sources.basemap = {
             type: "raster",

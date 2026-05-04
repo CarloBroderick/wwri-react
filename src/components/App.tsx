@@ -219,6 +219,9 @@ function App() {
   // Dev tools: Basemap selection
   const [selectedBasemap, setSelectedBasemap] = useState<BasemapId>(() => {
     const stored = localStorage.getItem(BASEMAP_STORAGE_KEY);
+    if (stored === "eox-satellite") {
+      return DEFAULT_BASEMAP;
+    }
     return (stored && stored in BASEMAP_OPTIONS) ? stored as BasemapId : DEFAULT_BASEMAP;
   });
 

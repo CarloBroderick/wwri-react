@@ -5,18 +5,19 @@
  * - "PRODUCTION": All dev tools hidden, clean UI for end users
  * - "DEBUG": Dev tools available via header dropdown
  * 
- * Uses VITE_APP_MODE environment variable if set, otherwise defaults based on NODE_ENV.
- * For production builds, set VITE_APP_MODE=PRODUCTION or NODE_ENV=production.
+ * Dev tools are hidden unless intentionally enabled with:
+ * - npm run dev -- --mode devtools
+ * - VITE_ENABLE_DEVTOOLS=true npm run dev
+ * - VITE_ENABLE_DEVTOOLS=true npm run build
  */
 
 export type AppMode = "PRODUCTION" | "DEBUG";
 
-// Determine mode from environment variables
-// Default to DEBUG to allow team to tinker with dev tools
-// Set VITE_APP_MODE=PRODUCTION explicitly when ready for full public launch
-const envMode = import.meta.env.VITE_APP_MODE || 'DEBUG';
+export const DEVTOOLS_ENABLED =
+  import.meta.env.MODE === "devtools" ||
+  import.meta.env.VITE_ENABLE_DEVTOOLS === "true";
 
-export const APP_MODE: AppMode = envMode as AppMode;
+export const APP_MODE: AppMode = DEVTOOLS_ENABLED ? "DEBUG" : "PRODUCTION";
 
 // Feature flag checks
 export const isDebugMode = (): boolean => APP_MODE === "DEBUG";
