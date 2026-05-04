@@ -1,4 +1,5 @@
 import { Domain } from "../types/domainTypes";
+import { applyRevisedIndicatorDescriptions } from "./indicatorDescriptions";
 
 /**
  * Domain Hierarchy for WWRI (Western Wildfire Resilience Index)
@@ -668,4 +669,4 @@ const domainHierarchy: Domain[] = [
   },
 ];
 
-export default domainHierarchy;
+export default applyRevisedIndicatorDescriptions(domainHierarchy);
