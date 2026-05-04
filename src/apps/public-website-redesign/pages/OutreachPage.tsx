@@ -30,16 +30,6 @@ const INDEX_WEBINAR_DESCRIPTION =
 
 const UPCOMING_EVENTS: UpcomingEvent[] = [
   {
-    id: "informational-webinar-may-11",
-    title: "Informational Webinar",
-    subtitle: "Learn more about the index",
-    date: "Monday, May 11 2026",
-    time: "3:00 - 4:00 PM PDT",
-    description: INDEX_WEBINAR_DESCRIPTION,
-    registrationUrl: "https://ucsb.zoom.us/s/85763054615",
-    logoVariant: "wri",
-  },
-  {
     id: "informational-webinar-may-12",
     title: "Informational Webinar",
     subtitle: "Learn more about the index",
