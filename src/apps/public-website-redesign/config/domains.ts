@@ -1,30 +1,36 @@
 // --- Hero (WIM = "wide image main") photos --------------------------------
-import infrastructureHero from "../../../assets/public-website-redesign/images/domains/infrastructure/wim.png";
+import airHero from "../../../assets/public-website-redesign/images/domains/air/wim.png";
 import communitiesHero from "../../../assets/public-website-redesign/images/domains/communities/wim.png";
+import habitatsHero from "../../../assets/public-website-redesign/images/domains/habitats/wim.png";
+import infrastructureHero from "../../../assets/public-website-redesign/images/domains/infrastructure/wim.png";
 import livelihoodsHero from "../../../assets/public-website-redesign/images/domains/livelihoods/wim.png";
-import senseOfPlaceHero from "../../../assets/public-website-redesign/images/domains/sense-of-place/wim.png";
 import senseOfPlaceIconicPlacesHero from "../../../assets/public-website-redesign/images/domains/sense-of-place/wim-iconic-places.png";
 import senseOfPlaceIconicSpeciesHero from "../../../assets/public-website-redesign/images/domains/sense-of-place/wim-iconic-species.png";
+import senseOfPlaceHero from "../../../assets/public-website-redesign/images/domains/sense-of-place/wim.png";
 import speciesHero from "../../../assets/public-website-redesign/images/domains/species/wim.png";
-import habitatsHero from "../../../assets/public-website-redesign/images/domains/habitats/wim.png";
 import waterHero from "../../../assets/public-website-redesign/images/domains/water/wim.png";
-import airHero from "../../../assets/public-website-redesign/images/domains/air/wim.png";
-import infrastructureHeroVideo from "../../../assets/public-website-redesign/videos/infrastructure.mp4";
+import airHeroVideo from "../../../assets/public-website-redesign/videos/air.mp4";
 import communitiesHeroVideo from "../../../assets/public-website-redesign/videos/communities.mp4";
+import habitatsHeroVideo from "../../../assets/public-website-redesign/videos/habitats.mp4";
+import infrastructureHeroVideo from "../../../assets/public-website-redesign/videos/infrastructure.mp4";
 import livelihoodsHeroVideo from "../../../assets/public-website-redesign/videos/livelihoods.mp4";
 import senseOfPlaceHeroVideo from "../../../assets/public-website-redesign/videos/sense-of-place.mp4";
 import speciesHeroVideo from "../../../assets/public-website-redesign/videos/species.mp4";
-import habitatsHeroVideo from "../../../assets/public-website-redesign/videos/habitats.mp4";
 import waterHeroVideo from "../../../assets/public-website-redesign/videos/water.mp4";
-import airHeroVideo from "../../../assets/public-website-redesign/videos/air.mp4";
 
 // --- HIM ("horizontal image matters") photos for each measured row --------
-import infrastructureHim1 from "../../../assets/public-website-redesign/images/domains/infrastructure/him/him-1.png";
-import infrastructureHim2 from "../../../assets/public-website-redesign/images/domains/infrastructure/him/him-2.png";
-import infrastructureHim3 from "../../../assets/public-website-redesign/images/domains/infrastructure/him/him-3.png";
+import airHim1 from "../../../assets/public-website-redesign/images/domains/air/him/him-1.png";
+import airHim2 from "../../../assets/public-website-redesign/images/domains/air/him/him-2.png";
+import airHim3 from "../../../assets/public-website-redesign/images/domains/air/him/him-3.png";
 import communitiesHim1 from "../../../assets/public-website-redesign/images/domains/communities/him/him-1.png";
 import communitiesHim2 from "../../../assets/public-website-redesign/images/domains/communities/him/him-2.png";
 import communitiesHim3 from "../../../assets/public-website-redesign/images/domains/communities/him/him-3.png";
+import habitatsHim1 from "../../../assets/public-website-redesign/images/domains/habitats/him/him-1.png";
+import habitatsHim2 from "../../../assets/public-website-redesign/images/domains/habitats/him/him-2.png";
+import habitatsHim3 from "../../../assets/public-website-redesign/images/domains/habitats/him/him-3.png";
+import infrastructureHim1 from "../../../assets/public-website-redesign/images/domains/infrastructure/him/him-1.png";
+import infrastructureHim2 from "../../../assets/public-website-redesign/images/domains/infrastructure/him/him-2.png";
+import infrastructureHim3 from "../../../assets/public-website-redesign/images/domains/infrastructure/him/him-3.png";
 import livelihoodsHim1 from "../../../assets/public-website-redesign/images/domains/livelihoods/him/him-1.png";
 import livelihoodsHim2 from "../../../assets/public-website-redesign/images/domains/livelihoods/him/him-2.png";
 import livelihoodsHim3 from "../../../assets/public-website-redesign/images/domains/livelihoods/him/him-3.png";
@@ -37,44 +43,38 @@ import sopIsHim3 from "../../../assets/public-website-redesign/images/domains/se
 import speciesHim1 from "../../../assets/public-website-redesign/images/domains/species/him/him-1.png";
 import speciesHim2 from "../../../assets/public-website-redesign/images/domains/species/him/him-2.png";
 import speciesHim3 from "../../../assets/public-website-redesign/images/domains/species/him/him-3.png";
-import habitatsHim1 from "../../../assets/public-website-redesign/images/domains/habitats/him/him-1.png";
-import habitatsHim2 from "../../../assets/public-website-redesign/images/domains/habitats/him/him-2.png";
-import habitatsHim3 from "../../../assets/public-website-redesign/images/domains/habitats/him/him-3.png";
 import waterHim1 from "../../../assets/public-website-redesign/images/domains/water/him/him-1.png";
 import waterHim2 from "../../../assets/public-website-redesign/images/domains/water/him/him-2.png";
 import waterHim3 from "../../../assets/public-website-redesign/images/domains/water/him/him-3.png";
-import airHim1 from "../../../assets/public-website-redesign/images/domains/air/him/him-1.png";
-import airHim2 from "../../../assets/public-website-redesign/images/domains/air/him/him-2.png";
-import airHim3 from "../../../assets/public-website-redesign/images/domains/air/him/him-3.png";
 
 // --- Colored / dimmed domain-square PNGs (used for tiles & nav chips) -----
-import infrastructureTile from "../../../assets/public-website-redesign/images/domain-squares/infrastructure.png";
+import airTile from "../../../assets/public-website-redesign/images/domain-squares/air.png";
 import communitiesTile from "../../../assets/public-website-redesign/images/domain-squares/communities.png";
+import habitatsTile from "../../../assets/public-website-redesign/images/domain-squares/habitats.png";
+import infrastructureTile from "../../../assets/public-website-redesign/images/domain-squares/infrastructure.png";
 import livelihoodsTile from "../../../assets/public-website-redesign/images/domain-squares/livelihoods.png";
 import senseOfPlaceTile from "../../../assets/public-website-redesign/images/domain-squares/sense-of-place.png";
 import speciesTile from "../../../assets/public-website-redesign/images/domain-squares/species.png";
-import habitatsTile from "../../../assets/public-website-redesign/images/domain-squares/habitats.png";
 import waterTile from "../../../assets/public-website-redesign/images/domain-squares/water.png";
-import airTile from "../../../assets/public-website-redesign/images/domain-squares/air.png";
 
-import infrastructureTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/infrastructure.png";
+import airTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/air.png";
 import communitiesTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/communities.png";
+import habitatsTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/habitats.png";
+import infrastructureTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/infrastructure.png";
 import livelihoodsTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/livelihoods.png";
 import senseOfPlaceTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/sense-of-place.png";
 import speciesTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/species.png";
-import habitatsTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/habitats.png";
 import waterTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/water.png";
-import airTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/air.png";
 
 // --- No-text domain icons (used in "Why it matters" body copy) -------------
-import infrastructureIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/infrastructure.png";
+import airIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/air.png";
 import communitiesIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/communities.png";
+import habitatsIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/habitats.png";
+import infrastructureIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/infrastructure.png";
 import livelihoodsIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/livelihoods.png";
 import senseOfPlaceIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/sense-of-place.png";
 import speciesIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/species.png";
-import habitatsIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/habitats.png";
 import waterIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/water.png";
-import airIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/air.png";
 
 export type DomainSlug =
   | "infrastructure"
@@ -345,7 +345,7 @@ export const DOMAINS: Domain[] = [
     tileDim: speciesTileDim,
     iconNoText: speciesIconNoText,
     whyItMatters:
-      "People value the existence of a diverse array of species both for their intrinsic qualities and for the natural services, such as pollination, they provide. Species that survive and recover from fire help maintain healthy ecosystems.",
+      "People value the existence of a diverse array of **species** both for their intrinsic qualities and for the natural services, such as pollination, they provide. **Species** that survive and recover from fire help maintain healthy ecosystems.",
     status: {
       title: "Status",
       description:
@@ -372,7 +372,7 @@ export const DOMAINS: Domain[] = [
       example: {
         label: "Range",
         detail:
-          "Species with populations outside burn areas recover more easily",
+          "With larger ranges, species are more likely to have a surviving population to recover.",
       },
     },
   },
