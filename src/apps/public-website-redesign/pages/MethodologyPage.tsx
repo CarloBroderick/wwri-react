@@ -1,33 +1,33 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import MossDivider from "../components/shared/MossDivider";
 
-import tableEquationSymbols from "../../../assets/public-website-redesign/images/methodology/table-equation-symbols.png";
-import eqWri from "../../../assets/public-website-redesign/images/methodology/eq-wri.png";
 import eqDomainScore from "../../../assets/public-website-redesign/images/methodology/eq-domain-score.png";
-import eqStatus from "../../../assets/public-website-redesign/images/methodology/eq-status.png";
-import eqResilience from "../../../assets/public-website-redesign/images/methodology/eq-resilience.png";
 import eqIndicator from "../../../assets/public-website-redesign/images/methodology/eq-indicator.png";
-import tableDomainsElements from "../../../assets/public-website-redesign/images/methodology/table-domains-elements.png";
-import figModelInfrastructure from "../../../assets/public-website-redesign/images/methodology/fig-model-infrastructure.png";
-import tableBuildingCodes from "../../../assets/public-website-redesign/images/methodology/table-building-codes.png";
-import tableWuiLookup from "../../../assets/public-website-redesign/images/methodology/table-wui-lookup.png";
+import eqResilience from "../../../assets/public-website-redesign/images/methodology/eq-resilience.png";
+import eqStatus from "../../../assets/public-website-redesign/images/methodology/eq-status.png";
+import eqWri from "../../../assets/public-website-redesign/images/methodology/eq-wri.png";
+import figModelAir from "../../../assets/public-website-redesign/images/methodology/fig-model-air.png";
 import figModelCommunities from "../../../assets/public-website-redesign/images/methodology/fig-model-communities.png";
-import figModelLivelihoods from "../../../assets/public-website-redesign/images/methodology/fig-model-livelihoods.png";
-import tableVulnerableJobs from "../../../assets/public-website-redesign/images/methodology/table-vulnerable-jobs.png";
-import figModelIconicPlacesStructures from "../../../assets/public-website-redesign/images/methodology/fig-model-iconic-places-structures.png";
+import figModelHabitats from "../../../assets/public-website-redesign/images/methodology/fig-model-habitats.png";
 import figModelIconicPlacesNatural from "../../../assets/public-website-redesign/images/methodology/fig-model-iconic-places-natural.png";
+import figModelIconicPlacesStructures from "../../../assets/public-website-redesign/images/methodology/fig-model-iconic-places-structures.png";
 import figModelIconicSpecies from "../../../assets/public-website-redesign/images/methodology/fig-model-iconic-species.png";
-import tableConservationStatus from "../../../assets/public-website-redesign/images/methodology/table-conservation-status.png";
+import figModelInfrastructure from "../../../assets/public-website-redesign/images/methodology/fig-model-infrastructure.png";
+import figModelLivelihoods from "../../../assets/public-website-redesign/images/methodology/fig-model-livelihoods.png";
 import figModelSpecies from "../../../assets/public-website-redesign/images/methodology/fig-model-species.png";
+import figModelWater from "../../../assets/public-website-redesign/images/methodology/fig-model-water.png";
+import tableBuildingCodes from "../../../assets/public-website-redesign/images/methodology/table-building-codes.png";
+import tableConservationStatus from "../../../assets/public-website-redesign/images/methodology/table-conservation-status.png";
+import tableDomainsElements from "../../../assets/public-website-redesign/images/methodology/table-domains-elements.png";
+import tableEquationSymbols from "../../../assets/public-website-redesign/images/methodology/table-equation-symbols.png";
+import tableIucnWeights from "../../../assets/public-website-redesign/images/methodology/table-iucn-weights.png";
+import tableNonforestedBiomes from "../../../assets/public-website-redesign/images/methodology/table-nonforested-biomes.png";
 import tableSpeciesHabitat from "../../../assets/public-website-redesign/images/methodology/table-species-habitat.png";
 import tableSpeciesStatusWeights from "../../../assets/public-website-redesign/images/methodology/table-species-status-weights.png";
-import tableIucnWeights from "../../../assets/public-website-redesign/images/methodology/table-iucn-weights.png";
-import figModelHabitats from "../../../assets/public-website-redesign/images/methodology/fig-model-habitats.png";
 import tableVpdThreshold from "../../../assets/public-website-redesign/images/methodology/table-vpd-threshold.png";
-import tableNonforestedBiomes from "../../../assets/public-website-redesign/images/methodology/table-nonforested-biomes.png";
-import figModelWater from "../../../assets/public-website-redesign/images/methodology/fig-model-water.png";
+import tableVulnerableJobs from "../../../assets/public-website-redesign/images/methodology/table-vulnerable-jobs.png";
 import tableWaterHazardPlanning from "../../../assets/public-website-redesign/images/methodology/table-water-hazard-planning.png";
-import figModelAir from "../../../assets/public-website-redesign/images/methodology/fig-model-air.png";
+import tableWuiLookup from "../../../assets/public-website-redesign/images/methodology/table-wui-lookup.png";
 
 const TOC_ITEMS = [
   { id: "section-i", label: "I. Wildfire Resilience Index Framework" },
@@ -1370,13 +1370,13 @@ function MethodologyPage() {
 
           <H4>Overview</H4>
           <P>
-            Livelihoods (jobs) are important because they represent how people
-            make a living. Beyond just income, though, livelihoods are deeply
-            connected to dignity, security, identity, and well-being. The number
-            of jobs in a community, the stability of those jobs and potential for
-            job growth, and the range of job types are all key metrics of
-            community stability, quality of life, and overall local economic
-            opportunities.
+            <strong className="font-semibold">Livelihoods</strong> (jobs) are
+            important because they represent how people make a living. Beyond just
+            income, though, livelihoods are deeply connected to dignity, security,
+            identity, and well-being. The number of jobs in a community, the
+            stability of those jobs and potential for job growth, and the range of
+            job types are all key metrics of community stability, quality of life,
+            and overall local economic opportunities.
           </P>
           <P>
             We measure livelihoods as the interplay of employment, income, and

@@ -216,32 +216,35 @@ export const DOMAINS: Domain[] = [
     tileDim: livelihoodsTileDim,
     iconNoText: livelihoodsIconNoText,
     whyItMatters:
-      "**Livelihoods** reflect how people make a living and maintain well-being. Wildfire can disrupt jobs, income, and local economies.",
+      "**Livelihoods** (jobs) are important because they represent how people make a living. Beyond just income, though, livelihoods are deeply connected to dignity, security, identity, and well-being.",
     status: {
       title: "Status",
-      description: "Captures economic conditions that support well-being.",
+      description: "Captures the current conditions of how people make a living.",
       photo: livelihoodsHim1,
       example: {
         label: "Unemployment",
-        detail: "Higher rates can indicate economic vulnerability",
+        detail: "High unemployment signals limited job opportunities.",
       },
     },
     resistance: {
       title: "Resistance",
-      description: "Reflects how vulnerable jobs are to wildfire disruption.",
+      description:
+        "Some jobs may be more vulnerable due to the disturbances that can be caused by wildfire.",
       photo: livelihoodsHim2,
       example: {
         label: "Job Vulnerability",
-        detail: "Some industries are more affected by wildfire",
+        detail: "Wildfires can displace workers and impact access to workplaces.",
       },
     },
     recovery: {
       title: "Recovery",
-      description: "Reflects how economies rebound after wildfire.",
+      description:
+        "A diverse mix of jobs and industries enhances a region’s ability to recover from wildfire impacts.",
       photo: livelihoodsHim3,
       example: {
         label: "Job Diversity",
-        detail: "More diverse economies recover more easily",
+        detail:
+          "More jobs mean that potentially vulnerable workers can find employment less impacted by wildfire.",
       },
     },
   },
