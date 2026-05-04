@@ -36,7 +36,8 @@ const UPCOMING_EVENTS: UpcomingEvent[] = [
     date: "Tuesday, May 12 2026",
     time: "1:00 - 2:00 PM PDT",
     description: INDEX_WEBINAR_DESCRIPTION,
-    registrationUrl: "https://ucsb.zoom.us/s/85763054615",
+    registrationUrl:
+      "https://ucsb.zoom.us/webinar/register/WN_Y-0FFgcVTS6nC8iSIMNbaw#/registration",
     logoVariant: "wri",
   },
   {
