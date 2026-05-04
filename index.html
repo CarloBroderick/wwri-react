@@ -21,5 +21,25 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
+    <script id="cloudflare-web-analytics-loader">
+      const cloudflareAnalyticsTokens = {
+        "preview.wildfireindex.org": "0da92eab84f542758766e2f4949c58b8",
+        "wildfireindex.org": "4e4c18db3b1542e3b719b9fa2f9520c3",
+      };
+      const cloudflareAnalyticsToken =
+        cloudflareAnalyticsTokens[window.location.hostname];
+
+      if (cloudflareAnalyticsToken) {
+        const cloudflareAnalyticsScript = document.createElement("script");
+        cloudflareAnalyticsScript.id = "cloudflare-web-analytics";
+        cloudflareAnalyticsScript.defer = true;
+        cloudflareAnalyticsScript.src =
+          "https://static.cloudflareinsights.com/beacon.min.js";
+        cloudflareAnalyticsScript.dataset.cfBeacon = JSON.stringify({
+          token: cloudflareAnalyticsToken,
+        });
+        document.body.appendChild(cloudflareAnalyticsScript);
+      }
+    </script>
   </body>
 </html>
