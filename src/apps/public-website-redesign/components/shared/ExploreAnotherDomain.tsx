@@ -6,8 +6,7 @@ import SectionHeader from "./SectionHeader";
 /**
  * Footer CTA at the bottom of every domain detail page.
  *   • Title: "Domain / Explore Another" (Poppins eyebrow + Montserrat title)
- *   • Grid: 8 full-color Canva squares with the current slug dimmed and
- *     outlined in Sage (6px) to match the current page context.
+ *   • Grid: compact 8-tile navigation with the current slug selected in palette green.
  */
 function ExploreAnotherDomain({ currentSlug }: { currentSlug: DomainSlug }) {
   return (
@@ -19,7 +18,10 @@ function ExploreAnotherDomain({ currentSlug }: { currentSlug: DomainSlug }) {
         id="public-website-redesign-explore-another-heading"
         eyebrow="Explore Another Domain"
       />
-      <div className="mt-8">
+      <div
+        id={`public-website-redesign-explore-another-${currentSlug}-tiles`}
+        className="mt-8 w-full max-w-[360px] md:max-w-[620px]"
+      >
         <DomainGrid mutedSlug={currentSlug} nextSlug={currentSlug} size="sm" />
       </div>
     </section>

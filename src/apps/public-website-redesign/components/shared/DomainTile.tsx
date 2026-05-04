@@ -5,28 +5,38 @@ import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 type Props = {
   domain: Domain;
   size?: "sm" | "md";
-  /** Render the dimmed Canva square (current-domain slot). */
+  /** Render the selected/current-domain slot. */
   muted?: boolean;
-  /** Highlight this tile as the "next" suggested domain (Sage outline, thickness 6). */
+  /** Highlight this tile as the selected/suggested domain. */
   next?: boolean;
 };
 
 /**
  * Square Canva-PNG tile that links to a domain detail page.
  *   • Default: full-color PNG, hyperlinked, subtle hover lift
- *   • muted:   swaps to the dimmed PNG, disables pointer events (current page)
- *   • next:    renders with a 6px Sage outline per spec ("next page domain icon")
+ *   • muted:   applies the palette-green selected treatment, disables pointer events
+ *   • next:    renders with a 4px green outline for the selected/suggested tile
  */
 function DomainTile({ domain, size = "md", muted = false, next = false }: Props) {
   const sizeClass = "w-full";
   const img = muted ? (
-    <img
-      id={`public-website-redesign-domain-tile-${domain.slug}-image-dimmed`}
-      src={domain.tileDim}
-      alt={`${domain.label} domain`}
-      className="aspect-square w-full rounded-[10px] object-cover"
-      draggable={false}
-    />
+    <div
+      id={`public-website-redesign-domain-tile-${domain.slug}-image-selected-wrapper`}
+      className="relative aspect-square w-full rounded-[10px] bg-wriMossMenuHighlight"
+    >
+      <img
+        id={`public-website-redesign-domain-tile-${domain.slug}-image-selected`}
+        src={domain.tile}
+        alt={`${domain.label} domain`}
+        className="absolute inset-0 h-full w-full rounded-[10px] object-cover opacity-70 mix-blend-luminosity"
+        draggable={false}
+      />
+      <div
+        id={`public-website-redesign-domain-tile-${domain.slug}-image-selected-tint`}
+        className="absolute inset-0 rounded-[10px] bg-wriMossMenuHighlight/45 mix-blend-multiply"
+        aria-hidden
+      />
+    </div>
   ) : (
     <div
       id={`public-website-redesign-domain-tile-${domain.slug}-image-wrapper`}
@@ -51,7 +61,7 @@ function DomainTile({ domain, size = "md", muted = false, next = false }: Props)
   );
 
   const frame = next
-    ? `block overflow-hidden rounded-[10px] outline outline-[6px] outline-wriSage ring-offset-2 ring-offset-wriSmokeFog ${sizeClass}`
+    ? `block overflow-hidden rounded-[10px] outline outline-[4px] outline-wriMossMenuHighlight ring-offset-2 ring-offset-wriSmokeFog ${sizeClass}`
     : `block overflow-hidden rounded-[10px] ${sizeClass}`;
 
   if (muted) {
