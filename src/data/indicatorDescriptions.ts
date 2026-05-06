@@ -292,11 +292,6 @@ const REVISED_DESCRIPTIONS: DescriptionEntry[] = [
     revisedDescription: "Conservation status of iconic species.",
   },
   {
-    id: "sense_of_place_iconic_species_status",
-    label: "Species Status",
-    revisedDescription: "Conservation status of iconic species.",
-  },
-  {
     id: "sense_of_place_iconic_species_status_75_extinction_rescaled",
     label: "Extinction Risk",
     revisedDescription: "Iconic species extinction risk assessment.",
@@ -313,11 +308,6 @@ const REVISED_DESCRIPTIONS: DescriptionEntry[] = [
     revisedDescription: "Iconic species resistance to fire.",
   },
   {
-    id: "sense_of_place_iconic_species_resistance",
-    label: "Species",
-    revisedDescription: "Iconic species resistance to fire.",
-  },
-  {
     id: "sense_of_place_iconic_species_traits_resistance",
     label: "Species Traits",
     revisedDescription: "Traits associated with wildfire resistance",
@@ -326,11 +316,6 @@ const REVISED_DESCRIPTIONS: DescriptionEntry[] = [
     id: "sense_of_place_iconic_species_recovery",
     label: "Recovery",
     revisedDescription: "Iconic species recovery potential.",
-  },
-  {
-    id: "sense_of_place_iconic_species_recovery",
-    label: "Species",
-    revisedDescription: "Iconic species recovery capacity.",
   },
   {
     id: "sense_of_place_iconic_species_traits_recovery",

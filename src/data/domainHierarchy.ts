@@ -340,11 +340,6 @@ const domainHierarchy: Domain[] = [
           description: "Conservation status of iconic species.",
           metrics: [
             {
-              id: "sense_of_place_iconic_species_status",
-              label: "Species Status",
-              description: "Conservation status of iconic species.",
-            },
-            {
               id: "sense_of_place_iconic_species_status_75_extinction_rescaled",
               label: "Extinction Risk",
               description: "Iconic species extinction risk assessment.",
@@ -361,11 +356,6 @@ const domainHierarchy: Domain[] = [
             description: "Iconic species resistance to fire.",
             metrics: [
               {
-                id: "sense_of_place_iconic_species_resistance",
-                label: "Species",
-                description: "Iconic species resistance to fire.",
-              },
-              {
                 id: "sense_of_place_iconic_species_traits_resistance",
                 label: "Species Traits",
                 description: "Iconic species fire resistance traits.",
@@ -377,11 +367,6 @@ const domainHierarchy: Domain[] = [
             label: "Recovery",
             description: "Iconic species recovery capacity.",
             metrics: [
-              {
-                id: "sense_of_place_iconic_species_recovery",
-                label: "Species",
-                description: "Iconic species recovery capacity.",
-              },
               {
                 id: "sense_of_place_iconic_species_traits_recovery",
                 label: "Species Traits",

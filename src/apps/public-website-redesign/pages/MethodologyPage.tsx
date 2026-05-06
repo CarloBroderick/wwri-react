@@ -174,7 +174,7 @@ function MethodologyPage() {
       <div id="methodology-download-section" className="mt-8">
         <a
           id="methodology-download-button"
-          href="https://knb.ecoinformatics.org/data/wri-data-processing/cogs/"
+          href="https://knb.ecoinformatics.org/view/urn%3Auuid%3Ac62b0d69-995b-41e3-af44-edb61915d569"
           target="_blank"
           rel="noreferrer"
           className="inline-flex items-center gap-3 rounded-md bg-wriForest px-8 py-4 font-Montserrat text-lg font-bold tracking-wide text-white shadow-lg transition-all hover:bg-wriForest/90 hover:shadow-xl active:scale-[0.98]"
