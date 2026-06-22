@@ -15,21 +15,29 @@ const ABOUT_VIDEO_ITEMS = [
     id: "what-is-the-wri",
     label: "What is the Wildfire Resilience Index?",
     src: overviewWhatIsIt,
+    transcript:
+      "In the American West, fire is a natural and necessary part of the landscape. Many ecosystems evolved with periodic burning. Yet when fire reaches our communities, the consequences can be severe. The Wildfire Resilience Index, or WRI, is a free tool that measures resilience across eight socio-ecological domains. Explore your state, county, or neighborhood to see how resilience varies across the West. Understand wildfire resilience. Explore the map.",
   },
   {
     id: "how-was-index-built",
     label: "How was the index built?",
     src: overviewHowWeBuiltIt,
+    transcript:
+      "The Index combines 8 socio-ecological domains into a single framework to describe wildfire resilience. Each domain includes indicators that relate to the ability to resist wildfire impacts and recover afterward. The Index includes close to 100 indicators that are publicly available on our website to create a holistic assessment of wildfire resilience. Built on transparent data. See how your area scores.",
   },
   {
     id: "how-do-i-use-index",
     label: "How do I use the index?",
     src: overviewHowToUseIt,
+    transcript:
+      "The Index isn't just numbers; it's a tool communities can use to plan and prepare. Scores are available at the state, county, and census tract levels so agencies, NGOs, and community organizers can plan and prioritize. Communities can better understand strengths as well as areas for improvement. From statewide strategy to neighborhood planning, see what your community can do across eight domains. Prioritize action. What can you do?",
   },
   {
     id: "how-do-i-interpret-score",
     label: "How do I interpret my score?",
     src: overviewInterpretScore,
+    transcript:
+      "Your Index score is a starting point — not a grade, not a ranking. Scores are out of 100 and show how prepared your area is and where there's room to grow. Every community has strengths. Every community has opportunities to improve. The Index can be used to create regional profiles for planning and prioritization. The Index is not prescriptive. It can provide insight so communities can determine what works best for them. Know your score. Build resilience.",
   },
 ] as const;
 
@@ -303,6 +311,17 @@ function AboutPage() {
                           </button>
                         ) : null}
                       </div>
+                      <details
+                        id={`public-website-redesign-about-video-transcript-${videoItem.id}`}
+                        className="mt-3 border-t border-wriForest/15 pt-3"
+                      >
+                        <summary className="cursor-pointer font-Montserrat text-sm font-bold uppercase tracking-[0.08em] text-wriForest">
+                          Transcript
+                        </summary>
+                        <p className="mt-2 font-Poppins text-[15px] leading-relaxed text-wriCanopy">
+                          {videoItem.transcript}
+                        </p>
+                      </details>
                     </div>
 
                     <div

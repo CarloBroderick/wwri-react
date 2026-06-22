@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import homeHeroVideo from "../../../assets/public-website-redesign/videos/looped-hero.mp4";
 import nceasLogoWhite from "../../../assets/public-website-redesign/images/logos/nceas-white.png";
 import mooreLogoWhite from "../../../assets/public-website-redesign/images/logos/moore-white.png";
@@ -9,6 +10,32 @@ import { REDESIGN_ROUTES } from "../routes/routeConfig";
  *   • Hero: full-viewport looping muted video, heading, subtitle, CTA, partner logos
  */
 function HomePage() {
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const [isHeroPlaying, setIsHeroPlaying] = useState(true);
+
+  // Respect prefers-reduced-motion: pause the autoplaying background video so
+  // it does not move for users who asked the OS to minimize motion (WCAG 2.3.3).
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      video.pause();
+      setIsHeroPlaying(false);
+    }
+  }, []);
+
+  const toggleHeroPlayback = () => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      void video.play();
+      setIsHeroPlaying(true);
+    } else {
+      video.pause();
+      setIsHeroPlaying(false);
+    }
+  };
+
   return (
     <div id="public-website-redesign-home-page">
       {/* ===== Hero ===== */}
@@ -18,6 +45,7 @@ function HomePage() {
       >
         <video
           id="public-website-redesign-home-hero-video"
+          ref={heroVideoRef}
           src={homeHeroVideo}
           autoPlay
           muted
@@ -30,6 +58,24 @@ function HomePage() {
           id="public-website-redesign-home-hero-scrim"
           className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/55"
         />
+        <button
+          id="public-website-redesign-home-hero-playback-toggle"
+          type="button"
+          onClick={toggleHeroPlayback}
+          aria-label={isHeroPlaying ? "Pause background video" : "Play background video"}
+          className="absolute bottom-6 left-6 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/70 bg-black/40 text-white transition-colors hover:bg-black/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
+        >
+          {isHeroPlaying ? (
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+              <rect x="6" y="5" width="4" height="14" rx="1" />
+              <rect x="14" y="5" width="4" height="14" rx="1" />
+            </svg>
+          ) : (
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          )}
+        </button>
         <div
           id="public-website-redesign-home-hero-content"
           className="relative z-10 mx-auto flex h-full max-w-[1400px] flex-col items-center justify-center px-6 text-center text-wriSmokeFog"

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.svg";
+import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
 import { PRIMARY_NAV, type NavItem } from "../../config/navigation";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 
@@ -124,16 +124,31 @@ function HeaderNavItem({ item }: { item: NavItem }) {
   const [open, setOpen] = useState(false);
   const hasChildren = !!item.children?.length;
   const id = `public-website-redesign-header-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`;
+  const dropdownId = `${id}-dropdown`;
   return (
     <div
       id={`${id}-wrapper`}
       className="relative"
       onMouseEnter={() => hasChildren && setOpen(true)}
       onMouseLeave={() => setOpen(false)}
+      // Open on keyboard focus and close when focus leaves the group so the
+      // submenu links are reachable without a pointer (WCAG 2.1.1).
+      onFocus={() => hasChildren && setOpen(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          setOpen(false);
+        }
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") setOpen(false);
+      }}
     >
       <NavLink
         id={id}
         to={item.to}
+        aria-haspopup={hasChildren || undefined}
+        aria-expanded={hasChildren ? open : undefined}
+        aria-controls={hasChildren ? dropdownId : undefined}
         className={({ isActive }) =>
           `relative flex items-center whitespace-nowrap text-[13px] uppercase tracking-[0.06em] transition-colors duration-200 ease-out min-[1000px]:text-[15px] min-[1100px]:text-[16px] min-[1280px]:text-[18px] 2xl:text-2xl ${
             isActive ? "" : "font-[500] hover:text-wriSmokeFog/85"
@@ -161,9 +176,8 @@ function HeaderNavItem({ item }: { item: NavItem }) {
           className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3"
         >
           <div
-            id={`${id}-dropdown`}
+            id={dropdownId}
             className="min-w-[240px] overflow-hidden rounded-sm border-2 border-wriSmokeFog bg-wriForest shadow-xl"
-            role="menu"
           >
             {item.children!.map((child, idx) => (
               <NavLink
@@ -171,7 +185,6 @@ function HeaderNavItem({ item }: { item: NavItem }) {
                 id={`${id}-child-${idx}`}
                 to={child.to}
                 end
-                role="menuitem"
                 className={({ isActive }) =>
                   `block px-6 py-3 text-center transition-colors ${
                     isActive

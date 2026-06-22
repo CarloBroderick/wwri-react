@@ -25,6 +25,29 @@ const subdomainTitleClassName =
   "font-Montserrat text-[clamp(1.9rem,3vw,2.4rem)] font-bold uppercase leading-[1.1] tracking-[0.04em] text-wriForest";
 
 /**
+ * Text transcripts of each domain video's spoken narration (which is also shown
+ * as burned-in captions). Surfaced below the player as an accessibility text
+ * alternative for screen-reader users and anyone who prefers reading.
+ */
+const DOMAIN_TRANSCRIPTS: Record<DomainSlug, string> = {
+  air: "While there may be good fire, there is no good smoke. Poor air quality has negative health outcomes and is an important dimension of public health and policy, especially in relation to wildfires. Resilience captures the vulnerability of the population to negative health consequences of exposure to poor air quality. Indicators in this domain include occupation, underlying health condition, and access to medical infrastructure. Explore how air shapes resilience in your area.",
+  communities:
+    "Humans are inherently place-based, and communities often have shared norms, values, customs, and identity. Resilience here reflects how people organize, respond, and support one another under stress, as well as underlying population vulnerabilities. Examples of indicators include things like community wildfire protection plans, demographics, and home ownership. Explore how community shapes resilience in your area.",
+  habitats:
+    "Habitats have intrinsic value and provide essential resources, making their protection vital. In this domain, resilience captures the ability of vegetation to survive a fire, as well as the potential to recover afterward. Examples of indicators are individual species traits like bark thickness and seed size, community indicators like species diversity and density, and environmental indicators like dryness. Explore how habitats shape resilience in your area.",
+  infrastructure:
+    "Infrastructure provides the foundation for communities to live, work, and interact. In this domain, resilience means the ability of structures to resist destruction, as well as the capacity of the community to rebuild following loss. Examples of indicators include things like defensible space, building codes, and community wealth. Explore how infrastructure shapes resilience in your area.",
+  livelihoods:
+    "Livelihoods, or jobs, are important because they represent how people make a living. In this domain, resilience refers to the vulnerability of jobs in the region to wildfire as well as the diversity of work options available. Examples of indicators include things like service and retail workers, as well as number of types of work options in a region. Explore how livelihoods shape resilience in your area.",
+  "sense-of-place":
+    "Sense of place describes the deep connection people have to their landscapes. These connections can be shaped by the presence of distinctive species, historical structures or places, or the character of the landscape itself. Resilience in this domain captures the ability of iconic species and iconic places to survive wildfire and recover afterward. Examples of indicators include things like species conservation status, species traits, and road access. Explore how sense of place shapes resilience in your area.",
+  species:
+    "Species are a fundamental part of the landscapes we love and give places meaning, function, and beauty. Some species are already at risk while others are not. Resilience captures the ability of species to survive fire, as well as their ability to recover afterwards. Examples of indicators are species traits such as body size, range size, and reproductive output. Explore how species shapes resilience in your area.",
+  water:
+    "People need sufficient freshwater, and wildfires can disrupt the quantity, quality, and timing of water supplies. In this domain, resilience captures the ability of our built systems to maintain clean and consistent water supply under stress. Examples of indicators include state-level water planning and number of water treatment plants serving a community. Explore how water shapes resilience in your area.",
+};
+
+/**
  * Single-domain detail page — Canva spec pages 9–16 / change-requests doc.
  *   1. Domain title + hero video/image banner with user-controlled playback
  *   2. Why it matters (icon + copy)
@@ -118,11 +141,22 @@ function DomainDetailPage() {
               <img
                 id={`public-website-redesign-domain-${domain.slug}-top-media-image`}
                 src={domain.hero}
-                alt={`${domain.label} top media`}
+                alt={`${domain.label} domain banner`}
                 className="absolute inset-0 h-full w-full object-cover"
               />
             )}
           </div>
+          <details
+            id={`public-website-redesign-domain-${domain.slug}-transcript`}
+            className="mt-3 border-t border-wriForest/15 pt-3"
+          >
+            <summary className="cursor-pointer font-Montserrat text-sm font-bold uppercase tracking-[0.08em] text-wriForest">
+              Transcript
+            </summary>
+            <p className="mt-2 max-w-prose font-Poppins text-[15px] leading-relaxed text-wriCanopy">
+              {DOMAIN_TRANSCRIPTS[domain.slug]}
+            </p>
+          </details>
         </div>
       </section>
 
@@ -155,7 +189,7 @@ function DomainDetailPage() {
             <img
               id={`public-website-redesign-domain-${domain.slug}-why-icon`}
               src={domain.iconNoText}
-              alt={`${domain.label} icon`}
+              alt=""
               className="h-20 w-20 shrink-0 rounded-md object-cover md:h-24 md:w-24"
             />
             <div

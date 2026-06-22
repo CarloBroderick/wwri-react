@@ -193,18 +193,45 @@ type BioModalProps = {
 /** Bio modal: photo on left, name/role/bio on right, close X top-right. */
 function BioModal({ member, onClose }: BioModalProps) {
   const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Remember what was focused before opening so we can restore it on close
+    // (keeps keyboard users oriented — WCAG 2.4.3).
+    const previouslyFocused = document.activeElement as HTMLElement | null;
     closeBtnRef.current?.focus();
+
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      // Trap Tab focus inside the dialog so it cannot wander to the page behind.
+      if (e.key === "Tab" && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && active === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     }
+
     window.addEventListener("keydown", onKey);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus?.();
     };
   }, [onClose]);
 
@@ -219,6 +246,7 @@ function BioModal({ member, onClose }: BioModalProps) {
     >
       <div
         id="public-website-redesign-contact-team-modal"
+        ref={modalRef}
         onClick={(e) => e.stopPropagation()}
         className="relative grid w-full max-w-3xl grid-cols-1 overflow-hidden rounded-2xl border border-wriMoss/35 bg-white shadow-2xl md:grid-cols-[260px_1fr]"
       >
