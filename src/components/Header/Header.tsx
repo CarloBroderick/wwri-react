@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import nceasLogo from "../../assets/Vector.svg";
-import wriLogoFlameOnly from "../../assets/public-website-redesign/icons/wri-logo-flame-only.svg";
+import wriLogoFlameOnly from "../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
 import mooreFoundationLogo from "../../assets/public-website-redesign/images/logos/moore-black.png";
 import { isDebugMode } from "../../config/featureFlags";
 import { SelectedRegionLayout } from "../App";
