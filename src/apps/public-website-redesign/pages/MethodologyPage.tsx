@@ -1,5 +1,8 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
+import { Link } from "react-router-dom";
 import MossDivider from "../components/shared/MossDivider";
+import { REDESIGN_ROUTES } from "../routes/routeConfig";
+import methodologyHero from "../../../assets/public-website-redesign/images/methodology/methodology-hero.jpg";
 
 import eqDomainScore from "../../../assets/public-website-redesign/images/methodology/eq-domain-score.png";
 import eqIndicator from "../../../assets/public-website-redesign/images/methodology/eq-indicator.png";
@@ -48,6 +51,58 @@ const TOC_ITEMS = [
   { id: "section-viii-air", label: "Air", indent: true },
 ] as const;
 
+// "Keep exploring" cards mirror the About page so a reader who reaches the end of
+// this long document can jump straight to the next logical page instead of
+// scrolling all the way back up to the nav.
+const METHODOLOGY_NEXT_LINKS: ReadonlyArray<{
+  id: string;
+  label: string;
+  description: string;
+  to: string;
+  icon: ReactNode;
+}> = [
+  {
+    id: "domains",
+    label: "Explore the Domains",
+    description: "Tour the eight socio-ecological domains the Index is built from.",
+    to: REDESIGN_ROUTES.domains,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" />
+      </svg>
+    ),
+  },
+  {
+    id: "about",
+    label: "About the Index",
+    description: "Start with the big-picture story of what the Index measures and why.",
+    to: REDESIGN_ROUTES.about,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 11v5" strokeLinecap="round" />
+        <path d="M12 7.5h.01" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    id: "faq",
+    label: "Methodology FAQ",
+    description: "Plain-language answers to the questions we hear most about the methods.",
+    to: REDESIGN_ROUTES.methodologyFaq,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <path d="M9.5 9a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.1 1-1.1 1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12 16.5h.01" strokeLinecap="round" />
+        <circle cx="12" cy="12" r="9" />
+      </svg>
+    ),
+  },
+] as const;
+
 function MethodologyFigure({
   id,
   src,
@@ -63,15 +118,24 @@ function MethodologyFigure({
 }) {
   return (
     <figure id={id} className={`my-8 mx-auto w-full ${maxWidth}`}>
-      <img
-        id={`${id}-img`}
-        src={src}
-        alt={alt}
-        className="w-full rounded-sm border border-wriForest/10 bg-white"
-      />
+      {/* Many figures are raw screenshots of tables/diagrams. Matting them on a
+          white card with padding, a soft ring, and a gentle shadow makes them
+          read as intentional, polished figures instead of pasted-in captures. */}
+      <div
+        id={`${id}-frame`}
+        className="overflow-hidden rounded-2xl bg-white p-4 shadow-md shadow-wriCanopy/10 ring-1 ring-wriCanopy/10 sm:p-6"
+      >
+        <img
+          id={`${id}-img`}
+          src={src}
+          alt={alt}
+          loading="lazy"
+          className="mx-auto w-full rounded-lg ring-1 ring-wriCanopy/5"
+        />
+      </div>
       <figcaption
         id={`${id}-caption`}
-        className="mt-2 text-center font-Poppins text-sm italic text-wriCanopy/70"
+        className="mt-3 text-center font-Poppins text-sm italic text-wriCanopy/70"
       >
         {caption}
       </figcaption>
@@ -90,14 +154,23 @@ function MethodologyEquation({
   alt: string;
   maxWidth?: string;
 }) {
+  // Equations are small math screenshots. We sit each one on a centered white
+  // "plate" sized to its content (rounded, soft ring + shadow) so it reads as an
+  // intentional figure — matching the framed look of the larger figures/tables.
   return (
-    <div id={id} className={`my-6 flex justify-center ${maxWidth} mx-auto`}>
-      <img
-        id={`${id}-img`}
-        src={src}
-        alt={alt}
-        className="h-auto max-h-24 w-auto"
-      />
+    <div id={id} className="my-6 flex justify-center">
+      <div
+        id={`${id}-frame`}
+        className={`inline-flex w-full justify-center rounded-2xl bg-white px-6 py-5 shadow-md shadow-wriCanopy/10 ring-1 ring-wriCanopy/10 ${maxWidth}`}
+      >
+        <img
+          id={`${id}-img`}
+          src={src}
+          alt={alt}
+          loading="lazy"
+          className="h-auto max-h-24 w-auto"
+        />
+      </div>
     </div>
   );
 }
@@ -116,96 +189,168 @@ function MethodologyPage() {
     window.history.replaceState(null, "", `#${targetId}`);
   };
 
+  // Scroll-spy: highlight the TOC entry for the section currently under the
+  // reader. IntersectionObserver's "ratio" tiebreak is unreliable here because
+  // our sections vary wildly in length (Section VIII dwarfs the rest), so we
+  // instead pick the last heading whose top has scrolled past a fixed line near
+  // the top of the viewport — robust regardless of section height.
   useEffect(() => {
-    const observedElements = TOC_ITEMS.map((item) => document.getElementById(item.id)).filter(
+    const sectionElements = TOC_ITEMS.map((item) => document.getElementById(item.id)).filter(
       (element): element is HTMLElement => Boolean(element),
     );
 
-    if (!observedElements.length) return;
+    if (!sectionElements.length) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntries = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    // Distance from the top of the viewport that counts as the "active line".
+    const activeLineOffset = 150;
 
-        if (visibleEntries.length > 0) {
-          setActiveTocId(visibleEntries[0].target.id as (typeof TOC_ITEMS)[number]["id"]);
+    const updateActiveSection = () => {
+      // At the very bottom of the page the last section may never reach the
+      // active line, so pin it explicitly.
+      const atPageBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+
+      let activeId = sectionElements[0].id;
+
+      if (atPageBottom) {
+        activeId = sectionElements[sectionElements.length - 1].id;
+      } else {
+        // Closest heading whose top sits at or above the active line.
+        let closestTop = -Infinity;
+        for (const element of sectionElements) {
+          const top = element.getBoundingClientRect().top - activeLineOffset;
+          if (top <= 0 && top > closestTop) {
+            closestTop = top;
+            activeId = element.id;
+          }
         }
-      },
-      {
-        root: null,
-        rootMargin: "-22% 0px -60% 0px",
-        threshold: [0.15, 0.35, 0.6],
-      },
-    );
+      }
 
-    observedElements.forEach((element) => observer.observe(element));
+      setActiveTocId((previous) =>
+        previous === activeId ? previous : (activeId as (typeof TOC_ITEMS)[number]["id"]),
+      );
+    };
 
-    return () => observer.disconnect();
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
   }, []);
 
-  return (
-    <div id="methodology-page" className="mx-auto max-w-[1400px] px-6 py-16">
-      {/* Page Header */}
-      <header id="methodology-header">
-        <h1
-          id="methodology-title"
-          className="font-Poppins text-[clamp(2.25rem,4.3vw,2.75rem)] font-bold leading-tight text-wriForest"
-        >
-          Supplementary Materials and Methods
-        </h1>
-        <MossDivider
-          id="methodology-title-divider"
-          className="my-4"
-          widthClassName="w-24"
-        />
-        <p
-          id="methodology-subtitle"
-          className="mt-4 max-w-3xl font-Poppins text-[clamp(1rem,1.8vw,1.2rem)] leading-relaxed text-wriCanopy"
-        >
-          Technical documentation for the Wildfire Resilience Index framework,
-          including indicator development, data sources, and geospatial
-          calculations.
-        </p>
-      </header>
+  // Keep the active entry visible inside the scrollable TOC without ever moving
+  // the page itself (we only nudge the list's own scrollTop).
+  useEffect(() => {
+    const list = document.getElementById("methodology-toc-list");
+    const activeItem = document.getElementById(`methodology-toc-item-${activeTocId}`);
+    if (!list || !activeItem) return;
 
-      {/* Download Data Button */}
-      <div id="methodology-download-section" className="mt-8">
-        <a
-          id="methodology-download-button"
-          href="https://knb.ecoinformatics.org/view/urn%3Auuid%3Ac62b0d69-995b-41e3-af44-edb61915d569"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-3 rounded-md bg-wriForest px-8 py-4 font-Montserrat text-lg font-bold tracking-wide text-white shadow-lg transition-all hover:bg-wriForest/90 hover:shadow-xl active:scale-[0.98]"
+    const listRect = list.getBoundingClientRect();
+    const itemRect = activeItem.getBoundingClientRect();
+
+    if (itemRect.top < listRect.top) {
+      list.scrollTop -= listRect.top - itemRect.top + 8;
+    } else if (itemRect.bottom > listRect.bottom) {
+      list.scrollTop += itemRect.bottom - listRect.bottom + 8;
+    }
+  }, [activeTocId]);
+
+  return (
+    <div id="methodology-page" className="mx-auto max-w-[1400px] px-6 py-12 md:py-16">
+      {/* ===== Hero ===================================================== */}
+      {/* Full-bleed image hero mirrors the About and Domains pages so the three
+          top-level pages share one confident entry pattern instead of dropping
+          the reader straight into a dense technical document. */}
+      <section
+        id="methodology-hero"
+        className="relative overflow-hidden rounded-[28px] bg-wriCanopy shadow-[0_30px_80px_-40px_rgba(31,42,35,0.6)]"
+      >
+        <img
+          id="methodology-hero-image"
+          src={methodologyHero}
+          alt="Forested landscape of the American West"
+          className="absolute inset-0 h-full w-full object-cover"
+          draggable={false}
+        />
+        <div
+          id="methodology-hero-scrim"
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-r from-wriCanopy/95 via-wriCanopy/70 to-wriForest/20"
+        />
+        <div
+          id="methodology-hero-content"
+          className="relative px-7 py-8 md:px-14 md:py-9 lg:py-10"
         >
-          <DownloadIcon />
-          Download the Data
-        </a>
-      </div>
+          <div className="max-w-2xl">
+            <p
+              id="methodology-hero-eyebrow"
+              className="font-Montserrat text-xs font-semibold uppercase tracking-[0.3em] text-wriMoss"
+            >
+              Methodology
+            </p>
+            <h1
+              id="methodology-title"
+              className="mt-3 font-Poppins text-[clamp(2.25rem,5vw,3.5rem)] font-bold leading-[1.04] text-wriSmokeFog"
+            >
+              Supplementary Materials and Methods
+            </h1>
+            <MossDivider
+              id="methodology-title-divider"
+              className="mt-5"
+              widthClassName="w-20"
+            />
+            <div
+              id="methodology-hero-ctas"
+              className="mt-6 flex flex-wrap items-center gap-3"
+            >
+              <a
+                id="methodology-download-button"
+                href="https://knb.ecoinformatics.org/view/urn%3Auuid%3Ac62b0d69-995b-41e3-af44-edb61915d569"
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-2.5 rounded-full bg-wriMoss px-7 py-3 font-Montserrat text-sm font-semibold uppercase tracking-[0.12em] text-wriCanopy transition-colors hover:bg-wriMossClicked"
+              >
+                <DownloadIcon />
+                Download the data
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <div
         id="methodology-content-layout"
-        className="mt-12 grid gap-10 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start"
+        className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start"
       >
         <aside id="methodology-left-sidebar" className="lg:sticky lg:top-28">
           <nav
             id="methodology-toc"
-            className="rounded-md border border-wriForest/15 bg-white shadow-sm"
+            className="overflow-hidden rounded-2xl bg-white shadow-sm shadow-wriCanopy/5 ring-1 ring-wriCanopy/10"
           >
             <button
               id="methodology-toc-toggle"
               type="button"
               onClick={() => setTocOpen(!tocOpen)}
-              className="flex w-full items-center justify-between px-5 py-4"
+              className="flex w-full items-center justify-between px-5 py-4 text-left"
               aria-label="Toggle table of contents"
             >
-              <h2
-                id="methodology-toc-heading"
-                className="font-Montserrat text-lg font-bold text-wriForest"
-              >
-                Table of Contents
-              </h2>
+              <span>
+                <span
+                  id="methodology-toc-eyebrow"
+                  className="font-Montserrat text-[11px] font-semibold uppercase tracking-[0.24em] text-wriSage"
+                >
+                  On this page
+                </span>
+                <h2
+                  id="methodology-toc-heading"
+                  className="mt-1 font-Montserrat text-lg font-bold text-wriForest"
+                >
+                  Table of Contents
+                </h2>
+              </span>
               <span
                 id="methodology-toc-chevron"
                 className={`text-wriForest transition-transform lg:hidden ${tocOpen ? "rotate-180" : ""}`}
@@ -219,27 +364,40 @@ function MethodologyPage() {
             >
               <ol
                 id="methodology-toc-list"
-                className="overflow-hidden px-5 pb-4 font-Poppins text-[15px] leading-7"
+                className="space-y-0.5 overflow-hidden border-t border-wriCanopy/10 px-3 py-4 font-Poppins text-[14.5px] leading-snug lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto"
               >
-                {TOC_ITEMS.map((item) => (
-                  <li
-                    key={item.id}
-                    id={`methodology-toc-item-${item.id}`}
-                    className={`${"indent" in item && item.indent ? "ml-4" : ""}`}
-                  >
-                    <a
-                      href={`#${item.id}`}
-                      onClick={(event) => handleTocClick(event, item.id)}
-                      className={`block rounded-sm px-2 py-0.5 font-medium underline-offset-2 transition-colors ${
-                        activeTocId === item.id
-                          ? "bg-wriMoss/20 text-wriForest"
-                          : "text-wriCanopy hover:text-wriForest hover:underline"
-                      }`}
+                {TOC_ITEMS.map((item) => {
+                  const isIndented = "indent" in item && item.indent;
+                  const isActive = activeTocId === item.id;
+
+                  return (
+                    <li
+                      key={item.id}
+                      id={`methodology-toc-item-${item.id}`}
+                      className={isIndented ? "ml-3" : ""}
                     >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
+                      <a
+                        href={`#${item.id}`}
+                        onClick={(event) => handleTocClick(event, item.id)}
+                        className={`flex items-center gap-2 rounded-lg px-3 py-1.5 transition-colors ${
+                          isActive
+                            ? "bg-wriSmokeFog font-semibold text-wriForest ring-1 ring-wriMoss/30"
+                            : "font-medium text-wriCanopy/80 hover:bg-wriSmokeFog/60 hover:text-wriForest"
+                        }`}
+                      >
+                        {isIndented ? (
+                          <span
+                            aria-hidden
+                            className={`h-1.5 w-1.5 shrink-0 rounded-full ${
+                              isActive ? "bg-wriMoss" : "bg-wriSage/50"
+                            }`}
+                          />
+                        ) : null}
+                        {item.label}
+                      </a>
+                    </li>
+                  );
+                })}
               </ol>
             </div>
           </nav>
@@ -2034,6 +2192,95 @@ function MethodologyPage() {
       </section>
         </main>
       </div>
+
+      {/* ===== Keep exploring ========================================== */}
+      {/* Closing wayfinding band mirrors the About page: a primary map CTA plus
+          quick links so readers can continue from the bottom of this long
+          document without scrolling back to the top nav. */}
+      <section id="methodology-keep-exploring-section" className="mt-20 md:mt-28">
+        <div
+          id="methodology-keep-exploring-cta"
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-wriForest to-wriMossMenuHighlight px-7 py-9 sm:px-10 sm:py-11"
+        >
+          <span
+            id="methodology-keep-exploring-eyebrow"
+            className="inline-flex items-center rounded-full bg-white/15 px-4 py-1.5 font-Montserrat text-xs font-bold uppercase tracking-[0.14em] text-white"
+          >
+            Keep Exploring
+          </span>
+          <div
+            id="methodology-keep-exploring-cta-body"
+            className="mt-5 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+          >
+            <div className="max-w-2xl">
+              <h2
+                id="methodology-keep-exploring-title"
+                className="font-Montserrat text-[clamp(1.5rem,3vw,2.125rem)] font-semibold leading-tight text-white"
+              >
+                See the methodology in action
+              </h2>
+              <p
+                id="methodology-keep-exploring-copy"
+                className="mt-3 font-Poppins text-[clamp(15px,1.1vw,17px)] leading-relaxed text-white/85"
+              >
+                Every method on this page powers the interactive map. Explore resilience scores
+                across states, counties, and neighborhoods.
+              </p>
+            </div>
+            <Link
+              id="methodology-keep-exploring-button"
+              to={REDESIGN_ROUTES.exploreIndex}
+              className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-7 py-3.5 font-Montserrat text-sm font-bold uppercase tracking-[0.08em] text-wriForest shadow-sm transition-all hover:bg-wriSmokeFog hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-wriForest"
+            >
+              Explore the Index
+              <span aria-hidden className="text-base leading-none transition-transform group-hover:translate-x-1">
+                &rarr;
+              </span>
+            </Link>
+          </div>
+        </div>
+
+        <div
+          id="methodology-keep-exploring-links"
+          className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {METHODOLOGY_NEXT_LINKS.map((nextLink) => (
+            <Link
+              key={nextLink.id}
+              id={`methodology-next-link-${nextLink.id}`}
+              to={nextLink.to}
+              className="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-wriCanopy/10 transition-all hover:-translate-y-0.5 hover:shadow-md hover:shadow-wriCanopy/10 hover:ring-wriMoss focus:outline-none focus-visible:ring-2 focus-visible:ring-wriMoss focus-visible:ring-offset-2"
+            >
+              <span
+                id={`methodology-next-link-icon-${nextLink.id}`}
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-wriForest/10 text-wriForest transition-colors group-hover:bg-wriForest group-hover:text-white [&_svg]:h-5 [&_svg]:w-5"
+              >
+                {nextLink.icon}
+              </span>
+              <span
+                id={`methodology-next-link-label-${nextLink.id}`}
+                className="mt-4 font-Montserrat text-[1.0625rem] font-semibold leading-snug text-wriForest"
+              >
+                {nextLink.label}
+              </span>
+              <span
+                id={`methodology-next-link-description-${nextLink.id}`}
+                className="mt-2 font-Poppins text-sm leading-relaxed text-wriCanopy/70"
+              >
+                {nextLink.description}
+              </span>
+              <span
+                id={`methodology-next-link-cue-${nextLink.id}`}
+                aria-hidden
+                className="mt-4 inline-flex items-center gap-1.5 font-Montserrat text-xs font-bold uppercase tracking-[0.08em] text-wriMossMenuHighlight"
+              >
+                Visit page
+                <span className="text-sm leading-none transition-transform group-hover:translate-x-1">&rarr;</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

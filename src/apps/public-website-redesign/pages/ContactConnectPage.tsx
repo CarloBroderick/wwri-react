@@ -1,138 +1,137 @@
-import connectHeroImage from "../../../assets/public-website-redesign/images/contact/light-in-the-forest-connect-with-us.png";
-import linkedinGreenIcon from "../../../assets/public-website-redesign/images/footer/linkedin-green.png";
+import type { ReactNode } from "react";
 import MossDivider from "../components/shared/MossDivider";
+
+/**
+ * Connect with Us — modern editorial layout that mirrors the About and
+ * Domains pages: a section header (eyebrow + title + divider) above clean
+ * contact cards (email + LinkedIn) with circular icon badges and hover motion.
+ */
+
+const CONTACT_EMAIL = "wri@nceas.ucsb.edu";
+const CONTACT_LINKEDIN_URL =
+  "https://www.linkedin.com/company/the-wildfire-resilience-index/";
+
+const CONTACT_METHODS: ReadonlyArray<{
+  id: string;
+  label: string;
+  description: string;
+  value: string;
+  href: string;
+  external: boolean;
+  cue: string;
+  icon: ReactNode;
+}> = [
+  {
+    id: "email",
+    label: "Email the team",
+    description:
+      "Have questions about the Index or want to collaborate? Drop us a line and we'll get back to you.",
+    value: CONTACT_EMAIL,
+    href: `mailto:${CONTACT_EMAIL}`,
+    external: false,
+    cue: "Send an email",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    id: "linkedin",
+    label: "Follow on LinkedIn",
+    description:
+      "Keep up with the latest research, features, and milestones from the Wildfire Resilience Index.",
+    value: "Wildfire Resilience Index",
+    href: CONTACT_LINKEDIN_URL,
+    external: true,
+    cue: "Visit profile",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21H9V9Z" />
+      </svg>
+    ),
+  },
+] as const;
 
 function ContactConnectPage() {
   return (
     <div
       id="public-website-redesign-contact-connect-page"
-      className="mx-auto max-w-[1400px] px-6 py-16"
+      className="mx-auto max-w-[1400px] px-6 py-12 md:py-16"
     >
-      <div
-        id="public-website-redesign-contact-connect-layout"
-        className="grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-center"
+      {/* ===== Ways to reach us ======================================== */}
+      <section
+        id="public-website-redesign-contact-connect-methods"
+        className="scroll-mt-24"
       >
-        <div
-          id="public-website-redesign-contact-connect-content"
-          className="w-full max-w-[460px] md:justify-self-center"
-        >
-          <header id="public-website-redesign-contact-connect-heading">
-            <h2
-              id="public-website-redesign-contact-connect-heading-title"
-              className="font-Poppins text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight text-wriForest"
-            >
-              Connect with Us
-            </h2>
-            <MossDivider
-              id="public-website-redesign-contact-connect-heading-divider"
-              className="my-3"
-              widthClassName="w-16"
-            />
-          </header>
-
-          <div
-            id="public-website-redesign-contact-connect-card"
-            className="mt-8 rounded-sm border border-wriForest/15 bg-wriSmokeFog px-6 py-8 sm:px-8"
-          >
-            <p
-              id="public-website-redesign-contact-connect-prompt"
-              className="font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
-            >
-              Interested in working with the index or have questions about the project?
-            </p>
-
-            <p
-              id="public-website-redesign-contact-connect-email-label"
-              className="mt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
-            >
-              Send us an email:
-            </p>
-
-            <div
-              id="public-website-redesign-contact-connect-email-grid"
-              className="mt-4 grid grid-cols-[auto_1fr] items-center gap-x-4"
-            >
-              <div id="public-website-redesign-contact-connect-email-icon-wrapper" aria-hidden="true">
-                <ContactMailIcon id="public-website-redesign-contact-connect-email-symbol" />
-              </div>
-              <a
-                id="public-website-redesign-contact-connect-email"
-                href="mailto:wri@nceas.ucsb.edu"
-                className="font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
-              >
-                wri@nceas.ucsb.edu
-              </a>
-            </div>
-
-            <p
-              id="public-website-redesign-contact-connect-linkedin-label"
-              className="mt-6 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
-            >
-              Follow us on LinkedIn:
-            </p>
-
-            <div
-              id="public-website-redesign-contact-connect-linkedin-grid"
-              className="mt-4 grid grid-cols-[auto_1fr] items-center gap-x-4"
-            >
-              <div
-                id="public-website-redesign-contact-connect-linkedin-icon-wrapper"
-                aria-hidden="true"
-                className="ml-1 flex items-center justify-center"
-              >
-                <img
-                  id="public-website-redesign-contact-connect-linkedin-symbol"
-                  src={linkedinGreenIcon}
-                  alt=""
-                  className="h-7 w-auto object-contain"
-                />
-              </div>
-              <a
-                id="public-website-redesign-contact-connect-linkedin-link"
-                href="https://www.linkedin.com/company/the-wildfire-resilience-index/"
-                target="_blank"
-                rel="noreferrer"
-                className="self-center font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-[#a3b86c] hover:underline"
-              >
-                Wildfire Resilience Index
-              </a>
-            </div>
-          </div>
-        </div>
+        <header id="public-website-redesign-contact-connect-methods-header">
+          <p className="font-Montserrat text-xs font-semibold uppercase tracking-[0.3em] text-wriSage">
+            Get in touch
+          </p>
+          <h2 className="mt-3 font-Poppins text-[clamp(1.9rem,3.5vw,2.5rem)] font-bold leading-tight text-wriForest">
+            Ways to reach us
+          </h2>
+          <MossDivider className="my-5" widthClassName="w-16" />
+        </header>
 
         <div
-          id="public-website-redesign-contact-connect-image-wrapper"
-          className="flex justify-start md:justify-end"
+          id="public-website-redesign-contact-connect-methods-grid"
+          className="mt-4 grid gap-5 sm:grid-cols-2"
         >
-          <img
-            id="public-website-redesign-contact-connect-image"
-            src={connectHeroImage}
-            alt="Light in the forest representing the Contact section"
-            className="w-full max-w-[580px] rounded-sm object-cover"
-          />
+          {CONTACT_METHODS.map((method) => {
+            const linkProps = method.external
+              ? { target: "_blank", rel: "noreferrer" as const }
+              : {};
+
+            return (
+              <a
+                key={method.id}
+                id={`public-website-redesign-contact-connect-method-${method.id}`}
+                href={method.href}
+                {...linkProps}
+                className="group flex flex-col rounded-2xl bg-white p-7 ring-1 ring-wriCanopy/10 transition-all hover:-translate-y-0.5 hover:shadow-md hover:shadow-wriCanopy/10 hover:ring-wriMoss focus:outline-none focus-visible:ring-2 focus-visible:ring-wriMoss focus-visible:ring-offset-2"
+              >
+                <span
+                  id={`public-website-redesign-contact-connect-method-icon-${method.id}`}
+                  className="flex h-12 w-12 items-center justify-center rounded-full bg-wriForest/10 text-wriForest transition-colors group-hover:bg-wriForest group-hover:text-white [&_svg]:h-6 [&_svg]:w-6"
+                >
+                  {method.icon}
+                </span>
+                <span
+                  id={`public-website-redesign-contact-connect-method-label-${method.id}`}
+                  className="mt-5 font-Montserrat text-lg font-semibold leading-snug text-wriForest"
+                >
+                  {method.label}
+                </span>
+                <span
+                  id={`public-website-redesign-contact-connect-method-description-${method.id}`}
+                  className="mt-2 font-Poppins text-sm leading-relaxed text-wriCanopy/70"
+                >
+                  {method.description}
+                </span>
+                <span
+                  id={`public-website-redesign-contact-connect-method-value-${method.id}`}
+                  className="mt-5 font-Poppins text-[clamp(15px,1.3vw,17px)] font-bold text-wriMossMenuHighlight"
+                >
+                  {method.value}
+                </span>
+                <span
+                  id={`public-website-redesign-contact-connect-method-cue-${method.id}`}
+                  aria-hidden
+                  className="mt-3 inline-flex items-center gap-1.5 font-Montserrat text-xs font-bold uppercase tracking-[0.08em] text-wriMossMenuHighlight"
+                >
+                  {method.cue}
+                  <span className="text-sm leading-none transition-transform group-hover:translate-x-1">
+                    →
+                  </span>
+                </span>
+              </a>
+            );
+          })}
         </div>
-      </div>
+      </section>
     </div>
-  );
-}
-
-type IconProps = { id: string };
-
-function ContactMailIcon({ id }: IconProps) {
-  return (
-    <svg
-      id={id}
-      viewBox="0 0 24 24"
-      className="h-10 w-10 text-[#a3b86c]"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3 6h18v12H3z" />
-      <path d="m4 7 8 6 8-6" />
-    </svg>
   );
 }
 

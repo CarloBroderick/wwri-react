@@ -1,4 +1,8 @@
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { REDESIGN_ROUTES } from "../routes/routeConfig";
+import MossDivider from "../components/shared/MossDivider";
+import heroForestRegrowth from "../../../assets/public-website-redesign/images/about/forest-regrowth.jpg";
 import regionMap from "../../../assets/public-website-redesign/icons/Location Map for WRI, 1 What is the WRI (1).png";
 import burntForest from "../../../assets/public-website-redesign/images/about/burnt-forest.jpg";
 import whyIndexBanffTown from "../../../assets/public-website-redesign/images/about/why-is-the-index-useful-banf-town.png";
@@ -137,6 +141,72 @@ const ABOUT_CONTENT_ROWS: ReadonlyArray<{
   },
 ] as const;
 
+// "Keep exploring" cards shown at the very bottom so a reader who reaches the end
+// can jump straight to the next logical page instead of scrolling back up to the
+// nav. Order mirrors a natural journey: domains → methodology → media → team.
+const ABOUT_NEXT_LINKS: ReadonlyArray<{
+  id: string;
+  label: string;
+  description: string;
+  to: string;
+  icon: ReactNode;
+}> = [
+  {
+    id: "domains",
+    label: "Explore the Domains",
+    description: "Tour the eight socio-ecological domains that shape every Index score.",
+    to: REDESIGN_ROUTES.domains,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" />
+      </svg>
+    ),
+  },
+  {
+    id: "methodology",
+    label: "How It Was Built",
+    description: "See the data, indicators, and methods behind the Index.",
+    to: REDESIGN_ROUTES.methodology,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <path d="M9 3v6.5L4.3 17a2 2 0 0 0 1.7 3h12a2 2 0 0 0 1.7-3L15 9.5V3" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M8 3h8" strokeLinecap="round" />
+        <path d="M8 14h8" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    id: "news",
+    label: "News & Features",
+    description: "Read the latest stories on wildfire resilience across the West.",
+    to: REDESIGN_ROUTES.news,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <path d="M4 5h12v14H5a1 1 0 0 1-1-1V5Z" strokeLinejoin="round" />
+        <path d="M16 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M7 9h6M7 12h6M7 15h4" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    id: "team",
+    label: "Meet the Team",
+    description: "Get to know the researchers building the Index.",
+    to: REDESIGN_ROUTES.contactTeam,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <circle cx="9" cy="8" r="3" />
+        <path d="M3.5 19a5.5 5.5 0 0 1 11 0" strokeLinecap="round" />
+        <path d="M16 5.2a3 3 0 0 1 0 5.6" strokeLinecap="round" />
+        <path d="M17 14.2a5.5 5.5 0 0 1 3.5 4.8" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+] as const;
+
 function AboutPage() {
   // The four "Getting Started" clips are a guided sequence, so the page always
   // has exactly one active step (no collapsed/empty state like the old accordion).
@@ -144,12 +214,11 @@ function AboutPage() {
     ABOUT_VIDEO_ITEMS[0].id,
   );
   const [isPlaying, setIsPlaying] = useState(false);
-  // Selecting a step (intro dots, left-rail nav, or Previous/Next) makes the
-  // freshly-mounted <video> start playing on its own. It stays false on first
-  // load so the page doesn't autoplay before any user interaction.
+  // Selecting a step (left-rail nav or Previous/Next) makes the freshly-mounted
+  // <video> start playing on its own. It stays false on first load so the page
+  // doesn't autoplay before any user interaction.
   const [autoPlayOnMount, setAutoPlayOnMount] = useState(false);
   const activeVideoRef = useRef<HTMLVideoElement | null>(null);
-  const videoPanelRef = useRef<HTMLDivElement | null>(null);
 
   const activeIndex = useMemo(
     () => ABOUT_VIDEO_ITEMS.findIndex((item) => item.id === activeVideoId),
@@ -164,117 +233,171 @@ function AboutPage() {
     setAutoPlayOnMount(true);
   };
 
-  // Used by the intro step dots: jump to a step, scroll the player into view,
-  // and let it autoplay. If the browser blocks autoplay the overlay play button
-  // stays available because isPlaying remains false until onPlay fires.
-  const playStep = (id: (typeof ABOUT_VIDEO_ITEMS)[number]["id"]) => {
-    setActiveVideoId(id);
-    setIsPlaying(false);
-    setAutoPlayOnMount(true);
-    videoPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-  };
-
   const goToAdjacentVideo = (direction: "previous" | "next") => {
     const nextVideo = ABOUT_VIDEO_ITEMS[activeIndex + (direction === "previous" ? -1 : 1)];
     if (nextVideo) selectVideo(nextVideo.id);
   };
 
   return (
-    <div id="public-website-redesign-about-page" className="mx-auto max-w-[1400px] px-6 py-16">
-      {/* Intro is wrapped in a soft "hero" band so the lead line no longer floats:
-          an eyebrow badge frames it as a series and a step-dot cue points down
-          into the numbered stepper/video that immediately follows. */}
+    <div id="public-website-redesign-about-page" className="mx-auto max-w-[1400px] px-6 py-12 md:py-16">
+      {/* ===== Hero ===================================================== */}
+      {/* Full-bleed image hero (mirrors the Domains page pattern) so the page
+          opens with a confident, grounded headline instead of dropping the
+          reader straight into the video card. */}
       <section
-        id="public-website-redesign-about-getting-started-section"
-        className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-wriSmokeFog via-wriSmokeFog/60 to-white px-7 py-9 ring-1 ring-wriMoss/20 sm:px-10 sm:py-11"
+        id="public-website-redesign-about-hero"
+        className="relative overflow-hidden rounded-[28px] bg-wriCanopy shadow-[0_30px_80px_-40px_rgba(31,42,35,0.6)]"
       >
-        <span
-          id="public-website-redesign-about-getting-started-eyebrow"
-          className="inline-flex items-center gap-2 rounded-full bg-wriForest/10 px-4 py-1.5 font-Montserrat text-xs font-bold uppercase tracking-[0.14em] text-wriForest"
-        >
-          <span
-            aria-hidden
-            className="flex h-5 w-5 items-center justify-center rounded-full bg-wriForest text-[11px] font-bold text-white"
-          >
-            4
-          </span>
-          Part Video Series
-        </span>
-        <h1
-          id="public-website-redesign-about-getting-started-title"
-          className="mt-5 font-Poppins text-[clamp(2.25rem,4.3vw,2.75rem)] font-bold leading-tight text-wriForest"
-        >
-          Getting Started
-        </h1>
-        <div
-          id="public-website-redesign-about-getting-started-divider"
-          className="mt-3 h-[4px] w-24 rounded-full bg-wriMoss"
+        <img
+          id="public-website-redesign-about-hero-image"
+          src={heroForestRegrowth}
+          alt="Green regrowth returning to a forest after wildfire"
+          className="absolute inset-0 h-full w-full object-cover"
+          draggable={false}
         />
-        <p
-          id="public-website-redesign-about-getting-started-copy"
-          className="mt-5 max-w-3xl font-Poppins text-[clamp(1.05rem,2.1vw,1.25rem)] font-normal leading-relaxed text-wriCanopy"
-        >
-          Follow this four-step series to discover and understand your community's score.
-        </p>
         <div
-          id="public-website-redesign-about-getting-started-cue"
-          className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3"
+          id="public-website-redesign-about-hero-scrim"
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-r from-wriCanopy/95 via-wriCanopy/70 to-wriForest/20"
+        />
+        <div
+          id="public-website-redesign-about-hero-content"
+          className="relative px-7 py-16 md:px-14 md:py-24 lg:py-28"
         >
-          <div
-            id="public-website-redesign-about-getting-started-step-dots"
-            className="flex items-center gap-2"
-          >
-            {ABOUT_VIDEO_ITEMS.map((videoItem, index) => {
-              const isActive = videoItem.id === activeVideoId;
-
-              return (
-                <span key={videoItem.id} className="flex items-center gap-2">
-                  <button
-                    id={`public-website-redesign-about-getting-started-step-dot-${videoItem.id}`}
-                    type="button"
-                    onClick={() => playStep(videoItem.id)}
-                    aria-label={`Play step ${index + 1}: ${videoItem.label}`}
-                    className={`flex h-7 w-7 items-center justify-center rounded-full font-Montserrat text-sm font-bold transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-wriMoss focus-visible:ring-offset-2 ${
-                      isActive
-                        ? "bg-wriForest text-white"
-                        : "bg-white text-wriForest ring-1 ring-wriMoss/40 hover:ring-wriMoss"
-                    }`}
-                  >
-                    {index + 1}
-                  </button>
-                  {index < ABOUT_VIDEO_ITEMS.length - 1 ? (
-                    <span aria-hidden className="h-[2px] w-5 rounded-full bg-wriMoss/40" />
-                  ) : null}
+          <div className="max-w-2xl">
+            <p
+              id="public-website-redesign-about-hero-eyebrow"
+              className="font-Montserrat text-xs font-semibold uppercase tracking-[0.3em] text-wriMoss"
+            >
+              About the Index
+            </p>
+            <h1
+              id="public-website-redesign-about-hero-title"
+              className="mt-4 font-Poppins text-[clamp(2.5rem,6vw,4.25rem)] font-bold leading-[1.02] text-wriSmokeFog"
+            >
+              Understanding wildfire resilience
+            </h1>
+            <MossDivider
+              id="public-website-redesign-about-hero-divider"
+              className="my-6"
+              widthClassName="w-20"
+            />
+            <p
+              id="public-website-redesign-about-hero-body"
+              className="font-Poppins text-[clamp(16px,1.6vw,20px)] leading-relaxed text-wriSmokeFog/90"
+            >
+              The <strong className="font-semibold text-white">Wildfire Resilience Index</strong> is a
+              free, open tool that measures how communities and landscapes across the American West can{" "}
+              <strong className="font-semibold text-white">resist</strong> and{" "}
+              <strong className="font-semibold text-white">recover</strong> from wildfire—turning complex
+              science into a score anyone can use.
+            </p>
+            <div
+              id="public-website-redesign-about-hero-ctas"
+              className="mt-9 flex flex-wrap items-center gap-3"
+            >
+              <button
+                type="button"
+                id="public-website-redesign-about-hero-cta"
+                onClick={() =>
+                  document
+                    .getElementById("public-website-redesign-about-getting-started-section")
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" })
+                }
+                className="group inline-flex items-center gap-2 rounded-full bg-wriMoss px-7 py-3 font-Montserrat text-sm font-semibold uppercase tracking-[0.12em] text-wriCanopy transition-colors hover:bg-wriMossClicked"
+              >
+                Watch the intro series
+                <span
+                  aria-hidden
+                  className="transition-transform duration-200 group-hover:translate-y-0.5"
+                >
+                  ↓
                 </span>
-              );
-            })}
+              </button>
+              <Link
+                id="public-website-redesign-about-hero-cta-secondary"
+                to={REDESIGN_ROUTES.exploreIndex}
+                className="group inline-flex items-center gap-2 rounded-full border-2 border-wriSmokeFog/40 px-7 py-3 font-Montserrat text-sm font-semibold uppercase tracking-[0.12em] text-wriSmokeFog transition-colors hover:border-wriMoss hover:text-wriMoss"
+              >
+                Explore the map
+                <span
+                  aria-hidden
+                  className="transition-transform duration-200 group-hover:translate-x-0.5"
+                >
+                  →
+                </span>
+              </Link>
+            </div>
           </div>
-          <button
-            id="public-website-redesign-about-getting-started-cue-text"
-            type="button"
-            onClick={() => playStep(ABOUT_VIDEO_ITEMS[0].id)}
-            aria-label={`Play step 1: ${ABOUT_VIDEO_ITEMS[0].label}`}
-            className="inline-flex items-center gap-1.5 font-Montserrat text-sm font-semibold uppercase tracking-[0.1em] text-wriCanopy/70 transition-colors hover:text-wriForest focus:outline-none focus-visible:ring-2 focus-visible:ring-wriMoss focus-visible:ring-offset-2"
-          >
-            Start with step one below
-            <span aria-hidden className="text-base leading-none">
-              &darr;
-            </span>
-          </button>
         </div>
       </section>
 
-      {/* Stepper: numbered steps on the left, one square video on the right.
-          Square player matches the 1:1 source footage so there are no black bars. */}
+      {/* ===== Getting Started video series ============================ */}
+      {/* The four-part series is the engaging centerpiece. A standard section
+          header (eyebrow + title + divider) replaces the old in-card pill/dots
+          clutter, and the stepper lives in one clean card below. */}
       <section
-        id="public-website-redesign-about-video-stepper-section"
-        className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,500px)_minmax(0,1fr)] lg:gap-12"
+        id="public-website-redesign-about-getting-started-section"
+        className="mt-16 scroll-mt-24 md:mt-24"
       >
+        <header
+          id="public-website-redesign-about-getting-started-header"
+          className="max-w-2xl"
+        >
+          <p
+            id="public-website-redesign-about-getting-started-eyebrow"
+            className="font-Montserrat text-xs font-semibold uppercase tracking-[0.3em] text-wriSage"
+          >
+            Getting Started · 4-Part Series
+          </p>
+          <h2
+            id="public-website-redesign-about-getting-started-title"
+            className="mt-4 font-Poppins text-[clamp(1.6rem,3vw,2.125rem)] font-bold leading-tight text-wriForest"
+          >
+            Watch the four-part series
+          </h2>
+          <MossDivider
+            id="public-website-redesign-about-getting-started-divider"
+            className="mt-4"
+          />
+          <p
+            id="public-website-redesign-about-getting-started-copy"
+            className="mt-5 font-Poppins text-[clamp(1rem,2vw,1.15rem)] leading-relaxed text-wriCanopy/80"
+          >
+            Follow this short series to discover and understand your community's score.
+          </p>
+        </header>
+
+        {/* Stepper card: numbered steps on the left, one square video on the
+            right. Square player matches the 1:1 source footage (no black bars). */}
+        <div
+          id="public-website-redesign-about-getting-started-card"
+          className="relative mt-10 overflow-hidden rounded-3xl bg-white px-6 py-8 shadow-sm shadow-wriCanopy/5 ring-1 ring-wriMoss/25 sm:px-10 sm:py-11"
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-wriMoss/15 blur-3xl"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -bottom-24 -left-20 h-56 w-56 rounded-full bg-wriForest/10 blur-3xl"
+          />
+        <div
+          id="public-website-redesign-about-video-stepper"
+          className="relative grid gap-8 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:gap-x-12 lg:gap-y-6"
+        >
         <nav
           id="public-website-redesign-about-video-step-list"
           aria-label="Getting started video steps"
-          className="flex h-full flex-col justify-start gap-2 lg:mt-8"
+          className="relative flex flex-col gap-3 lg:col-start-1 lg:row-start-1 lg:gap-7 lg:self-center lg:pl-2"
         >
+          {/* A faint vertical rail connects the four badges into a timeline that
+              sits centered against the video — comfortably spaced and inset from
+              the top and bottom edges so nothing feels cut off or stranded. */}
+          <span
+            aria-hidden
+            className="absolute left-[3.1rem] top-[2.6rem] bottom-[2.6rem] hidden w-0.5 rounded-full bg-wriMoss/30 lg:block"
+          />
           {ABOUT_VIDEO_ITEMS.map((videoItem, index) => {
             const isActive = videoItem.id === activeVideoId;
 
@@ -285,16 +408,16 @@ function AboutPage() {
                 type="button"
                 aria-current={isActive ? "step" : undefined}
                 onClick={() => selectVideo(videoItem.id)}
-                className={`group flex items-center gap-5 rounded-2xl px-6 py-5 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-wriMoss focus-visible:ring-offset-2 ${
-                  isActive ? "bg-wriSmokeFog" : "hover:bg-wriSmokeFog/60"
+                className={`group relative flex items-center gap-4 rounded-2xl px-3 py-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-wriMoss focus-visible:ring-offset-2 ${
+                  isActive ? "bg-wriSmokeFog ring-1 ring-wriMoss/30" : "hover:bg-wriSmokeFog/60"
                 }`}
               >
                 <span
                   id={`public-website-redesign-about-video-step-number-${videoItem.id}`}
                   aria-hidden
-                  className={`flex h-[4.5rem] w-[4.5rem] shrink-0 items-center justify-center rounded-full font-Montserrat text-4xl font-bold transition-colors ${
+                  className={`relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full font-Montserrat text-2xl font-bold transition-all lg:h-[3.75rem] lg:w-[3.75rem] lg:text-3xl ${
                     isActive
-                      ? "bg-wriForest text-white"
+                      ? "bg-wriForest text-white shadow-md shadow-wriForest/25 ring-4 ring-wriForest/10"
                       : "bg-white text-wriForest ring-1 ring-wriMoss/50 group-hover:ring-wriMoss"
                   }`}
                 >
@@ -302,7 +425,7 @@ function AboutPage() {
                 </span>
                 <span
                   id={`public-website-redesign-about-video-step-label-${videoItem.id}`}
-                  className={`font-Montserrat text-[clamp(1.5rem,1.9vw,1.8rem)] font-semibold leading-snug transition-colors ${
+                  className={`font-Montserrat text-[clamp(1.0625rem,1.4vw,1.3125rem)] font-semibold leading-snug transition-colors ${
                     isActive ? "text-wriForest" : "text-wriCanopy/70 group-hover:text-wriCanopy"
                   }`}
                 >
@@ -315,8 +438,7 @@ function AboutPage() {
 
         <div
           id="public-website-redesign-about-video-panel"
-          ref={videoPanelRef}
-          className="mx-auto w-full max-w-[560px] scroll-mt-28"
+          className="mx-auto w-full max-w-[560px] scroll-mt-28 lg:col-start-2 lg:row-start-1"
         >
           <div
             id="public-website-redesign-about-video-frame"
@@ -358,10 +480,15 @@ function AboutPage() {
               </button>
             ) : null}
           </div>
+        </div>
 
+        <div
+          id="public-website-redesign-about-video-meta"
+          className="mx-auto w-full max-w-[560px] lg:col-start-2 lg:row-start-2"
+        >
           <div
             id="public-website-redesign-about-video-controls"
-            className="mt-5 flex items-center justify-between gap-4"
+            className="mt-5 flex items-center justify-between gap-4 lg:mt-0"
           >
             <button
               id="public-website-redesign-about-video-prev"
@@ -409,79 +536,192 @@ function AboutPage() {
             </p>
           </details>
         </div>
+        </div>
+        </div>
       </section>
 
-      <section id="public-website-redesign-about-copy-and-images-section" className="mt-20 space-y-14">
-        <article id="public-website-redesign-about-intro-heading-block">
-          <div id="public-website-redesign-about-intro-heading-divider" className="h-[4px] w-20 rounded-full bg-wriMoss" />
-          <h3
-            id="public-website-redesign-about-intro-heading-subtitle"
-            className="mt-6 font-Montserrat text-[clamp(1.75rem,3.7vw,2.5625rem)] font-medium leading-tight text-wriSage"
+      {/* Bottom "deep dive" section. Constrained to a comfortable reading width
+          with a calmer type scale and tidy framed images so the content reads as
+          a clean editorial flow instead of a stack of oversized full-bleed blocks. */}
+      <section
+        id="public-website-redesign-about-copy-and-images-section"
+        className="mx-auto mt-16 max-w-[1120px] sm:mt-24"
+      >
+        <header id="public-website-redesign-about-intro-heading-block" className="max-w-2xl">
+          <p
+            id="public-website-redesign-about-intro-heading-eyebrow"
+            className="font-Montserrat text-xs font-semibold uppercase tracking-[0.3em] text-wriSage"
           >
-            A Data-Driven View of Wildfire Resilience
-          </h3>
-        </article>
+            A Closer Look
+          </p>
+          <h2
+            id="public-website-redesign-about-intro-heading-subtitle"
+            className="mt-4 font-Poppins text-[clamp(1.6rem,3vw,2.125rem)] font-bold leading-tight text-wriForest"
+          >
+            A data-driven view of wildfire resilience
+          </h2>
+          <MossDivider
+            id="public-website-redesign-about-intro-heading-divider"
+            className="mt-4"
+          />
+        </header>
 
-        {ABOUT_CONTENT_ROWS.map((contentRow, rowIndex) => {
-          const isImageLeft = contentRow.imagePosition === "left";
+        <div
+          id="public-website-redesign-about-content-rows"
+          className="mt-12 space-y-16 sm:space-y-20"
+        >
+          {ABOUT_CONTENT_ROWS.map((contentRow) => {
+            const isImageLeft = contentRow.imagePosition === "left";
+            const isMap = contentRow.id === "map-overview";
 
-          return (
-            <article
-              id={`public-website-redesign-about-content-row-${contentRow.id}`}
-              key={contentRow.id}
-              className="grid gap-8 md:grid-cols-2 md:items-start md:gap-10"
-            >
-              <div
-                id={`public-website-redesign-about-content-row-image-wrap-${contentRow.id}`}
-                className={`${isImageLeft ? "md:order-1" : "md:order-2"}`}
+            return (
+              <article
+                id={`public-website-redesign-about-content-row-${contentRow.id}`}
+                key={contentRow.id}
+                className="grid gap-8 md:grid-cols-2 md:items-center md:gap-12"
               >
-                <img
-                  id={`public-website-redesign-about-content-row-image-${contentRow.id}`}
-                  src={contentRow.image.src}
-                  alt={contentRow.image.alt}
-                  className={`w-full rounded-sm ${
-                    contentRow.id === "map-overview"
-                      ? "mx-auto max-w-[350px] object-contain md:max-h-[375px]"
-                      : "aspect-square object-cover"
-                  }`}
-                />
-              </div>
-
-              <div
-                id={`public-website-redesign-about-content-row-text-wrap-${contentRow.id}`}
-                className={`${isImageLeft ? "md:order-2" : "md:order-1"}`}
-              >
-                {rowIndex > 0 ? (
-                  <div
-                    id={`public-website-redesign-about-content-row-divider-${contentRow.id}`}
-                    className="mb-5 h-[4px] w-20 rounded-full bg-wriMoss"
-                  />
-                ) : null}
-                {contentRow.heading ? (
-                  <h4
-                    id={`public-website-redesign-about-content-row-heading-${contentRow.id}`}
-                    className="mb-5 font-Montserrat text-[clamp(1.7rem,3.5vw,2.5rem)] font-medium leading-tight text-wriSage"
-                  >
-                    {contentRow.heading}
-                  </h4>
-                ) : null}
                 <div
-                  id={`public-website-redesign-about-content-row-copy-${contentRow.id}`}
-                  className="space-y-4 font-Poppins text-[clamp(16px,1.5vw,20px)] leading-relaxed text-wriCanopy"
+                  id={`public-website-redesign-about-content-row-image-wrap-${contentRow.id}`}
+                  className={`overflow-hidden rounded-2xl ring-1 ring-wriCanopy/10 ${
+                    isMap
+                      ? "flex items-center justify-center bg-wriSmokeFog p-6"
+                      : "shadow-md shadow-wriCanopy/10"
+                  } ${isImageLeft ? "md:order-1" : "md:order-2"}`}
                 >
-                  {contentRow.paragraphs.map((paragraph, paragraphIndex) => (
-                    <p
-                      id={`public-website-redesign-about-content-row-copy-paragraph-${contentRow.id}-${paragraphIndex + 1}`}
-                      key={`${contentRow.id}-${paragraphIndex + 1}`}
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
+                  <img
+                    id={`public-website-redesign-about-content-row-image-${contentRow.id}`}
+                    src={contentRow.image.src}
+                    alt={contentRow.image.alt}
+                    loading="lazy"
+                    className={
+                      isMap
+                        ? "mx-auto max-h-[260px] w-full max-w-[300px] object-contain"
+                        : "aspect-[4/3] w-full object-cover"
+                    }
+                  />
                 </div>
-              </div>
-            </article>
+
+                <div
+                  id={`public-website-redesign-about-content-row-text-wrap-${contentRow.id}`}
+                  className={`${isImageLeft ? "md:order-2" : "md:order-1"}`}
+                >
+                  {contentRow.heading ? (
+                    <h3
+                      id={`public-website-redesign-about-content-row-heading-${contentRow.id}`}
+                      className="mb-4 font-Montserrat text-[clamp(1.35rem,2.4vw,1.75rem)] font-semibold leading-snug text-wriForest"
+                    >
+                      {contentRow.heading}
+                    </h3>
+                  ) : null}
+                  <div
+                    id={`public-website-redesign-about-content-row-copy-${contentRow.id}`}
+                    className="max-w-prose space-y-4 font-Poppins text-[clamp(15px,1.1vw,17px)] leading-relaxed text-wriCanopy/90"
+                  >
+                    {contentRow.paragraphs.map((paragraph, paragraphIndex) => (
+                      <p
+                        id={`public-website-redesign-about-content-row-copy-paragraph-${contentRow.id}-${paragraphIndex + 1}`}
+                        key={`${contentRow.id}-${paragraphIndex + 1}`}
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </article>
           );
         })}
+        </div>
+      </section>
+
+      {/* "Keep exploring" wayfinding: a primary map CTA plus quick links to the
+          main pages so readers can continue from the bottom without scrolling
+          back to the top nav. */}
+      <section
+        id="public-website-redesign-about-keep-exploring-section"
+        className="mt-24 sm:mt-28"
+      >
+        <div
+          id="public-website-redesign-about-keep-exploring-cta"
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-wriForest to-wriMossMenuHighlight px-7 py-9 sm:px-10 sm:py-11"
+        >
+          <span
+            id="public-website-redesign-about-keep-exploring-eyebrow"
+            className="inline-flex items-center rounded-full bg-white/15 px-4 py-1.5 font-Montserrat text-xs font-bold uppercase tracking-[0.14em] text-white"
+          >
+            Keep Exploring
+          </span>
+          <div
+            id="public-website-redesign-about-keep-exploring-cta-body"
+            className="mt-5 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+          >
+            <div className="max-w-2xl">
+              <h2
+                id="public-website-redesign-about-keep-exploring-title"
+                className="font-Montserrat text-[clamp(1.5rem,3vw,2.125rem)] font-semibold leading-tight text-white"
+              >
+                See how your community scores
+              </h2>
+              <p
+                id="public-website-redesign-about-keep-exploring-copy"
+                className="mt-3 font-Poppins text-[clamp(15px,1.1vw,17px)] leading-relaxed text-white/85"
+              >
+                The Index is free and open. Jump into the interactive map to explore resilience
+                across states, counties, and neighborhoods.
+              </p>
+            </div>
+            <Link
+              id="public-website-redesign-about-keep-exploring-button"
+              to={REDESIGN_ROUTES.exploreIndex}
+              className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-7 py-3.5 font-Montserrat text-sm font-bold uppercase tracking-[0.08em] text-wriForest shadow-sm transition-all hover:bg-wriSmokeFog hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-wriForest"
+            >
+              Explore the Index
+              <span aria-hidden className="text-base leading-none transition-transform group-hover:translate-x-1">
+                &rarr;
+              </span>
+            </Link>
+          </div>
+        </div>
+
+        <div
+          id="public-website-redesign-about-keep-exploring-links"
+          className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {ABOUT_NEXT_LINKS.map((nextLink) => (
+            <Link
+              key={nextLink.id}
+              id={`public-website-redesign-about-next-link-${nextLink.id}`}
+              to={nextLink.to}
+              className="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-wriCanopy/10 transition-all hover:-translate-y-0.5 hover:ring-wriMoss hover:shadow-md hover:shadow-wriCanopy/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-wriMoss focus-visible:ring-offset-2"
+            >
+              <span
+                id={`public-website-redesign-about-next-link-icon-${nextLink.id}`}
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-wriForest/10 text-wriForest transition-colors group-hover:bg-wriForest group-hover:text-white [&_svg]:h-5 [&_svg]:w-5"
+              >
+                {nextLink.icon}
+              </span>
+              <span
+                id={`public-website-redesign-about-next-link-label-${nextLink.id}`}
+                className="mt-4 font-Montserrat text-[1.0625rem] font-semibold leading-snug text-wriForest"
+              >
+                {nextLink.label}
+              </span>
+              <span
+                id={`public-website-redesign-about-next-link-description-${nextLink.id}`}
+                className="mt-2 font-Poppins text-sm leading-relaxed text-wriCanopy/70"
+              >
+                {nextLink.description}
+              </span>
+              <span
+                id={`public-website-redesign-about-next-link-cue-${nextLink.id}`}
+                aria-hidden
+                className="mt-4 inline-flex items-center gap-1.5 font-Montserrat text-xs font-bold uppercase tracking-[0.08em] text-wriMossMenuHighlight"
+              >
+                Visit page
+                <span className="text-sm leading-none transition-transform group-hover:translate-x-1">&rarr;</span>
+              </span>
+            </Link>
+          ))}
+        </div>
       </section>
     </div>
   );

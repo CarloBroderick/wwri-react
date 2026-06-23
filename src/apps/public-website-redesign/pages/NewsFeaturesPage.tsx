@@ -1,6 +1,6 @@
 import whenWriMeetsAi from "../../../assets/public-website-redesign/images/media/when-wri-meets-ai.png";
 import fromDataToAction from "../../../assets/public-website-redesign/images/media/from-data-to-action.jpeg";
-import newsFireAdapted from "../../../assets/public-website-redesign/images/media/news-fire-adapted-communities.jpg";
+import newsFireAdapted from "../../../assets/public-website-redesign/images/media/news-fire-adapted-communities.png";
 import newsUcsbCurrent from "../../../assets/public-website-redesign/images/media/news-ucsb-current-wildfire.jpeg";
 import newsTaskForce from "../../../assets/public-website-redesign/images/media/news-wildfire-task-force.png";
 import newsKcbx from "../../../assets/public-website-redesign/images/media/news-kcbx-prescribed-burn.png";
@@ -18,6 +18,8 @@ type Article = {
   image: string;
   /** External URL the whole card links to. */
   href: string;
+  /** Call-to-action verb in the card footer (default "Read"; e.g. "Listen" for audio). */
+  cta?: string;
 };
 
 // 📰 Most recent first. Card shows org (above), title, then publication date. ===
@@ -62,6 +64,7 @@ const ARTICLES: Article[] = [
     title: "New tool from UCSB scores communities on wildfire resilience",
     image: newsKcbx,
     href: "https://www.kcbx.org/environment-and-energy/2026-05-05/new-tool-from-ucsb-scores-communities-on-wildfire-resilience",
+    cta: "Listen",
   },
   {
     id: "when-wildfire-meets-ai",
@@ -83,14 +86,15 @@ const ARTICLES: Article[] = [
 
 /**
  * News & Features (PDF page 18 / change-requests doc).
- *   Header "News & Features" (Poppins eyebrow implied by reused SectionHeader
- *   convention — here we only render the title row). Each card:
- *     • Box: Forest #2F5D3A outline 4px, Smoke Fog inner
- *     • Picture above text
- *     • Writing org (top-left): Montserrat Bold Sage, 14.2
- *     • Article title (center): Montserrat Bold Moss, 20.8
- *     • Date (bottom-left): Montserrat Sage, 14.2
- *   Each card is hyperlinked to an NCEAS article URL.
+ *   Header "News & Features" reuses SectionHeader (Poppins eyebrow + Moss rule).
+ *   Responsive 1/2/3-column card grid. Each card:
+ *     • Soft rounded-2xl panel, hairline Forest border + ring, hover lift/shadow
+ *     • 16/9 hero (object-cover, gentle zoom on hover). 16/9 ≈ the ~1.91:1 OG
+ *       share images, so the sides are no longer heavily cropped.
+ *     • Source badge over the image (Montserrat Bold, Forest on frosted white)
+ *     • Article title (Montserrat Bold Canopy, clamped to 3 lines)
+ *     • Footer: publication date + "Read →" affordance
+ *   Each card is hyperlinked to its external article URL.
  */
 function NewsFeaturesPage() {
   return (
@@ -105,7 +109,7 @@ function NewsFeaturesPage() {
       />
       <div
         id="public-website-redesign-news-grid"
-        className="mt-10 grid gap-8 sm:grid-cols-2 md:gap-10"
+        className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
         {ARTICLES.map((a) => (
           <a
@@ -114,36 +118,57 @@ function NewsFeaturesPage() {
             href={a.href}
             target="_blank"
             rel="noreferrer"
-            className="group block overflow-hidden rounded-sm border-[4px] border-wriForest bg-wriSmokeFog transition-transform hover:-translate-y-0.5 hover:shadow-md"
+            className="group flex flex-col overflow-hidden rounded-2xl border border-wriForest/15 bg-white shadow-sm ring-1 ring-black/5 transition duration-300 ease-out hover:-translate-y-1 hover:border-wriForest/30 hover:shadow-xl"
           >
-            <img
-              id={`public-website-redesign-news-article-${a.id}-image`}
-              src={a.image}
-              alt=""
-              className="aspect-[4/3] w-full object-cover"
-            />
+            {/* 🖼️ Hero — 16/9 keeps wide OG share images from being side-cropped */}
             <div
-              id={`public-website-redesign-news-article-${a.id}-body`}
-              className="flex flex-col gap-3 p-5"
+              id={`public-website-redesign-news-article-${a.id}-media`}
+              className="relative aspect-video w-full overflow-hidden bg-wriSmokeFog"
             >
-              <div
+              <img
+                id={`public-website-redesign-news-article-${a.id}-image`}
+                src={a.image}
+                alt=""
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+              />
+              <span
                 id={`public-website-redesign-news-article-${a.id}-source`}
-                className="font-Montserrat text-[14.2px] font-bold uppercase tracking-wide text-wriSage"
+                className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 font-Montserrat text-[11px] font-bold uppercase tracking-wide text-wriForest shadow-sm backdrop-blur"
               >
                 {a.source}
-              </div>
+              </span>
+            </div>
+
+            {/* 📝 Body */}
+            <div
+              id={`public-website-redesign-news-article-${a.id}-body`}
+              className="flex flex-1 flex-col gap-4 p-5"
+            >
               <h3
                 id={`public-website-redesign-news-article-${a.id}-title`}
-                className="font-Montserrat text-[20.8px] font-bold leading-snug text-wriMoss"
+                className="font-Montserrat text-[17px] font-bold leading-snug text-wriCanopy line-clamp-3 transition-colors group-hover:text-wriForest"
               >
                 {a.title}
               </h3>
-              <time
-                id={`public-website-redesign-news-article-${a.id}-date`}
-                className="font-Montserrat text-[14.2px] text-wriSage"
-              >
-                {a.date}
-              </time>
+              <div className="mt-auto flex items-center justify-between border-t border-wriForest/10 pt-4">
+                <time
+                  id={`public-website-redesign-news-article-${a.id}-date`}
+                  className="font-Montserrat text-[13px] text-wriSage"
+                >
+                  {a.date}
+                </time>
+                <span
+                  id={`public-website-redesign-news-article-${a.id}-cta`}
+                  className="inline-flex items-center gap-1 font-Montserrat text-[13px] font-bold text-wriForest"
+                  aria-hidden="true"
+                >
+                  {a.cta ?? "Read"}
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </span>
+              </div>
             </div>
           </a>
         ))}
