@@ -1,5 +1,4 @@
-import { ReactNode, useMemo, useRef, useState } from "react";
-import DownArrow from "../../../assets/DownArrow.svg";
+import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import regionMap from "../../../assets/public-website-redesign/icons/Location Map for WRI, 1 What is the WRI (1).png";
 import burntForest from "../../../assets/public-website-redesign/images/about/burnt-forest.jpg";
 import whyIndexBanffTown from "../../../assets/public-website-redesign/images/about/why-is-the-index-useful-banf-town.png";
@@ -8,7 +7,6 @@ import overviewWhatIsIt from "../../../assets/public-website-redesign/videos/ove
 import overviewHowWeBuiltIt from "../../../assets/public-website-redesign/videos/overview-2-how-we-built-it.mp4";
 import overviewHowToUseIt from "../../../assets/public-website-redesign/videos/overview-3-how-to-use-it.mp4";
 import overviewInterpretScore from "../../../assets/public-website-redesign/videos/overview-4-interpret-your-score.mp4";
-import RightSideArrow from "../../../assets/RightSideArrow.svg";
 
 const ABOUT_VIDEO_ITEMS = [
   {
@@ -73,6 +71,7 @@ const ABOUT_CONTENT_ROWS: ReadonlyArray<{
   },
   {
     id: "measurement-challenge",
+    heading: "Measuring What's Hard to Measure",
     image: {
       src: burntForest,
       alt: "Burned forest with yellow wildflowers returning after wildfire",
@@ -115,6 +114,7 @@ const ABOUT_CONTENT_ROWS: ReadonlyArray<{
   },
   {
     id: "open-source-collaboration",
+    heading: "Open Data for Shared Action",
     image: {
       src: whyIndexNewPineGrowth,
       alt: "Young conifer regenerating in a forest clearing",
@@ -138,36 +138,71 @@ const ABOUT_CONTENT_ROWS: ReadonlyArray<{
 ] as const;
 
 function AboutPage() {
-  const [expandedVideoId, setExpandedVideoId] = useState<(typeof ABOUT_VIDEO_ITEMS)[number]["id"] | null>(
+  // The four "Getting Started" clips are a guided sequence, so the page always
+  // has exactly one active step (no collapsed/empty state like the old accordion).
+  const [activeVideoId, setActiveVideoId] = useState<(typeof ABOUT_VIDEO_ITEMS)[number]["id"]>(
     ABOUT_VIDEO_ITEMS[0].id,
   );
-  const [playingVideoId, setPlayingVideoId] = useState<(typeof ABOUT_VIDEO_ITEMS)[number]["id"] | null>(null);
-  const videoRefs = useRef<
-    Partial<Record<(typeof ABOUT_VIDEO_ITEMS)[number]["id"], HTMLVideoElement | null>>
-  >({});
+  const [isPlaying, setIsPlaying] = useState(false);
+  // Selecting a step (intro dots, left-rail nav, or Previous/Next) makes the
+  // freshly-mounted <video> start playing on its own. It stays false on first
+  // load so the page doesn't autoplay before any user interaction.
+  const [autoPlayOnMount, setAutoPlayOnMount] = useState(false);
+  const activeVideoRef = useRef<HTMLVideoElement | null>(null);
+  const videoPanelRef = useRef<HTMLDivElement | null>(null);
 
-  const expandedVideoIndex = useMemo(
-    () => ABOUT_VIDEO_ITEMS.findIndex((item) => item.id === expandedVideoId),
-    [expandedVideoId],
+  const activeIndex = useMemo(
+    () => ABOUT_VIDEO_ITEMS.findIndex((item) => item.id === activeVideoId),
+    [activeVideoId],
   );
+  const activeVideo = ABOUT_VIDEO_ITEMS[activeIndex];
+
+  const selectVideo = (id: (typeof ABOUT_VIDEO_ITEMS)[number]["id"]) => {
+    setActiveVideoId(id);
+    setIsPlaying(false);
+    // Clicking a step (or Previous/Next) should start playback automatically.
+    setAutoPlayOnMount(true);
+  };
+
+  // Used by the intro step dots: jump to a step, scroll the player into view,
+  // and let it autoplay. If the browser blocks autoplay the overlay play button
+  // stays available because isPlaying remains false until onPlay fires.
+  const playStep = (id: (typeof ABOUT_VIDEO_ITEMS)[number]["id"]) => {
+    setActiveVideoId(id);
+    setIsPlaying(false);
+    setAutoPlayOnMount(true);
+    videoPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   const goToAdjacentVideo = (direction: "previous" | "next") => {
-    const movement = direction === "previous" ? -1 : 1;
-    const nextIndex = expandedVideoIndex + movement;
-    const nextVideo = ABOUT_VIDEO_ITEMS[nextIndex];
-
-    if (nextVideo) {
-      setExpandedVideoId(nextVideo.id);
-      setPlayingVideoId(null);
-    }
+    const nextVideo = ABOUT_VIDEO_ITEMS[activeIndex + (direction === "previous" ? -1 : 1)];
+    if (nextVideo) selectVideo(nextVideo.id);
   };
 
   return (
     <div id="public-website-redesign-about-page" className="mx-auto max-w-[1400px] px-6 py-16">
-      <section id="public-website-redesign-about-getting-started-section">
+      {/* Intro is wrapped in a soft "hero" band so the lead line no longer floats:
+          an eyebrow badge frames it as a series and a step-dot cue points down
+          into the numbered stepper/video that immediately follows. */}
+      <section
+        id="public-website-redesign-about-getting-started-section"
+        className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-wriSmokeFog via-wriSmokeFog/60 to-white px-7 py-9 ring-1 ring-wriMoss/20 sm:px-10 sm:py-11"
+      >
+        <span
+          id="public-website-redesign-about-getting-started-eyebrow"
+          className="inline-flex items-center gap-2 rounded-full bg-wriForest/10 px-4 py-1.5 font-Montserrat text-xs font-bold uppercase tracking-[0.14em] text-wriForest"
+        >
+          <span
+            aria-hidden
+            className="flex h-5 w-5 items-center justify-center rounded-full bg-wriForest text-[11px] font-bold text-white"
+          >
+            4
+          </span>
+          Part Video Series
+        </span>
         <h1
           id="public-website-redesign-about-getting-started-title"
-          className="font-Poppins text-[clamp(2.25rem,4.3vw,2.75rem)] font-bold leading-tight text-wriForest"
+          className="mt-5 font-Poppins text-[clamp(2.25rem,4.3vw,2.75rem)] font-bold leading-tight text-wriForest"
         >
           Getting Started
         </h1>
@@ -177,213 +212,203 @@ function AboutPage() {
         />
         <p
           id="public-website-redesign-about-getting-started-copy"
-          className="mt-6 max-w-4xl font-Poppins text-[clamp(1.05rem,2.1vw,1.25rem)] font-normal leading-relaxed text-wriCanopy"
+          className="mt-5 max-w-3xl font-Poppins text-[clamp(1.05rem,2.1vw,1.25rem)] font-normal leading-relaxed text-wriCanopy"
         >
-          Explore the sequence of videos below to discover and understand your community's score:
+          Follow this four-step series to discover and understand your community's score.
         </p>
+        <div
+          id="public-website-redesign-about-getting-started-cue"
+          className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3"
+        >
+          <div
+            id="public-website-redesign-about-getting-started-step-dots"
+            className="flex items-center gap-2"
+          >
+            {ABOUT_VIDEO_ITEMS.map((videoItem, index) => {
+              const isActive = videoItem.id === activeVideoId;
+
+              return (
+                <span key={videoItem.id} className="flex items-center gap-2">
+                  <button
+                    id={`public-website-redesign-about-getting-started-step-dot-${videoItem.id}`}
+                    type="button"
+                    onClick={() => playStep(videoItem.id)}
+                    aria-label={`Play step ${index + 1}: ${videoItem.label}`}
+                    className={`flex h-7 w-7 items-center justify-center rounded-full font-Montserrat text-sm font-bold transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-wriMoss focus-visible:ring-offset-2 ${
+                      isActive
+                        ? "bg-wriForest text-white"
+                        : "bg-white text-wriForest ring-1 ring-wriMoss/40 hover:ring-wriMoss"
+                    }`}
+                  >
+                    {index + 1}
+                  </button>
+                  {index < ABOUT_VIDEO_ITEMS.length - 1 ? (
+                    <span aria-hidden className="h-[2px] w-5 rounded-full bg-wriMoss/40" />
+                  ) : null}
+                </span>
+              );
+            })}
+          </div>
+          <button
+            id="public-website-redesign-about-getting-started-cue-text"
+            type="button"
+            onClick={() => playStep(ABOUT_VIDEO_ITEMS[0].id)}
+            aria-label={`Play step 1: ${ABOUT_VIDEO_ITEMS[0].label}`}
+            className="inline-flex items-center gap-1.5 font-Montserrat text-sm font-semibold uppercase tracking-[0.1em] text-wriCanopy/70 transition-colors hover:text-wriForest focus:outline-none focus-visible:ring-2 focus-visible:ring-wriMoss focus-visible:ring-offset-2"
+          >
+            Start with step one below
+            <span aria-hidden className="text-base leading-none">
+              &darr;
+            </span>
+          </button>
+        </div>
       </section>
 
-      <section id="public-website-redesign-about-video-accordion-section" className="mt-10 space-y-5">
-        {ABOUT_VIDEO_ITEMS.map((videoItem, index) => {
-          const isExpanded = videoItem.id === expandedVideoId;
-          const accordionPanelId = `public-website-redesign-about-video-panel-${videoItem.id}`;
-          const showBackButton = isExpanded && index > 0;
-          const showNextButton = isExpanded && index < ABOUT_VIDEO_ITEMS.length - 1;
+      {/* Stepper: numbered steps on the left, one square video on the right.
+          Square player matches the 1:1 source footage so there are no black bars. */}
+      <section
+        id="public-website-redesign-about-video-stepper-section"
+        className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,500px)_minmax(0,1fr)] lg:gap-12"
+      >
+        <nav
+          id="public-website-redesign-about-video-step-list"
+          aria-label="Getting started video steps"
+          className="flex h-full flex-col justify-start gap-2 lg:mt-8"
+        >
+          {ABOUT_VIDEO_ITEMS.map((videoItem, index) => {
+            const isActive = videoItem.id === activeVideoId;
 
-          return (
-            <article
-              key={videoItem.id}
-              id={`public-website-redesign-about-video-accordion-item-${videoItem.id}`}
-              className="rounded-sm border-[5px] border-wriMoss bg-white"
-            >
+            return (
               <button
-                id={`public-website-redesign-about-video-accordion-trigger-${videoItem.id}`}
+                key={videoItem.id}
+                id={`public-website-redesign-about-video-step-${videoItem.id}`}
                 type="button"
-                aria-expanded={isExpanded}
-                aria-controls={accordionPanelId}
-                onClick={() => {
-                  setExpandedVideoId(isExpanded ? null : videoItem.id);
-                  setPlayingVideoId(null);
-                }}
-                className="flex w-full items-center justify-between gap-4 px-5 py-3 text-left md:px-6 md:py-3.5"
+                aria-current={isActive ? "step" : undefined}
+                onClick={() => selectVideo(videoItem.id)}
+                className={`group flex items-center gap-5 rounded-2xl px-6 py-5 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-wriMoss focus-visible:ring-offset-2 ${
+                  isActive ? "bg-wriSmokeFog" : "hover:bg-wriSmokeFog/60"
+                }`}
               >
                 <span
-                  id={`public-website-redesign-about-video-accordion-label-${videoItem.id}`}
-                  className="font-Montserrat text-[clamp(1.15rem,2vw,1.7625rem)] font-bold leading-tight text-wriSage"
+                  id={`public-website-redesign-about-video-step-number-${videoItem.id}`}
+                  aria-hidden
+                  className={`flex h-[4.5rem] w-[4.5rem] shrink-0 items-center justify-center rounded-full font-Montserrat text-4xl font-bold transition-colors ${
+                    isActive
+                      ? "bg-wriForest text-white"
+                      : "bg-white text-wriForest ring-1 ring-wriMoss/50 group-hover:ring-wriMoss"
+                  }`}
+                >
+                  {index + 1}
+                </span>
+                <span
+                  id={`public-website-redesign-about-video-step-label-${videoItem.id}`}
+                  className={`font-Montserrat text-[clamp(1.5rem,1.9vw,1.8rem)] font-semibold leading-snug transition-colors ${
+                    isActive ? "text-wriForest" : "text-wriCanopy/70 group-hover:text-wriCanopy"
+                  }`}
                 >
                   {videoItem.label}
                 </span>
-                <img
-                  id={`public-website-redesign-about-video-accordion-chevron-${videoItem.id}`}
-                  src={isExpanded ? DownArrow : RightSideArrow}
-                  alt=""
-                  aria-hidden
-                  className="h-5 w-5 shrink-0"
-                />
               </button>
+            );
+          })}
+        </nav>
 
-              <div
-                id={`public-website-redesign-about-video-panel-transition-wrap-${videoItem.id}`}
-                className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
-                  isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                }`}
+        <div
+          id="public-website-redesign-about-video-panel"
+          ref={videoPanelRef}
+          className="mx-auto w-full max-w-[560px] scroll-mt-28"
+        >
+          <div
+            id="public-website-redesign-about-video-frame"
+            className="group relative aspect-square w-full overflow-hidden rounded-2xl bg-wriCanopy shadow-md ring-1 ring-black/5"
+          >
+            <video
+              key={activeVideo.id}
+              id="public-website-redesign-about-video-player"
+              ref={activeVideoRef}
+              src={activeVideo.src}
+              controls
+              playsInline
+              autoPlay={autoPlayOnMount}
+              preload="metadata"
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+              onEnded={() => setIsPlaying(false)}
+              className="h-full w-full object-cover"
+            />
+            {!isPlaying ? (
+              <button
+                id="public-website-redesign-about-video-big-play-button"
+                type="button"
+                onClick={() => {
+                  void activeVideoRef.current?.play();
+                  setIsPlaying(true);
+                }}
+                aria-label={`Play: ${activeVideo.label}`}
+                className="absolute inset-0 flex items-center justify-center bg-wriCanopy/10 transition-colors hover:bg-wriCanopy/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
               >
-                <div
-                  id={accordionPanelId}
-                  aria-hidden={!isExpanded}
-                  className={`overflow-hidden transition-[opacity,padding,border-width] duration-200 ease-in-out ${
-                    isExpanded
-                      ? "border-t-[3px] border-wriMoss px-2 py-6 opacity-100 md:px-4"
-                      : "pointer-events-none border-t-0 px-0 py-0 opacity-0"
-                  }`}
+                <span
+                  id="public-website-redesign-about-video-big-play-button-circle"
+                  className="flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-white/95 text-wriForest shadow-lg transition-transform group-hover:scale-105"
                 >
-                  <div
-                    id={`public-website-redesign-about-video-stage-${videoItem.id}`}
-                    className="mx-auto grid w-full max-w-[1140px] grid-cols-1 items-center gap-4 md:grid-cols-[110px_minmax(0,1fr)_110px]"
-                  >
-                    <div
-                      id={`public-website-redesign-about-video-navigation-left-slot-${videoItem.id}`}
-                      className="hidden h-full items-center justify-center md:flex"
-                    >
-                      {showBackButton ? (
-                        <button
-                          id={`public-website-redesign-about-video-navigation-back-${videoItem.id}`}
-                          type="button"
-                          onClick={() => goToAdjacentVideo("previous")}
-                          className="inline-flex items-center gap-2 font-Montserrat text-base font-bold uppercase tracking-[0.08em] text-wriForest"
-                        >
-                          <span aria-hidden className="text-[26px] leading-none">
-                            &larr;
-                          </span>
-                          Back
-                        </button>
-                      ) : null}
-                    </div>
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="ml-1 h-7 w-7">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+              </button>
+            ) : null}
+          </div>
 
-                    <div
-                      id={`public-website-redesign-about-video-player-wrap-${videoItem.id}`}
-                      className="mx-auto w-full max-w-[760px] border-[3px] border-wriMoss p-3 md:p-4"
-                    >
-                      <div
-                        id={`public-website-redesign-about-video-player-frame-${videoItem.id}`}
-                        className="relative"
-                      >
-                        <video
-                          id={`public-website-redesign-about-video-player-${videoItem.id}`}
-                          ref={(node) => {
-                            videoRefs.current[videoItem.id] = node;
-                          }}
-                          src={videoItem.src}
-                          controls
-                          playsInline
-                          preload="metadata"
-                          onPlay={() => setPlayingVideoId(videoItem.id)}
-                          onPause={() => setPlayingVideoId(null)}
-                          onEnded={() => setPlayingVideoId(null)}
-                          className="aspect-video w-full rounded-sm bg-black"
-                        />
-                        {playingVideoId !== videoItem.id ? (
-                          <button
-                            id={`public-website-redesign-about-video-big-play-button-${videoItem.id}`}
-                            type="button"
-                            onClick={() => {
-                              const videoElement = videoRefs.current[videoItem.id];
-                              if (videoElement) {
-                                videoElement.play();
-                                setPlayingVideoId(videoItem.id);
-                              }
-                            }}
-                            aria-label={`Play ${videoItem.label}`}
-                            className="absolute inset-0 flex items-center justify-center"
-                          >
-                            <span
-                              id={`public-website-redesign-about-video-big-play-button-circle-${videoItem.id}`}
-                              className="flex h-20 w-20 items-center justify-center rounded-full bg-wriForest/90 text-white shadow-lg transition-transform hover:scale-105"
-                            >
-                              <span
-                                id={`public-website-redesign-about-video-big-play-button-icon-${videoItem.id}`}
-                                aria-hidden
-                                className="ml-1 text-[34px] leading-none"
-                              >
-                                ▶
-                              </span>
-                            </span>
-                          </button>
-                        ) : null}
-                      </div>
-                      <details
-                        id={`public-website-redesign-about-video-transcript-${videoItem.id}`}
-                        className="mt-3 border-t border-wriForest/15 pt-3"
-                      >
-                        <summary className="cursor-pointer font-Montserrat text-sm font-bold uppercase tracking-[0.08em] text-wriForest">
-                          Transcript
-                        </summary>
-                        <p className="mt-2 font-Poppins text-[15px] leading-relaxed text-wriCanopy">
-                          {videoItem.transcript}
-                        </p>
-                      </details>
-                    </div>
+          <div
+            id="public-website-redesign-about-video-controls"
+            className="mt-5 flex items-center justify-between gap-4"
+          >
+            <button
+              id="public-website-redesign-about-video-prev"
+              type="button"
+              onClick={() => goToAdjacentVideo("previous")}
+              disabled={activeIndex === 0}
+              className="inline-flex items-center gap-2 font-Montserrat text-sm font-bold uppercase tracking-[0.08em] text-wriForest transition-opacity hover:text-wriMossMenuHighlight disabled:pointer-events-none disabled:opacity-0"
+            >
+              <span aria-hidden className="text-[22px] leading-none">
+                &larr;
+              </span>
+              Previous
+            </button>
 
-                    <div
-                      id={`public-website-redesign-about-video-navigation-right-slot-${videoItem.id}`}
-                      className="hidden h-full items-center justify-center md:flex"
-                    >
-                      {showNextButton ? (
-                        <button
-                          id={`public-website-redesign-about-video-navigation-next-${videoItem.id}`}
-                          type="button"
-                          onClick={() => goToAdjacentVideo("next")}
-                          className="inline-flex items-center gap-2 font-Montserrat text-base font-bold uppercase tracking-[0.08em] text-wriForest"
-                        >
-                          Next
-                          <span aria-hidden className="text-[26px] leading-none">
-                            &rarr;
-                          </span>
-                        </button>
-                      ) : null}
-                    </div>
-                  </div>
+            <span
+              id="public-website-redesign-about-video-step-indicator"
+              className="font-Montserrat text-sm font-semibold uppercase tracking-[0.12em] text-wriCanopy/60"
+            >
+              Step {activeIndex + 1} of {ABOUT_VIDEO_ITEMS.length}
+            </span>
 
-                  <div
-                    id={`public-website-redesign-about-video-navigation-mobile-${videoItem.id}`}
-                    className="mt-3 flex items-center justify-between md:hidden"
-                  >
-                    <div id={`public-website-redesign-about-video-navigation-mobile-left-slot-${videoItem.id}`}>
-                      {showBackButton ? (
-                        <button
-                          id={`public-website-redesign-about-video-navigation-mobile-back-${videoItem.id}`}
-                          type="button"
-                          onClick={() => goToAdjacentVideo("previous")}
-                          className="inline-flex items-center gap-2 font-Montserrat text-sm font-bold uppercase tracking-[0.08em] text-wriForest"
-                        >
-                          <span aria-hidden className="text-[20px] leading-none">
-                            &larr;
-                          </span>
-                          Back
-                        </button>
-                      ) : null}
-                    </div>
-                    <div id={`public-website-redesign-about-video-navigation-mobile-right-slot-${videoItem.id}`}>
-                      {showNextButton ? (
-                        <button
-                          id={`public-website-redesign-about-video-navigation-mobile-next-${videoItem.id}`}
-                          type="button"
-                          onClick={() => goToAdjacentVideo("next")}
-                          className="inline-flex items-center gap-2 font-Montserrat text-sm font-bold uppercase tracking-[0.08em] text-wriForest"
-                        >
-                          Next
-                          <span aria-hidden className="text-[20px] leading-none">
-                            &rarr;
-                          </span>
-                        </button>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-          );
-        })}
+            <button
+              id="public-website-redesign-about-video-next"
+              type="button"
+              onClick={() => goToAdjacentVideo("next")}
+              disabled={activeIndex === ABOUT_VIDEO_ITEMS.length - 1}
+              className="inline-flex items-center gap-2 font-Montserrat text-sm font-bold uppercase tracking-[0.08em] text-wriForest transition-opacity hover:text-wriMossMenuHighlight disabled:pointer-events-none disabled:opacity-0"
+            >
+              Next
+              <span aria-hidden className="text-[22px] leading-none">
+                &rarr;
+              </span>
+            </button>
+          </div>
+
+          <details
+            id="public-website-redesign-about-video-transcript"
+            className="mt-5 border-t border-wriForest/15 pt-4"
+          >
+            <summary className="cursor-pointer font-Montserrat text-sm font-bold uppercase tracking-[0.08em] text-wriForest">
+              Transcript
+            </summary>
+            <p className="mt-3 font-Poppins text-[15px] leading-relaxed text-wriCanopy">
+              {activeVideo.transcript}
+            </p>
+          </details>
+        </div>
       </section>
 
       <section id="public-website-redesign-about-copy-and-images-section" className="mt-20 space-y-14">
@@ -416,7 +441,7 @@ function AboutPage() {
                   alt={contentRow.image.alt}
                   className={`w-full rounded-sm ${
                     contentRow.id === "map-overview"
-                      ? "mx-auto max-w-[350px] object-contain md:max-h-375px]"
+                      ? "mx-auto max-w-[350px] object-contain md:max-h-[375px]"
                       : "aspect-square object-cover"
                   }`}
                 />
