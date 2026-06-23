@@ -499,7 +499,7 @@ function MethodologyPage() {
         <H3>Spatial Harmonization</H3>
         <P>
           The index incorporates information that is natively at different spatial
-          and temporal resolution (Table 2). To enable integration, we harmonized
+          and temporal resolutions (Table 2). To enable integration, we harmonized
           all layers to a common spatial resolution of 90 meters. Depending on
           the source, this required either downscaling coarse-resolution data or
           aggregating finer-resolution layers to match this target resolution.
@@ -646,7 +646,7 @@ function MethodologyPage() {
           multiplicative of resistance and recovery (Figure S1). While this is the
           general framework we used to construct each domain, not all elements
           were relevant to all domains (Table 2). In some cases, we did not
-          evaluate status because the reference or goal for the domain are too
+          evaluate status because the reference or goal for the domain is too
           variable and individual. In other cases, we did not evaluate recovery
           because there either is not sufficient scientific evidence to support
           recovery indicators or because recovery is on a time scale that is not
@@ -676,7 +676,7 @@ function MethodologyPage() {
             While structure loss is one of the most obvious costs of wildfires in
             the U.S., loss and associated direct costs are not tracked in a
             standardized way. However, we do have case studies. For example, early
-            estimates over $59 billion in property and loss from the January 2025
+            estimates suggest over $59 billion in property damage and loss from the January 2025
             Los Angeles fires, with associated insurance losses ranging between
             $20 and $45B (Li and Yu 2025).
           </P>
@@ -715,7 +715,7 @@ function MethodologyPage() {
             Microsoft Global ML Building Footprint. For infrastructure, we
             consider all structures, spanning commercial and residential, which
             receive equal weighting. We do not consider shared infrastructure
-            (e.g., water, transportation, etc) because these dimensions are
+            (e.g., water, transportation, etc.) because these dimensions are
             generally either included in this domain (transportation) or others
             (water). This domain is masked to the Global Human Settlement Layer
             (Pesaresi et al. 2024) so that Infrastructure is only evaluated where
@@ -842,7 +842,7 @@ function MethodologyPage() {
             exist for how defensible space could help reduce structure loss.
             First, defensible space creates a buffer around a structure that may
             prevent wildfire from moving from vegetation to the home, though some
-            have argued for the protective effect is stronger when the vegetation
+            have argued that the protective effect is stronger when the vegetation
             is not water stressed. Second, defensible space may serve as a
             protective buffer for firefighting personnel, a less hazardous space
             where they can safely defend a structure. Third, defensible space may
@@ -910,16 +910,16 @@ function MethodologyPage() {
             with a population below 50,000, to focus on smaller and potentially
             more isolated communities where suppression and other resources may be
             limited. This threshold comes from the US Census Bureau definition of
-            a small town, which includes communities with populations 50,000. We
+            a small town, which includes communities with populations under 50,000. We
             focus on these small communities because they are less likely to be
             embedded in an urban transportation network, and are thus more likely
             to be vulnerable. For CP's and PC's with a population greater than
             50,000, we assumed sufficient access routes and rescaled those to a
-            value of 1. For structures outside of CPs and PCs we assume limited
-            access rounds and rescale those to a value of zero.
+            value of 1. For structures outside of CP's and PCs we assume limited
+            access routes and rescale those to a value of zero.
           </P>
           <P>
-            We used Open Street Maps (OSM) to count the number of roads that
+            We used OpenStreetMap (OSM) to count the number of roads that
             intersect with the boundary of a CP and PC. OSM is a collaborative,
             user-driven mapping platform that provides freely available, editable
             geographic data, including roads. We only consider the higher order
@@ -940,7 +940,7 @@ function MethodologyPage() {
           </P>
           <P>
             To capture the roads and lanes that intersect with a CP and PC, we
-            first query OpenStreetMap with each for each place expanded by six
+            first query OpenStreetMap for each place expanded by six
             kilometers; this broad buffer is used solely for downloading candidate
             roads. We then clip the resulting geometries to a 500 m buffer around
             the original CP boundary and use that zone to measure ingress and
@@ -1040,7 +1040,7 @@ function MethodologyPage() {
             density indicator. These values were rescaled between zero and one,
             where zero represents the lowest density (areas far from firefighting
             resources) and one represents the highest density (areas near
-            concentrated fire fighting capacity).
+            concentrated firefighting capacity).
           </P>
 
           <H5>Recovery</H5>
@@ -1166,9 +1166,9 @@ function MethodologyPage() {
             idiosyncratic, and ascribing a value does not contribute insight into
             the subdomain or the Index as a whole. The US population data is from
             the US ACS, retrieved with tidycensus. Canadian population data is
-            from Statistics Canada, retrieved with cancensus. Population data is
+            from Statistics Canada, retrieved with cancensus. Population data are
             at the census tract level (US) and census subdivision level (CAN) and
-            is updated annually and every five years respectively. Communities are
+            are updated annually and every five years, respectively. Communities are
             masked to where people actually live with the Human Settlement Layer,
             buffer to 1 km.
           </P>
@@ -1232,12 +1232,12 @@ function MethodologyPage() {
             tidycensus. The Canada dataset comes from the Canadian Survey on
             Disability (CSD) conducted by Statistics Canada. Data are at the
             census tract (US) province level (CAN). Both datasets have the
-            proportion of the population with a disability. We gap filled any
-            missing values with values from the county level for the US; no gap
-            filling was needed for Canada. We combine these datasets and rescale
+            proportion of the population with a disability. We gapfilled any
+            missing values with values from the county level for the US; no
+            gapfilling was needed for Canada. We combine these datasets and rescale
             the data from 0 to 1 where 1 represents the smallest fraction of the
             population living with a disability. We then invert this indicator
-            (1-disability) so that higher scores represent a higher proportion of
+            (1 − disability) so that lower scores represent a higher proportion of
             people with a disability.
           </P>
 
@@ -1246,13 +1246,13 @@ function MethodologyPage() {
             households with no vehicle access because a lack of vehicle access
             makes evacuation more difficult (Grajdura et al. 2022). The US data
             are from the ACS, retrieved with tidycensus. There is no equivalent
-            dataset for Canada. Data is at the census tract level and data is
+            dataset for Canada. Data are at the census tract level and are
             updated annually. The Census reports the proportion of households with
             no vehicle access. We gapfill any missing values with county
             estimates. We rescale the data from 0 to 1 such that 1 represents the
             largest proportion of households with access to a vehicle. We then
-            invert the data (1-vehicle access) so that higher scores represent a
-            higher proportion of households with access to a vehicle.
+            invert the data (1 − vehicle access) so that lower scores represent a
+            higher proportion of households without vehicle access.
           </P>
 
           <H6>Collective indicators</H6>
@@ -1276,9 +1276,9 @@ function MethodologyPage() {
             Having a CWPP qualifies communities for some federal grants related to
             wildfire mitigation. Canada's &ldquo;equivalent&rdquo; of CWPPs, the
             Community Wildfire Resiliency Plan (CWRPs), are kept private at the
-            individual level and are not publicly available; this indicator can
-            not be evaluated in Canada. The vector shapes are rasterized to 90
-            meters and the sum of how many shapes overlap were calculated for each
+            individual level and are not publicly available; this indicator cannot
+            be evaluated in Canada. The vector shapes are rasterized to 90
+            meters and the sum of how many shapes overlap was calculated for each
             cell. The CWPP indicator is then rescaled between zero and one where
             zero means no CWPPs (lower resistance score) and one means at least
             one CWPP (higher resistance).
@@ -1312,7 +1312,7 @@ function MethodologyPage() {
             after a fire. Individually, these include income and home ownership.
             Collectively, this is incorporation. Individual indicators will be
             averaged separately first, then averaged with the single collective
-            indicator for a mean resistance score.
+            indicator for a mean recovery score.
           </P>
 
           <H6>Individual indicators</H6>
@@ -1635,10 +1635,10 @@ function MethodologyPage() {
           <P>
             The reference for species is for no species to be at risk of
             extinction. To evaluate extinction risk, we use data from the IUCN
-            (International Union for the Conservation of Nature) Red List of
+            (International Union for Conservation of Nature) Red List of
             Threatened Species and BirdLife International. We focus on animals
             including freshwater fish, mammals, amphibians, reptiles, and birds,
-            because the data is more comprehensive.
+            because the data are more comprehensive.
           </P>
 
           <MethodologyFigure
@@ -1660,7 +1660,7 @@ function MethodologyPage() {
           <MethodologyFigure
             id="methodology-table-8b"
             src={tableIucnWeights}
-            alt="Table 8: Weights for assessment of species status based on IUCN risk categories — Extinct (EX, 0), Critically Endangered (CR, 0.2), Endangered (EN, 0.4), Vulnerable (VY, 0.6), Near Threatened (NT, 0.8), Least Concern (LV, 1.0)"
+            alt="Table 8: Weights for assessment of species status based on IUCN risk categories — Extinct (EX, 0), Critically Endangered (CR, 0.2), Endangered (EN, 0.4), Vulnerable (VU, 0.6), Near Threatened (NT, 0.8), Least Concern (LC, 1.0)"
             caption="Table 8. Weights for assessment of species status based on IUCN risk categories."
             maxWidth="max-w-4xl"
           />
@@ -1808,7 +1808,7 @@ function MethodologyPage() {
           <H6>Individual indicators</H6>
           <P>
             <strong>Longevity:</strong> We argue longevity is negatively
-            correlated to recovery because longer lived trees likely hit key
+            correlated to recovery because longer-lived trees likely hit key
             developmental milestones more slowly.
           </P>
           <P>
@@ -1822,7 +1822,7 @@ function MethodologyPage() {
           </P>
           <P>
             <strong>Serotiny:</strong> Serotiny such that fire induces opening of
-            cones is likely a fire adapted recovery trait (Lamont et al. 2020).
+            cones is likely a fire-adapted recovery trait (Lamont et al. 2020).
           </P>
 
           <H6>Community indicators</H6>
@@ -1861,7 +1861,7 @@ function MethodologyPage() {
             surface waters compared to a 30-year historical baseline. Resilience
             captures interventions by humans that affect water on the landscape
             and through the tap, including water treatment plants and water
-            management plans. These indicators are only for resistance, there are
+            management plans. These indicators cover only resistance; there are
             no recovery indicators because water is a co-benefit of a healthy
             natural ecosystem, and will recover in tandem with that system.
           </P>
@@ -1906,19 +1906,19 @@ function MethodologyPage() {
             Notably, this indicator is limited to the United States.
           </P>
           <P>
-            <strong>Water Related Hazard Plans:</strong> Neither the US or Canada
-            have comprehensive national water related hazard plans. Individual
+            <strong>Water-Related Hazard Plans:</strong> Neither the US nor Canada
+            have comprehensive national water-related hazard plans. Individual
             states and provinces are responsible for designing stand-alone plans
             to reduce hazards and prepare communities for impacts. We used the
             approach published by Jedd and Smith 2022, which evaluated the
-            comprehensiveness of state specific water related hazard plans.
+            comprehensiveness of state-specific water-related hazard plans.
           </P>
 
           <MethodologyFigure
             id="methodology-table-11"
             src={tableWaterHazardPlanning}
-            alt="Table 11: Scoring of water related hazard planning for BC and Yukon Territory"
-            caption="Table 11. Scoring of water related hazard planning for BC and Yukon Territory."
+            alt="Table 11: Scoring of water-related hazard planning for BC and Yukon Territory"
+            caption="Table 11. Scoring of water-related hazard planning for BC and Yukon Territory."
             maxWidth="max-w-4xl"
           />
         </div>

@@ -524,6 +524,8 @@ const ZoomPanDebugPanel: React.FC<{
         <div className="flex gap-1">
           <button
             id="zoom-pan-debug-reset"
+            type="button"
+            aria-label="Reset zoom and pan to defaults"
             onClick={handleReset}
             className="rounded px-1.5 py-0.5 text-[10px] text-gray-500 hover:bg-gray-100"
             title="Reset to defaults"
@@ -532,6 +534,8 @@ const ZoomPanDebugPanel: React.FC<{
           </button>
           <button
             id="zoom-pan-debug-close"
+            type="button"
+            aria-label="Close zoom and pan tuning panel"
             onClick={onClose}
             className="rounded px-1.5 py-0.5 text-[10px] text-gray-500 hover:bg-gray-100"
           >
@@ -2347,39 +2351,47 @@ const MapArea: React.FC<MapAreaProps> = ({
           <button
             id="zoom-in-button"
             type="button"
+            aria-label="Zoom in"
             className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white align-middle text-4xl text-mapIconColor"
             onClick={handleZoomIn}
           >
             <img
               id="zoom-in-button-icon"
               src={ZoomInIcon}
-              alt="zoom in"
+              alt=""
+              aria-hidden
               className="h-6 w-6"
               style={{ filter: "grayscale(50%) invert(50%)" }}
             />
           </button>
           <button
             id="zoom-out-button"
+            type="button"
+            aria-label="Zoom out"
             className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white align-middle text-4xl text-mapIconColor"
             onClick={handleZoomOut}
           >
             <img
               id="zoom-out-button-icon"
               src={ZoomOutIcon}
-              alt="zoom out"
+              alt=""
+              aria-hidden
               className="h-6 w-6 fill-mapIconColor stroke-mapIconColor"
               style={{ filter: "grayscale(50%) invert(50%)" }}
             />
           </button>
           <button
             id="reset-view-button"
+            type="button"
+            aria-label="Reset map view"
             className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-400 bg-white"
             onClick={handleResetView}
           >
             <img
               id="reset-view-button-icon"
               src={ResetIcon}
-              alt="reset view"
+              alt=""
+              aria-hidden
               className="h-6 w-6 fill-current stroke-mapIconColor"
               style={{ filter: "grayscale(50%) invert(50%)" }}
             />

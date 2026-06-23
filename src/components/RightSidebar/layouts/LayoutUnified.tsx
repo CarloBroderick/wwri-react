@@ -113,6 +113,8 @@ const LayoutUnified: React.FC<LayoutUnifiedProps> = ({
               <>
                 <button
                   id={`${domain.id}-${domain.status!.id}`}
+                  type="button"
+                  aria-label={`Select ${domain.label} ${domain.status!.label}`}
                   onClick={() => {
                     setActiveButton(`${domain.id}-${domain.status!.id}`);
                     setSelectedIndicator(domain.status!.label);
@@ -147,6 +149,8 @@ const LayoutUnified: React.FC<LayoutUnifiedProps> = ({
                   <button
                     key={`${domain.id}-${metric.id}`}
                     id={`${domain.id}-${metric.id}`}
+                    type="button"
+                    aria-label={`Select ${metric.label}`}
                     onMouseEnter={() => setStatusLabel(metric.label)}
                     onMouseLeave={() => setStatusLabel(null)}
                     onClick={() => {
@@ -179,6 +183,8 @@ const LayoutUnified: React.FC<LayoutUnifiedProps> = ({
           <div className="ml-[4.4rem] flex items-center self-start">
             <button
               id={`${domain.id}-${domain.resilience?.id || "resilience"}`}
+              type="button"
+              aria-label={`Select ${domain.label} ${domain.resilience?.label ?? "Resilience"}`}
               onClick={() => {
                 if (domain.resilience) {
                   setActiveButton(`${domain.id}-${domain.resilience.id}`);
@@ -215,6 +221,8 @@ const LayoutUnified: React.FC<LayoutUnifiedProps> = ({
                   <>
                     <button
                       id={`${domain.id}-${domain.resilience!.resistance!.id}`}
+                      type="button"
+                      aria-label={`Select ${domain.label} ${domain.resilience!.resistance!.label}`}
                       onClick={() => {
                         setActiveButton(`${domain.id}-${domain.resilience!.resistance!.id}`);
                         setSelectedIndicator(domain.resilience!.resistance!.label);
@@ -249,6 +257,8 @@ const LayoutUnified: React.FC<LayoutUnifiedProps> = ({
                       <button
                         key={`${domain.id}-${metric.id}`}
                         id={`${domain.id}-${metric.id}`}
+                        type="button"
+                        aria-label={`Select ${metric.label}`}
                         onMouseEnter={() => setResistanceLabel(metric.label)}
                         onMouseLeave={() => setResistanceLabel(null)}
                         onClick={() => {
@@ -283,6 +293,8 @@ const LayoutUnified: React.FC<LayoutUnifiedProps> = ({
                   <>
                     <button
                       id={`${domain.id}-${domain.resilience!.recovery!.id}`}
+                      type="button"
+                      aria-label={`Select ${domain.label} ${domain.resilience!.recovery!.label}`}
                       onClick={() => {
                         setActiveButton(`${domain.id}-${domain.resilience!.recovery!.id}`);
                         setSelectedIndicator(domain.resilience!.recovery!.label);
@@ -317,6 +329,8 @@ const LayoutUnified: React.FC<LayoutUnifiedProps> = ({
                       <button
                         key={`${domain.id}-${metric.id}`}
                         id={`${domain.id}-${metric.id}`}
+                        type="button"
+                        aria-label={`Select ${metric.label}`}
                         onMouseEnter={() => setRecoveryLabel(metric.label)}
                         onMouseLeave={() => setRecoveryLabel(null)}
                         onClick={() => {

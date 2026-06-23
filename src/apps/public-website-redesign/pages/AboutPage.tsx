@@ -66,7 +66,7 @@ const ABOUT_CONTENT_ROWS: ReadonlyArray<{
       </>,
       <>
         Wildfire is natural and inevitable across the western United States and Canada. Living with it
-        requires a shared understanding of how systems-both ecological and human-<strong>resist harm</strong>{" "}
+        requires a shared understanding of how systems—both ecological and human—<strong>resist harm</strong>{" "}
         and <strong>recover</strong> after fire. Together, these abilities define <strong>resilience</strong>.
       </>,
     ],
@@ -86,8 +86,8 @@ const ABOUT_CONTENT_ROWS: ReadonlyArray<{
         data and expert knowledge to assess <strong>resilience</strong> across different locations.
       </>,
       <>
-        The index brings together multiple indicators-organized into eight key topic areas called{" "}
-        <strong>domains</strong>-to create a composite score. This approach allows diverse information to be
+        The index brings together multiple indicators—organized into eight key topic areas called{" "}
+        <strong>domains</strong>—to create a composite score. This approach allows diverse information to be
         translated into a shared framework, helping everyone talk about wildfire <strong>resilience</strong> in
         a consistent and meaningful way.
       </>,
@@ -108,7 +108,7 @@ const ABOUT_CONTENT_ROWS: ReadonlyArray<{
       </>,
       <>
         Rather than prescribing one solution, the index offers flexible insights that communities can adapt to
-        their unique needs. It highlights where <strong>resilience</strong> can be strengthened-whether through
+        their unique needs. It highlights where <strong>resilience</strong> can be strengthened—whether through
         vegetation management, infrastructure planning, community preparedness, or other targeted actions.
       </>,
     ],
@@ -129,7 +129,7 @@ const ABOUT_CONTENT_ROWS: ReadonlyArray<{
       <>
         By creating a <strong>shared, data-driven understanding</strong> of wildfire <strong>resilience</strong>,
         the index supports collaboration among land managers, scientists, policymakers, and the public. This
-        common foundation enables more informed, transparent decision-making-helping communities and ecosystems
+        common foundation enables more informed, transparent decision-making—helping communities and ecosystems
         live more sustainably with wildfire while allowing fire to continue playing its natural role. The index
         provides a shared framework for action and understanding.
       </>,

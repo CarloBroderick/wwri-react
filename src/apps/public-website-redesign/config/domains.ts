@@ -466,7 +466,7 @@ export const DOMAINS: Domain[] = [
     tileDim: airTileDim,
     iconNoText: airIconNoText,
     whyItMatters:
-      "**Air** quality is one of the most immediate ways people experience wildfire. Smokey air can have widespread health impacts.",
+      "**Air** quality is one of the most immediate ways people experience wildfire. Smoky air can have widespread health impacts.",
     status: {
       title: "Status",
       description: "Captures exposure to poor air quality.",

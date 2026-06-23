@@ -144,7 +144,7 @@ const REVISED_DESCRIPTIONS: DescriptionEntry[] = [
     id: "communities_recovery_income",
     label: "Income",
     revisedDescription:
-      "Composite indicator of ommunity income, including both houseoholds >200k and below the poverty level",
+      "Composite indicator of community income, including both households >200k and below the poverty level",
   },
   {
     id: "communities_recovery_incorporation",
@@ -181,7 +181,7 @@ const REVISED_DESCRIPTIONS: DescriptionEntry[] = [
     id: "livelihoods_status_housing_burden",
     label: "Housing Burden",
     revisedDescription:
-      "Fraction of population that is house burdened (>30% income)",
+      "Fraction of population that is housing burdened (>30% income)",
   },
   {
     id: "livelihoods_resilience",
@@ -284,7 +284,7 @@ const REVISED_DESCRIPTIONS: DescriptionEntry[] = [
   {
     id: "iconic_species",
     label: "Iconic Species",
-    revisedDescription: "Reslience of iconic species to wildfire",
+    revisedDescription: "Resilience of iconic species to wildfire",
   },
   {
     id: "sense_of_place_iconic_species_status",
@@ -459,7 +459,7 @@ const REVISED_DESCRIPTIONS: DescriptionEntry[] = [
   {
     id: "water_status",
     label: "Status",
-    revisedDescription: "Quantiy and timing of water on the landscape",
+    revisedDescription: "Quantity and timing of water on the landscape",
   },
   {
     id: "water_status_surface_water_quantity",
@@ -480,7 +480,7 @@ const REVISED_DESCRIPTIONS: DescriptionEntry[] = [
   {
     id: "water_resistance",
     label: "Resistance",
-    revisedDescription: "Ability to resist distrupted freshwater supply.",
+    revisedDescription: "Ability to resist disrupted freshwater supply.",
   },
   {
     id: "water_resistance_water_treatment",
@@ -490,7 +490,7 @@ const REVISED_DESCRIPTIONS: DescriptionEntry[] = [
   {
     id: "water_resistance_drought_plans",
     label: "Drought Plans",
-    revisedDescription: "Comprehensivness of state water management plans.",
+    revisedDescription: "Comprehensiveness of state water management plans.",
   },
   {
     id: "air_quality",

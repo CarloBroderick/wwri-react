@@ -216,7 +216,7 @@ const FAQ_SECTIONS: FaqSection[] = [
         answer: (
           <>
             <p>
-              The WRI has pre-calculated scores for over thousands of geographies that are viewable on
+              The WRI has pre-calculated scores for thousands of geographies that are viewable on
               our dashboard including:
             </p>
             <ul className="ml-5 list-disc space-y-1">

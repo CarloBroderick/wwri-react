@@ -119,6 +119,8 @@ const LayoutUnifiedCompact: React.FC<LayoutUnifiedCompactProps> = ({
               <>
                 <button
                   id={makeId(subdomain.status!.id)}
+                  type="button"
+                  aria-label={`Select ${subdomain.label} ${subdomain.status!.label}`}
                   onClick={() => {
                     setActiveButton(makeId(subdomain.status!.id));
                     setSelectedIndicator(subdomain.status!.label);
@@ -153,6 +155,8 @@ const LayoutUnifiedCompact: React.FC<LayoutUnifiedCompactProps> = ({
                   <button
                     key={makeId(metric.id)}
                     id={makeId(metric.id)}
+                    type="button"
+                    aria-label={`Select ${metric.label}`}
                     onMouseEnter={() => setStatusLabel(metric.label)}
                     onMouseLeave={() => setStatusLabel(null)}
                     onClick={() => {
@@ -185,6 +189,8 @@ const LayoutUnifiedCompact: React.FC<LayoutUnifiedCompactProps> = ({
           <div className="ml-[4.4rem] flex items-center self-start">
             <button
               id={makeId(subdomain.resilience?.id || "resilience")}
+              type="button"
+              aria-label={`Select ${subdomain.label} ${subdomain.resilience?.label ?? "Resilience"}`}
               onClick={() => {
                 if (subdomain.resilience) {
                   setActiveButton(makeId(subdomain.resilience.id));
@@ -221,6 +227,8 @@ const LayoutUnifiedCompact: React.FC<LayoutUnifiedCompactProps> = ({
                   <>
                     <button
                       id={makeId(subdomain.resilience!.resistance!.id)}
+                      type="button"
+                      aria-label={`Select ${subdomain.label} ${subdomain.resilience!.resistance!.label}`}
                       onClick={() => {
                         setActiveButton(makeId(subdomain.resilience!.resistance!.id));
                         setSelectedIndicator(subdomain.resilience!.resistance!.label);
@@ -255,6 +263,8 @@ const LayoutUnifiedCompact: React.FC<LayoutUnifiedCompactProps> = ({
                       <button
                         key={makeId(metric.id)}
                         id={makeId(metric.id)}
+                        type="button"
+                        aria-label={`Select ${metric.label}`}
                         onMouseEnter={() => setResistanceLabel(metric.label)}
                         onMouseLeave={() => setResistanceLabel(null)}
                         onClick={() => {
@@ -289,6 +299,8 @@ const LayoutUnifiedCompact: React.FC<LayoutUnifiedCompactProps> = ({
                   <>
                     <button
                       id={makeId(subdomain.resilience!.recovery!.id)}
+                      type="button"
+                      aria-label={`Select ${subdomain.label} ${subdomain.resilience!.recovery!.label}`}
                       onClick={() => {
                         setActiveButton(makeId(subdomain.resilience!.recovery!.id));
                         setSelectedIndicator(subdomain.resilience!.recovery!.label);
@@ -323,6 +335,8 @@ const LayoutUnifiedCompact: React.FC<LayoutUnifiedCompactProps> = ({
                       <button
                         key={makeId(metric.id)}
                         id={makeId(metric.id)}
+                        type="button"
+                        aria-label={`Select ${metric.label}`}
                         onMouseEnter={() => setRecoveryLabel(metric.label)}
                         onMouseLeave={() => setRecoveryLabel(null)}
                         onClick={() => {

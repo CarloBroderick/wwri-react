@@ -664,6 +664,8 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
           <div className="flex items-center">
             <button
               id="overall_resilience-btn"
+              type="button"
+              aria-label="Select Overall Resilience"
               onClick={() => {
                 setActiveButton("wwri_final_score");
                 setSelectedIndicator("Overall Resilience");
@@ -704,6 +706,8 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                 <div className="flex items-center">
                   <button
                     id={`${domain.id}-btn`}
+                    type="button"
+                    aria-label={`Select ${domain.label}`}
                     onClick={() => {
                       setActiveButton(domain.id);
                       setSelectedIndicator(domain.label);
@@ -729,19 +733,28 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                   <span className="font-bold">{domain.label}</span>
                 </div>
                 <button
+                  type="button"
+                  aria-label={
+                    expandedSections[domain.id]
+                      ? `Collapse ${domain.label} section`
+                      : `Expand ${domain.label} section`
+                  }
+                  aria-expanded={expandedSections[domain.id]}
                   onClick={() => toggleSection(domain.id)}
                   className="ml-2 text-[lightgray]"
                 >
                   {expandedSections[domain.id] ? (
                     <img
                       src={DownArrow}
-                      alt="down-arrow"
+                      alt=""
+                      aria-hidden
                       className="min-h-3 min-w-3"
                     />
                   ) : (
                     <img
                       src={RightSideArrow}
-                      alt="right-side-arrow"
+                      alt=""
+                      aria-hidden
                       className="min-h-3 min-w-3"
                     />
                   )}
@@ -765,6 +778,8 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                             <div className="flex items-center">
                               <button
                                 id={`${domain.id}-${subdomain.id}-btn`}
+                                type="button"
+                                aria-label={`Select ${subdomain.label}`}
                                 onClick={() => {
                                   setActiveButton(`${domain.id}-${subdomain.id}`);
                                   setSelectedIndicator(subdomain.label);
@@ -790,13 +805,20 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                               <span className="font-semibold">{subdomain.label}</span>
                             </div>
                             <button
+                              type="button"
+                              aria-label={
+                                expandedSections[`${domain.id}-${subdomain.id}`]
+                                  ? `Collapse ${subdomain.label} section`
+                                  : `Expand ${subdomain.label} section`
+                              }
+                              aria-expanded={expandedSections[`${domain.id}-${subdomain.id}`]}
                               onClick={() => toggleSection(`${domain.id}-${subdomain.id}`)}
                               className="ml-2 text-[lightgray]"
                             >
                               {expandedSections[`${domain.id}-${subdomain.id}`] ? (
-                                <img src={DownArrow} alt="down-arrow" className="min-h-3 min-w-3" />
+                                <img src={DownArrow} alt="" aria-hidden className="min-h-3 min-w-3" />
                               ) : (
-                                <img src={RightSideArrow} alt="right-side-arrow" className="min-h-3 min-w-3" />
+                                <img src={RightSideArrow} alt="" aria-hidden className="min-h-3 min-w-3" />
                               )}
                             </button>
                           </div>
