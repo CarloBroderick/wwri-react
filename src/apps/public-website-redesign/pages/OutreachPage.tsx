@@ -212,7 +212,7 @@ function OutreachPage() {
         />
         <div
           id="public-website-redesign-outreach-recordings-list"
-          className="mt-8 space-y-12 divide-y divide-wriMoss/30 [&>*:not(:first-child)]:pt-12"
+          className="mt-8 space-y-16"
         >
           {RECORDINGS.map((recording) => (
             <RecordingCard key={recording.id} recording={recording} />
