@@ -1,10 +1,13 @@
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
+import connectHeroImage from "../../../assets/public-website-redesign/images/contact/light-in-the-forest-connect-with-us.png";
 import MossDivider from "../components/shared/MossDivider";
+import { REDESIGN_ROUTES } from "../routes/routeConfig";
 
 /**
  * Connect with Us — modern editorial layout that mirrors the About and
- * Domains pages: a section header (eyebrow + title + divider) above clean
- * contact cards (email + LinkedIn) with circular icon badges and hover motion.
+ * Domains pages: a slim forest hero carrying the page header, clean contact
+ * cards (email + LinkedIn), and a closing "Meet the Team" CTA banner.
  */
 
 const CONTACT_EMAIL = "wri@nceas.ucsb.edu";
@@ -60,24 +63,55 @@ function ContactConnectPage() {
       id="public-website-redesign-contact-connect-page"
       className="mx-auto max-w-[1400px] px-6 py-12 md:py-16"
     >
+      {/* ===== Skinny hero ============================================= */}
+      <section
+        id="public-website-redesign-contact-connect-hero"
+        className="relative overflow-hidden rounded-[28px] bg-wriCanopy shadow-[0_30px_80px_-40px_rgba(31,42,35,0.6)]"
+      >
+        <img
+          id="public-website-redesign-contact-connect-hero-image"
+          src={connectHeroImage}
+          alt="Sunlight filtering through a forest canopy"
+          className="absolute inset-0 h-full w-full object-cover"
+          draggable={false}
+        />
+        <div
+          id="public-website-redesign-contact-connect-hero-scrim"
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-r from-wriCanopy/95 via-wriCanopy/70 to-wriForest/20"
+        />
+        <div
+          id="public-website-redesign-contact-connect-hero-content"
+          className="relative px-7 py-10 md:px-14 md:py-14"
+        >
+          <p
+            id="public-website-redesign-contact-connect-hero-eyebrow"
+            className="font-Montserrat text-xs font-semibold uppercase tracking-[0.3em] text-wriMoss"
+          >
+            Get in touch
+          </p>
+          <h1
+            id="public-website-redesign-contact-connect-hero-title"
+            className="mt-3 font-Poppins text-[clamp(1.9rem,4vw,3rem)] font-bold leading-[1.05] text-wriSmokeFog"
+          >
+            Ways to reach us
+          </h1>
+          <MossDivider
+            id="public-website-redesign-contact-connect-hero-divider"
+            className="mt-5"
+            widthClassName="w-16"
+          />
+        </div>
+      </section>
+
       {/* ===== Ways to reach us ======================================== */}
       <section
         id="public-website-redesign-contact-connect-methods"
-        className="scroll-mt-24"
+        className="mt-12 scroll-mt-24 md:mt-16"
       >
-        <header id="public-website-redesign-contact-connect-methods-header">
-          <p className="font-Montserrat text-xs font-semibold uppercase tracking-[0.3em] text-wriSage">
-            Get in touch
-          </p>
-          <h2 className="mt-3 font-Poppins text-[clamp(1.9rem,3.5vw,2.5rem)] font-bold leading-tight text-wriForest">
-            Ways to reach us
-          </h2>
-          <MossDivider className="my-5" widthClassName="w-16" />
-        </header>
-
         <div
           id="public-website-redesign-contact-connect-methods-grid"
-          className="mt-4 grid gap-5 sm:grid-cols-2"
+          className="grid gap-5 sm:grid-cols-2"
         >
           {CONTACT_METHODS.map((method) => {
             const linkProps = method.external
@@ -129,6 +163,57 @@ function ContactConnectPage() {
               </a>
             );
           })}
+        </div>
+      </section>
+
+      {/* ===== Meet the team ========================================== */}
+      <section
+        id="public-website-redesign-contact-connect-team-cta"
+        className="mt-16 md:mt-20"
+      >
+        <div
+          id="public-website-redesign-contact-connect-team-cta-card"
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-wriForest to-wriMossMenuHighlight px-7 py-9 sm:px-10 sm:py-11"
+        >
+          <span
+            id="public-website-redesign-contact-connect-team-cta-eyebrow"
+            className="inline-flex items-center rounded-full bg-white/15 px-4 py-1.5 font-Montserrat text-xs font-bold uppercase tracking-[0.14em] text-white"
+          >
+            Meet the Team
+          </span>
+          <div
+            id="public-website-redesign-contact-connect-team-cta-body"
+            className="mt-5 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+          >
+            <div className="max-w-2xl">
+              <h2
+                id="public-website-redesign-contact-connect-team-cta-title"
+                className="font-Montserrat text-[clamp(1.5rem,3vw,2.125rem)] font-semibold leading-tight text-white"
+              >
+                Meet the people behind the Index
+              </h2>
+              <p
+                id="public-website-redesign-contact-connect-team-cta-copy"
+                className="mt-3 font-Poppins text-[clamp(15px,1.1vw,17px)] leading-relaxed text-white/85"
+              >
+                Get to know the researchers, analysts, and working group of experts building the
+                Wildfire Resilience Index.
+              </p>
+            </div>
+            <Link
+              id="public-website-redesign-contact-connect-team-cta-button"
+              to={REDESIGN_ROUTES.contactTeam}
+              className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-7 py-3.5 font-Montserrat text-sm font-bold uppercase tracking-[0.08em] text-wriForest shadow-sm transition-all hover:bg-wriSmokeFog hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-wriForest"
+            >
+              Meet the Team
+              <span
+                aria-hidden
+                className="text-base leading-none transition-transform group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

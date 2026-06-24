@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import linkedinGreenIcon from "../../../../assets/public-website-redesign/images/footer/linkedin-green.png";
 import nceasLogoWhite from "../../../../assets/public-website-redesign/images/logos/nceas-white.png";
 import mooreLogoWhite from "../../../../assets/public-website-redesign/images/logos/moore-white.png";
+import { PARTNER_LINKS } from "../../../../config/partnerLinks";
 import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
 import { PRIMARY_NAV } from "../../config/navigation";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
@@ -123,18 +124,34 @@ function SiteFooter() {
             <span className="font-Montserrat uppercase tracking-wider">
               Supported by
             </span>
-            <img
+            <a
               id="public-website-redesign-footer-logo-nceas"
-              src={nceasLogoWhite}
-              alt="NCEAS"
-              className="h-4 w-auto object-contain opacity-60"
-            />
-            <img
+              href={PARTNER_LINKS.nceas}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex transition-opacity hover:opacity-80"
+              aria-label="National Center for Ecological Analysis and Synthesis (NCEAS)"
+            >
+              <img
+                src={nceasLogoWhite}
+                alt="NCEAS"
+                className="h-4 w-auto object-contain opacity-60"
+              />
+            </a>
+            <a
               id="public-website-redesign-footer-logo-moore"
-              src={mooreLogoWhite}
-              alt="Gordon and Betty Moore Foundation"
-              className="h-4 w-auto object-contain opacity-60"
-            />
+              href={PARTNER_LINKS.mooreFoundation}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex transition-opacity hover:opacity-80"
+              aria-label="Gordon and Betty Moore Foundation"
+            >
+              <img
+                src={mooreLogoWhite}
+                alt="Gordon and Betty Moore Foundation"
+                className="h-4 w-auto object-contain opacity-60"
+              />
+            </a>
           </div>
         </div>
       </div>

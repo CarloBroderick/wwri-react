@@ -1,27 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import wriLogoFlameOnly from "../../../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
 import { PRIMARY_NAV, type NavItem } from "../../config/navigation";
 import { REDESIGN_ROUTES } from "../../routes/routeConfig";
 
 /**
- * Top navigation bar — Canva spec:
- *   • Container: Forest #2F5D3A
- *   • Logo: WRI mark icon + "Wildfire Resilience Index" wordmark text
- *   • Nav items: Poppins Normal size 24, Smoke Fog color, Sage underline (5px) when
- *     the current page is selected, Poppins Bold text on selection
- *   • Dropdowns: Forest container, Moss outline, Moss Menu Highlight on hover
- *   • CTA: "EXPLORE THE INDEX" transparent pill with Moss outline (5px); flips to
- *     filled Moss-clicked on active
- *   • Separation line under bar: 1px Smoke Fog
+ * Top navigation bar — keeps the brand identity (Forest container, Smoke Fog
+ * text, Sage active underline, Moss CTA) but with a modern, lighter feel:
+ *   • Translucent Forest + backdrop blur that gains a soft shadow once scrolled
+ *   • Solid Moss CTA pill (matches the buttons used across the rest of the site)
+ *   • Clean rounded dropdowns with a steady type scale (no size jump on hover)
  */
 function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Solidify the bar with a soft shadow once the page scrolls so it reads as a
+  // floating, modern header over the hero video while staying legible elsewhere.
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <header
       id="public-website-redesign-site-header"
-      className="sticky top-0 z-40 w-full border-b border-wriSmokeFog/90 bg-wriForest font-Poppins text-wriSmokeFog shadow-sm"
+      className={`sticky top-0 z-40 w-full border-b bg-wriForest/95 font-Poppins text-wriSmokeFog backdrop-blur-md transition-shadow duration-300 ${
+        isScrolled ? "border-wriMoss/20 shadow-lg shadow-wriCanopy/20" : "border-wriSmokeFog/15 shadow-sm"
+      }`}
     >
       <div
         id="public-website-redesign-header-inner"
@@ -98,24 +106,25 @@ function SiteHeader() {
 }
 
 /**
- * CTA pill: transparent + Moss outline by default; once the user navigates to
- * the index map, the button flips to a filled "clicked" Moss state per spec.
+ * CTA pill: solid Moss with dark Canopy text — the same punchy button treatment
+ * used across the rest of the site. Darkens to Moss-clicked on hover/active.
  */
 function ExploreIndexButton() {
   const { pathname } = useLocation();
   const isActive = pathname === REDESIGN_ROUTES.exploreIndex;
   const base =
-    "hidden whitespace-nowrap rounded-full px-3 py-2 text-[13px] leading-none tracking-wide transition-colors min-[880px]:inline-block min-[1100px]:px-4 min-[1100px]:text-[15px] min-[1280px]:px-5 min-[1280px]:text-[18px] 2xl:px-6 2xl:text-[22px]";
-  const styles = isActive
-    ? "border-[5px] border-wriMossClicked bg-wriMossClicked font-bold text-wriSmokeFog"
-    : "border-[5px] border-wriMoss font-normal text-wriSmokeFog hover:bg-wriMossClicked hover:border-wriMossClicked";
+    "group hidden shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2.5 font-Montserrat text-[12px] font-semibold uppercase leading-none tracking-[0.1em] text-wriCanopy shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-wriForest min-[880px]:inline-flex min-[1100px]:px-5 min-[1100px]:text-[13px] min-[1280px]:text-[15px]";
+  const styles = isActive ? "bg-wriMossClicked" : "bg-wriMoss hover:bg-wriMossClicked";
   return (
     <Link
       id="public-website-redesign-header-cta"
       to={REDESIGN_ROUTES.exploreIndex}
       className={`${base} ${styles}`}
     >
-      EXPLORE THE INDEX
+      Explore the Index
+      <span aria-hidden className="text-sm leading-none transition-transform group-hover:translate-x-0.5">
+        →
+      </span>
     </Link>
   );
 }
@@ -173,11 +182,11 @@ function HeaderNavItem({ item }: { item: NavItem }) {
       {hasChildren && open && (
         <div
           id={`${id}-dropdown-hover-target`}
-          className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3"
+          className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-4"
         >
           <div
             id={dropdownId}
-            className="min-w-[240px] overflow-hidden rounded-sm border-2 border-wriSmokeFog bg-wriForest shadow-xl"
+            className="min-w-[240px] overflow-hidden rounded-2xl border border-wriMoss/25 bg-wriForest/95 p-2 shadow-2xl shadow-wriCanopy/40 backdrop-blur-md"
           >
             {item.children!.map((child, idx) => (
               <NavLink
@@ -186,10 +195,10 @@ function HeaderNavItem({ item }: { item: NavItem }) {
                 to={child.to}
                 end
                 className={({ isActive }) =>
-                  `block px-6 py-3 text-center transition-colors ${
+                  `relative block rounded-xl px-4 py-2.5 text-[15px] transition-colors ${
                     isActive
-                      ? "text-[21px] font-bold text-wriSmokeFog"
-                      : "text-[19px] font-normal text-wriSmokeFog hover:bg-wriMossMenuHighlight hover:text-[21px] hover:font-bold"
+                      ? "bg-wriMossMenuHighlight font-semibold text-white"
+                      : "font-normal text-wriSmokeFog/90 hover:bg-wriMossMenuHighlight hover:text-white"
                   }`
                 }
               >
@@ -207,7 +216,7 @@ function MobileHeaderMenu({ onNavigate }: { onNavigate: () => void }) {
   return (
     <nav
       id="public-website-redesign-header-mobile-menu"
-      className="border-t border-wriSmokeFog/40 bg-wriForest px-4 py-4 shadow-xl min-[880px]:hidden"
+      className="border-t border-wriMoss/20 bg-wriForest/95 px-4 py-4 shadow-xl backdrop-blur-md min-[880px]:hidden"
       aria-label="Primary mobile"
     >
       <div id="public-website-redesign-header-mobile-menu-inner" className="mx-auto max-w-[1400px] space-y-2">
@@ -219,14 +228,12 @@ function MobileHeaderMenu({ onNavigate }: { onNavigate: () => void }) {
           to={REDESIGN_ROUTES.exploreIndex}
           onClick={onNavigate}
           className={({ isActive }) =>
-            `mt-4 block rounded-full border-[3px] border-wriMoss px-5 py-3 text-center text-base uppercase tracking-wide transition-colors ${
-              isActive
-                ? "bg-wriMossClicked font-bold text-wriSmokeFog"
-                : "font-medium text-wriSmokeFog hover:bg-wriMossClicked"
+            `mt-4 block rounded-full px-5 py-3 text-center font-Montserrat text-sm font-semibold uppercase tracking-[0.1em] text-wriCanopy shadow-sm transition-colors ${
+              isActive ? "bg-wriMossClicked" : "bg-wriMoss hover:bg-wriMossClicked"
             }`
           }
         >
-          EXPLORE THE INDEX
+          Explore the Index
         </NavLink>
       </div>
     </nav>

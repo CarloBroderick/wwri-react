@@ -158,7 +158,7 @@ function MediaLandingPage() {
         />
         <div
           id="public-website-redesign-media-hero-content"
-          className="relative px-7 py-16 md:px-14 md:py-24 lg:py-28"
+          className="relative px-7 py-8 md:px-14 md:py-9 lg:py-10"
         >
           <div className="max-w-2xl">
             <p
@@ -169,59 +169,15 @@ function MediaLandingPage() {
             </p>
             <h1
               id="public-website-redesign-media-hero-title"
-              className="mt-4 font-Poppins text-[clamp(2.5rem,6vw,4.25rem)] font-bold leading-[1.02] text-wriSmokeFog"
+              className="mt-3 font-Poppins text-[clamp(2.25rem,5vw,3.5rem)] font-bold leading-[1.04] text-wriSmokeFog"
             >
               News, events &amp; publications
             </h1>
             <MossDivider
               id="public-website-redesign-media-hero-divider"
-              className="my-6"
+              className="mt-5"
               widthClassName="w-20"
             />
-            <p
-              id="public-website-redesign-media-hero-body"
-              className="font-Poppins text-[clamp(16px,1.6vw,20px)] leading-relaxed text-wriSmokeFog/90"
-            >
-              Follow the <strong className="font-semibold text-white">Wildfire Resilience Index</strong> in
-              the world—from press coverage and community events to the peer-reviewed science behind
-              the tool.
-            </p>
-            <div
-              id="public-website-redesign-media-hero-ctas"
-              className="mt-9 flex flex-wrap items-center gap-3"
-            >
-              <button
-                type="button"
-                id="public-website-redesign-media-hero-cta"
-                onClick={() =>
-                  document
-                    .getElementById("public-website-redesign-media-sections")
-                    ?.scrollIntoView({ behavior: "smooth", block: "start" })
-                }
-                className="group inline-flex items-center gap-2 rounded-full bg-wriMoss px-7 py-3 font-Montserrat text-sm font-semibold uppercase tracking-[0.12em] text-wriCanopy transition-colors hover:bg-wriMossClicked"
-              >
-                Browse the media
-                <span
-                  aria-hidden
-                  className="transition-transform duration-200 group-hover:translate-y-0.5"
-                >
-                  ↓
-                </span>
-              </button>
-              <Link
-                id="public-website-redesign-media-hero-cta-secondary"
-                to={REDESIGN_ROUTES.exploreIndex}
-                className="group inline-flex items-center gap-2 rounded-full border-2 border-wriSmokeFog/40 px-7 py-3 font-Montserrat text-sm font-semibold uppercase tracking-[0.12em] text-wriSmokeFog transition-colors hover:border-wriMoss hover:text-wriMoss"
-              >
-                Explore the map
-                <span
-                  aria-hidden
-                  className="transition-transform duration-200 group-hover:translate-x-0.5"
-                >
-                  →
-                </span>
-              </Link>
-            </div>
           </div>
         </div>
       </section>

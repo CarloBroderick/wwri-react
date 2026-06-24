@@ -12,6 +12,7 @@ import MediaLandingPage from "../pages/MediaLandingPage";
 import NewsFeaturesPage from "../pages/NewsFeaturesPage";
 import OutreachPage from "../pages/OutreachPage";
 import PublicationsPage from "../pages/PublicationsPage";
+import PublicationDetailPage from "../pages/PublicationDetailPage";
 
 function RedesignRoutes() {
   return (
@@ -35,7 +36,10 @@ function RedesignRoutes() {
           <Route index element={<MediaLandingPage />} />
           <Route path="news" element={<NewsFeaturesPage />} />
           <Route path="outreach" element={<OutreachPage />} />
-          <Route path="publications" element={<PublicationsPage />} />
+          <Route path="publications">
+            <Route index element={<PublicationsPage />} />
+            <Route path=":slug" element={<PublicationDetailPage />} />
+          </Route>
         </Route>
 
         <Route path="contact">

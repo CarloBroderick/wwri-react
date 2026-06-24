@@ -4,6 +4,7 @@ import nceasLogo from "../../assets/Vector.svg";
 import wriLogoFlameOnly from "../../assets/public-website-redesign/icons/wri-logo-flame-only.png";
 import mooreFoundationLogo from "../../assets/public-website-redesign/images/logos/moore-black.png";
 import { isDebugMode } from "../../config/featureFlags";
+import { PARTNER_LINKS } from "../../config/partnerLinks";
 import { SelectedRegionLayout } from "../App";
 import { BASEMAP_OPTIONS, BasemapId, LabelSource, MapProjection, PROJECTION_OPTIONS } from "../MapArea/MapArea";
 
@@ -118,11 +119,13 @@ const Header: React.FC<HeaderProps> = ({
             </span>
           </span>
         </Link>
-        <Link
+        <a
           id="dashboard-header-nceas-link"
-          to="/"
-          aria-label="NCEAS — return to the Wildfire Resilience Index home page"
-          title="Return to main site"
+          href={PARTNER_LINKS.nceas}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="National Center for Ecological Analysis and Synthesis (NCEAS)"
+          title="Visit NCEAS"
           className="inline-flex shrink-0 rounded-sm focus:outline-none focus:ring-2 focus:ring-wriForest focus:ring-offset-2"
         >
           <img
@@ -131,12 +134,14 @@ const Header: React.FC<HeaderProps> = ({
             alt="NCEAS"
             className="h-10 w-auto object-contain"
           />
-        </Link>
-        <Link
+        </a>
+        <a
           id="dashboard-header-moore-foundation-link"
-          to="/"
-          aria-label="Gordon and Betty Moore Foundation — return to the Wildfire Resilience Index home page"
-          title="Return to main site"
+          href={PARTNER_LINKS.mooreFoundation}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Gordon and Betty Moore Foundation"
+          title="Visit the Gordon and Betty Moore Foundation"
           className="inline-flex shrink-0 rounded-sm focus:outline-none focus:ring-2 focus:ring-wriForest focus:ring-offset-2"
         >
           <img
@@ -145,7 +150,7 @@ const Header: React.FC<HeaderProps> = ({
             alt="Gordon and Betty Moore Foundation"
             className="h-14 w-auto object-contain"
           />
-        </Link>
+        </a>
       </div>
 
       {/* Right side: Debug tools dropdown (only in DEBUG mode) */}

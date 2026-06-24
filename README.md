@@ -1,6 +1,6 @@
 # WWRI React Frontend
 
-This repository contains the React/Vite frontend for the Western Wildfire Risk Index website.
+This repository contains the React/Vite frontend for the Wildfire Resilience Index website.
 
 Production site:
 

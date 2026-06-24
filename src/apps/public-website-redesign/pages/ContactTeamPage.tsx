@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import teamHero from "../../../assets/public-website-redesign/images/contact/light-in-the-forest-connect-with-us.png";
 import benHalpernPhoto from "../../../assets/public-website-redesign/images/team/ben-halpern.jpg";
 import carloBroderickPhoto from "../../../assets/public-website-redesign/images/team/carlo-broderick.jpg";
 import catFongPhoto from "../../../assets/public-website-redesign/images/team/cat-fong.png";
@@ -10,7 +11,6 @@ import rachelKingPhoto from "../../../assets/public-website-redesign/images/team
 import tessaCafritzPhoto from "../../../assets/public-website-redesign/images/team/tessa-cafritz.jpg";
 import willOverbyeThompsonPhoto from "../../../assets/public-website-redesign/images/team/will-overbye-thompson.jpeg";
 import MossDivider from "../components/shared/MossDivider";
-import SectionHeader from "../components/shared/SectionHeader";
 
 type TeamMember = {
   id: string;
@@ -121,22 +121,35 @@ function TeamCard({ member, onSelect }: TeamCardProps) {
     <button
       id={`public-website-redesign-contact-team-card-${member.id}`}
       onClick={() => onSelect(member)}
-      className="group flex w-full flex-col text-left transition-transform hover:-translate-y-1 focus:outline-none"
+      className="group flex w-full flex-col text-left transition-transform duration-300 hover:-translate-y-1.5 focus:outline-none"
     >
       <div
         id={`public-website-redesign-contact-team-card-photo-wrap-${member.id}`}
-        className="relative aspect-square w-full overflow-hidden rounded-md bg-wriSmokeFog ring-1 ring-wriForest/10 transition-shadow group-hover:ring-2 group-hover:ring-wriMoss group-focus-visible:ring-2 group-focus-visible:ring-wriCanopy group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white"
+        className="relative aspect-square w-full overflow-hidden rounded-2xl bg-wriSmokeFog shadow-sm shadow-wriCanopy/10 ring-1 ring-wriForest/10 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-wriCanopy/20 group-hover:ring-2 group-hover:ring-wriMoss group-focus-visible:ring-2 group-focus-visible:ring-wriCanopy group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white"
       >
         <img
           id={`public-website-redesign-contact-team-card-photo-${member.id}`}
           src={member.photo}
           alt={`Headshot of ${member.name}`}
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.05]"
         />
+        {/* Bottom scrim + "View bio" cue surfaces on hover/focus so the card
+            reads as clickable without cluttering the resting state. */}
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-wriCanopy/85 via-wriCanopy/25 to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+        >
+          <span className="inline-flex items-center gap-1 font-Montserrat text-[11px] font-bold uppercase tracking-[0.12em] text-wriSmokeFog">
+            View bio
+            <span className="text-sm leading-none transition-transform duration-300 group-hover:translate-x-0.5">
+              →
+            </span>
+          </span>
+        </div>
       </div>
       <p
         id={`public-website-redesign-contact-team-card-name-${member.id}`}
-        className="mt-3 font-Montserrat text-base font-bold text-wriForest"
+        className="mt-3 font-Montserrat text-base font-bold text-wriForest transition-colors group-hover:text-wriMossMenuHighlight"
       >
         {member.name}
       </p>
@@ -161,12 +174,21 @@ type ContributorSectionProps = {
 function ContributorSection({ id, title, members, onSelect }: ContributorSectionProps) {
   return (
     <section id={id} className="mt-16">
-      <h3
-        id={`${id}-title`}
-        className="font-Montserrat text-[clamp(1.75rem,3.5vw,2.5rem)] font-normal text-wriSage"
-      >
-        {title}
-      </h3>
+      <div id={`${id}-header`} className="flex items-center gap-4">
+        <h3
+          id={`${id}-title`}
+          className="font-Montserrat text-[clamp(1.75rem,3.5vw,2.5rem)] font-normal text-wriSage"
+        >
+          {title}
+        </h3>
+        <span
+          id={`${id}-count`}
+          className="inline-flex h-7 min-w-7 items-center justify-center rounded-full bg-wriMoss/15 px-2.5 font-Montserrat text-sm font-bold text-wriForest"
+        >
+          {members.length}
+        </span>
+      </div>
+      <MossDivider id={`${id}-divider`} className="mt-4" widthClassName="w-16" />
       <ul
         id={`${id}-grid`}
         className="mt-10 flex flex-wrap justify-start gap-x-6 gap-y-10"
@@ -329,20 +351,61 @@ function ContactTeamPage() {
   const [openMember, setOpenMember] = useState<TeamMember | null>(null);
 
   return (
-    <div id="public-website-redesign-contact-team-page" className="mx-auto max-w-[1400px] px-6 py-16">
-      <SectionHeader
-        id="public-website-redesign-contact-team-heading"
-        eyebrow={<span className="font-bold">Contact</span>}
-        title="Meet the Team"
-        titleClassName="font-normal"
-      />
-
-      <p
-        id="public-website-redesign-contact-team-intro"
-        className="mt-8 max-w-3xl font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
+    <div
+      id="public-website-redesign-contact-team-page"
+      className="mx-auto max-w-[1400px] px-6 py-12 md:py-16"
+    >
+      {/* ===== Hero ===================================================== */}
+      {/* Skinny full-bleed image hero mirrors the Methodology / About pages so
+          every top-level page shares one confident entry pattern. */}
+      <section
+        id="public-website-redesign-contact-team-hero"
+        className="relative overflow-hidden rounded-[28px] bg-wriCanopy shadow-[0_30px_80px_-40px_rgba(31,42,35,0.6)]"
       >
-        Learn about the team members that have made the index possible below.
-      </p>
+        <img
+          id="public-website-redesign-contact-team-hero-image"
+          src={teamHero}
+          alt="Sunlight filtering through a forest canopy"
+          className="absolute inset-0 h-full w-full object-cover"
+          draggable={false}
+        />
+        <div
+          id="public-website-redesign-contact-team-hero-scrim"
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-r from-wriCanopy/95 via-wriCanopy/70 to-wriForest/20"
+        />
+        <div
+          id="public-website-redesign-contact-team-hero-content"
+          className="relative px-7 py-8 md:px-14 md:py-9 lg:py-10"
+        >
+          <div className="max-w-2xl">
+            <p
+              id="public-website-redesign-contact-team-hero-eyebrow"
+              className="font-Montserrat text-xs font-semibold uppercase tracking-[0.3em] text-wriMoss"
+            >
+              Contact
+            </p>
+            <h1
+              id="public-website-redesign-contact-team-hero-title"
+              className="mt-3 font-Poppins text-[clamp(2.25rem,5vw,3.5rem)] font-bold leading-[1.04] text-wriSmokeFog"
+            >
+              Meet the Team
+            </h1>
+            <MossDivider
+              id="public-website-redesign-contact-team-hero-divider"
+              className="mt-5"
+              widthClassName="w-20"
+            />
+            <p
+              id="public-website-redesign-contact-team-hero-subtitle"
+              className="mt-5 max-w-xl font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriSmokeFog/85"
+            >
+              Learn about the people who have made the Wildfire Resilience Index
+              possible.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <ContributorSection
         id="public-website-redesign-contact-team-current"
@@ -360,23 +423,27 @@ function ContactTeamPage() {
 
       <section
         id="public-website-redesign-contact-team-working-group"
-        className="mt-20"
+        className="mt-24 overflow-hidden rounded-[28px] bg-wriSmokeFog px-7 py-10 ring-1 ring-wriForest/10 md:px-12 md:py-12"
       >
-        <SectionHeader
-          id="public-website-redesign-contact-team-working-group-heading"
-          title="The WRI Working Group"
-          titleClassName="font-normal"
-        />
-        <p
-          id="public-website-redesign-contact-team-working-group-intro"
-          className="mt-4 max-w-2xl font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
-        >
-          Our team works with an external group of experts in forestry, fire ecology, computing,
-          and other disciplines.
-        </p>
+        <header id="public-website-redesign-contact-team-working-group-header">
+          <p className="font-Montserrat text-xs font-semibold uppercase tracking-[0.3em] text-wriSage">
+            Advisors
+          </p>
+          <h2 className="mt-3 font-Poppins text-[clamp(1.9rem,3.5vw,2.5rem)] font-bold leading-tight text-wriForest">
+            The WRI Working Group
+          </h2>
+          <MossDivider className="my-5" widthClassName="w-16" />
+          <p
+            id="public-website-redesign-contact-team-working-group-intro"
+            className="max-w-2xl font-Poppins text-[clamp(15px,1.4vw,18px)] leading-relaxed text-wriCanopy"
+          >
+            Our team works with an external group of experts in forestry, fire ecology, computing,
+            and other disciplines.
+          </p>
+        </header>
         <ul
           id="public-website-redesign-contact-team-working-group-list"
-          className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
           {WORKING_GROUP.map((expert) => (
             <li
@@ -387,10 +454,10 @@ function ContactTeamPage() {
                 href={expert.url}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center gap-3 rounded-sm border border-wriForest/15 bg-wriSmokeFog px-5 py-4 transition-colors hover:border-wriMoss/40 hover:bg-wriMoss/5"
+                className="group flex h-full items-center gap-3 rounded-2xl bg-white px-5 py-4 ring-1 ring-wriForest/10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:shadow-wriCanopy/10 hover:ring-wriMoss focus:outline-none focus-visible:ring-2 focus-visible:ring-wriMoss focus-visible:ring-offset-2"
               >
                 <div className="text-left">
-                  <p className="font-Montserrat text-sm font-bold text-wriForest group-hover:text-wriMoss">
+                  <p className="font-Montserrat text-sm font-bold text-wriForest transition-colors group-hover:text-wriMossMenuHighlight">
                     {expert.name}
                   </p>
                   <p className="mt-0.5 font-Poppins text-xs text-wriCanopy/70">

@@ -6,7 +6,9 @@ function Footer() {
           &copy; 2026 Wildfire Resilience Index. Supported by the{" "}
           <a
             id="site-footer-link-moore"
-            href="#"
+            href="https://www.moore.org/"
+            target="_blank"
+            rel="noreferrer"
             className="font-semibold text-[#dc7e49] transition-colors hover:text-[#e89560]"
           >
             Moore Foundation

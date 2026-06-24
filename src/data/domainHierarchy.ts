@@ -2,7 +2,7 @@ import { Domain } from "../types/domainTypes";
 import { applyRevisedIndicatorDescriptions } from "./indicatorDescriptions";
 
 /**
- * Domain Hierarchy for WWRI (Western Wildfire Resilience Index)
+ * Domain Hierarchy for WWRI (Wildfire Resilience Index)
  * 
  * This file defines the structure of domains and metrics displayed in the UI.
  * The IDs must match the metric names in the backend API.

@@ -21,6 +21,7 @@ export const REDESIGN_ROUTES = {
   news: `${REDESIGN_ROUTE_PREFIX}/media/news`,
   outreach: `${REDESIGN_ROUTE_PREFIX}/media/outreach`,
   publications: `${REDESIGN_ROUTE_PREFIX}/media/publications`,
+  publication: (slug: string) => `${REDESIGN_ROUTE_PREFIX}/media/publications/${slug}`,
 
   // Contact
   contact: `${REDESIGN_ROUTE_PREFIX}/contact`,
