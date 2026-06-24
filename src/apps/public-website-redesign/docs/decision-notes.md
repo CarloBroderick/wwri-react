@@ -61,9 +61,9 @@ Per-domain hero photos were cropped directly from each domain page in the PDF (p
 - `SiteHeader` — sticky dark-green bar, hex logo + 3-line uppercase wordmark, uppercase letter-spaced nav, hover dropdowns on Domains & Media, olive-outlined pill CTA on the right.
 - `SiteFooter` — not explicit in PDF; uses the same palette and surfaces the acknowledgements printed on the hero (NCEAS + Gordon & Betty Moore Foundation).
 - `SectionHeader` — olive rule + optional eyebrow + sage title.
-- `DomainTile` / `DomainGrid` — the 8 colored tiles used on the Domains overview and at the bottom of every domain detail page. The grid supports muting the current domain (see page 9 where Infrastructure is highlighted/faded).
-- `MeasureSection` — the repeated “photo on left, heading + body + example-dataset card on right” block.
-- `ExploreAnotherDomain` — the 8-tile footer block at the bottom of every domain detail page.
+- `DomainGalleryGrid` — the shared photographic 8-tile gallery (colored domain-square PNGs) used on the Domains overview ("Explore the eight domains") and inside `ExploreAnotherDomain`. Tiles link to each detail page with a hover lift/zoom; `currentSlug` dims the active domain into a non-clickable "you're here" chip. (Replaced the older `DomainTile` / `DomainGrid` pair, which used a tile/dim-tile hover swap and a separate "next domain" highlight.)
+- `MeasureSection` — the repeated "photo on left, heading + body + example-dataset card on right" block, wrapped in a white rounded card.
+- `ExploreAnotherDomain` — the footer block at the bottom of every domain detail page; renders `DomainGalleryGrid` horizontally (all eight domains in one row on large screens) to match the /domains page.
 - `CTAButton` — the olive pill used for "Explore the Index" in the hero.
 
 ## §5 Accessibility & id coverage

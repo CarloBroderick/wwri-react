@@ -28,6 +28,12 @@ import FlowerChart from "./LeftSidebar/FlowerChart";
 import { LayoutUnified, LayoutUnifiedCompact } from "./RightSidebar/layouts";
 
 interface RightSidebarProps {
+  /**
+   * Optional dashboard domain id from a deep-link (`/dashboard?domain=<id>`).
+   * When present, the sidebar opens with that domain highlighted and expanded
+   * instead of the default Overall Resilience / Infrastructure state.
+   */
+  initialDomainId?: string | null;
   selectedMetricIdObject: SelectedMetricIdObject | null;
   setSelectedMetricIdObject: (metric: SelectedMetricIdObject) => void;
   domainScores: DomainScores | null;
@@ -480,6 +486,7 @@ const highlightMatches = (text: string, searchTerm: string) => {
 };
 
 const RightSidebar: React.FC<RightSidebarProps> = ({
+  initialDomainId,
   selectedMetricIdObject,
   setSelectedMetricIdObject,
   domainScores,
@@ -494,14 +501,27 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
   selectedRegionLayout = "side-by-side",
   flowerChartConfig,
 }) => {
+  // When deep-linked to a domain, open the sidebar focused on it; otherwise fall
+  // back to the default Overall Resilience selection.
+  const initialDomain = initialDomainId
+    ? domainHierarchy.find((domain) => domain.id === initialDomainId)
+    : undefined;
+
   const [showIndicatorSuggestions, setShowIndicatorSuggestions] = useState(false);
-  const [activeButton, setActiveButton] = useState<string | null>("wwri_final_score");
+  const [activeButton, setActiveButton] = useState<string | null>(
+    initialDomain ? initialDomain.id : "wwri_final_score",
+  );
   const [statusLabel, setStatusLabel] = useState<string | null>(null);
   const [resistanceLabel, setResistanceLabel] = useState<string | null>(null);
   const [recoveryLabel, setRecoveryLabel] = useState<string | null>(null);
-  const [selectedIndicator, setSelectedIndicator] = useState<string | null>("Overall Resilience");
-  // Initialize with Infrastructure domain expanded by default so users discover the expand/collapse pattern
-  const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>(() => ({ infrastructure: true }));
+  const [selectedIndicator, setSelectedIndicator] = useState<string | null>(
+    initialDomain ? initialDomain.label : "Overall Resilience",
+  );
+  // Expand the deep-linked domain when present, else Infrastructure by default
+  // so users discover the expand/collapse pattern.
+  const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>(
+    () => ({ [initialDomain ? initialDomain.id : "infrastructure"]: true }),
+  );
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredSuggestions, setFilteredSuggestions] = useState<IndicatorObject[]>([]);
 

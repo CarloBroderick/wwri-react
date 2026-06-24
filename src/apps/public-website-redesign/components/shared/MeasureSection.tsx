@@ -41,14 +41,14 @@ function MeasureSection({
   return (
     <section
       id={id}
-      className="grid grid-cols-1 gap-6 md:grid-cols-[minmax(220px,360px)_minmax(0,1fr)] md:items-stretch md:gap-12"
+      className="grid grid-cols-1 gap-6 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-wriCanopy/5 md:grid-cols-[minmax(200px,320px)_minmax(0,1fr)] md:items-stretch md:gap-10 md:p-6"
     >
       {effectivePhoto ? (
         <img
           id={`${id}-photo`}
           src={effectivePhoto}
           alt=""
-          className={`${photoAspectClassName} mx-auto w-full max-w-[360px] rounded-sm object-cover md:mx-0`}
+          className={`${photoAspectClassName} mx-auto w-full max-w-[360px] rounded-xl object-cover md:mx-0`}
         />
       ) : (
         <div aria-hidden />
@@ -107,7 +107,7 @@ function MeasureSection({
                   )}
                   <div
                     id={`${id}-example-card-${i}-box`}
-                    className="flex min-h-[140px] flex-1 flex-col justify-center rounded-sm border-[4px] border-wriForest px-6 py-3 text-center"
+                    className="flex min-h-[140px] flex-1 flex-col justify-center rounded-xl border-[3px] border-wriForest bg-wriSmokeFog/60 px-6 py-3 text-center"
                   >
                     <div
                       id={`${id}-example-card-${i}-label`}

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import pineRegrowthDomainsImage from "../../../assets/public-website-redesign/images/domains-landing/pine-regrowth-domains.jpg";
 import { DOMAINS } from "../config/domains";
+import DomainGalleryGrid from "../components/shared/DomainGalleryGrid";
 import MossDivider from "../components/shared/MossDivider";
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
 
@@ -193,35 +194,7 @@ function DomainsPage() {
         </header>
         <MossDivider className="mb-9 mt-5" widthClassName="w-16" />
 
-        <div
-          id="public-website-redesign-domains-gallery-grid"
-          className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:gap-5 lg:grid-cols-8"
-        >
-          {DOMAINS.map((domain) => (
-            <Link
-              key={domain.slug}
-              id={`public-website-redesign-domains-card-${domain.slug}`}
-              to={REDESIGN_ROUTES.domain(domain.slug)}
-              aria-label={`${domain.label} domain`}
-              className="group relative block aspect-square overflow-hidden rounded-2xl shadow-sm ring-1 ring-wriCanopy/5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_24px_45px_-18px_rgba(31,42,35,0.75)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-wriMoss/60"
-            >
-              <img
-                src={domain.tile}
-                alt={`${domain.label} domain`}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.024]"
-                draggable={false}
-              />
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-wriCanopy/25 via-transparent to-white/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              />
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/0 transition-colors duration-300 group-hover:ring-white/50"
-              />
-            </Link>
-          ))}
-        </div>
+        <DomainGalleryGrid id="public-website-redesign-domains-gallery-grid" />
       </section>
 
       {/* ===== What each domain reflects =============================== */}

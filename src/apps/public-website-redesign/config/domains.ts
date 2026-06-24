@@ -57,25 +57,6 @@ import senseOfPlaceTile from "../../../assets/public-website-redesign/images/dom
 import speciesTile from "../../../assets/public-website-redesign/images/domain-squares/species.png";
 import waterTile from "../../../assets/public-website-redesign/images/domain-squares/water.png";
 
-import airTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/air.png";
-import communitiesTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/communities.png";
-import habitatsTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/habitats.png";
-import infrastructureTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/infrastructure.png";
-import livelihoodsTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/livelihoods.png";
-import senseOfPlaceTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/sense-of-place.png";
-import speciesTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/species.png";
-import waterTileDim from "../../../assets/public-website-redesign/images/domain-squares-dim/water.png";
-
-// --- No-text domain icons (used in "Why it matters" body copy) -------------
-import airIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/air.png";
-import communitiesIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/communities.png";
-import habitatsIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/habitats.png";
-import infrastructureIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/infrastructure.png";
-import livelihoodsIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/livelihoods.png";
-import senseOfPlaceIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/sense-of-place.png";
-import speciesIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/species.png";
-import waterIconNoText from "../../../assets/public-website-redesign/images/domain-icons-no-text/water.png";
-
 export type DomainSlug =
   | "infrastructure"
   | "communities"
@@ -108,12 +89,8 @@ export type Domain = {
   hero: string;
   /** Optional domain-level hero video (used on the top media section). */
   heroVideo?: string;
-  /** Full-color square PNG used in nav/tile grids. */
+  /** Full-color square PNG used in nav/tile grids and the why-it-matters block. */
   tile: string;
-  /** Dimmed (grey/washed) square PNG used for the current-domain slot on detail pages. */
-  tileDim: string;
-  /** No-text icon used alongside why-it-matters body text. */
-  iconNoText: string;
   whyItMatters: string;
   status: DomainSection;
   resistance: DomainSection;
@@ -137,8 +114,6 @@ export const DOMAINS: Domain[] = [
     hero: infrastructureHero,
     heroVideo: infrastructureHeroVideo,
     tile: infrastructureTile,
-    tileDim: infrastructureTileDim,
-    iconNoText: infrastructureIconNoText,
     whyItMatters:
       "**Infrastructure** forms the foundation of communities—shaping where we live, work, and interact. Buildings and other structures provide shelter, safety, and access to essential resources.",
     status: {
@@ -175,8 +150,6 @@ export const DOMAINS: Domain[] = [
     hero: communitiesHero,
     heroVideo: communitiesHeroVideo,
     tile: communitiesTile,
-    tileDim: communitiesTileDim,
-    iconNoText: communitiesIconNoText,
     whyItMatters:
       "**Communities** are shaped by social, cultural, and geographic connections that influence how people prepare for, respond to, and recover from wildfire.",
     status: {
@@ -213,8 +186,6 @@ export const DOMAINS: Domain[] = [
     hero: livelihoodsHero,
     heroVideo: livelihoodsHeroVideo,
     tile: livelihoodsTile,
-    tileDim: livelihoodsTileDim,
-    iconNoText: livelihoodsIconNoText,
     whyItMatters:
       "**Livelihoods** (jobs) are important because they represent how people make a living. Beyond just income, though, livelihoods are deeply connected to dignity, security, identity, and well-being.",
     status: {
@@ -255,8 +226,6 @@ export const DOMAINS: Domain[] = [
     hero: senseOfPlaceHero,
     heroVideo: senseOfPlaceHeroVideo,
     tile: senseOfPlaceTile,
-    tileDim: senseOfPlaceTileDim,
-    iconNoText: senseOfPlaceIconNoText,
     whyItMatters:
       "**Sense of Place** encompasses the cultural, spiritual, and aesthetic connections people have to landscapes. These connections can be shaped by the presence of distinctive species or the character of the landscape itself. Wildfire can reshape both landscapes and the meanings people attach to them. Therefore this domain considers **iconic places** and **iconic species** that hold special significance to people.",
     status: {
@@ -342,8 +311,6 @@ export const DOMAINS: Domain[] = [
     hero: speciesHero,
     heroVideo: speciesHeroVideo,
     tile: speciesTile,
-    tileDim: speciesTileDim,
-    iconNoText: speciesIconNoText,
     whyItMatters:
       "People value the existence of a diverse array of **species** both for their intrinsic qualities and for the natural services, such as pollination, they provide. **Species** that survive and recover from fire help maintain healthy ecosystems.",
     status: {
@@ -383,8 +350,6 @@ export const DOMAINS: Domain[] = [
     hero: habitatsHero,
     heroVideo: habitatsHeroVideo,
     tile: habitatsTile,
-    tileDim: habitatsTileDim,
-    iconNoText: habitatsIconNoText,
     whyItMatters:
       "**Habitats** such as forests, grasslands, and shrublands support landscapes and communities. Habitat influences how wildfire behaves and how ecosystems recover.",
     status: {
@@ -424,8 +389,6 @@ export const DOMAINS: Domain[] = [
     hero: waterHero,
     heroVideo: waterHeroVideo,
     tile: waterTile,
-    tileDim: waterTileDim,
-    iconNoText: waterIconNoText,
     whyItMatters:
       "**Water** reflects the availability and stability of freshwater resources that are essential for community well-being. Wildfires can affect water availability, timing, and quality.",
     status: {
@@ -463,8 +426,6 @@ export const DOMAINS: Domain[] = [
     hero: airHero,
     heroVideo: airHeroVideo,
     tile: airTile,
-    tileDim: airTileDim,
-    iconNoText: airIconNoText,
     whyItMatters:
       "**Air** quality is one of the most immediate ways people experience wildfire. Smoky air can have widespread health impacts.",
     status: {
@@ -505,22 +466,22 @@ export function getDomain(slug: DomainSlug): Domain {
 }
 
 /**
- * "Next domain" order from the Canva change-requests doc — drives the Sage
- * highlight in the Explore Another section. `air` is the final page (no next).
+ * Maps a redesign domain slug to the mapping-app (dashboard) domain id, so the
+ * "Explore the Index" CTA can deep-link the interactive map straight to that
+ * domain (`/dashboard?domain=<id>`). The dashboard ids live in
+ * `src/data/domainHierarchy.ts` and differ from the public slugs for a few
+ * domains (e.g. species → biodiversity, habitats → natural_habitats).
  */
-const NEXT_DOMAIN_CHAIN: Partial<Record<DomainSlug, DomainSlug>> = {
-  infrastructure: "communities",
-  communities: "livelihoods",
-  livelihoods: "sense-of-place",
-  "sense-of-place": "species",
-  species: "habitats",
-  habitats: "water",
-  water: "air",
+export const DASHBOARD_DOMAIN_ID_BY_SLUG: Record<DomainSlug, string> = {
+  infrastructure: "infrastructure",
+  communities: "communities",
+  livelihoods: "livelihoods",
+  "sense-of-place": "sense_of_place",
+  species: "biodiversity",
+  habitats: "natural_habitats",
+  water: "water",
+  air: "air_quality",
 };
-
-export function getNextDomainSlug(slug: DomainSlug): DomainSlug | null {
-  return NEXT_DOMAIN_CHAIN[slug] ?? null;
-}
 
 // Exported for the Iconic Places sub-block on the Sense of Place detail page.
 export { senseOfPlaceIconicPlacesHero };

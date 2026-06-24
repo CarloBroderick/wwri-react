@@ -1,5 +1,6 @@
 import { getRegionMetricsUrl, getSummaryUrl, UNIFIED_GEO_LEVELS, UnifiedGeoLevel } from "config/api";
 import { isDebugMode } from "config/featureFlags";
+import domainHierarchy from "data/domainHierarchy";
 import { useCallback, useEffect, useState } from "react";
 import "../index.css";
 import SelectedMetricIdObject from "../types/componentStatetypes";
@@ -119,17 +120,58 @@ function parseSummaryCSV(csvText: string): SummaryData {
   }, {} as SummaryData);
 }
 
+/**
+ * Reads the optional `?domain=<id>` deep-link param and returns it only when it
+ * matches a known dashboard domain. Lets a public-website domain page open the
+ * map pre-focused on that domain. Returns null for missing/unknown ids.
+ */
+function readInitialDomainId(): string | null {
+  if (typeof window === "undefined") return null;
+  const param = new URLSearchParams(window.location.search).get("domain");
+  if (!param) return null;
+  return domainHierarchy.some((domain) => domain.id === param) ? param : null;
+}
+
+/**
+ * Builds the selected-metric object for a domain's overall score — mirrors what
+ * clicking a domain in the RightSidebar produces, so a deep-link colors the map
+ * identically.
+ */
+function buildDomainMetricSelection(
+  domainId: string,
+): SelectedMetricIdObject | null {
+  const domain = domainHierarchy.find((d) => d.id === domainId);
+  if (!domain) return null;
+  return {
+    domainId: domain.id,
+    metricId: `${domain.id}_domain_score`,
+    label: domain.label,
+    description: domain.description,
+    colorGradient: domain.colorGradient,
+  };
+}
+
 function App() {
+  // 🔗 Deep-link support: a public-website domain page can open the map already
+  // focused on a specific domain via `/dashboard?domain=<id>`.
+  const [initialDomainId] = useState<string | null>(readInitialDomainId);
   const [selectedMetricIdObject, setSelectedMetricIdObject] =
-    useState<SelectedMetricIdObject>({
-      domainId: "wwri",
-      metricId: "wwri_final_score",
-      label: "Overall Resilience",
-      description: "Overall wildfire resilience score combining all domains.",
-      colorGradient: {
-        startColor: OVERALL_RESILIENCE_START_COLOR,
-        endColor: OVERALL_RESILIENCE_END_COLOR,
-      },
+    useState<SelectedMetricIdObject>(() => {
+      const deepLinkedSelection = initialDomainId
+        ? buildDomainMetricSelection(initialDomainId)
+        : null;
+      return (
+        deepLinkedSelection ?? {
+          domainId: "wwri",
+          metricId: "wwri_final_score",
+          label: "Overall Resilience",
+          description: "Overall wildfire resilience score combining all domains.",
+          colorGradient: {
+            startColor: OVERALL_RESILIENCE_START_COLOR,
+            endColor: OVERALL_RESILIENCE_END_COLOR,
+          },
+        }
+      );
     });
   const [selectedMetricValue, setSelectedMetricValue] = useState<number | null>(
     null,
@@ -474,6 +516,7 @@ function App() {
           />
         </div>
         <RightSidebar
+          initialDomainId={initialDomainId}
           selectedMetricIdObject={selectedMetricIdObject}
           setSelectedMetricIdObject={setSelectedMetricIdObject}
           domainScores={selectedRegionScores}

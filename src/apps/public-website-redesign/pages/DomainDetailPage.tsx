@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import ExploreAnotherDomain from "../components/shared/ExploreAnotherDomain";
 import MeasureSection from "../components/shared/MeasureSection";
 import MossDivider from "../components/shared/MossDivider";
@@ -8,6 +8,8 @@ import {
   DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME,
 } from "../layout/domainDetailPage";
 import {
+  DASHBOARD_DOMAIN_ID_BY_SLUG,
+  DOMAINS,
   DOMAINS_BY_SLUG,
   senseOfPlaceIconicPlacesHero,
   type DomainSlug,
@@ -68,6 +70,7 @@ function DomainDetailPage() {
 
   const isSenseOfPlace = domain.slug === "sense-of-place";
   const isTopVideoReady = Boolean(domain.heroVideo) && loadedTopVideoSrc === domain.heroVideo;
+  const domainNumber = DOMAINS.findIndex((d) => d.slug === domain.slug) + 1;
 
   return (
     <div
@@ -77,21 +80,37 @@ function DomainDetailPage() {
       {/* ===== Top media: title + hero video/image (all domains including SoP) */}
       <section
         id={`public-website-redesign-domain-${domain.slug}-top-media`}
-        className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} pt-6 md:pt-8`}
+        className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} pt-8 md:pt-12`}
       >
         <div
           id={`public-website-redesign-domain-${domain.slug}-top-media-content`}
           className={DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME}
         >
+          <div
+            id={`public-website-redesign-domain-${domain.slug}-top-media-eyebrow`}
+            className="flex items-center gap-2.5 font-Montserrat text-xs font-semibold uppercase tracking-[0.28em] text-wriSage"
+          >
+            <span
+              aria-hidden
+              className="inline-block h-2.5 w-2.5 rounded-full"
+              style={{ backgroundColor: domain.color }}
+            />
+            Index Domain {domainNumber} of {DOMAINS.length}
+          </div>
           <h1
             id={`public-website-redesign-domain-${domain.slug}-top-media-title`}
-            className="text-left font-Poppins text-[clamp(2.25rem,5vw,4rem)] font-semibold leading-none text-wriForest"
+            className="mt-3 text-left font-Poppins text-[clamp(2.5rem,5.5vw,4.25rem)] font-bold leading-[1.02] text-wriForest"
           >
             {domain.label}
           </h1>
+          <MossDivider
+            id={`public-website-redesign-domain-${domain.slug}-top-media-divider`}
+            className="mb-6 mt-5"
+            widthClassName="w-20"
+          />
           <div
             id={`public-website-redesign-domain-${domain.slug}-top-media-frame`}
-            className="relative mt-4 aspect-video overflow-hidden rounded-lg bg-wriCanopy/10"
+            className="relative aspect-video overflow-hidden rounded-2xl bg-wriCanopy/10 shadow-[0_30px_80px_-40px_rgba(31,42,35,0.6)] ring-1 ring-wriCanopy/10"
           >
             {domain.heroVideo ? (
               <>
@@ -163,13 +182,20 @@ function DomainDetailPage() {
       {/* ===== Why it matters (all domains) */}
       <section
         id={`public-website-redesign-domain-${domain.slug}-hero`}
-        className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} pt-6 md:pt-8`}
+        className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} pt-10 md:pt-14`}
       >
         <div
           id={`public-website-redesign-domain-${domain.slug}-hero-body`}
-          className={`${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} py-6 md:py-8`}
+          className={`${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} flex flex-col gap-6 rounded-2xl border border-wriSage/30 bg-white/60 p-6 shadow-sm backdrop-blur-sm md:flex-row md:items-center md:gap-9 md:p-9`}
         >
-          <div id={`public-website-redesign-domain-${domain.slug}-hero-header`}>
+          <img
+            id={`public-website-redesign-domain-${domain.slug}-why-icon`}
+            src={domain.tile}
+            alt={`${domain.label} domain`}
+            className="h-28 w-28 shrink-0 rounded-2xl object-cover shadow-sm ring-1 ring-wriCanopy/5 md:h-36 md:w-36"
+            draggable={false}
+          />
+          <div id={`public-website-redesign-domain-${domain.slug}-why-copy-wrapper`}>
             <h2
               id={`public-website-redesign-domain-${domain.slug}-why`}
               className={mainSectionLabelClassName}
@@ -181,28 +207,12 @@ function DomainDetailPage() {
               className="my-3"
               widthClassName="w-14"
             />
-          </div>
-          <div
-            id={`public-website-redesign-domain-${domain.slug}-why-content`}
-            className="mt-4 flex items-start gap-3 md:mt-5 md:gap-4"
-          >
-            <img
-              id={`public-website-redesign-domain-${domain.slug}-why-icon`}
-              src={domain.iconNoText}
-              alt=""
-              className="h-20 w-20 shrink-0 rounded-md object-cover md:h-24 md:w-24"
-            />
-            <div
-              id={`public-website-redesign-domain-${domain.slug}-why-copy-wrapper`}
-              className="flex items-start pt-0.5"
+            <p
+              id={`public-website-redesign-domain-${domain.slug}-why-copy`}
+              className="max-w-prose font-Poppins text-[19px] leading-[1.5] text-wriCanopy"
             >
-              <p
-                id={`public-website-redesign-domain-${domain.slug}-why-copy`}
-                className="max-w-prose font-Poppins text-[19px] leading-[1.45] text-wriCanopy"
-              >
-                {renderBoldText(domain.whyItMatters)}
-              </p>
-            </div>
+              {renderBoldText(domain.whyItMatters)}
+            </p>
           </div>
         </div>
       </section>
@@ -215,14 +225,17 @@ function DomainDetailPage() {
         >
           <div
             id={`public-website-redesign-domain-${domain.slug}-measures-inner`}
-            className={`flex ${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} flex-col gap-8 rounded-lg border-2 border-wriSage/35 bg-wriSage/5 p-5 md:p-6`}
+            className={`flex ${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} flex-col gap-8 rounded-3xl border border-wriSage/25 bg-wriSage/[0.07] p-5 md:p-8`}
           >
             <div
               id={`public-website-redesign-domain-${domain.slug}-measured-heading`}
             >
+              <p className="font-Montserrat text-xs font-semibold uppercase tracking-[0.28em] text-wriSage">
+                Status · Resistance · Recovery
+              </p>
               <h2
                 id={`public-website-redesign-domain-${domain.slug}-measured-label`}
-                className={`${mainSectionLabelClassName} whitespace-nowrap`}
+                className={`${mainSectionLabelClassName} mt-2 whitespace-nowrap`}
               >
                 How it{"\u2019"}s measured
               </h2>
@@ -234,7 +247,7 @@ function DomainDetailPage() {
             </div>
             <div
               id={`public-website-redesign-domain-${domain.slug}-measure-cards`}
-              className="flex flex-col gap-14"
+              className="flex flex-col gap-6"
             >
               <MeasureSection
                 id={`public-website-redesign-domain-${domain.slug}-status`}
@@ -261,7 +274,7 @@ function DomainDetailPage() {
         >
           <div
             id={`public-website-redesign-domain-${domain.slug}-ip-wrapper`}
-            className={`${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} flex flex-col gap-8 rounded-lg border-2 border-wriSage/35 bg-wriSage/5 p-5 md:p-6`}
+            className={`${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} flex flex-col gap-8 rounded-3xl border border-wriSage/25 bg-wriSage/[0.07] p-5 md:p-8`}
           >
             {/* Subdomain intro: hero photo + heading + why-it-matters */}
             <section
@@ -325,7 +338,7 @@ function DomainDetailPage() {
             {/* Iconic Places measure cards */}
             <div
               id={`public-website-redesign-domain-${domain.slug}-ip-measure-cards`}
-              className="flex flex-col gap-14"
+              className="flex flex-col gap-6"
             >
               <MeasureSection
                 id={`public-website-redesign-domain-${domain.slug}-ip-status`}
@@ -352,7 +365,7 @@ function DomainDetailPage() {
         >
           <div
             id={`public-website-redesign-domain-${domain.slug}-is-wrapper`}
-            className={`${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} flex flex-col gap-8 rounded-lg border-2 border-wriSage/35 bg-wriSage/5 p-5 md:p-6`}
+            className={`${DOMAIN_DETAIL_TEXT_COLUMN_CLASSNAME} flex flex-col gap-8 rounded-3xl border border-wriSage/25 bg-wriSage/[0.07] p-5 md:p-8`}
           >
             {/* Subdomain intro: hero photo + heading + why-it-matters */}
             <section
@@ -415,7 +428,7 @@ function DomainDetailPage() {
             {/* Iconic Species measure cards */}
             <div
               id={`public-website-redesign-domain-${domain.slug}-is-measure-cards`}
-              className="flex flex-col gap-14"
+              className="flex flex-col gap-6"
             >
               <MeasureSection
                 id={`public-website-redesign-domain-${domain.slug}-is-status`}
@@ -435,6 +448,57 @@ function DomainDetailPage() {
       )}
 
       <ExploreAnotherDomain currentSlug={domain.slug} />
+
+      {/* ===== Ready to explore the Index? (CTA to the interactive map) ===== */}
+      <section
+        id={`public-website-redesign-domain-${domain.slug}-explore-index`}
+        className={`${DOMAIN_DETAIL_PAGE_SHELL_CLASSNAME} mt-16`}
+      >
+        <div
+          id={`public-website-redesign-domain-${domain.slug}-explore-index-cta`}
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-wriForest to-wriMossMenuHighlight px-7 py-9 sm:px-10 sm:py-11"
+        >
+          <span
+            id={`public-website-redesign-domain-${domain.slug}-explore-index-eyebrow`}
+            className="inline-flex items-center rounded-full bg-white/15 px-4 py-1.5 font-Montserrat text-xs font-bold uppercase tracking-[0.14em] text-white"
+          >
+            Ready to dig in?
+          </span>
+          <div
+            id={`public-website-redesign-domain-${domain.slug}-explore-index-body`}
+            className="mt-5 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+          >
+            <div className="max-w-2xl">
+              <h2
+                id={`public-website-redesign-domain-${domain.slug}-explore-index-title`}
+                className="font-Montserrat text-[clamp(1.5rem,3vw,2.125rem)] font-semibold leading-tight text-white"
+              >
+                See how {domain.label.toLowerCase()} shapes resilience near you
+              </h2>
+              <p
+                id={`public-website-redesign-domain-${domain.slug}-explore-index-copy`}
+                className="mt-3 font-Poppins text-[clamp(15px,1.1vw,17px)] leading-relaxed text-white/85"
+              >
+                Jump into the interactive Index to explore wildfire resilience scores across
+                states, counties, and neighborhoods.
+              </p>
+            </div>
+            <Link
+              id={`public-website-redesign-domain-${domain.slug}-explore-index-button`}
+              to={`${REDESIGN_ROUTES.exploreIndex}?domain=${DASHBOARD_DOMAIN_ID_BY_SLUG[domain.slug]}`}
+              className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-7 py-3.5 font-Montserrat text-sm font-bold uppercase tracking-[0.08em] text-wriForest shadow-sm transition-all hover:bg-wriSmokeFog hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-wriForest"
+            >
+              Explore the Index
+              <span
+                aria-hidden
+                className="text-base leading-none transition-transform group-hover:translate-x-1"
+              >
+                &rarr;
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
