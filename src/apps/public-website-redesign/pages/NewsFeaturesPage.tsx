@@ -6,6 +6,19 @@ import newsFireAdapted from "../../../assets/public-website-redesign/images/medi
 import newsUcsbCurrent from "../../../assets/public-website-redesign/images/media/news-ucsb-current-wildfire.jpeg";
 import newsTaskForce from "../../../assets/public-website-redesign/images/media/news-wildfire-task-force.png";
 import newsKcbx from "../../../assets/public-website-redesign/images/media/news-kcbx-prescribed-burn.png";
+// 🛣️ "Six exits to safety" egress-threshold study (PNAS, June 2026) press coverage.
+import newsSixRoadsEvacuation from "../../../assets/public-website-redesign/images/media/news-six-roads-evacuation.jpg";
+import newsSixPathwaysDiagram from "../../../assets/public-website-redesign/images/media/news-six-pathways-diagram.jpg";
+import newsSixRoadsWildfire from "../../../assets/public-website-redesign/images/media/news-six-roads-wildfire.jpg";
+import newsIndependentSixRoads from "../../../assets/public-website-redesign/images/media/news-independent-six-roads.png";
+import newsHprEvacuationRoutes from "../../../assets/public-website-redesign/images/media/news-hpr-evacuation-routes.jpg";
+import newsMercuryFiretrapMap from "../../../assets/public-website-redesign/images/media/news-mercury-firetrap-map.jpg";
+import newsNbcEvacuationRisk from "../../../assets/public-website-redesign/images/media/news-nbc-evacuation-risk.jpg";
+import newsSixExitsBolinas from "../../../assets/public-website-redesign/images/media/news-six-exits-road-to-bolinas.webp";
+import newsKseeCentralValley from "../../../assets/public-website-redesign/images/media/news-ksee-central-valley-map.png";
+import newsKcluWildfireTool from "../../../assets/public-website-redesign/images/media/news-kclu-wildfire-tool.jpg";
+import newsCoastsideExitsFatalities from "../../../assets/public-website-redesign/images/media/news-coastside-exits-fatalities.jpg";
+import newsMorningagSixExits from "../../../assets/public-website-redesign/images/media/news-morningag-six-exits.webp";
 import newsHero from "../../../assets/public-website-redesign/images/hero/home-hero.jpg";
 import MossDivider from "../components/shared/MossDivider";
 import { REDESIGN_ROUTES } from "../routes/routeConfig";
@@ -28,6 +41,148 @@ type Article = {
 
 // 📰 Most recent first. Card shows org (above), title, then publication date. ===
 const ARTICLES: Article[] = [
+  {
+    id: "morning-ag-clips-six-exits",
+    source: "Morning Ag Clips",
+    date: "June 18, 2026",
+    title: "Six Exits to Safety: UC Study Finds Wildfire Survival Depends on Roads for Evacuation",
+    image: newsMorningagSixExits,
+    href: "https://www.morningagclips.com/six-exits-to-safety-uc-study-finds-wildfire-survival-depends-on-roads-for-evacuation/",
+  },
+  {
+    id: "coastside-buzz-evacuation-thresholds",
+    source: "Coastside Buzz",
+    date: "June 17, 2026",
+    title:
+      "How Evacuation Thresholds Relate to Wildfire Fatalities and Interactive Map for Wildfire Evacuation Risk",
+    image: newsCoastsideExitsFatalities,
+    href: "https://coastsidebuzz.com/how-evacuation-thresholds-relate-to-wildfire-fatalities-and-interactive-map-for-wildfire-evacuation-risk/",
+  },
+  {
+    id: "kclu-new-resiliency-tool",
+    source: "KCLU",
+    date: "June 16, 2026",
+    title:
+      "Santa Barbara research team launches a new tool to determine a community's wildfire resiliency",
+    image: newsKcluWildfireTool,
+    href: "https://www.kclu.org/local-news/2026-06-16/santa-barbara-research-team-launches-a-new-tool-to-determine-a-communitys-wildfire-resiliency",
+    cta: "Listen",
+  },
+  {
+    id: "sierra-sun-times-six-exits",
+    source: "Sierra Sun Times",
+    date: "June 15, 2026",
+    title: "Six exits to safety: UC study finds wildfire survival depends on roads for evacuation",
+    image: newsSixExitsBolinas,
+    href: "https://www.goldrushcam.com/sierrasuntimes/index.php/news/local-news/79001-six-exits-to-safety-uc-study-finds-wildfire-survival-depends-on-roads-for-evacuation",
+  },
+  {
+    id: "ksee-kgpe-new-map-central-valley",
+    source: "KSEE/KGPE",
+    date: "June 11, 2026",
+    title: "New map shows chances of wildfire survival, much of Central Valley at undue risk",
+    image: newsKseeCentralValley,
+    href: "https://www.yourcentralvalley.com/news/local-news/wildfire-evacuation-road-study/",
+  },
+  {
+    id: "ucanr-six-exits",
+    source: "University of California, Agriculture and Natural Resources",
+    date: "June 10, 2026",
+    title: "Six exits to safety: UC study finds wildfire survival depends on roads for evacuation",
+    image: newsSixExitsBolinas,
+    href: "https://ucanr.edu/blog/green-blog/article/wildfire6exits",
+  },
+  {
+    id: "nbc-bay-area-closer-look",
+    source: "NBC Bay Area",
+    date: "June 9, 2026",
+    title: "A closer look: New wildfire evacuation risk study",
+    image: newsNbcEvacuationRisk,
+    href: "https://www.nbcbayarea.com/video/local/a-closer-look-new-wildfire-evacuation-risk-study/4096492/",
+    cta: "Watch",
+  },
+  {
+    id: "mercury-news-few-roads-out",
+    source: "The Mercury News",
+    date: "June 8, 2026",
+    title: "Few roads out, higher wildfire risk: New study maps Bay Area evacuation danger",
+    image: newsMercuryFiretrapMap,
+    href: "https://www.mercurynews.com/2026/06/08/is-your-community-wildfire-death-trap-study-deaths-number-escape-routes/",
+  },
+  {
+    id: "edhat-six-roads",
+    source: "Edhat",
+    date: "June 7, 2026",
+    title: "Six Roads to Safety: New Study Finds a Critical Threshold for Wildfire Survival",
+    image: newsSixRoadsEvacuation,
+    href: "https://www.edhat.com/news/six-roads-to-safety-new-study-finds-a-critical-threshold-for-wildfire-survival/",
+  },
+  {
+    id: "daily-dispatch-six-roads",
+    source: "Daily Dispatch",
+    date: "June 4, 2026",
+    title:
+      "Six roads to safety: UC Santa Barbara study finds critical threshold for wildfire survival",
+    image: newsSixRoadsWildfire,
+    href: "https://dailydispatch.com/fire-news/california/six-roads-to-safety-uc-santa-barbara-study-finds-critical-threshold-for-wildfire-survival/",
+  },
+  {
+    id: "hawaii-public-radio-magic-number",
+    source: "Hawaiʻi Public Radio",
+    date: "June 4, 2026",
+    title: "Why 6 is the magic number of evacuation routes for wildfire survival",
+    image: newsHprEvacuationRoutes,
+    href: "https://www.hawaiipublicradio.org/the-conversation/2026-06-04/why-6-is-the-safest-number-of-evacuation-routes-for-wildfire-survival",
+    cta: "Listen",
+  },
+  {
+    id: "university-of-california-six-exits",
+    source: "University of California",
+    date: "June 4, 2026",
+    title: "Six exits to safety: UC study finds wildfire survival depends on roads for evacuation",
+    image: newsSixRoadsEvacuation,
+    href: "https://www.universityofcalifornia.edu/news/six-roads-safety-new-study-finds-critical-threshold-wildfire-survival",
+  },
+  {
+    id: "sb-independent-six-roads",
+    source: "The Santa Barbara Independent",
+    date: "June 2, 2026",
+    title: "Six Roads to Safety: New Study Finds a Critical Threshold for Wildfire Survival",
+    image: newsIndependentSixRoads,
+    href: "https://www.independent.com/2026/06/02/six-roads-to-safety-new-study-finds-a-critical-threshold-for-wildfire-survival/",
+  },
+  {
+    id: "phys-org-six-roads",
+    source: "Phys.org",
+    date: "June 2, 2026",
+    title: "Six roads to safety: A critical threshold for wildfire survival",
+    image: newsSixRoadsWildfire,
+    href: "https://phys.org/news/2026-06-roads-safety-critical-threshold-wildfire.html",
+  },
+  {
+    id: "bioengineer-six-pathways",
+    source: "Bioengineer",
+    date: "June 2, 2026",
+    title: "Six Pathways to Safety: New Research Identifies Key Threshold for Wildfire Survival",
+    image: newsSixPathwaysDiagram,
+    href: "https://bioengineer.org/six-pathways-to-safety-new-research-identifies-key-threshold-for-wildfire-survival/",
+  },
+  {
+    id: "science-magazine-six-exits",
+    source: "Science Magazine",
+    date: "June 2, 2026",
+    title: "Six exits to safety: UC study finds wildfire survival depends on roads for evacuation",
+    image: newsSixPathwaysDiagram,
+    href: "https://scienmag.com/six-pathways-to-safety-new-research-identifies-key-threshold-for-wildfire-survival/",
+  },
+  {
+    id: "ucsb-current-six-roads",
+    source: "The Current UCSB",
+    date: "June 1, 2026",
+    title: "Six roads to safety: New study finds a critical threshold for wildfire survival",
+    image: newsSixRoadsEvacuation,
+    href: "https://news.ucsb.edu/2026/022617/six-roads-safety-new-study-finds-critical-threshold-wildfire-survival",
+  },
   {
     id: "fire-adapted-communities-lookup-score",
     source: "Fire Adapted Communities",
